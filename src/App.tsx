@@ -1,13 +1,18 @@
-
-import { Box, Typography } from '@mui/material'
+import { ThemeProvider, CssBaseline } from "@mui/material";
+import getTheme from "./theme";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
+import Layout from "./layout";
 
 const App = () => {
-
+  const mode = useSelector((state: RootState) => state.theme.mode);
+  const theme = getTheme(mode);
   return (
-   <Box sx={{display:"flex", alignItems:"center", justifyContent:"center", height:"100vh", width:"100vw"}}>
-    <Typography sx={{textAlign:"center", color:"yellow"}}>Hello Paragóne Associate</Typography>
-   </Box>
-  )
-}
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Layout />
+    </ThemeProvider>
+  );
+};
 
-export default App
+export default App;
