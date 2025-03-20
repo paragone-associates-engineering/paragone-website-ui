@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Space+Grotesk:wght@300..700&display=swap');
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -28,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x:hidden;
 }
 
 h1 {
@@ -53,6 +55,41 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
+/* .swiper-container-wrapper {
+  position: relative;
+  padding-bottom: 50px; 
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.swiper-custom-pagination {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+ 
+}
+
+.swiper-pagination-bullet {
+  background-color: #ccc !important; 
+  opacity: 0.5 !important;
+  width: 12px !important;
+  height: 6px !important;
+  border-radius: 4px !important;
+  margin: 0 5px !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #FFBA08 !important; 
+  opacity: 1 !important;
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
