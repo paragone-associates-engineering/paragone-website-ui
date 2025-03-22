@@ -18,7 +18,7 @@ import {
   Paper
 } from '@mui/material';
 import { Menu, Close, PeopleAlt }  from '@mui/icons-material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import CustomButton from '../common/button';
 
 interface NavbarProps {
@@ -27,6 +27,7 @@ interface NavbarProps {
 }
 
 const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
+  const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -55,6 +56,10 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
     };
   }, [scrolled]);
 
+  useEffect(() => {
+    setMobileOpen(false); 
+  }, [location.pathname]); 
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -64,16 +69,6 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
     <Box sx={{ textAlign: 'center' }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Box sx={{ 
-            width: 40, 
-            height: 40, 
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            position: 'relative',
-          }}>
-            
-          </Box>
           <Box sx={{ ml: 1 }}>
           <img src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg" alt="Logo" width={150} />
           </Box>
@@ -152,19 +147,9 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
             }}
           >
             
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ 
-                width: 40, 
-                height: 40, 
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-              }}>
-              </Box>
-              <Box sx={{ ml: 1 }}>
+            <Box component={RouterLink} to='/' sx={{ display: 'flex', alignItems: 'center' }}>
+              <Box>
               <img src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg" alt="Logo" width={150} />
-                
               </Box>
             </Box>
             
@@ -178,9 +163,9 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
                     to={item.path}
                     sx={{
                       mx: { xs: 0.5, sm: 1, md: 1.5 },
-                      color: 'inherit',
                       textTransform: 'none',
                       position: 'relative',
+                      color: activeLink === item.id ? theme.palette.primary.main : 'inherit',
                       fontWeight: activeLink === item.id ? 'medium' : 'normal',
                       fontSize: '0.9rem',
                       '&:hover': {

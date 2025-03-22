@@ -30,7 +30,7 @@ const OurServices = () => {
                                 <Typography variant="body2" sx={{ ml: 0.5, fontWeight: 600 }}>4.9 <span style={{fontWeight:"400", opacity:0.8}}>(128,000)</span></Typography>
                               </Box>
                  </Box>
-                 <Grid container spacing={4}>
+                 <Grid container spacing={4} sx={{MaxWidth:{sm:600,md:'100%'}}}>
                    <Grid item xs={12} md={4}>
                      <ServiceCard
                        title="Buy a property"

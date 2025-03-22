@@ -16,6 +16,7 @@ import TerrainIcon from "@mui/icons-material/Terrain";
 import { propertiesData } from "../../constant";
 import { FilterOption } from "../../types/properties";
 import PropertyCard from "../../common/property-card";
+import CustomButton from "../../common/button";
 
 const filterOptions: FilterOption[] = [
   { value: "all", label: "All properties", icon: <HouseIcon /> },
@@ -103,7 +104,7 @@ const ExclusiveProperties = () => {
     </Box>
 
       
-      <Grid2 container spacing={3}>
+      <Grid2 container spacing={2}>
         {filteredProperties.map((property) => (
           <Grid2 size={{xs:12, sm:6, md:4}}  key={property.id}>
             <PropertyCard property={property} />
@@ -111,26 +112,8 @@ const ExclusiveProperties = () => {
         ))}
       </Grid2>
 
-     
       <Box display="flex" justifyContent="center" mt={6}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          sx={{
-            borderRadius: 2,
-            px: 4,
-            py: 1.5,
-            textTransform: "none",
-            fontWeight: "bold",
-            bgcolor: "#ff9800",
-            "&:hover": {
-              bgcolor: "#f57c00",
-            },
-          }}
-        >
-          Browse more properties
-        </Button>
+        <CustomButton href='/listings' sx={{px:5, py:1.5}}>Browse more Properties</CustomButton>
       </Box>
     </Container>
   );

@@ -15,7 +15,7 @@ export const PageBanner = ({
   return (
     <BaseBanner 
       backgroundImage={backgroundImage} 
-      height='80vh' 
+      height='60vh' 
     >
       <Box sx={{ textAlign: 'center', color: 'white', width:'100%' }}>
         <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', mb: 2 }}>

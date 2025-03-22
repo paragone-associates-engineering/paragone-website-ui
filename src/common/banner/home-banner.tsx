@@ -20,7 +20,7 @@ import {
 import { BaseBanner } from './base-banner';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 //import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
@@ -65,16 +65,17 @@ export const HomeBanner = () => {
   return (
     <BaseBanner 
       backgroundImage="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741267158/sean-pollock-PhYq704ffdA-unsplash_zew9au.jpg"
-      height={{ xs: '850px', md: '100vh' }}
+      height={{ xs: '850px', sm:'650px', md: '100vh' }}
     >
       <Box 
         sx={{ 
           display: 'flex', 
-          flexDirection: { xs: 'column', md: 'row' },
-          alignItems: { xs: 'flex-start', md: 'center' },
+          flexDirection: { xs: 'column', sm: 'row' },
+          alignItems: { xs: 'flex-start', sm: 'center' },
           justifyContent: 'space-between',
           width: '100%',
           height: '100%',
+          gap:2,
           pt: { xs: 15, md: 0 },
           //mb: { xs: 15, md: 0 },
         }}
@@ -84,8 +85,8 @@ export const HomeBanner = () => {
           sx={{ 
             color: 'white', 
             mb: { xs: 4, md: 0 },
-            width: { xs: '100%', md: '45%' },
-            textAlign:{xs:"center", md:"left"}
+            width: { xs: '100%', sm: '50%' },
+            textAlign:{xs:"center", sm:"left"}
           }}
         >
           <Typography 
@@ -116,9 +117,11 @@ export const HomeBanner = () => {
           </Typography>
           <Typography 
             variant="body1" 
+            //textAlign='center'
             sx={{ 
               maxWidth: '450px',
-              fontSize: { xs: '1rem', md: '1.1rem' }
+              fontSize: { xs: '1rem', md: '1.1rem' },
+              mx:{xs:'auto', sm:'0'}
             }}
           >
             Whether buying, selling, renting, or short stay, we have got you covered
@@ -128,9 +131,9 @@ export const HomeBanner = () => {
         {/* Right side with search box */}
         <Box 
           sx={{ 
-            width: { xs: '100%', md: '50%' },
-            mt: { xs: 0, md: 0 },
-            mb: { xs: 15, md: 0 },
+            width: { xs: '100%', sm: '50%' },
+            mt:0,
+            mb: { xs: 15, sm: 0 },
           }}
         >
           <Paper 
@@ -156,6 +159,7 @@ export const HomeBanner = () => {
                   fontWeight: 'medium',
                   fontSize: '0.9rem',
                   minHeight: '48px',
+                  whiteSpace:'nowrap',
                   '&.Mui-selected': {
                     backgroundColor: '#FFA500',
                     color: 'white',
@@ -176,14 +180,10 @@ export const HomeBanner = () => {
               <Box sx={{ p: { xs: 2, md: 3 } }}>
                 <Grid container spacing={2} sx={{ mb: 1 }}>
                   <Grid item xs={12} md={4}>
-                    {/* <Typography variant="subtitle2" sx={{ mb: 1, fontWeight: 'medium' }}>
-                      Location
-                    </Typography> */}
                     <TextField
                       fullWidth
                       placeholder="Your location"
                       variant="outlined"
-                      size="small"
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
@@ -206,7 +206,7 @@ export const HomeBanner = () => {
                                       <Select
                                         labelId="property-label"
                                         name="property"
-                                        size="small"
+                                        //size="small"
                                         // value={formData.experience}
                                         // onChange={handleSelectChange}
                                         label="Select Type"
@@ -228,7 +228,7 @@ export const HomeBanner = () => {
                                       <Select
                                         labelId="room-label"
                                         name="room"
-                                        size='small'
+                                        //size='small'
                                         // value={formData.experience}
                                         // onChange={handleSelectChange}
                                         label="Select Room"
@@ -252,7 +252,7 @@ export const HomeBanner = () => {
                     display: 'flex', 
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    flexDirection: { xs: 'column', sm: 'row' },
+                    flexDirection: { xs: 'column', md: 'row' },
                     mt: 2
                   }}
                 >
@@ -269,7 +269,7 @@ export const HomeBanner = () => {
                       '&:hover': {
                         bgcolor: '#F29100',
                       },
-                      width: { xs: '100%', sm: 'auto' },
+                      width: { xs: '100%', md: 'auto' },
                       mb: { xs: 1, sm: 0 }
                     }}
                   >
@@ -280,8 +280,8 @@ export const HomeBanner = () => {
                     sx={{ 
                       display: 'flex', 
                       alignItems: 'center',
-                      width: { xs: '100%', sm: 'auto' },
-                      justifyContent: { xs: 'flex-end', sm: 'flex-start' }
+                      width: { xs: '100%', md: 'auto' },
+                      justifyContent: { xs: 'flex-end', md: 'flex-start' }
                     }}
                   >
                     <Typography 
@@ -292,7 +292,7 @@ export const HomeBanner = () => {
                       Advanced search
                     </Typography>
                     <IconButton size="small" color="primary">
-                      <MoreHorizIcon />
+                      <MoreVertIcon />
                     </IconButton>
                   </Box>
                 </Box>
@@ -324,10 +324,10 @@ export const HomeBanner = () => {
       {/* Navigation controls */}
       <Box 
         sx={{ 
-          display: {xs:'none', md: 'flex' }, 
+          display: {xs:'none', sm: 'flex' }, 
           position: 'absolute',
-          bottom: { xs: 16, md: 32 },
-          left: { xs: 16, md: 32 },
+          bottom: { xs: 16, sm: 32 },
+          left: { xs: 16, sm: 32 },
           alignItems: 'center',
           color: 'white'
         }}

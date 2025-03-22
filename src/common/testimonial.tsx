@@ -10,7 +10,7 @@ import {
   Stack,
   Divider
 } from '@mui/material';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
+
 import { Star } from '@mui/icons-material';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
@@ -105,17 +105,22 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
           Great service
         </Typography>
         
-        <Box 
+        <Box
+        component='img'
+        src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474446/quotation_wknw2h.svg'
+        alt='quote icon'
           sx={{ 
             position: 'absolute',
-            top: 20,
+            top: 50,
             right: 24,
             color: '#f1f1f5',
-            fontSize: 80
+            width:60,
+            height:60,
+            objectFit:'contain'
           }}
-        >
-          <FormatQuoteIcon sx={{ fontSize: 80, transform: 'rotate(180deg)' }} />
-        </Box>
+        />
+          {/* <FormatQuoteIcon sx={{ fontSize: 80, transform: 'rotate(180deg)' }} />
+        </Box> */}
         
         <Typography 
           variant="body1" 
@@ -171,20 +176,12 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
           </Box>
           
           <Box 
-            sx={{ 
-              ml: 'auto', 
-              width: 40, 
-              height: 40, 
-              bgcolor: '#f1f1f5', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              borderRadius: '50%',
-              color: '#888'
-            }}
-          >
-            G
-          </Box>
+          component="img"
+          src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474450/devicon-plain_google_ot2t2o.svg"
+          alt="Google"
+          sx={{ ml: 'auto', width: 30, height: 30 }}
+          />
+           
         </Stack>
       </CardContent>
     </Card>
@@ -195,7 +192,7 @@ const Testimonials = () => {
  // const theme = useTheme();
 
   return (
-    <Box component="section" sx={{ py: 8 }}>
+    <Box component="section" sx={{ py: 8, height:'400px' }}>
     <Container maxWidth="lg">
       <SectionTitle
       subtitle='Testimonials'
@@ -256,7 +253,7 @@ const Testimonials = () => {
             spaceBetween: 10,
           },
           768: {
-            slidesPerView: 3,
+            slidesPerView: 2,
             spaceBetween: 10,
           },
           1024: {

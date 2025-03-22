@@ -4,7 +4,7 @@ import { Box,  Container } from '@mui/material';
 // Types for props
 interface BaseBannerProps {
   backgroundImage?: string;
-  height?: string | number | { xs: string; md: string };
+  height?: string | number | { xs: string; sm:string; md: string };
   children: React.ReactNode;
   overlay?: boolean;
   overlayOpacity?: number;
@@ -23,12 +23,12 @@ export const BaseBanner = ({
       sx={{
         position: 'relative',
         height,
-        width: '100%',
+        width: '100vw',
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
-        mb: { xs: 8, md: 0 },
+        mb: { xs: 8, sm: 0 },
         justifyContent:"center",
         alignItems: 'center',
         '&::before': overlay ? {

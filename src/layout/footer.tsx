@@ -79,7 +79,7 @@ export default function Footer() {
             <img src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg" alt="Logo" width={150} />
             <Box display="flex" gap={1} mt={2}>
               {/* Social media icons */}
-              <Grid item xs={12} md={12} textAlign={{ xs: "center", md: "left" }}>
+              <Grid item xs={12} sm={12} textAlign={{ xs: "center", sm: "left" }}>
          
           <Box sx={{ mt: 2 }}>
             {[Facebook, Instagram, LinkedIn, YouTube].map((Icon, index) => (
@@ -91,7 +91,7 @@ export default function Footer() {
           </Item>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={4} md={3}>
           <Item>
             <Typography variant="h6" fontWeight={600} gutterBottom>
               Quick Links

@@ -7,6 +7,7 @@ import Layout from "./layout";
 const App = () => {
   const mode = useSelector((state: RootState) => state.theme.mode);
   const theme = getTheme(mode);
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

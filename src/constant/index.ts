@@ -210,3 +210,4 @@ export const properties = [
     { name: 'The Box', logo: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741309556/image_26_dt6kpp.png' },
   ];
   
+  

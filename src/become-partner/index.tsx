@@ -12,6 +12,7 @@ import {
 import Testimonials from "../common/testimonial";
 import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button";
+import { ContactFormModal } from "./components/individual-modal";
 
 const PartnerWithUs = () => {
 
@@ -54,7 +55,7 @@ const PartnerWithUs = () => {
           </Grid>
         </Grid>
 
-        <Box sx={{ my: 8 }}>
+        <Box sx={{ my: 8, maxWidth:{sm:600,md:'100%'} }}>
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
               <Paper
@@ -134,7 +135,7 @@ const PartnerWithUs = () => {
         <Box sx={{ my: 6, py:10, bgcolor:"secondary.main" }}>
             <Container maxWidth='md'>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <Card elevation={0.8} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{ px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
@@ -158,14 +159,15 @@ const PartnerWithUs = () => {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: "center", pb: 3 }}>
-                <CustomButton sx={{py:1, px:5}}> Get Started </CustomButton>
-                </CardActions>
+       
+        <ContactFormModal />
+      </CardActions>
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <Card elevation={0.8} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
-                <CardContent sx={{ px: 3, textAlign: "center" }}>
+                <CardContent sx={{flex:1, px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                     <Box
                       component="img"
@@ -186,7 +188,7 @@ const PartnerWithUs = () => {
                   </Typography>
                 </CardContent>
                 <CardActions sx={{ justifyContent: "center", pb: 3 }}>
-                    <CustomButton sx={{py:1, px:5}}> Get Started </CustomButton>
+                    <CustomButton sx={{py:1, px:5}} href='/sell-as-a-company'> Get Started </CustomButton>
                 </CardActions>
               </Card>
             </Grid>
