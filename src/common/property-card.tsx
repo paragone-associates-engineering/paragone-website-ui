@@ -13,13 +13,11 @@ import {
   IconButton
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import BedIcon from '@mui/icons-material/Bed';
-import BathtubIcon from '@mui/icons-material/Bathtub';
-import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {Link} from 'react-router-dom';
 
 interface PropertyData {
   id: number;
@@ -41,6 +39,8 @@ const PropertyCard: React.FC<{ property: PropertyData }> = ({ property }) => {
 
   return (
     <Card 
+    component={Link}
+    to={`/listings/${property.id}`}
       sx={{  
         display: 'flex', 
         flexDirection: 'column',
@@ -135,7 +135,7 @@ const PropertyCard: React.FC<{ property: PropertyData }> = ({ property }) => {
       top: '50%',
       left: '50%',
       transform: 'translateX(-50%) ',
-      width: '90%',
+      width: '93%',
       height:'230px',
       bgcolor: 'background.paper', 
       pt: 3, 
@@ -151,27 +151,31 @@ const PropertyCard: React.FC<{ property: PropertyData }> = ({ property }) => {
           {property?.title}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-          <LocationOnIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} />
+          <LocationOnIcon sx={{ color: 'primary.main', fontSize: 18, mr: 0.5 }} />
           <Typography variant="body2" color="text.secondary">
             {property?.address}
           </Typography>
         </Box>
-        <Grid container spacing={2} sx={{ mb: 2 }}>
+        <Grid container spacing={3} sx={{ mb: 2 }}>
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <SquareFootIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} />
+              <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659739/fi_12907174_dvvx70.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
+              {/* <SquareFootIcon sx={{ml:1, fontSize:17}}  /> */}
+             
               <Typography variant="body2">{property?.sqm}sqm</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} />
-              <Typography variant="body2">{property?.bedrooms} bed room</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap' }}>
+            <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659737/fi_2284001_zwywd0.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
+              {/* <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
+              <Typography variant="body2">{property?.bedrooms} rooms</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <BathtubIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap'  }}>
+            <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659735/fi_2425844_nnawgj.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
+              {/* <BathtubIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
               <Typography variant="body2">{property?.bathrooms} bath</Typography>
             </Box>
           </Grid>
@@ -179,14 +183,14 @@ const PropertyCard: React.FC<{ property: PropertyData }> = ({ property }) => {
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 'auto' }}>
           <Button 
             size="small" 
-            sx={{ textTransform: 'none', fontWeight: 'bold' }}
+            sx={{ textTransform: 'none', fontWeight: 'bold', color:'text.secondary' }}
             endIcon={<ChevronRightIcon />}
           >
             More details
           </Button>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Rating value={property?.rating} precision={0.1} size="small" readOnly />
-            <Typography variant="body2" sx={{ ml: 0.5 }}>
+            <Typography variant="body2" sx={{ ml: 0.5, fontWeight:'bold' }}>
               {property?.rating}
             </Typography>
           </Box>

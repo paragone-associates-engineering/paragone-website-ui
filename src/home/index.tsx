@@ -15,10 +15,10 @@ const Home = () => {
   const theme = useTheme();
 
   return (
-    <Box sx={{overflow:'hidden'}}> 
+    <Box sx={{width:'100vw'}} > 
     <HomeBanner />
       
-      <Box component="section" sx={{display:'block', pt: { sm:35, md:8}, pb:8 }}>
+      <Box component="section" sx={{display:'block', pt: { xs:35, sm:8}, pb:8 }}>
         <Container maxWidth="md">
           <SectionTitle
             title="Our services are tailored to meet your real estate needs"
@@ -29,7 +29,7 @@ const Home = () => {
          
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <ServiceCard
                 title="Real Estate Brokerage"
                 description="We connect buyers with their dream properties and help sellers get the best value for their real estate assets."
@@ -39,13 +39,14 @@ const Home = () => {
                 actionLink="/real-estate-brokerage"
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} sm={6}>
               <ServiceCard
                 title="Property Management"
                 description="Our comprehensive management services take the stress out of owning rental properties and maximize your returns."
                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274243/fi_9202615_xqsik3.svg"
                 actionText="Learn More"
-                actionLink="/services/management"
+                actionVariant='outline'
+                actionLink="/property-management"
               />
             </Grid>
           </Grid>
@@ -61,10 +62,10 @@ const Home = () => {
           border: `1px solid ${theme.palette.background.paper}`,
         }}
       >
-        <Container maxWidth="lg">
+        
 
 <ExclusiveProperties />
-        </Container>
+        
       </Box>
 
      
@@ -86,7 +87,7 @@ const Home = () => {
           />
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} sm={4}>
               <ServiceCard
                 title="Buy a property"
                 description="Find your dream home with our extensive listings and expert buying agents to guide you through the process."
@@ -95,7 +96,7 @@ const Home = () => {
                 actionLink="/services/buy"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} sm={4}>
               <ServiceCard
                 title="Sell a property"
                 description="Get the best value for your property with our market expertise, professional marketing, and negotiation skills."
@@ -104,7 +105,7 @@ const Home = () => {
                 actionLink="/services/sell"
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} sm={4}>
               <ServiceCard
                 title="Manage a property"
                 description="Let us handle the day-to-day operations of your rental properties while you enjoy a steady income stream."
@@ -135,7 +136,7 @@ const Home = () => {
           <Grid2 container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
             {/* Blog post cards */}
             {[1, 2, 3].map((item) => (
-              <Grid2 size={{ xs:12, md:4}} key={item}>
+              <Grid2 size={{ xs:12,sm:4}} key={item}>
                 <Card 
                   sx={{ 
                     height: '100%',

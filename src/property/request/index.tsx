@@ -15,14 +15,15 @@ import {
   Select,
   MenuItem,
   type SelectChangeEvent,
-  ToggleButtonGroup,
-  ToggleButton,
+  //ToggleButtonGroup,
+  //ToggleButton,
 
 } from "@mui/material"
 import type { PropertyRequestFormData } from "../types";
 import { PageBanner } from '../../common/banner/page-banner';
 import Testimonials from '../../common/testimonial';
 import { propertyTypes, locations, priceRanges, contactMethods } from "../data";
+import { CustomToggleButton, CustomToggleButtonGroup } from "../../common/toggle-button";
 
 const PropertyRequest = () => {
  
@@ -68,7 +69,7 @@ const PropertyRequest = () => {
          currentPage="property-request"/>
      
 
-      <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
             <Box
@@ -118,23 +119,23 @@ const PropertyRequest = () => {
           <Paper elevation={0} sx={{ p: 4, backgroundColor: "secondary.main", borderRadius: 2 }}>
             <form onSubmit={handleSubmit}>
               <Box sx={{ mb: 3 }}>
-                <ToggleButtonGroup
+                <CustomToggleButtonGroup
                   value={formData.purpose}
                   exclusive
                   onChange={handlePurposeChange}
                   aria-label="property purpose"
                   fullWidth
                 >
-                  <ToggleButton sx={{bgcolor:"primary.main"}}  value="buy" aria-label="buy property">
+                  <CustomToggleButton  value="buy" aria-label="buy property">
                     Buy
-                  </ToggleButton>
-                  <ToggleButton sx={{bgcolor:"background.paper"}} value="rent" aria-label="rent property">
+                  </CustomToggleButton>
+                  <CustomToggleButton value="rent" aria-label="rent property">
                     Rent
-                  </ToggleButton>
-                  <ToggleButton sx={{bgcolor:"background.paper"}} value="short-stay" aria-label="short stay">
+                  </CustomToggleButton>
+                  <CustomToggleButton  value="short-stay" aria-label="short stay">
                     Short stay
-                  </ToggleButton>
-                </ToggleButtonGroup>
+                  </CustomToggleButton>
+                </CustomToggleButtonGroup>
               </Box>
 
               <Grid container spacing={3}>

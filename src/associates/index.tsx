@@ -17,6 +17,7 @@ import {
 } from "@mui/material"
 import Testimonials from "../common/testimonial"
 import { PageBanner } from '../common/banner/page-banner';
+import CustomButton from "../common/button"
 
 interface AssociateFormData {
   firstName: string
@@ -112,9 +113,9 @@ const BecomeAssociate: React.FC = () => {
                      </Typography>
                    </Grid>
                    <Grid item xs={12} md={4} sx={{ textAlign: { xs: "left", md: "right" } }}>
-                     <Button variant="contained" color="primary" size="large">
+                     <CustomButton href='/contact-us'>
                        Contact us
-                     </Button>
+                     </CustomButton>
                    </Grid>
                  </Grid>
                </Box>

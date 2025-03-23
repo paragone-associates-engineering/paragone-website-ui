@@ -10,6 +10,17 @@ export interface PropertyData {
   bathrooms: number;
   rating: number;
   image: string;
+  location: {
+    address: string
+    city: string
+    state?: string
+    country?: string
+    coordinates?: {
+      lat: number
+      lng: number
+    }
+  },
+  propertyType:string;
 }
 
 export interface FilterOption {

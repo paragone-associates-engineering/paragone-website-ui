@@ -1,7 +1,9 @@
 import { Box, Container } from "@mui/material";
 import { partners } from "../constant";
 import SectionTitle from "./section-title";
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.css';
+import { Autoplay } from 'swiper/modules';
 const OurPartners = () => {
   return (
     <Box
@@ -10,12 +12,40 @@ const OurPartners = () => {
         py: 4,
         backgroundColor: "background.paper",
         overflow: "hidden",
+        mt:30,
       }}
     >
       <Container maxWidth="lg">
         <SectionTitle title="Our partners" subtitle="Partners" centered={true} marginBottom={2} />
-
-        <Box
+        <Swiper
+          spaceBetween={20} 
+          slidesPerView="auto" 
+          autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay enabled
+          loop={true} 
+          modules={[Autoplay]}
+        >
+          {partners.map((partner, idx) => (
+            <SwiperSlide key={idx} style={{ width: "auto" }}>
+              <Box
+                component="img"
+                src={partner.logo}
+                alt={partner.name}
+                sx={{
+                  height: 120,
+                  width: "auto",
+                  filter: "grayscale(20%)",
+                  opacity: 0.9,
+                  transition: "all 0.3s ease",
+                  "&:hover": {
+                    filter: "grayscale(0%)",
+                    opacity: 1,
+                  },
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        {/* <Box
           sx={{
             position: "relative",
             width: "100%",
@@ -48,13 +78,18 @@ const OurPartners = () => {
             },
           }}
         >
-          {/* Wrapper for partners logos */}
+          {/* Wrapper for partners logos 
           <Box
             sx={{
               display: "flex",
               gap: 4,
               flexWrap: "nowrap",
               minWidth: "100%",
+              overflowX: "auto", 
+    scrollSnapType: "x mandatory", 
+    scrollbarWidth: "none", 
+    "&::-webkit-scrollbar": { display: "none" },
+  
               "@media (max-width: 768px)": {
                 animation: "scroll 16s linear infinite",
               },
@@ -84,7 +119,7 @@ const OurPartners = () => {
               />
             ))}
           </Box>
-        </Box>
+        </Box> */}
       </Container>
     </Box>
   );

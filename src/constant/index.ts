@@ -16,6 +16,7 @@ export const properties = [
       price: 850000,
       image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=800&q=80',
       type: 'For Sale',
+      propertyType:'apartment',
       bedrooms: 3,
       bathrooms: 2,
       area: 1800,
@@ -28,6 +29,7 @@ export const properties = [
       price: 1250000,
       image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&w=800&q=80',
       type: 'For Sale',
+      propertyType:'house',
       bedrooms: 4,
       bathrooms: 3,
       area: 2400,
@@ -40,6 +42,7 @@ export const properties = [
       price: 2200,
       image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&w=800&q=80',
       type: 'For Rent',
+      propertyType:'apartment',
       bedrooms: 1,
       bathrooms: 1,
       area: 650,
@@ -52,6 +55,7 @@ export const properties = [
       price: 675000,
       image: 'https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&w=800&q=80',
       type: 'For Sale',
+      propertyType:'apartment',
       bedrooms: 4,
       bathrooms: 2.5,
       area: 2100,
@@ -89,12 +93,21 @@ export const properties = [
       title: "Ipsum qui in commodo nulla",
       price: 120000,
       type: "sale",
+      propertyType:'apartment',
       featured: true,
       address: "28B Highgate Road, London",
       sqm: 1650,
       bedrooms: 4,
       bathrooms: 3,
       rating: 4.9,
+      location: {
+        address: "238 Highgate Road",
+        city: "London",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       image: "https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&w=800&q=80"
     },
     {
@@ -102,11 +115,20 @@ export const properties = [
       title: "Quis duis velit sunt voluptate minim",
       price: 8000,
       type: "rent",
+      propertyType:'apartment',
       address: "28B Highgate Road, London",
       sqm: 1650,
       bedrooms: 4,
       bathrooms: 3,
       rating: 4.9,
+      location: {
+        address: "238 Law School Road",
+        city: "Lekki",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       image: "https://images.unsplash.com/photo-1574259392081-dbe3c19cd15e?auto=format&w=800&q=8"
     },
     {
@@ -114,8 +136,17 @@ export const properties = [
       title: "Voluptate adipisicing adipisicing",
       price: 110000,
       type: "sale",
+      propertyType:'house',
       address: "28B Highgate Road, London",
       sqm: 1650,
+      location: {
+        address: "238 ikouji Road",
+        city: "ikouji",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       bedrooms: 4,
       bathrooms: 3,
       rating: 4.9,
@@ -126,7 +157,16 @@ export const properties = [
       title: "Reprehenderit commodo eiusmod",
       price: 17000,
       type: "rent",
+      propertyType:'land',
       address: "28B Highgate Road, London",
+      location: {
+        address: "238 eko atlantic city Road",
+        city: "eko atlantic city",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       sqm: 1650,
       bedrooms: 4,
       bathrooms: 3,
@@ -138,18 +178,36 @@ export const properties = [
       title: "Lorem ad magna sunt magna",
       price: 6000,
       type: "sale",
+      propertyType:'apartment',
       address: "28B Highgate Road, London",
       sqm: 1650,
       bedrooms: 4,
       bathrooms: 3,
       rating: 4.9,
+      location: {
+        address: "238 eko atlantic city Road",
+        city: "eko atlantic city",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&w=800&q=80"
     },
     {
       id: 6,
       title: "Cillum veniam minim consectetur ali",
       price: 24000,
+      propertyType:'land',
       type: "rent",
+      location: {
+        address: "238 eko atlantic city Road",
+        city: "eko atlantic city",
+        coordinates: {
+          lat: 51.5074,
+          lng: -0.1278,
+        },
+      },
       address: "28B Highgate Road, London",
       sqm: 1650,
       bedrooms: 4,
@@ -209,4 +267,5 @@ export const properties = [
     { name: 'Nest', logo: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265757/image_25_k84gx6.png' },
     { name: 'The Box', logo: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741309556/image_26_dt6kpp.png' },
   ];
+  
   
