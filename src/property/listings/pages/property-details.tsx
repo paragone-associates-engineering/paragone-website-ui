@@ -1,6 +1,5 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"

@@ -17,6 +17,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import {Link} from 'react-router-dom';
 
 interface PropertyData {
   id: number;
@@ -38,6 +39,8 @@ const PropertyCard: React.FC<{ property: PropertyData }> = ({ property }) => {
 
   return (
     <Card 
+    component={Link}
+    to={`/listings/${property.id}`}
       sx={{  
         display: 'flex', 
         flexDirection: 'column',

@@ -1,11 +1,9 @@
 import type React from "react"
 import { Grid, Box, Typography, Pagination, PaginationItem } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
-import PropertyCard from "./property-card"
-import type { Property } from "../types"
-
+import PropertyCard from "../../../common/property-card"
+import { propertiesData } from "../../../constant";
 interface PropertyGridProps {
-  properties: Property[]
   totalCount?: number
   currentPage?: number
   itemsPerPage?: number
@@ -15,7 +13,6 @@ interface PropertyGridProps {
 }
 
 const PropertyGrid: React.FC<PropertyGridProps> = ({
-  properties,
   totalCount = 0,
   currentPage = 1,
   itemsPerPage = 6,
@@ -33,7 +30,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
     )
   }
 
-  if (properties.length === 0) {
+  if (propertiesData.length === 0) {
     return (
       <Box sx={{ py: 4, textAlign: "center" }}>
         <Typography>{emptyMessage}</Typography>
@@ -43,10 +40,10 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
 
   return (
     <Box>
-      <Grid container spacing={4}>
-        {properties.map((property) => (
+      <Grid container spacing={2}>
+        {propertiesData.map((property) => (
           <Grid item xs={12} sm={6} md={4} key={property.id}>
-            <PropertyCard property={property} featured={property.featured} />
+            <PropertyCard property={property} />
           </Grid>
         ))}
       </Grid>

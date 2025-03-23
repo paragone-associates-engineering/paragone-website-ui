@@ -21,14 +21,14 @@ const contactSchema = z.object({
 
 type ContactFormData = z.infer<typeof contactSchema>
 
-const ContactAgentForm: React.FC<ContactAgentFormProps> = ({ propertyId, propertyTitle }) => {
-  // const handleSubmit = async (values: ContactFormData) => {
-  //   // In a real application, this would submit the form data to an API
-  //   console.log("Contact submitted:", { propertyId, ...values })
+const ContactAgentForm: React.FC<ContactAgentFormProps> = ({propertyId, propertyTitle }) => {
+  const handleSubmit = async (values: ContactFormData) => {
+    // In a real application, this would submit the form data to an API
+    console.log("Contact submitted:", { propertyId, ...values })
 
-  //   // Simulate API call
-  //   await new Promise((resolve) => setTimeout(resolve, 1000))
-  // }
+    // Simulate API call
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+  }
 
   return (
     <Box sx={{ bgcolor: "primary.main", color:"#fff", p:2, borderRadius: 2 }}>
@@ -48,7 +48,7 @@ const ContactAgentForm: React.FC<ContactAgentFormProps> = ({ propertyId, propert
   <Box sx={{bgcolor:'background.paper', mt:2, p:3}}>
       <Form
         schema={contactSchema}
-        //onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
         initialValues={{
           firstName: "",
           lastName: "",

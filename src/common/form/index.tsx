@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import type React from "react"
@@ -18,8 +19,8 @@ export interface FormConfig {
   submitLabel?: string
   title?: string
   description?: string
-  schema?: z.ZodType<any>
-  onSubmit: (values: Record<string, any>) => void | Promise<void>
+  schema?: any
+  onSubmit: (values: any) => void | Promise<void>
   initialValues?: Record<string, any>
   resetAfterSubmit?: boolean
 }
@@ -83,7 +84,7 @@ const Form: React.FC<FormConfig> = ({
     if (!schema) return true
 
     try {
-      // Create a partial schema for just this field
+      
       const fieldSchema = z.object({ [name]: schema.shape[name] })
       fieldSchema.parse({ [name]: value })
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import type React from "react"
@@ -112,7 +113,7 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
     onFilterChange(updatedFilters)
   }
 
-  const handleSelectChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+  const handleSelectChange = (e: any) => {
     const { name, value } = e.target
     if (name) {
       const updatedFilters = { ...filters, [name]: value }
@@ -319,7 +320,7 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
             <Select
               name="propertyType"
               value={filters.propertyType || ""}
-              onChange={handleSelectChange as React.ChangeEventHandler<{ name?: string; value: unknown }>}
+              onChange={handleSelectChange}
               displayEmpty
             >
               <MenuItem value="">Any type</MenuItem>

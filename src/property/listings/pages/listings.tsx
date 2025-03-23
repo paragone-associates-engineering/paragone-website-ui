@@ -1,7 +1,5 @@
 "use client"
 
-// import type React from "react"
-// import { useState } from "react"
 import { Container, Box,  } from "@mui/material"
 
 import { PageBanner } from "../../../common/banner/page-banner"
