@@ -25,6 +25,7 @@ import { CustomToggleButtonGroup, CustomToggleButton } from "../../../common/tog
 import { ListingsQueryParams } from "../../../types/properties"
 import { setFilters } from "../../../redux/slices/listings-slice"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
+import { useLocations } from "../../../hooks/use-locations"
 //import { useNavigate } from "react-router-dom"
 interface PropertyFilterProps {
   onFilterChange?: (filters: ListingsQueryParams) => void
@@ -42,6 +43,7 @@ const PropertyFilter = ({
   const dispatch = useAppDispatch()
   const storeFilters = useAppSelector((state) => state.listings.filters)
  //const navigate = useNavigate();
+ const {locations} = useLocations();
   const [filters, setLocalFilters] = useState<ListingsQueryParams>(initialFilters || storeFilters)
   const [priceRange, setPriceRange] = useState<number[]>([filters.amountFrom || 500000, filters.amountTo || 5000000000])
   const [areaRange, setAreaRange] = useState<number[]>([filters.areaFrom || 0, filters.areaTo || 100000])
@@ -248,12 +250,12 @@ const PropertyFilter = ({
   }
 
   return (
-    <Paper elevation={0} sx={{ p: 3, backgroundColor: "secondary.main", borderRadius: 2 }}>
-      <Typography variant="h5" sx={{bgcolor:'white'}} gutterBottom>
+    <Paper elevation={0} sx={{ backgroundColor: "secondary.main", borderRadius: 4, border:'1px solid #ddd' }}>
+      <Typography variant="h5" sx={{bgcolor:'white',borderRadiusTop: 4, p:2, }} gutterBottom>
         Advanced search
       </Typography>
 
-      <Box sx={{ mt: 3 }}>
+      <Box sx={{ mt: 3,  p: 3, }}>
         {/* <Typography variant="subtitle1" gutterBottom>
           Search
         </Typography> */}
@@ -449,10 +451,11 @@ const PropertyFilter = ({
     displayEmpty
     size="small"
   >
-    <MenuItem value="">Select Location</MenuItem>
-    <MenuItem value="new_york">New York</MenuItem>
-    <MenuItem value="los angeles">Los Angeles</MenuItem>
-    <MenuItem value="dallas">Dallas</MenuItem>
+     {locations.map((location:string, index:number) => (
+                     <MenuItem key={index} value={location}>
+                     {location}
+                   </MenuItem>
+               ))}
   </Select>
 </Box>
 

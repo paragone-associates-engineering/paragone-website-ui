@@ -30,7 +30,7 @@ const LocationListings = () => {
     pageSize: 6
   };
 
-  const [filters, setFilters] = useState({ region: decodedLocationId });
+  const [filters, setFilters] = useState({ location: decodedLocationId });
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
@@ -43,7 +43,7 @@ const LocationListings = () => {
   }, [dispatch, filters, currentPage, pageSize]);
 
   const handleFilterChange = (newFilters: ListingsQueryParams) => {
-    setFilters({ ...newFilters, region: decodedLocationId });
+    setFilters({ ...newFilters, location: decodedLocationId });
   };
 
   const filterOptions = [
@@ -121,7 +121,8 @@ const LocationListings = () => {
             variant="outline" 
             sx={{ bgcolor: "#333", color: "white" }} 
             startIcon={FilterAltIcon } 
-            onClick={() => toggleDrawer(true)}
+            href={`/listings/filter?location=${encodeURIComponent(decodedLocationId)}`}
+            //onClick={() => toggleDrawer(true)}
           >
             Filter
           </CustomButton>

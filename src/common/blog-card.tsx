@@ -1,4 +1,4 @@
-import { BlogPost } from "@/redux/slices/blog-slice";
+import { BlogPost } from "../redux/slices/blog-slice";
 import { Box, Typography, Paper } from "@mui/material";
 import { format } from "date-fns";
 

@@ -1,6 +1,6 @@
 import type React from "react"
 import { Box, Typography, Grid } from "@mui/material"
-import { ApiProperty } from "@/types/properties"
+import { ApiProperty } from "../../../types/properties"
 
 interface PropertyDetailsProps {
   property: ApiProperty
