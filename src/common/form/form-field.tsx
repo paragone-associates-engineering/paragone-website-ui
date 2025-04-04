@@ -6,6 +6,7 @@ import type React from "react"
 import {
   TextField,
   Select,
+  Typography,
   MenuItem,
   FormControl,
   InputLabel,
@@ -141,29 +142,34 @@ const FormField: React.FC<FormFieldProps> = ({
 
     case "textarea":
       return (
+        <>
+        <Typography variant='h6'>{label}</Typography>
         <TextField
           name={name}
-          label={label}
+          //label={label}
           value={value || ""}
           onChange={onChange}
           onBlur={onBlur}
           error={!!error}
           helperText={error || helperText}
           required={required}
-          placeholder={placeholder}
+          placeholder={label}
           fullWidth={fullWidth}
           multiline
           rows={rows}
           disabled={disabled}
           inputProps={inputProps}
         />
+        </>
       )
 
     default:
       return (
+        <>
+        <Typography variant='h6'>{label}</Typography>
         <TextField
           name={name}
-          label={label}
+          //placeholder={label}
           type={type}
           value={value || ""}
           onChange={onChange}
@@ -171,13 +177,14 @@ const FormField: React.FC<FormFieldProps> = ({
           error={!!error}
           helperText={error || helperText}
           required={required}
-          placeholder={placeholder}
+          placeholder={label}
           fullWidth={fullWidth}
           multiline={multiline}
           rows={multiline ? rows : undefined}
           disabled={disabled}
           inputProps={inputProps}
         />
+        </>
       )
   }
 }

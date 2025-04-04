@@ -8,7 +8,7 @@ const StyledToggleButton = styled(MuiToggleButton)(({ theme }) => ({
   fontWeight: 500,
   borderRadius: 4,
   whiteSpace:'nowrap',
-  border: `1px solid ${theme.palette.divider}`,
+  border: `0px solid ${theme.palette.divider}`,
   color: theme.palette.text.primary,
   backgroundColor: "white",
   "&:hover": {
@@ -18,6 +18,9 @@ const StyledToggleButton = styled(MuiToggleButton)(({ theme }) => ({
   // Selected state styles
   "&.Mui-selected": {
     backgroundColor: theme.palette.primary.main,
+    borderColor:'transparent',
+    outline:0,
+    border:'none',
     color: "white",
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
@@ -35,7 +38,7 @@ const StyledToggleButton = styled(MuiToggleButton)(({ theme }) => ({
 const StyledToggleButtonGroup = styled(MuiToggleButtonGroup)(({ theme }) => ({
 
   "& .MuiToggleButtonGroup-grouped": {
-    margin: theme.spacing(0.5),
+    margin: theme.spacing(0),
     border: 0,
     "&:not(:first-of-type)": {
       borderRadius: 4,

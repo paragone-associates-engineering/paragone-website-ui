@@ -28,7 +28,7 @@ export const BaseBanner = ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
-        mb: { xs: 8, sm: 0 },
+       // mb: { xs: 8, sm: 0 },
         justifyContent:"center",
         alignItems: 'center',
         '&::before': overlay ? {

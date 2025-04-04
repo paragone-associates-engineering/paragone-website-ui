@@ -18,6 +18,7 @@ import FilteredListings from "../property/listings/pages/filtered-listings";
 import LocationListings from "../property/listings/pages/location-listings";
 import PropertyDetailsPage from "../property/listings/pages/property-details";
 import SubscribePage from "../subscribe";
+import NotFound from "./not-found";
 
 const AllRoutes = () => {
     return (
@@ -41,6 +42,7 @@ const AllRoutes = () => {
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:postId" element={<BlogDetail />} />
                     <Route path="/contact-us" element={<Contact />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
     )
 }

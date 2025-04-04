@@ -1,10 +1,10 @@
 import type React from "react"
-import { Box, Typography, Grid } from "@mui/material"
-import PropertyCard from "../../../common/property-card"
-import type { Property } from "../types"
-import { propertiesData } from "../../../constant"
+import { Box, Typography} from "@mui/material"
+//import PropertyCard from "../../../common/property-card"
+import { ApiProperty } from '../../../types/properties';
+//import { propertiesData } from "../../../constant"
 interface RelatedPropertiesProps {
-  properties: Property[]
+  properties: ApiProperty[]
   title?: string
 }
 
@@ -15,13 +15,13 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ title = "Checkout
         {title}
       </Typography>
 
-      <Grid container spacing={4} sx={{ mt: 2 }}>
+      {/* <Grid container spacing={4} sx={{ mt: 2 }}>
         {propertiesData.slice(0, 3).map((property) => (
           <Grid item xs={12} sm={6} md={4} key={property.id}>
             <PropertyCard property={property} />
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </Box>
   )
 }

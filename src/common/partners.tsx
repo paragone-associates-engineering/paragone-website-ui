@@ -12,7 +12,7 @@ const OurPartners = () => {
         py: 4,
         backgroundColor: "background.paper",
         overflow: "hidden",
-        mt:30,
+        //mt:30,
       }}
     >
       <Container maxWidth="lg">

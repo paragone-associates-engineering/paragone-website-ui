@@ -26,12 +26,12 @@ interface NavbarProps {
   activeLink?: string;
 }
 
-const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
+const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  //const [scrolled, setScrolled] = useState(false);
 
   const navItems = [
     { label: 'Home', path: '/', id: 'home' },
@@ -42,19 +42,19 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
     { label: 'Property Calculator', path: '/property-calculator', id: 'calculator' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const isScrolled = window.scrollY > 10;
+  //     if (isScrolled !== scrolled) {
+  //       setScrolled(isScrolled);
+  //     }
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [scrolled]);
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [scrolled]);
 
   useEffect(() => {
     setMobileOpen(false); 
@@ -130,9 +130,9 @@ const Navbar = ({ transparent = false, activeLink = 'home' }: NavbarProps) => {
     >
       <Container maxWidth="xl">
         <Paper
-          elevation={scrolled ? 4 : 0}
+          //elevation={scrolled ? 4 : 0}
           sx={{
-            bgcolor: scrolled ? 'rgba(255, 255, 255, 1)' : transparent ? 'rgba(255, 255, 255, 0.9)' : 'white',
+           // bgcolor: scrolled ? 'rgba(255, 255, 255, 1)' : transparent ? 'rgba(255, 255, 255, 0.9)' : 'white',
             borderRadius: '8px',
             transition: 'all 0.3s',
           }}

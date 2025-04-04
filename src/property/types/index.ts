@@ -68,4 +68,59 @@
     
   }
   
-  
+  // API response interfaces based on the provided example
+export interface Landmark {
+  name: string
+  category: string
+  _id: string
+}
+
+export interface PropertyDetail {
+  bedrooms: number
+  bathrooms: number
+  hasGarage: boolean
+  squareFeet: number
+}
+
+export interface ApiProperty {
+  _id: string
+  id: string
+  amount: number
+  propertyName: string
+  location: string
+  listingType: string
+  images: string[]
+  description: string
+  landmarks: Landmark[]
+  propertyDetail: PropertyDetail
+  isActive: boolean
+  createdAt: string
+  updatedAt: string
+  __v: number
+}
+
+export interface ApiListingsResponse {
+  properties: ApiProperty[]
+  totalCount: number
+  page: number
+  pageSize: number
+}
+
+// I
+export interface ListingsQueryParams {
+  page?: number
+  pageSize?: number
+  searchString?: string
+  listingType?: string
+  location?: string
+  minBedrooms?: number
+  maxBedrooms?: number
+  minBathrooms?: number
+  maxBathrooms?: number
+  minSquareFeet?: number
+  maxSquareFeet?: number
+  hasGarage?: boolean
+  minAmount?: number
+  maxAmount?: number
+}
+

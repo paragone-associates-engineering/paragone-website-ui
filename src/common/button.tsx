@@ -10,6 +10,7 @@ interface CustomButtonItems {
   startIcon?: SvgIconComponent;
   endIcon?: SvgIconComponent;
   href?: string;
+  type?: "submit" | "button" | "reset";
   children: React.ReactNode;
   disabled?: boolean;
   sx?: SxProps<Theme>;
@@ -22,6 +23,7 @@ const CustomButton = ({
   startIcon: StartIcon,
   endIcon: EndIcon,
   href,
+  type = "submit",
   children,
   disabled = false,
   sx,
@@ -64,6 +66,7 @@ const CustomButton = ({
       variant={variant === "solid" ? "contained" : "outlined"}
       disabled={isLoading || disabled}
       onClick={onClick}
+      type={type}
       startIcon={!isLoading && StartIcon ? <StartIcon /> : null}
       endIcon={!isLoading && EndIcon ? <EndIcon /> : null}
       sx={buttonStyles}

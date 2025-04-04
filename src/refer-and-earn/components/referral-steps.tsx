@@ -7,13 +7,14 @@ export default function ReferralSteps() {
       spacing={2} 
       sx={{ 
         mt: 4, 
-        flexWrap: { xs: "wrap", md: "nowrap" }, 
+        px:2,
+        flexWrap: { xs: "wrap", sm: "nowrap" }, 
         justifyContent: "center",
         alignItems: "center",
       }}
     >
       
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} sm={4}>
         <Paper
           elevation={0}
           sx={{
@@ -43,7 +44,7 @@ export default function ReferralSteps() {
 
      
       <Grid 
-        item xs={12} md={1} 
+        item xs={12} sm={1} 
         sx={{ 
           display: "flex", 
           justifyContent: "center",
@@ -59,7 +60,7 @@ export default function ReferralSteps() {
       </Grid>
 
       
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} sm={4}>
         <Paper
           elevation={0}
           sx={{
@@ -89,7 +90,7 @@ export default function ReferralSteps() {
 
      
       <Grid 
-        item xs={12} md={1} 
+        item xs={12} sm={1} 
         sx={{ 
           display: "flex", 
           justifyContent: "center",
@@ -105,7 +106,7 @@ export default function ReferralSteps() {
       </Grid>
 
       
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12} sm={4}>
         <Paper
           elevation={0}
           sx={{

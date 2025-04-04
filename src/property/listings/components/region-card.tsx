@@ -2,10 +2,10 @@ import type React from "react"
 import { Box, Typography, Card, CardActionArea } from "@mui/material"
 import { Link as RouterLink } from "react-router-dom"
 import { KeyboardArrowRight } from "@mui/icons-material"
-import type { Region } from "../types"
+//import type { Region } from "../types"
 
 interface RegionCardProps {
-  region: Region
+  region:string
 }
 
 const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
@@ -27,7 +27,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
     >
       <CardActionArea
         component={RouterLink}
-        to={`/listings/location/${region.id}`}
+        to={`/listings/location/${region}`}
         sx={{
           height: "100%",
           display: "flex",
@@ -38,15 +38,15 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
         }}
       >
         <Typography variant="body1" fontWeight={500}>
-          {region.name}
+          {region}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center" }}>
-          {region.propertyCount !== undefined && (
+          {/* {region.propertyCount !== undefined && (
             <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
               {region.propertyCount} properties
             </Typography>
-          )}
-          <KeyboardArrowRight color="primary" />
+          )} */}
+          <KeyboardArrowRight />
         </Box>
       </CardActionArea>
     </Card>

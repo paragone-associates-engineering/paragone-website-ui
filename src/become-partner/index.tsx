@@ -18,7 +18,7 @@ const PartnerWithUs = () => {
 
   return (
     <Box sx={{width:'100vw'}}>
-  <PageBanner title='Become A Partner' currentPage="become a partner" />
+  <PageBanner title='Become A Partner' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Become a Partner" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
@@ -59,7 +59,7 @@ const PartnerWithUs = () => {
           <Grid container spacing={4}>
             <Grid item xs={12} md={4}>
               <Paper
-                elevation={0.8}
+                elevation={0}
                 sx={{p:4, height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main", textAlign:"center" }}
               >
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
@@ -82,7 +82,7 @@ const PartnerWithUs = () => {
 
             <Grid item xs={12} md={4}>
               <Paper
-                elevation={0.8}
+                elevation={0}
                 sx={{p:4, height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main", textAlign:"center" }}
                 //sx={{ p: 4, height: "100%", borderRadius: 2, backgroundColor: "background.paper", textAlign: "center" }}
               >
@@ -136,7 +136,7 @@ const PartnerWithUs = () => {
             <Container maxWidth='md'>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <Card elevation={0.8} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
+              <Card elevation={0} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{ px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                     <Box
@@ -166,7 +166,7 @@ const PartnerWithUs = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Card elevation={0.8} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
+              <Card elevation={0} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{flex:1, px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                     <Box
@@ -195,9 +195,7 @@ const PartnerWithUs = () => {
           </Grid>
           </Container>
         </Box>
-<Container maxWidth='lg'>
        <Testimonials />
-      </Container>
     </Box>
   )
 }

@@ -1,79 +1,48 @@
-import React, { useState, FormEvent } from 'react';
+import { useState} from 'react';
 import {
   Box,
-  Button,
   Dialog,
   DialogContent,
   DialogTitle,
   TextField,
   Grid,
+  InputLabel,
+  FormControl,
+  Select,
   Typography,
   MenuItem,
   IconButton,
   useMediaQuery,
   useTheme,
-  SxProps,
-  Theme
+  
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import CustomButton from '../../common/button';
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { GetInTouchFormSchema, getInTouchFormSchema } from "../../schema/contact";
+import axios from "axios";
+import toast from "react-hot-toast"
+import { API_BASE_URL } from "../../services/api"
 
-// Define types for the CustomButton props
-interface CustomButtonProps {
-  children: React.ReactNode;
-  sx?: SxProps<Theme>;
-  onClick?: () => void;
-  [key: string]: any; // For any other props that might be passed
-}
-
-// CustomButton component with TypeScript
-const CustomButton: React.FC<CustomButtonProps> = ({ children, sx, ...props }) => (
-  <Button 
-    variant="contained" 
-    color="primary" 
-    sx={{ 
-      borderRadius: 2, 
-      fontWeight: 'bold',
-      ...sx 
-    }} 
-    {...props}
-  >
-    {children}
-  </Button>
-);
-
-// Define form data interface
-interface ContactFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  propertyType: string;
-  address: string;
-  contactMethod: string;
-  contactTime: string;
-  sellTime: string;
-  comments: string;
-}
+// interface ContactFormData {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   phone: string;
+//   propertyType: string;
+//   address: string;
+//   contactMethod: string;
+//   contactTime: string;
+//   sellTime: string;
+//   comments: string;
+// }
 
 export const ContactFormModal = () => {
   const [open, setOpen] = useState<boolean>(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
   
-  // Initialize form data with empty values
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    propertyType: '',
-    address: '',
-    contactMethod: '',
-    contactTime: '',
-    sellTime: '',
-    comments: ''
-  });
-
   const handleOpen = (): void => {
     setOpen(true);
   };
@@ -81,21 +50,72 @@ export const ContactFormModal = () => {
   const handleClose = (): void => {
     setOpen(false);
   };
+   const {
+          register,
+          handleSubmit,
+          control,
+          formState: { errors, isSubmitting },
+        } = useForm<GetInTouchFormSchema>({
+          resolver: zodResolver(getInTouchFormSchema),
+          defaultValues: {
+            name: { first: "", lastName: "" },
+            email: "",
+            phoneNumber: "",
+            propertyType: "",
+            additionalComment: "",
+            address:"",
+            contactMethod:"",
+            contactTime: "",
+            sellDate: ""
+          },
+        });
+      
+        const onSubmit = async (data: GetInTouchFormSchema) => {
+          try {
+            await axios.post(`${API_BASE_URL}/form/connect-with-us`, data);
+            toast.success("Form submitted successfully!");
+            console.log('suscess', data);
+          } catch (error) {
+            toast.error("Submission failed. Try again!");
+            console.log('error', error)
+          }
+        };
+  
+  // const [formData, setFormData] = useState<ContactFormData>({
+  //   firstName: '',
+  //   lastName: '',
+  //   email: '',
+  //   phone: '',
+  //   propertyType: '',
+  //   address: '',
+  //   contactMethod: '',
+  //   contactTime: '',
+  //   sellTime: '',
+  //   comments: ''
+  // });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const { name, value } = event.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
+  // const handleOpen = (): void => {
+  //   setOpen(true);
+  // };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    // Handle form submission logic here
-    console.log('Form submitted with data:', formData);
-    handleClose();
-  };
+  // const handleClose = (): void => {
+  //   setOpen(false);
+  // };
+
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+  //   const { name, value } = event.target;
+  //   setFormData(prevData => ({
+  //     ...prevData,
+  //     [name]: value
+  //   }));
+  // };
+
+  // const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+  //   event.preventDefault();
+  //   // Handle form submission logic here
+  //   console.log('Form submitted with data:', formData);
+  //   handleClose();
+  // };
 
   return (
     <Box>
@@ -113,7 +133,7 @@ export const ContactFormModal = () => {
         PaperProps={{
           sx: {
             borderRadius: 2,
-            bgcolor: 'background.default',
+            bgcolor: 'secondary.main',
             maxWidth:'700px',
             width: '100%',
             m: { xs: 1, sm: 2, md: 3 }
@@ -130,172 +150,161 @@ export const ContactFormModal = () => {
             </IconButton>
           </Box>
         </DialogTitle>
-        <DialogContent sx={{ pb: 4 }}>
-          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+        <DialogContent sx={{ pb: 4,  "&::-webkit-scrollbar": { display: "none" } }}>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 2 }}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>First name</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>First name</Typography>
                 <TextField
                   fullWidth
-                  name="firstName"
-                  placeholder="James"
-                  variant="outlined"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  required
+                  sx={{bgcolor:"#fff"}}
+                  placeholder="First Name"
+                  {...register("name.first")}
+                  error={!!errors.name?.first}
+                  helperText={errors.name?.first?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Last name</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>Last name</Typography>
                 <TextField
                   fullWidth
-                  name="lastName"
-                  placeholder="Franklin"
-                  variant="outlined"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  required
+                  sx={{bgcolor:"#fff"}}
+                  placeholder="Last name"
+                      {...register("name.lastName")}
+                      error={!!errors.name?.lastName}
+                      helperText={errors.name?.lastName?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Email address</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>Email address</Typography>
                 <TextField
                   fullWidth
-                  name="email"
-                  type="email"
-                  placeholder="james@mail.com"
-                  variant="outlined"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
+                  sx={{bgcolor:"#fff"}}
+                 placeholder="email"
+                  {...register("email")}
+                  error={!!errors?.email}
+                  helperText={errors.email?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Phone number</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>Phone number</Typography>
                 <TextField
                   fullWidth
-                  name="phone"
+                  sx={{bgcolor:"#fff"}}
                   placeholder="+00 123 456 789"
-                  variant="outlined"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
+                      {...register("phoneNumber")}
+                      error={!!errors.phoneNumber}
+                      helperText={errors.phoneNumber?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Property type</Typography>
-                <TextField
-                  select
-                  fullWidth
-                  name="propertyType"
-                  value={formData.propertyType}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                >
-                  <MenuItem value="">Any type</MenuItem>
-                  <MenuItem value="apartment">Apartment</MenuItem>
-                  <MenuItem value="house">House</MenuItem>
-                  <MenuItem value="villa">Villa</MenuItem>
-                  <MenuItem value="land">Land</MenuItem>
-                </TextField>
+                <Typography variant="h6" sx={{ mb: 1 }}>Property type</Typography>
+                <FormControl fullWidth error={!!errors.propertyType}>
+                                          <InputLabel id="property-type-label">Property Type</InputLabel>
+                                          <Controller
+                                            name="propertyType"
+                                            
+                                            control={control}
+                                            render={({ field }) => (
+                                              <Select {...field}  sx={{bgcolor:"#fff"}} labelId="property-type-label">
+                                                <MenuItem value="apartment">Apartment</MenuItem>
+                        <MenuItem value="commercial">Commercial</MenuItem>
+                        <MenuItem value="land">Land</MenuItem>
+                        <MenuItem value="industrial">Industrial</MenuItem>
+                                              </Select>
+                                            )}
+                                          />
+                                        </FormControl>
+                                        {errors.propertyType && <Typography color="error">{errors.propertyType.message}</Typography>}
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Address</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>Address</Typography>
                 <TextField
                   fullWidth
-                  name="address"
+                  sx={{bgcolor:"#fff"}}
                   placeholder="Address here"
-                  variant="outlined"
-                  value={formData.address}
-                  onChange={handleChange}
-                  required
+                  {...register("address")}
+                  error={!!errors?.address}
+                  helperText={errors.address?.message}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Preferred Method of Contact</Typography>
-                <TextField
-                  select
-                  fullWidth
-                  name="contactMethod"
-                  value={formData.contactMethod}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                >
-                  <MenuItem value="">Any type</MenuItem>
+                <Typography variant="h6" sx={{ mb: 1 }}>Preferred Method of Contact</Typography>
+                <FormControl fullWidth error={!!errors.contactMethod}>
+                                          {/* <InputLabel id="contact-method-label">Property Type</InputLabel> */}
+                                          <Controller
+                                            name="contactMethod"
+                                            control={control}
+                                            render={({ field }) => (
+                                              <Select {...field}  sx={{bgcolor:"#fff"}} labelId="contact-method-label">
                   <MenuItem value="email">Email</MenuItem>
                   <MenuItem value="phone">Phone</MenuItem>
                   <MenuItem value="whatsapp">WhatsApp</MenuItem>
-                </TextField>
+                                              </Select>
+                                            )}
+                                          />
+                                        </FormControl>
+                                        {errors.contactMethod && <Typography color="error">{errors.contactMethod.message}</Typography>}
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Best Time to Contact</Typography>
-                <TextField
-                  select
-                  fullWidth
-                  name="contactTime"
-                  value={formData.contactTime}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                >
-                  <MenuItem value="">Any time</MenuItem>
-                  <MenuItem value="morning">Morning</MenuItem>
+
+                <Typography variant="h6" sx={{ mb: 1 }}>Best Time to Contact</Typography>
+                <FormControl fullWidth error={!!errors.contactTime}>
+                                          {/* <InputLabel id="contact-method-label">Property Type</InputLabel> */}
+                                          <Controller
+                                            name="contactTime"
+                                            control={control}
+                                            render={({ field }) => (
+                                              <Select {...field}  sx={{bgcolor:"#fff"}} labelId="contact-time-label">
+                 <MenuItem value="morning">Morning</MenuItem>
                   <MenuItem value="afternoon">Afternoon</MenuItem>
                   <MenuItem value="evening">Evening</MenuItem>
-                </TextField>
+                                              </Select>
+                                            )}
+                                          />
+                                        </FormControl>
+                                        {errors.contactTime && <Typography color="error">{errors.contactTime.message}</Typography>}
+               
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ mb: 1 }}>When do you want to sell</Typography>
-                <TextField
-                  select
-                  fullWidth
-                  name="sellTime"
-                  value={formData.sellTime}
-                  onChange={handleChange}
-                  variant="outlined"
-                  required
-                >
-                  <MenuItem value="">This month</MenuItem>
+                <Typography variant="h6" sx={{ mb: 1 }}>When do you want to sell</Typography>
+                <FormControl fullWidth error={!!errors.sellDate}>
+                                          {/* <InputLabel id="contact-method-label">Property Type</InputLabel> */}
+                                          <Controller
+                                            name="sellDate"
+                                            control={control}
+                                            render={({ field }) => (
+                                              <Select {...field}  sx={{bgcolor:"#fff"}} labelId="sell-date-label">
+                <MenuItem value="This Month">This month</MenuItem>
                   <MenuItem value="next_month">Next month</MenuItem>
                   <MenuItem value="3_months">Within 3 months</MenuItem>
                   <MenuItem value="6_months">Within 6 months</MenuItem>
                   <MenuItem value="year">Within a year</MenuItem>
-                </TextField>
+                                              </Select>
+                                            )}
+                                          />
+                                        </FormControl>
+                                        {errors.sellDate && <Typography color="error">{errors.sellDate.message}</Typography>}
+               
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ mb: 1 }}>Additional Comments</Typography>
+                <Typography variant="h6" sx={{ mb: 1 }}>Additional Comments</Typography>
                 <TextField
                   fullWidth
-                  name="comments"
                   multiline
                   rows={4}
+                  sx={{bgcolor:"#fff"}}
                   placeholder="Write comments here"
                   variant="outlined"
-                  value={formData.comments}
-                  onChange={handleChange}
+                  {...register("additionalComment")}
+                  error={!!errors?.additionalComment}
+                  helperText={errors.additionalComment?.message}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{
-                    mt: 2,
-                    py: 1.5,
-                    bgcolor: 'warning.main',
-                    color: 'common.white',
-                    '&:hover': {
-                      bgcolor: 'warning.dark',
-                    },
-                    borderRadius: 1,
-                    fontSize: '1rem',
-                  }}
-                >
+                <CustomButton isLoading={isSubmitting} sx={{ mt: 2, py: 1.5, width:'100%'  }}>
                   Send message
-                </Button>
+                </CustomButton>
               </Grid>
             </Grid>
           </Box>

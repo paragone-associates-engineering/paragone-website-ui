@@ -7,10 +7,10 @@ import {
   DirectionsBus as DirectionsBusIcon,
   TheaterComedy as TheaterComedyIcon,
 } from "@mui/icons-material"
-import type { NearbyPlace } from "../types"
+import type { Landmark } from "../../types"
 
 interface NearbyPlacesProps {
-  places: NearbyPlace[]
+  places: Landmark[];
 }
 
 const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
@@ -49,7 +49,7 @@ const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
   }
 
   // Group places by category
-  const placesByCategory: Record<string, NearbyPlace[]> = {}
+  const placesByCategory: Record<string, Landmark[]> = {}
   places.forEach((place) => {
     if (!placesByCategory[place.category]) {
       placesByCategory[place.category] = []
@@ -77,15 +77,15 @@ const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
               <Grid container spacing={1}>
                 <Grid item xs>
                   <Typography variant="body2" color="text.secondary">
-                    {place.type}
+                    {place.category}
                   </Typography>
                   <Typography variant="body1">{place.name}</Typography>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Typography variant="body2" color="text.secondary">
                     {place.distance} mile
                   </Typography>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Box>
           ))}

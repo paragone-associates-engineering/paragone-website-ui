@@ -38,7 +38,7 @@ const OurServices = () => {
                        imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276451/fi_7374059_k6kuhg.svg"
                        //icon={<HomeIcon sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                        actionText="Learn More"
-                       actionLink="/"
+                       actionLink="/listings"
                        actionVariant="outline"
                      />
                    </Grid>
@@ -49,7 +49,7 @@ const OurServices = () => {
                        imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274361/fi_3526159_pmvmt1.svg"
                        //icon={<AttachMoney sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                        actionText="Learn More"
-                       actionLink="/services/sell"
+                       actionLink="/partner-with-us"
                      />
                    </Grid>
                    <Grid item xs={12} md={4}>
@@ -59,7 +59,7 @@ const OurServices = () => {
                        imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276444/fi_6684167_knrmez.svg"
                        //icon={<VerifiedUser sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                        actionText="Learn More"
-                       actionLink="/services/manage"
+                       actionLink="/contact"
                        actionVariant="outline"
                      />
                    </Grid>

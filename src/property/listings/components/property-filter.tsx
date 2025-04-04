@@ -1,20 +1,17 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import type React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Box,
   Typography,
   Button,
-  ToggleButtonGroup,
-  ToggleButton,
   Slider,
-  FormControl,
-  Select,
-  MenuItem,
   Grid,
   Paper,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
 } from "@mui/material"
 import {
   Home as HomeIcon,
@@ -24,71 +21,111 @@ import {
   FilterAlt as FilterAltIcon,
 } from "@mui/icons-material"
 import type { PropertyFilter } from "../types"
-import { formatCurrency } from "../utils"
-
+import { CustomToggleButtonGroup, CustomToggleButton } from "../../../common/toggle-button"
+import { ListingsQueryParams } from "../../../types/properties"
+import { setFilters } from "../../../redux/slices/listings-slice"
+import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
+import { useLocations } from "../../../hooks/use-locations"
+//import { useNavigate } from "react-router-dom"
 interface PropertyFilterProps {
-  onFilterChange: (filters: PropertyFilter) => void
-  initialFilters?: PropertyFilter
+  onFilterChange?: (filters: ListingsQueryParams) => void
+  initialFilters?: ListingsQueryParams
   compact?: boolean
   showListingTypeFilter?: boolean
 }
 
-const PropertyFilter: React.FC<PropertyFilterProps> = ({
+const PropertyFilter = ({
   onFilterChange,
-  initialFilters = {},
+  initialFilters,
   compact = false,
   showListingTypeFilter = true,
-}) => {
-  const [filters, setFilters] = useState<PropertyFilter>(initialFilters)
-  const [priceRange, setPriceRange] = useState<number[]>([filters.minPrice || 0, filters.maxPrice || 5000000])
-  const [areaRange, setAreaRange] = useState<number[]>([filters.minArea || 0, filters.maxArea || 10000])
+}:PropertyFilterProps) => {
+  const dispatch = useAppDispatch()
+  const storeFilters = useAppSelector((state) => state.listings.filters)
+ //const navigate = useNavigate();
+ const {locations} = useLocations();
+  const [filters, setLocalFilters] = useState<ListingsQueryParams>(initialFilters || storeFilters)
+  const [priceRange, setPriceRange] = useState<number[]>([filters.amountFrom || 500000, filters.amountTo || 5000000000])
+  const [areaRange, setAreaRange] = useState<number[]>([filters.areaFrom || 0, filters.areaTo || 100000])
+
+  // Update local state when Redux store filters change
+  useEffect(() => {
+    if (!initialFilters) {
+      setLocalFilters(storeFilters)
+    }
+  }, [storeFilters, initialFilters])
 
   const handleListingTypeChange = (_event: React.MouseEvent<HTMLElement>, newListingType: string | null) => {
     if (newListingType) {
-      const updatedFilters = { ...filters, listingType: newListingType as any }
-      setFilters(updatedFilters)
-      onFilterChange(updatedFilters)
+      let listingTypeValue = ""
+
+      if (newListingType === "For Sale") {
+        listingTypeValue = "For Sale"
+      } else if (newListingType === "For Rent") {
+        listingTypeValue = "For Rent"
+      } else if (newListingType === "short-stay") {
+        listingTypeValue = "Short Stay"
+      }
+
+      const updatedFilters = { ...filters, listingType: listingTypeValue }
+      setLocalFilters(updatedFilters)
+
+      if (onFilterChange) {
+        onFilterChange(updatedFilters)
+      } else {
+        dispatch(setFilters(updatedFilters))
+      }
     }
   }
 
   const handleBedsChange = (_event: React.MouseEvent<HTMLElement>, beds: string | null) => {
-    let minBeds: number | undefined
-    let maxBeds: number | undefined
+    let minBedrooms: number | undefined
+    let maxBedrooms: number | undefined
 
     if (beds === "Any") {
-      minBeds = undefined
-      maxBeds = undefined
+      minBedrooms = undefined
+      maxBedrooms = undefined
     } else if (beds === "5+") {
-      minBeds = 5
-      maxBeds = undefined
+      minBedrooms = 5
+      maxBedrooms = undefined
     } else if (beds) {
-      minBeds = Number.parseInt(beds, 10)
-      maxBeds = minBeds
+      minBedrooms = Number.parseInt(beds, 10)
+      maxBedrooms = minBedrooms
     }
 
-    const updatedFilters = { ...filters, minBeds, maxBeds }
-    setFilters(updatedFilters)
-    onFilterChange(updatedFilters)
+    const updatedFilters = { ...filters, minBedrooms, maxBedrooms }
+    setLocalFilters(updatedFilters)
+
+    if (onFilterChange) {
+      onFilterChange(updatedFilters)
+    } else {
+      dispatch(setFilters(updatedFilters))
+    }
   }
 
   const handleBathsChange = (_event: React.MouseEvent<HTMLElement>, baths: string | null) => {
-    let minBaths: number | undefined
-    let maxBaths: number | undefined
+    let minBathrooms: number | undefined
+    let maxBathrooms: number | undefined
 
     if (baths === "Any") {
-      minBaths = undefined
-      maxBaths = undefined
+      minBathrooms = undefined
+      maxBathrooms = undefined
     } else if (baths === "5+") {
-      minBaths = 5
-      maxBaths = undefined
+      minBathrooms = 5
+      maxBathrooms = undefined
     } else if (baths) {
-      minBaths = Number.parseInt(baths, 10)
-      maxBaths = minBaths
+      minBathrooms = Number.parseInt(baths, 10)
+      maxBathrooms = minBathrooms
     }
 
-    const updatedFilters = { ...filters, minBaths, maxBaths }
-    setFilters(updatedFilters)
-    onFilterChange(updatedFilters)
+    const updatedFilters = { ...filters, minBathrooms, maxBathrooms }
+    setLocalFilters(updatedFilters)
+
+    if (onFilterChange) {
+      onFilterChange(updatedFilters)
+    } else {
+      dispatch(setFilters(updatedFilters))
+    }
   }
 
   const handlePriceChange = (_event: Event, newValue: number | number[]) => {
@@ -97,9 +134,14 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
 
   const handlePriceChangeCommitted = (_event: React.SyntheticEvent | Event, newValue: number | number[]) => {
     const [min, max] = newValue as number[]
-    const updatedFilters = { ...filters, minPrice: min, maxPrice: max }
-    setFilters(updatedFilters)
-    onFilterChange(updatedFilters)
+    const updatedFilters = { ...filters, amountFrom: min, amountTo: max }
+    setLocalFilters(updatedFilters)
+
+    if (onFilterChange) {
+      onFilterChange(updatedFilters)
+    } else {
+      dispatch(setFilters(updatedFilters))
+    }
   }
 
   const handleAreaChange = (_event: Event, newValue: number | number[]) => {
@@ -108,30 +150,52 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
 
   const handleAreaChangeCommitted = (_event: React.SyntheticEvent | Event, newValue: number | number[]) => {
     const [min, max] = newValue as number[]
-    const updatedFilters = { ...filters, minArea: min, maxArea: max }
-    setFilters(updatedFilters)
-    onFilterChange(updatedFilters)
-  }
+    const updatedFilters = { ...filters, minSquareFeet: min, maxSquareFeet: max }
+    setLocalFilters(updatedFilters)
 
-  const handleSelectChange = (e: any) => {
-    const { name, value } = e.target
-    if (name) {
-      const updatedFilters = { ...filters, [name]: value }
-      setFilters(updatedFilters)
+    if (onFilterChange) {
       onFilterChange(updatedFilters)
+    } else {
+      dispatch(setFilters(updatedFilters))
     }
   }
 
+  const handleInputChange = (e: SelectChangeEvent<string>) => {
+    const { name, value } = e.target
+    const updatedFilters = { ...filters, [name]: value }
+    setLocalFilters(updatedFilters)
+  }
+
+  
   const handleReset = () => {
-    const resetFilters: PropertyFilter = {}
-    setFilters(resetFilters)
-    setPriceRange([0, 5000000])
+    const resetFilters: ListingsQueryParams = {}
+    setLocalFilters(resetFilters)
+    setPriceRange([0, 10000000])
     setAreaRange([0, 10000])
-    onFilterChange(resetFilters)
+
+    if (onFilterChange) {
+      onFilterChange(resetFilters)
+    } else {
+      dispatch(setFilters(resetFilters))
+    }
   }
 
   const handleSearch = () => {
-    onFilterChange(filters)
+    if (onFilterChange) {
+      onFilterChange(filters)
+    } else {
+      dispatch(setFilters(filters))
+    }
+  }
+
+  // Format currency
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("en-NG", {
+      style: "currency",
+      currency: "NGN",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount)
   }
 
   if (compact) {
@@ -139,29 +203,37 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
       <Box sx={{ mb: 4 }}>
         {showListingTypeFilter && (
           <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
-            <ToggleButtonGroup
-              value={filters.listingType || ""}
+            <CustomToggleButtonGroup
+              value={
+                filters.listingType === "For Sale"
+                  ? "sale"
+                  : filters.listingType === "For Rent"
+                    ? "rent"
+                    : filters.listingType === "Short Stay"
+                      ? "short-stay"
+                      : ""
+              }
               exclusive
               onChange={handleListingTypeChange}
               aria-label="listing type"
             >
-              <ToggleButton value="sale" aria-label="for sale">
+              <CustomToggleButton value="sale" aria-label="for sale">
                 <HomeIcon sx={{ mr: 1 }} />
                 For sale
-              </ToggleButton>
-              <ToggleButton value="rent" aria-label="for rent">
+              </CustomToggleButton>
+              <CustomToggleButton value="rent" aria-label="for rent">
                 <ApartmentIcon sx={{ mr: 1 }} />
                 For rent
-              </ToggleButton>
-              <ToggleButton value="short-stay" aria-label="short stay">
+              </CustomToggleButton>
+              <CustomToggleButton value="short-stay" aria-label="short stay">
                 <BusinessIcon sx={{ mr: 1 }} />
                 Short stay
-              </ToggleButton>
-              <ToggleButton value="land" aria-label="land">
+              </CustomToggleButton>
+              <CustomToggleButton value="land" aria-label="land">
                 <LandscapeIcon sx={{ mr: 1 }} />
                 Land
-              </ToggleButton>
-            </ToggleButtonGroup>
+              </CustomToggleButton>
+            </CustomToggleButtonGroup>
           </Box>
         )}
 
@@ -178,56 +250,82 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
   }
 
   return (
-    <Paper elevation={0} sx={{ p: 3, backgroundColor: "background.paper", borderRadius: 2 }}>
-      <Typography variant="h6" gutterBottom>
+    <Paper elevation={0} sx={{ backgroundColor: "secondary.main", borderRadius: 4, border:'1px solid #ddd' }}>
+      <Typography variant="h5" sx={{bgcolor:'white',borderRadiusTop: 4, p:2, }} gutterBottom>
         Advanced search
       </Typography>
 
-      <Box sx={{ mt: 3 }}>
-        <Typography variant="subtitle1" gutterBottom>
+      <Box sx={{ mt: 3,  p: 3, }}>
+        {/* <Typography variant="subtitle1" gutterBottom>
+          Search
+        </Typography> */}
+
+        {/* <Box sx={{ mb: 3 }}>
+          <TextField
+            fullWidth
+            name="searchString"
+            label="Search properties"
+            value={filters.searchString || ""}
+            onChange={(e) => handleInputChange(e as SelectChangeEvent<string>)}
+            placeholder="Enter keywords..."
+            size="small"
+          />
+        </Box> */}
+
+        <Typography variant="h6" gutterBottom>
           Filter by features
         </Typography>
 
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Beds
           </Typography>
-          <ToggleButtonGroup
-            value={filters.minBeds === undefined ? "Any" : filters.minBeds === 5 ? "5+" : filters.minBeds?.toString()}
+          <CustomToggleButtonGroup
+            value={
+              filters.bedrooms === undefined
+                ? "Any"
+                : filters.bedrooms === 5
+                  ? "5+"
+                  : filters.bedrooms?.toString()
+            }
             exclusive
             onChange={handleBedsChange}
             aria-label="beds"
             size="small"
             fullWidth
           >
-            <ToggleButton value="Any" aria-label="any beds">
+            <CustomToggleButton value="Any" aria-label="any beds">
               Any
-            </ToggleButton>
-            <ToggleButton value="1" aria-label="1 bed">
+            </CustomToggleButton>
+            <CustomToggleButton value="1" aria-label="1 bed">
               1+
-            </ToggleButton>
-            <ToggleButton value="2" aria-label="2 beds">
+            </CustomToggleButton>
+            <CustomToggleButton value="2" aria-label="2 beds">
               2+
-            </ToggleButton>
-            <ToggleButton value="3" aria-label="3 beds">
+            </CustomToggleButton>
+            <CustomToggleButton value="3" aria-label="3 beds">
               3+
-            </ToggleButton>
-            <ToggleButton value="4" aria-label="4 beds">
+            </CustomToggleButton>
+            <CustomToggleButton value="4" aria-label="4 beds">
               4+
-            </ToggleButton>
-            <ToggleButton value="5+" aria-label="5+ beds">
+            </CustomToggleButton>
+            <CustomToggleButton value="5+" aria-label="5+ beds">
               5+
-            </ToggleButton>
-          </ToggleButtonGroup>
+            </CustomToggleButton>
+          </CustomToggleButtonGroup>
         </Box>
 
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Baths
           </Typography>
-          <ToggleButtonGroup
+          <CustomToggleButtonGroup
             value={
-              filters.minBaths === undefined ? "Any" : filters.minBaths === 5 ? "5+" : filters.minBaths?.toString()
+              filters.bathrooms === undefined
+                ? "Any"
+                : filters.bathrooms === 5
+                  ? "5+"
+                  : filters.bathrooms?.toString()
             }
             exclusive
             onChange={handleBathsChange}
@@ -235,31 +333,39 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
             size="small"
             fullWidth
           >
-            <ToggleButton value="Any" aria-label="any baths">
+            <CustomToggleButton value="Any" aria-label="any baths">
               Any
-            </ToggleButton>
-            <ToggleButton value="1" aria-label="1 bath">
+            </CustomToggleButton>
+            <CustomToggleButton value="1" aria-label="1 bath">
               1+
-            </ToggleButton>
-            <ToggleButton value="2" aria-label="2 baths">
+            </CustomToggleButton>
+            <CustomToggleButton value="2" aria-label="2 baths">
               2+
-            </ToggleButton>
-            <ToggleButton value="3" aria-label="3 baths">
+            </CustomToggleButton>
+            <CustomToggleButton value="3" aria-label="3 baths">
               3+
-            </ToggleButton>
-            <ToggleButton value="4" aria-label="4 baths">
+            </CustomToggleButton>
+            <CustomToggleButton value="4" aria-label="4 baths">
               4+
-            </ToggleButton>
-            <ToggleButton value="5+" aria-label="5+ baths">
+            </CustomToggleButton>
+            <CustomToggleButton value="5+" aria-label="5+ baths">
               5+
-            </ToggleButton>
-          </ToggleButtonGroup>
+            </CustomToggleButton>
+          </CustomToggleButtonGroup>
         </Box>
 
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Area
           </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="caption" color="text.secondary">
+            { `<50sqm`}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              10,000+sqm
+            </Typography>
+          </Box>
           <Grid container spacing={2} alignItems="center">
             <Grid item xs>
               <Slider
@@ -270,105 +376,110 @@ const PropertyFilter: React.FC<PropertyFilterProps> = ({
                 min={0}
                 max={10000}
                 step={100}
-                valueLabelFormat={(value) => `${value}sqm`}
+                valueLabelFormat={(value) => `${value}sqft`}
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
-            <Typography variant="caption" color="text.secondary">
-              0sqm
-            </Typography>
-            <Typography variant="caption" color="text.secondary">
-              10,000+sqm
-            </Typography>
-          </Box>
+          
         </Box>
 
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Price
           </Typography>
+          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+            <Typography variant="caption" color="text.secondary">
+              ₦500,000
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              ₦5Billion+
+            </Typography>
+          </Box>
           <Grid container spacing={2} alignItems="center">
+         
             <Grid item xs>
               <Slider
                 value={priceRange}
                 onChange={handlePriceChange}
                 onChangeCommitted={handlePriceChangeCommitted}
                 valueLabelDisplay="auto"
-                min={0}
-                max={5000000}
-                step={100000}
+                min={500000}
+                max={5000000000}
+                step={500000}
                 valueLabelFormat={(value) => formatCurrency(value)}
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between"}}>
             <Typography variant="caption" color="text.secondary">
-              ₦500,000
+            Minimum Price
             </Typography>
             <Typography variant="caption" color="text.secondary">
-              ₦5 Billion+
+             Maximum Price
             </Typography>
           </Box>
         </Box>
 
         <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
-            Property Type
-          </Typography>
-          <FormControl fullWidth size="small">
-            <Select
-              name="propertyType"
-              value={filters.propertyType || ""}
-              onChange={handleSelectChange}
-              displayEmpty
-            >
-              <MenuItem value="">Any type</MenuItem>
-              <MenuItem value="apartment">Apartment</MenuItem>
-              <MenuItem value="house">House</MenuItem>
-              <MenuItem value="land">Land</MenuItem>
-              <MenuItem value="commercial">Commercial</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+  <Typography variant="h6" gutterBottom>
+    Property Type
+  </Typography>
+  <Select
+    fullWidth
+    name="type"
+    value={filters.propertyType || ""}
+    onChange={handleInputChange}
+    displayEmpty
+    size="small"
+  >
+    <MenuItem value="">Select Type</MenuItem>
+    <MenuItem value="apartment">Apartment</MenuItem>
+    <MenuItem value="house">House</MenuItem>
+    <MenuItem value="land">Land</MenuItem>
+  </Select>
+</Box>
 
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
-            Property Location
-          </Typography>
-          <FormControl fullWidth size="small">
-            <Select name="location" value={filters.location || ""} onChange={handleSelectChange as any} displayEmpty>
-              <MenuItem value="">Select location</MenuItem>
-              <MenuItem value="lagos">Lagos</MenuItem>
-              <MenuItem value="abuja">Abuja</MenuItem>
-              <MenuItem value="port-harcourt">Port Harcourt</MenuItem>
-              <MenuItem value="ibadan">Ibadan</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+<Box sx={{ mb: 3 }}>
+  <Typography variant="h6" gutterBottom>
+    Property Location
+  </Typography>
+  <Select
+    fullWidth
+    name="location"
+    value={filters.location || ""}
+    onChange={handleInputChange}
+    displayEmpty
+    size="small"
+  >
+     {locations.map((location:string, index:number) => (
+                     <MenuItem key={index} value={location}>
+                     {location}
+                   </MenuItem>
+               ))}
+  </Select>
+</Box>
 
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="body2" gutterBottom>
-            Property Category
-          </Typography>
-          <FormControl fullWidth size="small">
-            <Select
-              name="propertyCategory"
-              value={filters.propertyCategory || ""}
-              onChange={handleSelectChange as any}
-              displayEmpty
-            >
-              <MenuItem value="">Select Category</MenuItem>
-              <MenuItem value="residential">Residential</MenuItem>
-              <MenuItem value="commercial">Commercial</MenuItem>
-              <MenuItem value="industrial">Industrial</MenuItem>
-              <MenuItem value="luxury">Luxury</MenuItem>
-            </Select>
-          </FormControl>
-        </Box>
+<Box sx={{ mb: 3 }}>
+  <Typography variant="h6" gutterBottom>
+    Property Category
+  </Typography>
+  <Select
+    fullWidth
+    name="category"
+    value={filters.propertyCategory || ""}
+    onChange={handleInputChange}
+    displayEmpty
+    size="small"
+  >
+    <MenuItem value="">Select Category</MenuItem>
+    <MenuItem value="for sale">For Sale</MenuItem>
+    <MenuItem value="for rent">For Rent</MenuItem>
+    <MenuItem value="featured">Featured</MenuItem>
+  </Select>
+</Box>
 
         <Box sx={{ display: "flex", gap: 2, mt: 4, whiteSpace:'nowrap' }}>
-          <Button variant="outlined" onClick={handleReset} fullWidth>
+          <Button variant="outlined" onClick={handleReset} fullWidth sx={{bgcolor:'white'}}>
             Reset filter
           </Button>
           <Button variant="contained" color="primary" onClick={handleSearch} fullWidth>

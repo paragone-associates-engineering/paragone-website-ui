@@ -4,12 +4,17 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { API_BASE_URL } from "../services/api";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import CustomButton from "../common/button";
 
 const FooterContainer = styled(Box)(({ theme }) => ({
   backgroundColor: '#EFF3F5',
+  width:'100vw',
   padding: theme.spacing(6, 4),
   color: theme.palette.text.primary,
 }));
@@ -38,6 +43,23 @@ const SubscribeInput = styled(TextField)({
 });
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false)
+
+   const onSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true)
+      try {
+        await axios.post(`${API_BASE_URL}/emails/subscribe`, email);
+        toast.success("Email submitted successfully!");
+        console.log('suscess', email);
+      } catch (error) {
+        toast.error("Submission failed. Try again!");
+        console.log('error', error)
+      }finally{
+        setIsLoading(false)
+      }
+    };
   return (
     <FooterContainer>
       <Box textAlign={{ xs: 'center', md: 'left' }} mb={4}>
@@ -54,16 +76,19 @@ export default function Footer() {
         </Typography>
         </Grid>
         <Grid item xs={12} md={5}>
-        <Box mt={2} display="flex" flexDirection="column" alignItems="center">
+        <Box component='form' onSubmit={onSubmit} mt={2} display="flex" flexDirection="column" alignItems="center">
           <SubscribeBox>
             <SubscribeInput
               fullWidth
               placeholder="Your email address"
               variant="outlined"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
-            <Button variant="contained" color="primary">
+            <CustomButton isLoading={isLoading}>
               Subscribe
-            </Button>
+            </CustomButton>
           </SubscribeBox>
         </Box>
         </Grid>

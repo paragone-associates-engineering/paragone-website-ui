@@ -6,10 +6,9 @@ import SectionTitle from '../common/section-title';
 
 import { HomeBanner } from '../common/banner/home-banner';
 import PromotionBanners from '../common/banner/promotions';
-import ExclusiveProperties from '../home/components/exclusive-properties';
+import ExclusiveProperties from '../common/exclusive-properties';
 import OurPartners from '../common/partners';
 import Testimonials from '../common/testimonial';
-
 
 const Home = () => {
   const theme = useTheme();
@@ -18,7 +17,7 @@ const Home = () => {
     <Box sx={{width:'100vw'}} > 
     <HomeBanner />
       
-      <Box component="section" sx={{display:'block', pt: { xs:35, sm:8}, pb:8 }}>
+      <Box component="section" sx={{display:'block', pt:6, pb:8 }}>
         <Container maxWidth="md">
           <SectionTitle
             title="Our services are tailored to meet your real estate needs"
