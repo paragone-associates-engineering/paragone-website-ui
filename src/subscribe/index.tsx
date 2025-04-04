@@ -1,8 +1,9 @@
-import { Container, Grid, Typography, Button, TextField, MenuItem, Box, List, ListItem } from "@mui/material";
+import { Container, Grid, Typography, Box, List, ListItem } from "@mui/material";
 import { PageBanner } from "../common/banner/page-banner";
 import Testimonials from "../common/testimonial";
 import CustomButton from "../common/button";
 import SectionTitle from "../common/section-title";
+import {SellAsCompanyForm} from "./subscribe-form";
 
 const packages = [
   { label: "Beginners", price: "₦100,000 / 1 month", package:["Property Listing 2", "Associate Push"], background:'#D5F7F6' },
@@ -14,7 +15,7 @@ const packages = [
 export default function SubscribePage() {
   return (
     <Box sx={{width:'100vw'}}>
-      <PageBanner title="Sell as a Company"  currentPage='Sell as a Company' />
+      <PageBanner title="Sell as a Company"  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Sell as a Company" }]}  />
       <Container sx={{ py: 5 }}>
          <SectionTitle
          subtitle='Our Service'
@@ -30,13 +31,13 @@ export default function SubscribePage() {
         <Grid container spacing={3} justifyContent="center">
           {packages.map((pkg, index) => (
             <Grid item xs={12} md={3} key={index}>
-              <Box p={3}  sx={{bgcolor:`${pkg.background}`, height:'400px'}} borderRadius={2}>
+              <Box p={3}  sx={{display:'flex', flexDirection:'column', bgcolor:`${pkg.background}`, height:'400px'}} borderRadius={2}>
                 <Typography variant="h6">{pkg.label}</Typography>
                 <Typography variant="h5"  gutterBottom>
                   {pkg.price}
                 </Typography>
               
-                <List sx={{}}>
+                <List sx={{flex:1}}>
                 <Typography variant="h6" sx={{fontWeight:'700'}} gutterBottom>
             What’s Included
           </Typography>
@@ -46,7 +47,7 @@ export default function SubscribePage() {
     </ListItem>
   ))}
 </List>
-                <CustomButton variant="outline" sx={{borderColor:'primary.main', display:'flex', alignItems:'center', justifyContent:'center', width:'100%' }}>
+                <CustomButton variant="outline" sx={{borderColor:'primary.main', display:'flex', alignItems:'center', justifyContent:'center', width:'100%'}}>
                   Subscribe
                 </CustomButton>
               </Box>
@@ -54,7 +55,7 @@ export default function SubscribePage() {
           ))}
         </Grid>
 
-        <Box mt={5}>
+        {/* <Box mt={5}>
           <Typography variant="h5"  gutterBottom>
             Let’s get started
           </Typography>
@@ -84,9 +85,10 @@ export default function SubscribePage() {
               </TextField>
             </Grid>
           </Grid>
-        </Box>
+        </Box> */}
+        
 
-        <Box mt={5}>
+        {/* <Box mt={5}>
           <Typography variant="h5" gutterBottom>
             Property Details
           </Typography>
@@ -116,8 +118,9 @@ export default function SubscribePage() {
           <Button variant="contained" size="large" color="primary">
             Subscribe
           </Button>
-        </Box>
+        </Box> */}
       </Container>
+      <SellAsCompanyForm />
       <Testimonials />
     </Box>
   );

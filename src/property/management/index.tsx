@@ -1,61 +1,22 @@
-"use client"
-
-import type React from "react"
-import { useState } from "react"
 import {
   Container,
   Typography,
   Box,
   Grid,
-  TextField,
   Button,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  type SelectChangeEvent,
-//   useTheme,
-//   useMediaQuery,
+  //type SelectChangeEvent,
 } from "@mui/material";
 import Testimonials from "../../common/testimonial";
 import { PageBanner } from "../../common/banner/page-banner";
 import { approaches, services } from "../data";
-import { ManagementFormData } from "../types";
+//import { ManagementFormData } from "../types";
+import PropertyManagementForm from "./form";
 
-const PropertyManagement: React.FC = () => {
-//   const theme = useTheme()
-//   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-
-  const [formData, setFormData] = useState<ManagementFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    propertyType: "",
-    location: "",
-    message: "",
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSelectChange = (e: SelectChangeEvent) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real application, this would submit the form data to an API
-    console.log("Form submitted:", formData)
-    // Show success message or redirect
-  }
+const PropertyManagement = () => {
 
   return (
     <Box sx={{width:'100vw'}}>
-      <PageBanner title='Property Management' currentPage='property management'/>
+      <PageBanner title='Property Management' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Property Management" }]} />
       
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
@@ -206,117 +167,8 @@ const PropertyManagement: React.FC = () => {
                 Start your hassle-free property management journey today
               </Typography>
               
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="First name"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Last name"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Email address"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Phone number"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                      <InputLabel id="property-type-label">Property type</InputLabel>
-                      <Select
-                        labelId="property-type-label"
-                        name="propertyType"
-                        value={formData.propertyType}
-                        onChange={handleSelectChange}
-                        label="Property type"
-                        required
-                      >
-                        <MenuItem value="residential">Residential</MenuItem>
-                        <MenuItem value="commercial">Commercial</MenuItem>
-                        <MenuItem value="mixed-use">Mixed-use</MenuItem>
-                        <MenuItem value="industrial">Industrial</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  
-                  <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth>
-                      <InputLabel id="location-label">Select location</InputLabel>
-                      <Select
-                        labelId="location-label"
-                        name="location"
-                        value={formData.location}
-                        onChange={handleSelectChange}
-                        label="Select location"
-                        required
-                      >
-                        <MenuItem value="lagos">Lagos</MenuItem>
-                        <MenuItem value="abuja">Abuja</MenuItem>
-                        <MenuItem value="ph">Port Harcourt</MenuItem>
-                        <MenuItem value="ibadan">Ibadan</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-                  
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      label="Additional comments"
-                      name="message"
-                      multiline
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Write your message here"
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12}>
-                    <Button 
-                      type="submit" 
-                      variant="contained" 
-                      color="primary" 
-                      fullWidth
-                      size="large"
-                    >
-                      Get started
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
+              <PropertyManagementForm />
+              
             </Grid>
           </Grid>
         </Box>

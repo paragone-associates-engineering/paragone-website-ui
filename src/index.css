@@ -25,9 +25,29 @@ a {
   color: #FFB000;
   text-decoration: inherit;
 }
+button:focus{
+  border:0;
+}
 a:hover {
   color: #4e3f22;
 }
+label{
+  font-family: "Space Grotesk, sans-serif"
+}
+input{
+  background-color:'#fff'
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+  background-color: transparent !important;
+  transition: background-color 2000s ease-in-out 0s;
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important; 
+  box-shadow: 0 0 0px 1000px white inset !important; 
+}
+
 
 body {
   margin: 0 auto;
@@ -37,6 +57,7 @@ body {
   width:100%;
   min-height: 100vh;
   overflow-x:hidden;
+  scroll-behavior: smooth;
 }
 
 h1 {

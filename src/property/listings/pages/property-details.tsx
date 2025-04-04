@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import {  useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
 import { PageBanner } from "../../../common/banner/page-banner"
@@ -10,135 +10,48 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-import RelatedProperties from "../components/related-properties"
+//import RelatedProperties from "../components/related-properties"
 import { formatCurrency } from "../utils"
-import type { Property, NearbyPlace } from "../types"
+//import type { Property, NearbyPlace } from "../types"
 import FeaturedListings from "../components/featured-listings"
-
-const mockProperty: Property = {
-  id: "property-1",
-  title: "Amazing modern apartment",
-  price: 120000,
-  pricePerSqm: 1500,
-  location: {
-    address: "41 W Washington Road Fairfax",
-    city: "VA",
-    state: "90232",
-    coordinates: {
-      lat: 51.5074,
-      lng: -0.1278,
-    },
-  },
-  features: {
-    bedrooms: 4,
-    bathrooms: 3,
-    area: 1650,
-    parking: true,
-    wifi: true,
-    cableTV: true,
-    elevator: true,
-    airConditioning: true,
-  },
-  description:
-    "Lorem ipsum dolor sit amet consectetur. Morbi quis feugiat odio vel vehicula. Praesent pulvinar in lorem eget. Et consequat sed aliquam pulvinar aliquam enim. Duis feugiat neque ut efficitur pulvinar nulla accumsan vitae eu efficitur.\n\nUt pellentesque lectus auctor pretium urna. Lectus vestibulum et et consequat sed aliquam pulvinar aliquam enim. Duis feugiat neque ut efficitur pulvinar nulla accumsan vitae eu efficitur.\n\nLorem ipsum dolor sit amet consectetur. Morbi quis feugiat odio vel vehicula. Praesent pulvinar in lorem eget. Et consequat sed aliquam pulvinar aliquam enim. Duis feugiat neque ut efficitur pulvinar nulla accumsan vitae eu efficitur.",
-  images: [
-    'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&w=800&q=80',
-    `https://images.unsplash.com/photo-1574259392081-dbe3c19cd15e?auto=format&w=800&q=8`,
-    `https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&w=800&q=80`,
-    `https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&w=800&q=80`
-    // `/property-${index + 3 > 9 ? index - 6 : index + 3}.jpg`,
-    // `/property-${index + 4 > 9 ? index - 5 : index + 4}.jpg`,
-  ],
-  propertyType: "apartment",
-  listingType: "sale",
-  rating: 4.9,
-  reviewCount: 12,
-  featured: true,
-  constructionYear: 2020,
-  videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-}
-
-// Mock nearby places
-const mockNearbyPlaces: NearbyPlace[] = [
-  { category: "education", name: "Allen Academy", distance: 0.089, type: "School" },
-  { category: "education", name: "St. Joseph School", distance: 0.228, type: "School" },
-  { category: "education", name: "George Washington School", distance: 0.359, type: "School" },
-  { category: "health", name: "Allen Academy", distance: 0.089, type: "Hospital" },
-  { category: "health", name: "St. Joseph School", distance: 0.228, type: "Clinic" },
-  { category: "health", name: "George Washington School", distance: 0.359, type: "Pharmacy" },
-  { category: "culture", name: "Allen Academy", distance: 0.089, type: "Museum" },
-  { category: "culture", name: "St. Joseph School", distance: 0.228, type: "Theater" },
-  { category: "culture", name: "George Washington School", distance: 0.359, type: "Art Gallery" },
-]
-
-// Mock related properties
-const mockRelatedProperties: Property[] = Array(3)
-  .fill(null)
-  .map((_, index) => ({
-    id: `related-property-${index + 1}`,
-    title:
-      index % 3 === 0
-        ? "Ipsum qui in commodo nulla"
-        : index % 3 === 1
-          ? "Quis duis velit sunt voluptate minim"
-          : "Voluptate adipisicing adipisicing",
-    price: 120000 + index * 50000,
-    pricePerSqm: 1500,
-    location: {
-      address: "238 Highgate Road",
-      city: "London",
-      coordinates: {
-        lat: 51.5074,
-        lng: -0.1278,
-      },
-    },
-    features: {
-      bedrooms: 4,
-      bathrooms: 3,
-      area: 1650,
-      parking: index % 2 === 0,
-      wifi: true,
-      cableTV: true,
-      elevator: index % 3 === 0,
-    },
-    description:
-      "Lorem ipsum dolor sit amet consectetur. Morbi quis feugiat odio vel vehicula. Praesent pulvinar in lorem eget. Et consequat sed aliquam pulvinar aliquam enim. Duis feugiat neque ut efficitur pulvinar nulla accumsan vitae eu efficitur.",
-      images: [
-        'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&w=800&q=80',
-        `https://images.unsplash.com/photo-1574259392081-dbe3c19cd15e?auto=format&w=800&q=8`,
-        `https://images.unsplash.com/photo-1576941089067-2de3c901e126?auto=format&w=800&q=80`,
-        // `/property-${index + 3 > 9 ? index - 6 : index + 3}.jpg`,
-        // `/property-${index + 4 > 9 ? index - 5 : index + 4}.jpg`,
-      ],
-    propertyType: index % 4 === 0 ? "apartment" : index % 4 === 1 ? "house" : index % 4 === 2 ? "land" : "commercial",
-    listingType: index % 3 === 0 ? "sale" : index % 3 === 1 ? "rent" : "short-stay",
-    rating: 4.9,
-    reviewCount: 12,
-    featured: index < 3,
-    constructionYear: 2020,
-  }))
+import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
+import { fetchListingById, fetchListings } from "../../../redux/slices/listings-slice"
 
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
-  const [property, setProperty] = useState<Property | null>(null)
-  const [loading, setLoading] = useState(true)
+  console.log('id', propertyId)
+  const dispatch = useAppDispatch()
 
-  // Simulate API call to fetch property details
+  const listings = useAppSelector((state) => state.listings)
+  console.log("Property details state:", listings)
+
+  const { selectedProperty:property, loading } = listings || {
+    selectedProperty: null,
+    loading: true,
+    properties: [],
+  }
+
   useEffect(() => {
-    const fetchProperty = async () => {
-      setLoading(true)
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
-      // In a real app, this would be an API call
-      setProperty(mockProperty)
-      setLoading(false)
+    if (propertyId) {
+      dispatch(fetchListingById(propertyId))
     }
+  }, [dispatch, propertyId])
 
-    fetchProperty()
-  }, [propertyId])
-
+  // Fetch related properties
+  useEffect(() => {
+    if (property) {
+      // Fetch properties with similar characteristics
+      dispatch(
+        fetchListings({
+          listingType: property.listingType,
+          page: 1,
+          pageSize: 3,
+        }),
+      )
+    }
+  }, [dispatch, property])
+  
+const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
@@ -159,47 +72,45 @@ const PropertyDetailsPage = () => {
     <Box sx={{width:'100vw'}}>
       <PageBanner
         title="Property Information"
-        currentPage='property details'
-        // breadcrumbs={[
-        //   { label: "Home", href: "/" },
-        //   { label: "Listings", href: "/listings" },
-        //   { label: property.title },
-        // ]}
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Property", href: "/listings" },
+          { label: 'Property Information' },
+        ]}
       />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Chip
           label={
-            property.listingType === "sale" ? "For sale" : property.listingType === "rent" ? "For rent" : "Short stay"
+            property?.listingType === "For Sale" ? "For Sale" : property?.listingType === "For Rent" ? "For rent" : "Short stay"
           }
-          color={property.listingType === "sale" ? "primary" : property.listingType === "rent" ? "secondary" : "info"}
+          color={property?.listingType === "sale" ? "primary" : property?.listingType === "For Rent" ? "secondary" : "info"}
           sx={{ mb: 2 }}
         />
 
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 3 }}>
           <Box>
             <Typography variant="h4" component="h1" gutterBottom>
-              {property.title}
+              {property?.propertyName}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {property.location.address}, {property.location.city}
-              {property.location.state ? `, ${property.location.state}` : ""}
+              {property?.location}
             </Typography>
           </Box>
 
           <Box sx={{ textAlign: "right" }}>
             <Typography variant="h4" component="div" color="primary.main" gutterBottom>
-              {formatCurrency(property.price)}
+              {formatCurrency(property.amount)}
             </Typography>
-            {property.pricePerSqm && (
+            {property?.propertyDetail?.squareFeet && (
               <Typography variant="body2" color="text.secondary">
-                {formatCurrency(property.pricePerSqm)}/sqm
+                {formatCurrency(property.propertyDetail.squareFeet)}/sqm
               </Typography>
             )}
           </Box>
         </Box>
 
-        <PropertyGallery images={property.images} title={property.title} />
+        <PropertyGallery images={property.images} title={property.propertyName} />
 
         <Grid container spacing={6} sx={{ mt: {xs:1, md:2} }}>
           <Grid item xs={12} md={8}>
@@ -214,25 +125,27 @@ const PropertyDetailsPage = () => {
               <PropertyDetails property={property} />
             </Box>
 
-            {mockNearbyPlaces.length > 0 && (
+            {property?.landmarks?.length > 0 && (
               <Box sx={{ my: 6 }}>
-                <NearbyPlaces places={mockNearbyPlaces} />
+                <NearbyPlaces places={property?.landmarks} />
               </Box>
+              
             )}
 
-            {property.videoUrl && (
+            {videoUrl && (
               <Box sx={{ my: 6 }}>
-                <PropertyVideo videoUrl={property.videoUrl} thumbnailUrl={property.images[0]} />
+                <PropertyVideo videoUrl={videoUrl} thumbnailUrl={property.images[0]} />
               </Box>
             )}
           </Grid>
 
           <Grid item xs={12} md={4}>
             <Box sx={{ position: "sticky", top: 20 }}>
-              <BookViewingForm propertyId={property.id} propertyTitle={property.title} />
+            {/* propertyId={property.id} propertyTitle={property?.propertyName} */}
+              <BookViewingForm  />
 
               <Box sx={{ mt: 4 }}>
-                <ContactAgentForm propertyId={property.id} propertyTitle={property.title} />
+                <ContactAgentForm  />
               </Box>
 
               <Box sx={{ mt: 4, bgcolor:"secondary.main", p:2, borderRadius:2 }}>
@@ -243,7 +156,7 @@ const PropertyDetailsPage = () => {
         </Grid>
       </Container>
 
-      <RelatedProperties properties={mockRelatedProperties} />
+      {/* <RelatedProperties properties={mockRelatedProperties} /> */}
     </Box>
   )
 }

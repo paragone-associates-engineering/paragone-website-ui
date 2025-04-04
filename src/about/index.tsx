@@ -9,7 +9,7 @@ const AboutUs = () => {
       <Box sx={{width:'100vw'}}>
         <PageBanner 
           title="About Us" 
-          currentPage="About us"
+          breadcrumbs={[{ label: "Home", href: "/" }, { label: "About Us" }]}
           
         />
         <Container maxWidth="lg" sx={{ pt: 6 }}>
@@ -110,7 +110,7 @@ const AboutUs = () => {
     </Card>
     </Container>
 </Box>
-<Box sx={{mt:-25}}>
+<Box sx={{mt:8}}>
         <OurPartners />
         </Box>
         <Container maxWidth='md'>

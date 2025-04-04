@@ -1,135 +1,301 @@
-"use client"
+import { useState } from 'react';
+import { 
+  Box, 
+  Button, 
+  //Container, 
+  FormControl, 
+  InputLabel, 
+  MenuItem, 
+  Paper, 
+  Select, 
+  Stack, 
+  TextField, 
+  Typography 
+} from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { z } from 'zod';
+import dayjs from 'dayjs'; 
+import toast from 'react-hot-toast';
+import { API_BASE_URL } from '../../../services/api';
+//import dayjs from 'dayjs'; Zod schemas for validation
+const Step1Schema = z.object({
+  date: z.date(),
+  viewingType: z.enum(['In-person', 'Via Video Chat'])
+});
 
-import type React from "react"
-import { Box, Typography } from "@mui/material"
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
-// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
-import { z } from "zod"
-import Form from "../../../common/form"
+const Step2Schema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  phoneNumber: z.string().min(10, 'Phone number must be at least 10 characters'),
+  email: z.string().email('Invalid email address')
+});
 
-interface BookViewingFormProps {
-  propertyId: string
-  propertyTitle: string
-}
+// Types based on Zod schemas
+type Step1Data = z.infer<typeof Step1Schema>;
+type Step2Data = z.infer<typeof Step2Schema>;
 
-const bookingSchema = z.object({
-  date: z.date({
-    required_error: "Please select a date",
-    invalid_type_error: "That's not a date",
-  }),
-  time: z.string().min(1, "Please select a time"),
-  firstName: z.string().min(2, "First name must be at least 2 characters"),
-  lastName: z.string().min(2, "Last name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z.string().min(10, "Please enter a valid phone number"),
-  message: z.string().optional(),
-})
+// Combined form data type
+interface FormData extends Step1Data, Step2Data {}
 
-type BookingFormData = z.infer<typeof bookingSchema>
+const BookViewingForm  = () => {
+  const [step, setStep] = useState<1 | 2>(1);
+  const [formData, setFormData] = useState<Partial<FormData>>({
+    date: dayjs(new Date()).toDate(),
+    viewingType: 'In-person',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: ''
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-const BookViewingForm: React.FC<BookViewingFormProps> = ({ propertyId }) => {
-  const handleSubmit = async (values: BookingFormData) => {
-    // In a real application, this would submit the form data to an API
-    console.log("Booking submitted:", { propertyId, ...values })
+  const handleNextStep = (event: React.FormEvent) => {
+    event.preventDefault(); // Prevent default form submission
+  
+    try {
+      Step1Schema.parse({
+        date: formData.date,
+        viewingType: formData.viewingType,
+      });
+  
+      setStep(2);
+      setErrors({});
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path) {
+            newErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+    }
+  };
+  
+  const handleSubmit = async () => {
+    try {
+      // Validate step 2 data
+      Step2Schema.parse({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        phoneNumber: formData.phoneNumber,
+        email: formData.email
+      });
+      
+      const submissionData = {
+        date: formData.date?.toISOString(),
+        viewingType: formData.viewingType,
+        name: {
+          first: formData.firstName,
+          lastName: formData.lastName
+        },
+        phoneNumber: formData.phoneNumber,
+        email: formData.email
+      };
+      
+      console.log('Submitting data:', submissionData);
+      
+      // Here you would typically make the API call
+      await fetch(`${API_BASE_URL}/form/book-viewing`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(submissionData)
+      });
+      
+      // Reset form after successful submission
+      toast.success('Viewing request sent successfully!');
+      setStep(1);
+      setFormData({
+        date:dayjs(new Date()).toDate(),
+        viewingType: 'In-person',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
+        email: ''
+      });
+      setErrors({});
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const newErrors: Record<string, string> = {};
+        error.errors.forEach((err) => {
+          if (err.path) {
+            newErrors[err.path[0].toString()] = err.message;
+          }
+        });
+        setErrors(newErrors);
+      }
+    }
+  };
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-  }
-
-  const timeSlots = [
-    { value: "09:00", label: "9:00 AM" },
-    { value: "10:00", label: "10:00 AM" },
-    { value: "11:00", label: "11:00 AM" },
-    { value: "12:00", label: "12:00 PM" },
-    { value: "13:00", label: "1:00 PM" },
-    { value: "14:00", label: "2:00 PM" },
-    { value: "15:00", label: "3:00 PM" },
-    { value: "16:00", label: "4:00 PM" },
-    { value: "17:00", label: "5:00 PM" },
-  ]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleInputChange = (field: string, value: any) => {
+    setFormData({
+      ...formData,
+      [field]: value
+    });
+    
+    // Clear error for this field if it exists
+    if (errors[field]) {
+      const newErrors = { ...errors };
+      delete newErrors[field];
+      setErrors(newErrors);
+    }
+  };
 
   return (
-    <Box sx={{ bgcolor:"primary.main", color:"#fff", p: 2, borderRadius: 2 }}>
-      <Typography variant="h5"  gutterBottom>
-        Book a Viewing
-      </Typography>
+   
+      <Paper 
+        elevation={3} 
+        sx={{ 
+          py: 3, 
+          px:2,
+          bgcolor: '#FFC107', 
+          borderRadius: 2,
+          color: 'white'
+        }}
+      >
+        <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+          Book a Viewing
+        </Typography>
+        
+        <Box component="form" noValidate sx={{ mt: 2 }}>
+          {step === 1 ? (
+             <Stack spacing={3}>
+             <Box sx={{ display: 'flex', gap: 2 }}>
+               <TextField
+                 fullWidth
+                 placeholder="First Name"
+                 variant="outlined"
+                 value={formData.firstName}
+                 onChange={(e) => handleInputChange('firstName', e.target.value)}
+                 error={!!errors.firstName}
+                 helperText={errors.firstName}
+                 sx={{ bgcolor: 'white', borderRadius: 1 }}
+                 required
+               />
+               <TextField
+                 fullWidth
+                 placeholder="Last Name"
+                 variant="outlined"
+                 value={formData.lastName}
+                 onChange={(e) => handleInputChange('lastName', e.target.value)}
+                 error={!!errors.lastName}
+                 helperText={errors.lastName}
+                 sx={{ bgcolor: 'white', borderRadius: 1 }}
+               />
+             </Box>
+             
+             <TextField
+               fullWidth
+               placeholder="Phone Number"
+               variant="outlined"
+               value={formData.phoneNumber}
+               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
+               error={!!errors.phoneNumber}
+               helperText={errors.phoneNumber}
+               sx={{ bgcolor: 'white', borderRadius: 1 }}
+             />
+             
+             <TextField
+               fullWidth
+               placeholder="Email Address"
+               type="email"
+               variant="outlined"
+               value={formData.email}
+               onChange={(e) => handleInputChange('email', e.target.value)}
+               error={!!errors.email}
+               helperText={errors.email}
+               sx={{ bgcolor: 'white', borderRadius: 1 }}
+             />
+             
+               <Button 
+                variant="contained" 
+                type='submit'
+                onClick={handleNextStep}
+                sx={{ 
+                  bgcolor: 'white', 
+                  color: 'black',
+                  '&:hover': {
+                    bgcolor: 'secondary.main',
+                    color:'#000'
+                  }
+                }}
+                 
+               >
+                 Next
+               </Button>
+            
+           </Stack>
+            
+          ) : (
+            <Stack spacing={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker
+                  label="Dates for Scheduling"
+                  value={formData.date ? dayjs(formData.date) : null}
+                  onChange={(newValue) => handleInputChange('date', newValue)}
+                 // variant="dialog" 
+                  sx={{
+                    bgcolor: 'white',
+                    borderRadius: 1,
+                    minWidth: '100%', 
+                  }}
+                />
+              </LocalizationProvider>
+              
+              <FormControl fullWidth sx={{ bgcolor: 'white', borderRadius: 1 }}>
+                <InputLabel id="viewing-type-label">Choose a Method</InputLabel>
+                <Select
+                  labelId="viewing-type-label"
+                  id="viewing-type"
+                  value={formData.viewingType}
+                  label="Choose a Method"
+                  onChange={(e) => handleInputChange('viewingType', e.target.value)}
+                >
+                  <MenuItem value="In-person">In Person</MenuItem>
+                  <MenuItem value="Via Video Chat">Via Video Chat</MenuItem>
+                </Select>
+              </FormControl>
+              <Box sx={{ display: 'flex', gap: 2 }}>
+               <Button 
+                 variant="outlined" 
+                 onClick={() => setStep(1)}
+                 sx={{ 
+                   flex: 1,
+                   borderColor: 'white', 
+                   color: 'white',
+                   '&:hover': {
+                     borderColor: '#f5f5f5',
+                     bgcolor: 'rgba(255,255,255,0.1)',
+                   }
+                 }}
+               >
+                 Back
+               </Button>
+              <Button 
+               variant="contained" 
+               onClick={handleSubmit}
+               sx={{ 
+                 flex: 2,
+                 bgcolor: '#333', 
+                 color: 'white',
+                 '&:hover': {
+                   bgcolor: '#555',
+                 }
+               }}
+              >
+               Send Request
+              </Button>
+              </Box>
+            </Stack>
+          )}
+        </Box>
+      </Paper>
+   
+  );
+};
 
-     <Box sx={{bgcolor:'background.paper', mt:2, p:3}}>
-        <Form
-          schema={bookingSchema}
-          onSubmit={handleSubmit}
-          initialValues={{
-            date: new Date(),
-            time: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            phone: "",
-            message: "",
-          }}
-          resetAfterSubmit={true}
-          submitLabel="Send request"
-          fields={[
-            {
-              name: "date",
-              label: "Date for Showing",
-              type: "text", // Custom handling for date picker
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-              // Custom render for date picker would be implemented here
-            },
-            {
-              name: "time",
-              label: "Time",
-              type: "select",
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-              options: [
-                { value: "", label: "Select time" },
-                ...timeSlots.map((slot) => ({ value: slot.value, label: slot.label })),
-              ],
-            },
-            {
-              name: "firstName",
-              label: "First Name",
-              type: "text",
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-            },
-            {
-              name: "lastName",
-              label: "Last Name",
-              type: "text",
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-            },
-            {
-              name: "email",
-              label: "Email Address",
-              type: "email",
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-            },
-            {
-              name: "phone",
-              label: "Phone Number",
-              type: "tel",
-              required: true,
-              gridProps: { xs: 12, sm: 6 },
-            },
-            {
-              name: "message",
-              label: "Message",
-              type: "textarea",
-              rows: 4,
-              placeholder: "Add any additional information",
-            },
-          ]}
-        />
-     </Box>
-    </Box>
-  )
-}
-
-export default BookViewingForm
-
+export default BookViewingForm;

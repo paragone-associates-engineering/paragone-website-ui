@@ -1,66 +1,25 @@
-"use client"
-
-import type React from "react"
-import { useState } from "react"
 import {
   Container,
   Typography,
   Box,
   Stack,
   Grid,
-  TextField,
-  Button,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  type SelectChangeEvent,
-  // useTheme,
-  // useMediaQuery,
 } from "@mui/material"
 import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material"
 import { PageBanner } from "../common/banner/page-banner"
-import { faqs, ReferralFormData } from "./data"
+import { faqs } from "./data"
 import Testimonials from "../common/testimonial"
 import ReferralSteps from "./components/referral-steps"
-
-
+import ReferAndEarnForm from "./components/form"
 
 const ReferAndEarn = () => {
-  // const theme = useTheme()
-  // const isMobile = useMediaQuery(theme.breakpoints.down("md"))
-
-  const [formData, setFormData] = useState<ReferralFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    profession: "",
-    message: "",
-  })
-
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSelectChange = (e: SelectChangeEvent) => {
-    setFormData((prev) => ({ ...prev, profession: e.target.value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-   
-  }
 
   return (
     <Box sx={{width:'100vw'}}>
-     <PageBanner title='Refer and Earn With Us' currentPage="Refer and Earn with us" />
+     <PageBanner title='Refer and Earn With Us' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Refer and Earn" }]}  />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Stack spacing={5}  sx={{ justifyContent: "center", alignItems: "center" }}>
@@ -70,7 +29,7 @@ const ReferAndEarn = () => {
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474444/business-people-shaking-hands-agreement_1_cmkjwm.png"
               alt="Network connections"
               sx={{
-                width: "100%",
+                width:{xs:'100%', sm: "700px"},
                 height: "auto",
                 borderRadius: 2,
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
@@ -99,7 +58,7 @@ const ReferAndEarn = () => {
         </Box>
 
         <Grid container spacing={6} alignItems="center" sx={{ my: 4 }}>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6}>
             <Typography variant="h4" component="h2" gutterBottom>
               Join and Earn
             </Typography>
@@ -129,7 +88,7 @@ const ReferAndEarn = () => {
             </Box>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6}>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474428/company-employee-pacing-around-startup-office-unews-using-device_1_ppbyxy.png"
@@ -146,7 +105,7 @@ const ReferAndEarn = () => {
 
         <Box sx={{ my: 10 }}>
           <Grid container spacing={6}>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} sm={5}>
               <Box
                 component="img"
                 src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474418/img_oc0bjx.png"
@@ -161,97 +120,12 @@ const ReferAndEarn = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} sm={7}>
               <Typography variant="h4" component="h2" gutterBottom>
                 Join Our Referral Program
               </Typography>
 
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="First name"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Last name"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Email address"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Phone number"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <FormControl fullWidth>
-                      <InputLabel id="profession-label">Your profession</InputLabel>
-                      <Select
-                        labelId="profession-label"
-                        name="profession"
-                        value={formData.profession}
-                        onChange={handleSelectChange}
-                        label="Your profession"
-                        required
-                      >
-                        <MenuItem value="real-estate">Real Estate Agent</MenuItem>
-                        <MenuItem value="broker">Property Broker</MenuItem>
-                        <MenuItem value="consultant">Business Consultant</MenuItem>
-                        <MenuItem value="other">Other Professional</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      label="Additional comments"
-                      name="message"
-                      multiline
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      placeholder="Write your message here"
-                    />
-                  </Grid>
-
-                  <Grid item xs={12}>
-                    <Button type="submit" variant="contained" color="primary" fullWidth size="large">
-                      Submit Now
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Box>
+              <ReferAndEarnForm />
             </Grid>
           </Grid>
         </Box>
@@ -261,7 +135,7 @@ const ReferAndEarn = () => {
             How Refer-And-Earn Works (FAQs)
           </Typography>
 
-          <Box sx={{ mt: 4 }}>
+          <Box sx={{ mt: 4, px:{sm:10} }}>
             {faqs.map((faq, index) => (
               <Accordion
                 key={index}

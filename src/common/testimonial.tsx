@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 import { 
   Box, 
   Container,
@@ -16,68 +16,26 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Pagination, Navigation, Autoplay } from 'swiper/modules';
 import SectionTitle from './section-title';
-
+import axios from 'axios';
+import { API_BASE_URL } from "../services/api";
+import SkeletonLoader from "./skeleton-loader";
 interface TestimonialData {
   id: number;
-  name: string;
-  occupation: string;
-  comment: string;
+  title:string;
+  testifierName: string;
+  testifierOccupation: string;
+  content: string;
   rating: number;
-  avatar: string;
+  avatar?: string;
 }
 
-const testimonials: TestimonialData[] = [
-  {
-    id: 1,
-    name: 'Michele Philips',
-    occupation: 'Doctor',
-    comment: 'Veniam commodo do cillum qui culpa duis velit eiusmod ipsum sunt esse laborum. Elit  ut esse aliquip qui proident culpa veniam do est ullamco.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80'
-  },
-  {
-    id: 2,
-    name: 'John Smith',
-    occupation: 'Engineer',
-    comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor,  nec, ultricies sed, dolor.',
-    rating: 4,
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80'
-  },
-  {
-    id: 3,
-    name: 'Sarah Johnson',
-    occupation: 'Designer',
-    comment: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80'
-  },
-  {
-    id: 4,
-    name: 'Robert Davis',
-    occupation: 'Marketing Director',
-    comment: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Ut enim ad minim veniam.',
-    rating: 5,
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80'
-  },
-  {
-    id: 5,
-    name: 'Emily Wilson',
-    occupation: 'Project Manager',
-    comment: 'Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.',
-    rating: 4,
-    avatar: 'https://source.unsplash.com/random/100x100/?portrait,woman,3'
-  },
-  {
-    id: 6,
-    name: 'Michael Brown',
-    occupation: 'Software Developer',
-    comment: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.',
-    rating: 5,
-    avatar: 'https://source.unsplash.com/random/100x100/?portrait,man,3'
-  }
-];
 
-const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimonial }) => {
+interface TestimonialCardProps {
+  testimonial: TestimonialData;
+}
+
+const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
+  
   return (
     
     <Card 
@@ -85,7 +43,7 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
         borderRadius: 4,
         boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
         position: 'relative',
-        overflow: 'visible',
+       // overflow: '',
         border:1,
         borderColor:'divider',
         height: '100%',
@@ -102,7 +60,7 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
             mb: 2
           }}
         >
-          Great service
+         {testimonial?.title}
         </Typography>
         
         <Box
@@ -127,14 +85,15 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
           color="text.secondary"
           sx={{ mb: 2, position: 'relative', zIndex: 1 }}
         >
-          {testimonial.comment}
+          {testimonial?.content}
         </Typography>
         
         <Rating 
-          value={testimonial.rating} 
+          value={testimonial?.rating} 
           readOnly 
           sx={{ 
-            mb: 3, 
+            mb: 3,
+            mx:0, 
             '& .MuiRating-iconFilled': {
               color: '#FFA41C'
             }
@@ -157,20 +116,18 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
         >
           <Box sx={{display:'flex', gap:2, alignItems:'center'}}>
           <Avatar 
-            src={testimonial.avatar}
-            alt={testimonial.name}
-            sx={{ width: 56, height: 56 }}
-          />
+            sx={{ width: 40, height: 40, bgcolor:'primary.main' }}
+          >{testimonial?.testifierName.split(' ')[0][0]}{testimonial?.testifierName.split(' ')[1][0]}</Avatar>
           <Box>
             <Typography 
               variant="h6" 
               component="h3"
               sx={{ fontWeight: 'medium' }}
             >
-              {testimonial.name}
+              {testimonial?.testifierName}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {testimonial.occupation}
+              {testimonial?.testifierOccupation}
             </Typography>
           </Box>
           </Box>
@@ -190,9 +147,27 @@ const TestimonialCard: React.FC<{ testimonial: TestimonialData }> = ({ testimoni
 
 const Testimonials = () => {
  // const theme = useTheme();
+ const [reviews, setReviews] = useState([]);
+   const [isLoading, setIsLoading] = useState(false)
+    const fetchReviews = async() => {
+      setIsLoading(true)
+      try{
+        const response = await axios.get(`${API_BASE_URL}/gsuite/get-reviews`);
+        //console.log(response.data)
+        setReviews(response.data.results)
+      }catch(err) {
+       console.error(err)
+      }finally{
+        setIsLoading(false)
+      }
+    }
+
+    useEffect(() => {
+      fetchReviews()
+    },[])
 
   return (
-    <Box component="section" sx={{ py: 8, height:'400px' }}>
+    <Box component="section" sx={{ pt: 8, minHeight:'300px' }}>
     <Container maxWidth="lg">
       <SectionTitle
       subtitle='Testimonials'
@@ -201,11 +176,13 @@ const Testimonials = () => {
         marginBottom={3}
       />
 
-      <Box sx={{ textAlign: 'center', mb: 5 }}>
+      <Box sx={{  mb: 5 }}>
         <Box
           sx={{
-            display: 'inline-flex',
-            //alignItems: 'center',
+            display: 'flex',
+            justifyContent:'center',
+            gap:2, 
+            alignItems: 'center',
             mb: 1,
           }}
         >
@@ -224,17 +201,19 @@ const Testimonials = () => {
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap:1 }}>
           <Typography variant="body2" sx={{ ml: 0.5, fontWeight: 600 }}>4.9</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', gap:0 }}>
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
+              </Box>
           </Box>
           </Stack>
         </Box>
        
       </Box>
-    <Box sx={{ maxWidth: {xs:'100%', md:1200}, mx: 'auto', p: 2 }}>
+    <Box sx={{ maxWidth: {xs:'100%', md:1200}, mx: 'auto', p: 2, mb:3 }}>
       <Swiper
         slidesPerView={1}
         spaceBetween={20}
@@ -271,22 +250,28 @@ const Testimonials = () => {
           "--swiper-pagination-bullet-height": "5px",
           "--swiper-pagination-border-radius": "0px",
           "--swiper-pagination-bullet-horizontal-gap": "5px"
-        } as React.CSSProperties}
-      >
-        {testimonials.map((testimonial) => (
-          <SwiperSlide key={testimonial.id}>
+        } as React.CSSProperties} >
+         
+        {isLoading ? (
+          <Box >
+            <SkeletonLoader count={3} />
+            </Box>
+        ) : (
+          reviews.map((testimonial: TestimonialData) => (
+          <SwiperSlide key={testimonial?.id}>
             <Box sx={{ height: '100%' }}>
               <TestimonialCard testimonial={testimonial} />
             </Box>
           </SwiperSlide>
-        ))}
+       )
+      )
+       )}
       </Swiper>
       {/* <div className="swiper-custom-pagination"></div> */}
     </Box>
     </Container>
     </Box>
-
-  );
+  ); 
 };
 
 export default Testimonials;

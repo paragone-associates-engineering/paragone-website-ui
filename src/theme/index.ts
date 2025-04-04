@@ -10,13 +10,37 @@ const getTheme = (mode: "light" | "dark") =>
     },
     typography,
     components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "white",
+          },
+        },
+      },
+      MuiSelect: {
+        styleOverrides: {
+          root: {
+            backgroundColor: "white",
+            px:4,
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
             borderRadius: 8,
             textTransform: "none",
             fontWeight: 600,
+            "&.Mui-selected": {
+              //backgroundColor: "primary.main", 
+              //color: "#fff",
+              border:'none',
+              outline:'none',
+              "&:hover": {
+                backgroundColor: "primary.dark", 
+              },
           },
+        },
           contained: {
             color: "#FFFFFF",
             "&:hover": {
@@ -48,6 +72,8 @@ const getTheme = (mode: "light" | "dark") =>
             "&.Mui-selected": {
               backgroundColor: "primary.main", 
               color: "#fff",
+              border:'none',
+              outline:'none',
               "&:hover": {
                 backgroundColor: "primary.dark", 
               },

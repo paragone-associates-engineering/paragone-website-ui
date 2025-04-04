@@ -1,70 +1,61 @@
-"use client"
-
-import type React from "react"
-import { useState } from "react"
+// import type React from "react"
+// import { useState } from "react"
 import {
   Container,
   Typography,
   Box,
   Grid,
   TextField,
-  Button,
+  //Button,
   Paper,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  type SelectChangeEvent,
+  //type SelectChangeEvent,
   List,
   ListItem,
   ListItemText,
-//   useTheme,
-//   useMediaQuery,
 } from "@mui/material"
-import {
-  WhatsApp as WhatsAppIcon,
-} from "@mui/icons-material"
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { PageBanner } from "../common/banner/page-banner"
-
-interface ContactFormData {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  reason: string
-  message: string
-}
+import axios from "axios";
+import toast from "react-hot-toast"
+import { API_BASE_URL } from "../services/api"
+import CustomButton from "../common/button"
+import { contactFormSchema, ContactFormSchema } from "../schema/contact";
 
 const Contact = () => {
-//   const theme = useTheme()
-//   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormSchema>({
+    resolver: zodResolver(contactFormSchema),
+    defaultValues: {
+      name: { first: "", lastName: "" },
+      email: "",
+      phoneNumber: "",
+      reason: "",
+      message: "",
+    },
+  });
 
-  const [formData, setFormData] = useState<ContactFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    reason: "",
-    message: "",
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSelectChange = (e: SelectChangeEvent) => {
-    setFormData((prev) => ({ ...prev, reason: e.target.value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-  }
-
+  const onSubmit = async (data: ContactFormSchema) => {
+    try {
+      await axios.post(`${API_BASE_URL}/form/get-in-touch`, data);
+      toast.success("Form submitted successfully!");
+      console.log('suscess', data);
+    } catch (error) {
+      toast.error("Submission failed. Try again!");
+      console.log('error', error)
+    }
+  };
   return (
     <Box sx={{width:'100vw'}}>
-     <PageBanner title='Contact Us' currentPage='Contact Us' />
+     <PageBanner title='Contact Us' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
@@ -131,47 +122,24 @@ const Contact = () => {
                   />
                 </ListItem>
               </List>
-
-              <Box sx={{ position: "fixed", bottom: 20, right: 20, zIndex: 1000 }}>
-                <Button
-                  variant="contained"
-                  color="success"
-                  startIcon={<WhatsAppIcon />}
-                  href="https://wa.me/2349160467439"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    borderRadius: "50px",
-                    px: 3,
-                    py: 1.5,
-                    backgroundColor: "#25D366",
-                    "&:hover": {
-                      backgroundColor: "#128C7E",
-                    },
-                  }}
-                >
-                  Chat on WhatsApp
-                </Button>
-              </Box>
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} sm={6}>
             <Paper elevation={0} sx={{ p: 4, backgroundColor: "background.paper", borderRadius: 2 }}>
               <Typography variant="h5" component="h2" gutterBottom>
                 Leave Us a Message
               </Typography>
 
-              <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+              <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
                       label="First name"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      required
+                      {...register("name.first")}
+                      error={!!errors.name?.first}
+                      helperText={errors.name?.first?.message}
                     />
                   </Grid>
 
@@ -179,10 +147,9 @@ const Contact = () => {
                     <TextField
                       fullWidth
                       label="Last name"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      required
+                      {...register("name.lastName")}
+                      error={!!errors.name?.lastName}
+                      helperText={errors.name?.lastName?.message}
                     />
                   </Grid>
 
@@ -190,11 +157,10 @@ const Contact = () => {
                     <TextField
                       fullWidth
                       label="Email address"
-                      name="email"
                       type="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      required
+                      {...register("email")}
+                      error={!!errors.email}
+                      helperText={errors.email?.message}
                     />
                   </Grid>
 
@@ -202,51 +168,49 @@ const Contact = () => {
                     <TextField
                       fullWidth
                       label="Phone number"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
+                      {...register("phoneNumber")}
+                      error={!!errors.phoneNumber}
+                      helperText={errors.phoneNumber?.message}
                     />
                   </Grid>
 
                   <Grid item xs={12}>
-                    <FormControl fullWidth>
+                    <FormControl fullWidth error={!!errors.reason}>
                       <InputLabel id="reason-label">Choose a reason</InputLabel>
-                      <Select
-                        labelId="reason-label"
+                      <Controller
                         name="reason"
-                        value={formData.reason}
-                        onChange={handleSelectChange}
-                        label="Choose a reason"
-                        required
-                      >
-                        <MenuItem value="general">General Inquiry</MenuItem>
-                        <MenuItem value="property">Property Information</MenuItem>
-                        <MenuItem value="partnership">Partnership Opportunities</MenuItem>
-                        <MenuItem value="career">Career Opportunities</MenuItem>
-                        <MenuItem value="support">Technical Support</MenuItem>
-                      </Select>
+                        control={control}
+                        render={({ field }) => (
+                          <Select {...field} labelId="reason-label">
+                            <MenuItem value="general">General Inquiry</MenuItem>
+                            <MenuItem value="property">Property Information</MenuItem>
+                            <MenuItem value="partnership">Partnership Opportunities</MenuItem>
+                            <MenuItem value="career">Career Opportunities</MenuItem>
+                            <MenuItem value="support">Technical Support</MenuItem>
+                          </Select>
+                        )}
+                      />
                     </FormControl>
+                    {errors.reason && <Typography color="error">{errors.reason.message}</Typography>}
                   </Grid>
 
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
                       label="Message"
-                      name="message"
                       multiline
                       rows={4}
-                      value={formData.message}
-                      onChange={handleInputChange}
+                      {...register("message")}
+                      error={!!errors.message}
+                      helperText={errors.message?.message}
                       placeholder="Write your message here"
-                      required
                     />
                   </Grid>
 
                   <Grid item xs={12}>
-                    <Button type="submit" variant="contained" color="primary" fullWidth size="large">
-                      Send message
-                    </Button>
+                    <CustomButton isLoading={isSubmitting} sx={{ width: "100%" }}>
+                      Send Message
+                    </CustomButton>
                   </Grid>
                 </Grid>
               </Box>
@@ -272,4 +236,3 @@ const Contact = () => {
 }
 
 export default Contact;
-

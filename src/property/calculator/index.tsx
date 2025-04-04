@@ -64,7 +64,7 @@ const PropertyCalculator = () => {
     <Box sx={{width:'100vw'}}>  
      <PageBanner 
      title="Property Calculator" 
-     currentPage="property-calculator"/>
+     breadcrumbs={[{ label: "Home", href: "/" }, { label: "Property Calculator" }]} />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Box sx={{ textAlign: "center", mb: 6 }}>

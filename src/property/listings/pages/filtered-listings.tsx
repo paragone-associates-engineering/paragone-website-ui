@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { Container, Box, Typography, Grid, Drawer, useMediaQuery } from "@mui/material"
 import { useLocation, useNavigate } from "react-router-dom";
@@ -8,72 +6,105 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import PropertyGrid from "../components/property-layout"
 import Testimonials from "../../../common/testimonial"
 import PropertyFilter from "../components/property-filter"
-import type {  PropertyFilter as PropertyFilterType } from "../types"
+import type { ListingsQueryParams } from "../../../types/properties"
+
 import CustomButton from "../../../common/button";
-import { propertiesData } from "../../../constant";
-import { PropertyData } from "../../../types/properties";
+import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
+import { fetchListings, setFilters, setCurrentPage } from "../../../redux/slices/listings-slice"
 
 const FilteredListings = () => {
   const location = useLocation()
   const navigate = useNavigate()
-  const [properties, setProperties] = useState<PropertyData[]>(propertiesData)
-  const [filters, setFilters] = useState<PropertyFilterType>({})
-  const [loading, setLoading] = useState(false)
-  const [totalCount, setTotalCount] = useState(propertiesData.length)
+  const dispatch = useAppDispatch()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width: 900px)");
-  
+  const listings = useAppSelector((state) => state.listings)
+
   const toggleDrawer = (open: boolean) => {
     setIsDrawerOpen(open);
   };
   
+  const { properties, totalCount, loading, filters, currentPage, pageSize } = listings || {
+    properties: [],
+    totalCount: 0,
+    loading: true,
+    currentPage: 1,
+    pageSize: 6,
+    filters: {},
+  }
+
   // Parse query parameters from URL
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search)
-    const urlFilters: PropertyFilterType = {}
+    const urlFilters: ListingsQueryParams = {}
 
+    // Handle listing type
     if (searchParams.has("listingType")) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      urlFilters.listingType = searchParams.get("listingType") as any
+      urlFilters.listingType = searchParams.get("listingType") as string
     }
 
-    if (searchParams.has("propertyType")) {
-      urlFilters.propertyType = searchParams.get("propertyType") as string
-    }
-
+    // Handle location
     if (searchParams.has("location")) {
       urlFilters.location = searchParams.get("location") as string
     }
 
-    if (searchParams.has("minPrice")) {
-      urlFilters.minPrice = Number.parseInt(searchParams.get("minPrice") || "0", 10)
+    // Handle property name
+    if (searchParams.has("propertyName")) {
+      urlFilters.propertyName = searchParams.get("propertyName") as string
     }
 
-    if (searchParams.has("maxPrice")) {
-      urlFilters.maxPrice = Number.parseInt(searchParams.get("maxPrice") || "0", 10)
+    // Handle property category
+    if (searchParams.has("propertyCategory")) {
+      urlFilters.propertyCategory = searchParams.get("propertyCategory") as string
     }
 
-    if (searchParams.has("minBeds")) {
-      urlFilters.minBeds = Number.parseInt(searchParams.get("minBeds") || "0", 10)
+    // Handle property type
+    if (searchParams.has("propertyType")) {
+      urlFilters.propertyType = searchParams.get("propertyType") as string
     }
 
-    if (searchParams.has("minBaths")) {
-      urlFilters.minBaths = Number.parseInt(searchParams.get("minBaths") || "0", 10)
+    // Handle amount range
+    if (searchParams.has("amountFrom")) {
+      urlFilters.amountFrom = Number.parseInt(searchParams.get("amountFrom") || "0", 10)
+    }
+    if (searchParams.has("amountTo")) {
+      urlFilters.amountTo = Number.parseInt(searchParams.get("amountTo") || "0", 10)
     }
 
-    if (searchParams.has("minArea")) {
-      urlFilters.minArea = Number.parseInt(searchParams.get("minArea") || "0", 10)
+    // Handle area range
+    if (searchParams.has("areaFrom")) {
+      urlFilters.areaFrom = Number.parseInt(searchParams.get("areaFrom") || "0", 10)
+    }
+    if (searchParams.has("areaTo")) {
+      urlFilters.areaTo = Number.parseInt(searchParams.get("areaTo") || "0", 10)
     }
 
-    if (searchParams.has("maxArea")) {
-      urlFilters.maxArea = Number.parseInt(searchParams.get("maxArea") || "0", 10)
+    // Handle property details
+    if (searchParams.has("bedrooms")) {
+      urlFilters.bedrooms = searchParams.get("bedrooms") as string
+    }
+    if (searchParams.has("bathrooms")) {
+      urlFilters.bathrooms = searchParams.get("bathrooms") as string
     }
 
-    setFilters(urlFilters)
-  }, [location.search])
+    // Handle search string (if still needed)
+    if (searchParams.has("searchString")) {
+      urlFilters.searchString = searchParams.get("searchString") as string
+    }
+
+    // Handle pagination
+    if (searchParams.has("page")) {
+      const page = Number.parseInt(searchParams.get("page") || "1", 10)
+      dispatch(setCurrentPage(page))
+    }
+
+    dispatch(setFilters(urlFilters))
+  }, [location.search, dispatch])
 
   // Update URL when filters change
   useEffect(() => {
+    if (!filters) return
+
     const searchParams = new URLSearchParams()
 
     Object.entries(filters).forEach(([key, value]) => {
@@ -82,6 +113,10 @@ const FilteredListings = () => {
       }
     })
 
+    if (currentPage > 1) {
+      searchParams.set("page", currentPage.toString())
+    }
+
     navigate(
       {
         pathname: location.pathname,
@@ -89,115 +124,67 @@ const FilteredListings = () => {
       },
       { replace: true },
     )
-  }, [filters, navigate, location.pathname])
+  }, [filters, currentPage, navigate, location.pathname])
 
-  // Simulate API call to fetch properties based on filters
+  // Fetch listings when filters or pagination changes
   useEffect(() => {
-    const fetchProperties = async () => {
-      setLoading(true)
+    dispatch(fetchListings({ 
+      ...filters, 
+      page: currentPage, 
+      pageSize 
+    }))
+  }, [dispatch, filters, currentPage, pageSize])
 
-      await new Promise((resolve) => setTimeout(resolve, 500))
-
-      const filteredProperties = propertiesData.filter((property) => {
-      
-        if (filters.listingType && property.type !== filters.listingType) {
-          return false
-        }
-
-        // Apply property type filter
-        if (filters.propertyType && property.propertyType !== filters.propertyType) {
-          return false
-        }
-
-        // Apply location filter
-        if (filters.location && property.location.city.toLowerCase() !== filters.location.toLowerCase()) {
-          return false
-        }
-
-        // Apply price range filter
-        if (filters.minPrice && property.price < filters.minPrice) {
-          return false
-        }
-        if (filters.maxPrice && property.price > filters.maxPrice) {
-          return false
-        }
-
-        // Apply bedrooms filter
-        if (filters.minBeds && property.bedrooms < filters.minBeds) {
-          return false
-        }
-
-        // Apply bathrooms filter
-        if (filters.minBaths && property.bathrooms < filters.minBaths) {
-          return false
-        }
-
-        // Apply area filter
-        if (filters.minArea && property.sqm < filters.minArea) {
-          return false
-        }
-        if (filters.maxArea && property.sqm > filters.maxArea) {
-          return false
-        }
-
-        return true
-      })
-
-      setProperties(filteredProperties)
-      setTotalCount(filteredProperties.length)
-      setLoading(false)
-    }
-
-    fetchProperties()
-  }, [filters])
-
-  const handleFilterChange = (newFilters: PropertyFilterType) => {
-    setFilters(newFilters)
+  const handleFilterChange = (newFilters: ListingsQueryParams) => {
+    dispatch(setFilters(newFilters))
   }
-
+  
   return (
-    <Box sx={{width:'100vw'}}>
+    <Box sx={{width:'100vw', px:{xs:2, md:0}}}>
       <PageBanner
         title="Properties"
-        currentPage='filter properties'
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Properties" },
+        ]}
       />
-<Container maxWidth="lg" sx={{ py: 6 }}>
-    <Box sx={{ mb: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-      <Typography variant="body2" color="text.secondary">
-        Showing {properties.length} results out of {totalCount}
-      </Typography>
-  
+      <Container maxWidth="xl" sx={{ py: 6 }}>
+        <Box sx={{ mb: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Typography variant="body2" color="text.secondary">
+            Showing {properties.length} results out of {totalCount}
+          </Typography>
+      
+          {isMobile && (
+            <CustomButton sx={{bgcolor:'#333',color:'white'}} startIcon={FilterAltIcon} onClick={() => toggleDrawer(true)}>
+             Filter
+            </CustomButton>
+          )}
+        </Box>
+        <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>
+          <Box sx={{ width: 300, p: 2 }}>
+            <PropertyFilter onFilterChange={handleFilterChange} initialFilters={filters} showListingTypeFilter={true} />
+          </Box>
+        </Drawer>
 
-    {isMobile && (
-      <CustomButton variant="outline" startIcon={FilterAltIcon} onClick={() => toggleDrawer(true)}>
-       Filter
-      </CustomButton>
-    )}
-  </Box>
-    <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>
-      <Box sx={{ width: 300, p: 2 }}>
-        <PropertyFilter onFilterChange={handleFilterChange} initialFilters={filters} showListingTypeFilter={true} />
-      </Box>
-    </Drawer>
+        <Grid container spacing={4}>
+          {!isMobile && (
+            <Grid item xs={12} md={3}>
+              <PropertyFilter onFilterChange={handleFilterChange} initialFilters={filters} showListingTypeFilter={true} />
+            </Grid>
+          )}
 
-    <Grid container spacing={4}>
-      {!isMobile && (
-        <Grid item xs={12} md={3}>
-          <PropertyFilter onFilterChange={handleFilterChange} initialFilters={filters} showListingTypeFilter={true} />
+          <Grid item xs={12} md={9}>
+            <PropertyGrid
+              properties={properties}
+              totalCount={totalCount}
+              currentPage={currentPage}
+              itemsPerPage={pageSize}
+              loading={loading}
+              emptyMessage="No properties found matching your criteria."
+            />
+          </Grid>
         </Grid>
-      )}
-
-      <Grid item xs={12} md={9}>
-        <PropertyGrid
-          totalCount={totalCount}
-          currentPage={1}
-          itemsPerPage={6}
-          loading={loading}
-          emptyMessage="No properties found matching your criteria."
-        />
-      </Grid>
-    </Grid>
-  </Container>
+      </Container>
 
       <Testimonials />
     </Box>
@@ -205,4 +192,3 @@ const FilteredListings = () => {
 }
 
 export default FilteredListings
-

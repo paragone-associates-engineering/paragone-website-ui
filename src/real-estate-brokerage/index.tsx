@@ -14,7 +14,7 @@ const RealEstateBrokerage = () => {
    <Box  sx={{width:'100vw'}}>
         <PageBanner 
             title="Real Estate Brokerage" 
-            currentPage="real estate brokerage"/>
+            breadcrumbs={[{ label: "Home", href: "/" }, { label: "Real Estate Brokerage" }]} />
 
       <Container maxWidth="lg" sx={{pb:5,pt:{xs:0, md:5}}}>
         <Grid container spacing={6} alignItems="center">

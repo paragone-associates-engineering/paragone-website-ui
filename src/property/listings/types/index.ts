@@ -41,8 +41,8 @@ export interface Property {
   export interface NearbyPlace {
     category: "education" | "health" | "shopping" | "transport" | "culture"
     name: string
-    distance: number
-    type: string
+    distance?: number
+    type?: string
   }
   
   export interface PropertyFilter {

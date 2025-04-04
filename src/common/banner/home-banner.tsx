@@ -2,27 +2,18 @@ import React, { useState } from 'react';
 import { 
   Box, 
   Typography, 
-  TextField, 
-  Button, 
-  Grid, 
-  MenuItem, 
   IconButton,
-  InputAdornment,
   useMediaQuery,
   useTheme,
-  InputLabel,
-  FormControl,
-  Select,
   Paper,
   Tabs,
   Tab
 } from '@mui/material';
 import { BaseBanner } from './base-banner';
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 //import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import TabContent from './tab-content';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,6 +52,92 @@ export const HomeBanner = () => {
     event.preventDefault();
     setTabValue(newValue);
   };
+
+  // const TabContent = () => (
+  //   <Box sx={{ p: { xs: 2, md: 3 } }}>
+  //     <Grid container spacing={2} sx={{ mb: 1 }}>
+  //       <Grid item xs={12} md={4}>
+  //         <TextField
+  //           fullWidth
+  //           placeholder="Your location"
+  //           variant="outlined"
+  //           InputProps={{
+  //             endAdornment: (
+  //               <InputAdornment position="end">
+  //                 <LocationOnOutlinedIcon color="primary" />
+  //               </InputAdornment>
+  //             ),
+  //             sx: { pr: 1 }
+  //           }}
+  //         />
+  //       </Grid>
+  
+  //       <Grid item xs={12} md={4}>
+  //         <FormControl fullWidth>
+  //           <InputLabel id="property-label">Property Type</InputLabel>
+  //           <Select labelId="property-label" name="property" label="Select Type" required>
+  //             <MenuItem value="">Select type</MenuItem>
+  //             <MenuItem value="apartment">Apartment</MenuItem>
+  //             <MenuItem value="house">House</MenuItem>
+  //             <MenuItem value="office">Office</MenuItem>
+  //           </Select>
+  //         </FormControl>
+  //       </Grid>
+  
+  //       <Grid item xs={12} md={4}>
+  //         <FormControl fullWidth>
+  //           <InputLabel id="room-label">Select Room</InputLabel>
+  //           <Select labelId="room-label" name="room" label="Select Room" required>
+  //             <MenuItem value="">Select room</MenuItem>
+  //             <MenuItem value="1">1</MenuItem>
+  //             <MenuItem value="2">2</MenuItem>
+  //             <MenuItem value="3">3+</MenuItem>
+  //           </Select>
+  //         </FormControl>
+  //       </Grid>
+  //     </Grid>
+  
+  //     {/* Bottom section with button and advanced search */}
+  //     <Box
+  //       sx={{
+  //         display: 'flex',
+  //         justifyContent: 'space-between',
+  //         alignItems: 'center',
+  //         flexDirection: { xs: 'column', md: 'row' },
+  //         mt: 2
+  //       }}
+  //     >
+  //       <Button
+  //         variant="contained"
+  //         sx={{
+  //           bgcolor: '#FFA500',
+  //           color: 'white',
+  //           textTransform: 'none',
+  //           fontWeight: 'bold',
+  //           borderRadius: '4px',
+  //           py: 1,
+  //           px: 3,
+  //           '&:hover': {
+  //             bgcolor: '#F29100'
+  //           },
+  //           width: { xs: '100%', md: 'auto' },
+  //           mb: { xs: 1, sm: 0 }
+  //         }}
+  //       >
+  //         Search now
+  //       </Button>
+  
+  //       <Box sx={{ display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' }, justifyContent: { xs: 'flex-end', md: 'flex-start' } }}>
+  //         <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+  //           Advanced search
+  //         </Typography>
+  //         <IconButton size="small" color="primary">
+  //           <MoreVertIcon />
+  //         </IconButton>
+  //       </Box>
+  //     </Box>
+  //   </Box>
+  // );
 
   return (
     <BaseBanner 
@@ -175,148 +252,41 @@ export const HomeBanner = () => {
               <Tab label="Land" />
             </Tabs>
 
-            {/* Search Form */}
             <TabPanel value={tabValue} index={0}>
-              <Box sx={{ p: { xs: 2, md: 3 } }}>
-                <Grid container spacing={2} sx={{ mb: 1 }}>
-                  <Grid item xs={12} md={4}>
-                    <TextField
-                      fullWidth
-                      placeholder="Your location"
-                      variant="outlined"
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <LocationOnOutlinedIcon color="primary" />
-                          </InputAdornment>
-                        ),
-                        sx: {
-                          pr: 1,
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#e0e0e0',
-                          }
-                        }
-                      }}
-                    />
-                  </Grid>
-                  
-                  <Grid item xs={12} md={4}>
-                  <FormControl fullWidth>
-                                      <InputLabel id="room-label">Property Type</InputLabel>
-                                      <Select
-                                        labelId="property-label"
-                                        name="property"
-                                        //size="small"
-                                        // value={formData.experience}
-                                        // onChange={handleSelectChange}
-                                        label="Select Type"
-                                        required
-                                      >
-                                        <MenuItem value="">Select type</MenuItem>
-                      <MenuItem value="apartment">Apartment</MenuItem>
-                      <MenuItem value="house">House</MenuItem>
-                      <MenuItem value="office">Office</MenuItem>
-                                      </Select>
-                                    </FormControl>
-                    
-                    
-                  </Grid>
-                  
-                  <Grid item xs={12} md={4}>
-                    <FormControl fullWidth>
-                                      <InputLabel id="room-label">Select Room</InputLabel>
-                                      <Select
-                                        labelId="room-label"
-                                        name="room"
-                                        //size='small'
-                                        // value={formData.experience}
-                                        // onChange={handleSelectChange}
-                                        label="Select Room"
-                                        required
-                                      >
-                                        <MenuItem value="">Select room</MenuItem>
-                      <MenuItem value="1">1</MenuItem>
-                      <MenuItem value="2">2</MenuItem>
-                      <MenuItem value="3">3+</MenuItem>
-                                      </Select>
-                                    </FormControl>
-                    
-
-                    
-                  </Grid>
-                </Grid>
-                
-                {/* Bottom section with button and advanced search */}
-                <Box 
-                  sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    flexDirection: { xs: 'column', md: 'row' },
-                    mt: 2
-                  }}
-                >
-                  <Button
-                    variant="contained"
-                    sx={{
-                      bgcolor: '#FFA500',
-                      color: 'white',
-                      textTransform: 'none',
-                      fontWeight: 'bold',
-                      borderRadius: '4px',
-                      py: 1,
-                      px: 3,
-                      '&:hover': {
-                        bgcolor: '#F29100',
-                      },
-                      width: { xs: '100%', md: 'auto' },
-                      mb: { xs: 1, sm: 0 }
-                    }}
-                  >
-                    Search now
-                  </Button>
-                  
-                  <Box 
-                    sx={{ 
-                      display: 'flex', 
-                      alignItems: 'center',
-                      width: { xs: '100%', md: 'auto' },
-                      justifyContent: { xs: 'flex-end', md: 'flex-start' }
-                    }}
-                  >
-                    <Typography 
-                      variant="body2" 
-                      //color="primary" 
-                      sx={{ cursor: 'pointer' }}
-                    >
-                      Advanced search
-                    </Typography>
-                    <IconButton size="small" color="primary">
-                      <MoreVertIcon />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </Box>
-            </TabPanel>
-
+  <TabContent />
+</TabPanel>
             <TabPanel value={tabValue} index={1}>
-              {/* Similar content for Sale tab */}
-              <Box sx={{ p: 3 }}>
-                <Typography variant='h6'> Coming soon ....</Typography>
-              </Box>
-            </TabPanel>
+  <TabContent />
+</TabPanel>
 
-            <TabPanel value={tabValue} index={2}>
-            <Box sx={{ p: 3 }}>
-                <Typography variant='h6'> Coming soon ....</Typography>
-              </Box>
-            </TabPanel>
-
-            <TabPanel value={tabValue} index={3}>
-            <Box sx={{ p: 3 }}>
-                <Typography variant='h6'> Coming soon ....</Typography>
-              </Box>
-            </TabPanel>
+<TabPanel value={tabValue} index={2}>
+  <TabContent />
+</TabPanel>
+<TabPanel value={tabValue} index={3}>
+{/* <Box sx={{display:'flex', gap:3, px:2,py:3}}>
+<Grid item xs={12} md={4} sx={{flex:1}}>
+          <FormControl fullWidth>
+            <InputLabel id="room-label">Select Location</InputLabel>
+            <Select labelId="room-label" name="room" label="Select Room" required>
+              <MenuItem value="">Select room</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3+</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <CustomButton sx={{px:2}}>Search</CustomButton>
+</Box>
+<CustomButton href='/listings/filter' sx={{bgcolor:'transparent', p:0, color:'black', boxShadow:'none', mb:2, display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' }, justifyContent: 'flex-end' }}>
+          <Typography variant="body2" sx={{ cursor: 'pointer' }}>
+            Advanced search
+          </Typography>
+          <IconButton size="small" color="primary">
+            <MoreVertIcon />
+          </IconButton>
+        </CustomButton> */}
+         <TabContent tabIndex={3}/>
+</TabPanel>
           </Paper>
         </Box>
       </Box>

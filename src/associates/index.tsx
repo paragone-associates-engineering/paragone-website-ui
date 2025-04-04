@@ -1,67 +1,15 @@
-"use client"
 
-import type React from "react"
-import { useState } from "react"
-import {
-  Container,
-  Typography,
-  Box,
-  Grid,
-  Button,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  type SelectChangeEvent,
+import { Container, Typography, Box, Grid, Button,
 } from "@mui/material"
 import Testimonials from "../common/testimonial"
 import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button"
+import AssociateForm from "./form"
 
-interface AssociateFormData {
-  firstName: string
-  lastName: string
-  email: string
-  phone: string
-  experience: string
-  currentCompany: string
-  whyJoin: string
-  hearAboutUs: string
-}
-
-const BecomeAssociate: React.FC = () => {
-
-  const [formData, setFormData] = useState<AssociateFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    experience: "",
-    currentCompany: "",
-    whyJoin: "",
-    hearAboutUs: "",
-  })
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSelectChange = (e: SelectChangeEvent) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    
-  }
-
+const BecomeAssociate = () => {
   return (
     <Box sx={{width:'100vw'}}>
-      <PageBanner title='Become An Associate'  currentPage="become an associate" />
+      <PageBanner title='Become a Paragone Associate'  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Become a Paragone Associate" }]} />
 
       <Container maxWidth="lg" sx={{ py:{md:6}}}>
         <Grid container spacing={6} alignItems="center">
@@ -87,9 +35,6 @@ const BecomeAssociate: React.FC = () => {
               are realized. The Paragone Signature is a place where you can grow and develop your professional skills
               and knowledge, and where you can collaborate with the right people to achieve your goals.
             </Typography>
-            <Button variant="contained" color="primary" size="large" sx={{ mt: 2 }}>
-              Apply Now
-            </Button>
           </Grid>
         </Grid>
 
@@ -216,9 +161,9 @@ const BecomeAssociate: React.FC = () => {
               structure is designed to maximize your income potential. As you grow through our levels and enhance your
               performance, we offer you generous tiered commission rates to ensure you're always motivated to excel.
             </Typography>
-            <Button variant="contained" color="primary" size="small" sx={{ mt: 1 }}>
-              Learn more
-            </Button>
+            <CustomButton href='/' sx={{ mt: 1, width:'20%', py:1 }}>
+             Join Us
+            </CustomButton>
           </Grid>
           <Grid item xs={12} md={5}>
             <Box
@@ -258,9 +203,9 @@ const BecomeAssociate: React.FC = () => {
               teamwork, knowledge sharing, and a collective drive to achieve greater standards of excellence and
               service. You'll connect to valuable mentorship opportunities and build lasting professional relationships.
             </Typography>
-            <Button variant="contained" color="primary" size="small" sx={{ mt: 1 }}>
-              Learn more
-            </Button>
+            <CustomButton  sx={{ mt: 1, width:'20%', py:1 }}>
+              Join us
+            </CustomButton>
           </Grid>
         </Grid>
 
@@ -274,9 +219,9 @@ const BecomeAssociate: React.FC = () => {
               accelerate your growth. Our collaborative environment creates a culture of continuous learning, expanding
               your knowledge, the depth of clients, and your earning potential.
             </Typography>
-            <Button variant="contained" color="primary" size="small" sx={{ mt: 1 }}>
-              Learn more
-            </Button>
+            <CustomButton  sx={{ mt: 1, width:'20%', py:1  }}>
+              Join Us
+            </CustomButton>
           </Grid>
           <Grid item xs={12} md={5}>
             <Box
@@ -292,127 +237,21 @@ const BecomeAssociate: React.FC = () => {
             />
           </Grid>
         </Grid>
-
-        <Box sx={{ my: 8, pt: 6, px: 4, backgroundColor: "background.paper", borderRadius: 2 }}>
+        </Container>
+        <Box sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2 }}>
+          <Container maxWidth='md'>
           <Typography variant="h4" component="h2" gutterBottom align="center">
             Are you ready?
           </Typography>
           <Typography variant="body1" paragraph align="center" sx={{ maxWidth: 700, mx: "auto", mb: 4 }}>
-            Fill out the form below to express your interest in joining our team. Our recruitment team will contact you
-            shortly after reviewing your application. We look forward to meeting you!
+          If you got this far, it means you're excited. And so are we. Let's set up your one-on-one conversation and start shaping the future of real estate together!
           </Typography>
 
-          <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 800, mx: "auto" }}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="First name"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Last name"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Email address"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Phone number"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel id="experience-label">Years of experience</InputLabel>
-                  <Select
-                    labelId="experience-label"
-                    name="experience"
-                    value={formData.experience}
-                    onChange={handleSelectChange}
-                    label="Years of experience"
-                    required
-                  >
-                    <MenuItem value="0-1">0-1 years</MenuItem>
-                    <MenuItem value="1-3">1-3 years</MenuItem>
-                    <MenuItem value="3-5">3-5 years</MenuItem>
-                    <MenuItem value="5-10">5-10 years</MenuItem>
-                    <MenuItem value="10+">10+ years</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Current company (if applicable)"
-                  name="currentCompany"
-                  value={formData.currentCompany}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="Why do you want to join our team?"
-                  name="whyJoin"
-                  multiline
-                  rows={4}
-                  value={formData.whyJoin}
-                  onChange={handleInputChange}
-                  required
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="How did you hear about us?"
-                  name="hearAboutUs"
-                  multiline
-                  rows={2}
-                  value={formData.hearAboutUs}
-                  onChange={handleInputChange}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button type="submit" variant="contained" color="primary" fullWidth size="large">
-                  Submit Application
-                </Button>
-              </Grid>
-            </Grid>
-          </Box>
+         <AssociateForm />
+          </Container>
         </Box>
-
+       
+<Container maxWidth='lg'>
         <Testimonials />
       </Container>
     </Box>

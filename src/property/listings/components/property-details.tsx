@@ -1,20 +1,9 @@
 import type React from "react"
 import { Box, Typography, Grid } from "@mui/material"
-import {
-  Home as HomeIcon,
-  Bathtub as BathtubIcon,
-  Hotel as HotelIcon,
-  SquareFoot as SquareFootIcon,
-  CalendarToday as CalendarTodayIcon,
-  DirectionsCar as DirectionsCarIcon,
-  Wifi as WifiIcon,
-  Tv as TvIcon,
-  Elevator as ElevatorIcon,
-} from "@mui/icons-material"
-import type { Property } from "../types"
+import { ApiProperty } from "@/types/properties"
 
 interface PropertyDetailsProps {
-  property: Property
+  property: ApiProperty
 }
 
 const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
@@ -23,81 +12,30 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
       <Typography variant="h5" component="h2" gutterBottom>
         Property details
       </Typography>
-
-      <Grid container spacing={2} sx={{ mt: 1 }}>
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <SquareFootIcon sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Total area
-              </Typography>
-              <Typography variant="body1">{property.features.area} sq ft</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <HotelIcon sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Bedrooms
-              </Typography>
-              <Typography variant="body1">{property.features.bedrooms}</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <BathtubIcon  sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Bathrooms
-              </Typography>
-              <Typography variant="body1">{property.features.bathrooms}</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <HomeIcon  sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Floor
-              </Typography>
-              <Typography variant="body1">3/8</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <CalendarTodayIcon  sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Construction year
-              </Typography>
-              <Typography variant="body1">{property.constructionYear || "N/A"}</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <DirectionsCarIcon  sx={{ mr: 1 }} />
-            <Box>
-              <Typography variant="body2" color="text.secondary">
-                Parking
-              </Typography>
-              <Typography variant="body1">{property.features.parking ? "Yes" : "No"}</Typography>
-            </Box>
-          </Box>
-        </Grid>
-
-        <Grid item xs={6} sm={4}>
+        <Grid container spacing={2} sx={{ mt: 1 }}>
+  {[
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987395/Icon_u6frq4.svg', label: "Total area", value: `${property.propertyDetail.squareFeet} sq ft` },
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987397/double-bed_1_t8j5n1.svg', label: "Bedrooms", value: property.propertyDetail.bedrooms },
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987397/bath-tub_1_tvddev.svg', label: "Bathrooms", value: property.propertyDetail.bathrooms },
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987396/stairs_1_yljfdy.svg', label: "Floor", value: "3/8" },
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987708/brick_2_1_ae3qyr.svg', label: "Construction year", value: "N/A" },
+    { icon: 'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987396/parking-sign_1_amf4kq.svg', label: "Parking", value: property.propertyDetail.hasGarage ? "Yes" : "No" }
+  ].map((item, index) => (
+    <Grid item xs={12} sm={6} key={index} sx={{ borderBottom: 1, borderRight: index % 3 !== 2 ? 1 : 0, borderColor: "grey.300", p: 2 }}>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
+          {/* {item.icon} */}
+          <Box component='img' src={item.icon} alt={item.label}/>
+          <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+            {item.label}
+          </Typography>
+        </Box>
+        <Typography variant="body1">{item.value}</Typography>
+      </Box>
+    </Grid>
+  ))}
+</Grid>
+        {/* <Grid item xs={6} sm={4}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <WifiIcon  sx={{ mr: 1 }} />
             <Box>
@@ -107,9 +45,9 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
               <Typography variant="body1">{property.features.wifi ? "Yes" : "No"}</Typography>
             </Box>
           </Box>
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={6} sm={4}>
+        {/* <Grid item xs={6} sm={4}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <TvIcon  sx={{ mr: 1 }} />
             <Box>
@@ -119,9 +57,9 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
               <Typography variant="body1">{property.features.cableTV ? "Yes" : "No"}</Typography>
             </Box>
           </Box>
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={6} sm={4}>
+        {/* <Grid item xs={6} sm={4}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ElevatorIcon  sx={{ mr: 1 }} />
             <Box>
@@ -131,8 +69,8 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
               <Typography variant="body1">{property.features.elevator ? "Yes" : "No"}</Typography>
             </Box>
           </Box>
-        </Grid>
-      </Grid>
+        </Grid> */}
+      
     </Box>
   )
 }
