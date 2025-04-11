@@ -11,21 +11,21 @@ import { AppDispatch } from "../redux/store";
 export const useLocations = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const availableLocations = useSelector(selectAvailableLocations);
+  const locations = useSelector(selectAvailableLocations);
   const stateLocations = useSelector(selectStateLocations);
 
   useEffect(() => {
-    if (availableLocations.length === 0) {
+    if (locations?.length === 0) {
       dispatch(fetchAvailableLocations());
     }
 
     if (stateLocations.length === 0) {
       dispatch(fetchStateLocations());
     }
-  }, [dispatch, availableLocations.length, stateLocations.length]);
+  }, [dispatch, locations.length, stateLocations.length]);
 
   return {
-    availableLocations,
+    locations,
     stateLocations,
   };
 };
