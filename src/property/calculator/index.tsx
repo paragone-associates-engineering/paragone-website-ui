@@ -37,7 +37,7 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const PropertyCalculator = () => {
-  const { locations } = useLocations();
+  const { stateLocations: locations }: { stateLocations: { name: string, id:string }[] } = useLocations();
   const [calculationResult, setCalculationResult] = useState<any[]>([]);
   const [isCalculated, setIsCalculated] = useState(false)
   const [allPreferences, setAllPreferences] = useState<any[]>([]);
@@ -50,7 +50,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      location: locations[0] || "",
+      location: locations[0]?.name || "",
       propertyCategory: "residential",
       preferences: [],
       futurePlans: "",
@@ -76,6 +76,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   useEffect(() => {
     setSelectedPreferences([]);
   }, [watchCategory]);
+
   const onSubmit = async (data: FormSchemaType) => {
     if (data.budget === 0) {
       setCalculationResult([]);
@@ -165,9 +166,9 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
                       error={!!errors.location} 
                       helperText={errors.location?.message}
                     >
-                      {locations.map((location: string, index: number) => (
-                        <MenuItem key={index} value={location}>
-                          {location}
+                      {locations.map((location) => (
+                        <MenuItem key={location?.id} value={location?.name}>
+                          {location?.name}
                         </MenuItem>
                       ))}
                     </TextField>
