@@ -28,6 +28,7 @@ export const BaseBanner = ({
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         display: 'flex',
+        transition: 'background-image 0.5s ease-in-out',
        // mb: { xs: 8, sm: 0 },
         justifyContent:"center",
         alignItems: 'center',

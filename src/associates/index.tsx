@@ -11,7 +11,7 @@ const BecomeAssociate = () => {
     <Box sx={{width:'100vw'}}>
       <PageBanner title='Become a Paragone Associate'  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Become a Paragone Associate" }]} />
 
-      <Container maxWidth="lg" sx={{ py:{md:6}}}>
+      <Container maxWidth="lg" sx={{ py:5}}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
             <Box
@@ -31,9 +31,7 @@ const BecomeAssociate = () => {
               Do Much More!
             </Typography>
             <Typography variant="body1" paragraph>
-              The Paragone Signature is a place where career goals and ambitions of a dedicated real estate professional
-              are realized. The Paragone Signature is a place where you can grow and develop your professional skills
-              and knowledge, and where you can collaborate with the right people to achieve your goals.
+            The beginning of building a solid real estate career starts with being part of a brand with cutting edge global standards and delivery. The <span style={{fontWeight:700}}> Paragóne Signature </span> brand has been designed for the ambitious real estate professional like you who want to build and advance their real estate career with the right organization. Now there’s no stopping you! 
             </Typography>
           </Grid>
         </Grid>
@@ -83,33 +81,26 @@ const BecomeAssociate = () => {
             <Typography variant="h4" component="h2" gutterBottom>
               Your Success Just Got Easier With Us
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" fontWeight={600} fontSize={18} marginBottom={1.5}>
               Access to the best and the most Promising Listings
             </Typography>
-            <Typography variant="body1" paragraph>
-              We have a large portfolio of exclusive listings that are not available anywhere else. We can increase the
-              visibility of properties through strategic use of various marketing channels. We have a dedicated team of
-              professionals who are committed to the success of our agents. We have a strong brand that is recognized in
-              the market. We are positioned to assist you in all that you need most.
+            <Typography variant="body1" color='text.secondary' paragraph>
+            We strive to ensure that we offer you not just a variety of property listings to aid your sales, but we also ensure the verification of all property listings, enabling you to present your clients with the best offers to choose from. By joining our team, you will have access to an exclusive portfolio of verified properties, giving you a competitive edge in the market. We are dedicated to supporting your success by providing you with the resources, tools, and opportunities you need to excel in your real estate career.
             </Typography>
 
-            <Box sx={{ mt: 4 }}>
-              <Typography variant="h5" component="h3" gutterBottom>
+            <Box sx={{ mt: 2}}>
+              <Typography  variant="body1" fontWeight={600} fontSize={18} marginBottom={1.5}>
                 Extensive Training and Development
               </Typography>
-              <Typography variant="body1" paragraph>
-                Our team is dedicated to your success through ongoing training, mentorship, and professional
-                development. We provide comprehensive onboarding for new agents, regular training on the latest industry
-                trends, and one-on-one career coaching.
+              <Typography variant="body1" color='text.secondary' paragraph>
+              Our team is dedicated to your success through ongoing training, mentorship, and comprehensive resources. We provide you with the tools and knowledge needed to excel in real estate, ensuring you can close transactions seamlessly and grow your career effectively.
               </Typography>
 
-              <Typography variant="h5" component="h3" gutterBottom sx={{ mt: 3 }}>
+              <Typography  variant="body1" fontWeight={600} fontSize={18} marginBottom={1.5}>
                 Marketing and Branding Support
               </Typography>
-              <Typography variant="body1">
-                Leverage our established brand and marketing resources, including targeted campaigns, professional
-                photography, and social media management. Our marketing team creates customized strategies to elevate
-                your listings, build your reputation, and grow your client base.
+              <Typography variant="body1" color='text.secondary'>
+              Leverage our established brand and marketing resources, including targeted campaigns, personalized materials, and a strong online presence, to attract clients and properties. Our comprehensive support enhances your visibility, builds your reputation, and gives you a competitive edge.
               </Typography>
             </Box>
           </Grid>
@@ -150,37 +141,56 @@ const BecomeAssociate = () => {
             </Button>
           </Box>
         </Box>
+        <Grid container spacing={6} alignItems="center" sx={{ my: 1, position: 'relative' }}>
+  <Grid item xs={12} sm={7}>
+    <Typography variant="h4" component="h2" gutterBottom>
+      No-Ceiling Earning Potential
+    </Typography>
+    <Typography variant="body1" paragraph>
+    At Paragóne Signature & Associates, there are no limits to how much you can earn daily, weekly, monthly, or annually. Here, you are challenged to break through any barriers and elevate your performance to achieve your personal financial goals and desires—no matter how ambitious they are!
+    </Typography>
+    <CustomButton href='/' sx={{ mt: 1, width: '20%', py: 1 }}>
+      Join Us
+    </CustomButton>
+  </Grid>
 
-        <Grid container spacing={6} alignItems="center" sx={{ my: 4 }}>
-          <Grid item xs={12} md={7}>
-            <Typography variant="h4" component="h2" gutterBottom>
-              No-Ceiling Earning Potential
-            </Typography>
-            <Typography variant="body1" paragraph>
-              At Paragone Signature & Associates, we believe in rewarding excellence. Our competitive commission
-              structure is designed to maximize your income potential. As you grow through our levels and enhance your
-              performance, we offer you generous tiered commission rates to ensure you're always motivated to excel.
-            </Typography>
-            <CustomButton href='/' sx={{ mt: 1, width:'20%', py:1 }}>
-             Join Us
-            </CustomButton>
-          </Grid>
-          <Grid item xs={12} md={5}>
-            <Box
-              component="img"
-              src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882223/side-view-adult-male-enjoying-view-from-home_1_amgaev.png"
-              alt="Successful real estate agent"
-              sx={{
-                width: "100%",
-                height: "auto",
-                borderRadius: 2,
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
-              }}
-            />
-          </Grid>
-        </Grid>
+  <Grid item xs={12} sm={5} sx={{ position: 'relative' }}>
+    {/* Blob Background */}
+    <Box
+      component="img"
+      src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744173537/Vector_3_bt1imc.svg"
+      alt="Decorative blob"
+      sx={{
+        position: "absolute",
+        top: "48px",
+        right: "-20px",
+        zIndex: 1,
+        width: "90%",
+        height: "auto",
+        pointerEvents: "none",
+        display:{xs:'none', md:'block'}
+      }}
+    />
+    
+    {/* Foreground Image */}
+    <Box
+      component="img"
+      src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882223/side-view-adult-male-enjoying-view-from-home_1_amgaev.png"
+      alt="Successful real estate agent"
+      sx={{
+        position: 'relative',
+        zIndex: 10,
+        width: "100%",
+        height: "auto",
+        borderRadius: 2,
+        boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+      }}
+    />
+  </Grid>
+</Grid>
 
-        <Grid container spacing={6} alignItems="center" sx={{ my: 4 }}>
+
+        <Grid container spacing={6} alignItems="center" sx={{ my: 4, postion:'relative', zIndex:10 }}>
           <Grid item xs={12} md={5}>
             <Box
               component="img"
@@ -194,14 +204,13 @@ const BecomeAssociate = () => {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={7}>
+          <Grid item xs={12} md={7} sx={{ postion:'relative', zIndex:99 }}>
+            <Typography variant='subtitle1' marginBottom={1} color='primary.main'>Global Reach</Typography>
             <Typography variant="h4" component="h2" gutterBottom>
               Join A Like-minded Team - Hungry for Success
             </Typography>
             <Typography variant="body1" paragraph>
-              Become part of an ecosystem that is built on collaboration and mutual success. Our culture fosters
-              teamwork, knowledge sharing, and a collective drive to achieve greater standards of excellence and
-              service. You'll connect to valuable mentorship opportunities and build lasting professional relationships.
+            Working with like-minded people is a no-brainer because doing so helps you work smarter and engage the power of leverage. It increases your chances for success with a greater probability of achieving your desires. You also connect for beneficial resources and have access to coaches and mentors within the real estate space who can offer that handholding experience as you build your career.
             </Typography>
             <CustomButton  sx={{ mt: 1, width:'20%', py:1 }}>
               Join us
@@ -209,26 +218,43 @@ const BecomeAssociate = () => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={6} alignItems="center" sx={{ my: 4 }}>
-          <Grid item xs={12} md={7}>
+        <Grid container spacing={6} alignItems="center" sx={{ my: 4, position:'relative' }}>
+          <Grid item xs={12} md={7} sx={{ postion:'relative', zIndex:10 }}>
+          <Typography variant='subtitle1' marginBottom={1} color='primary.main'>Become an international force</Typography>
             <Typography variant="h4" component="h2" gutterBottom>
               Collaborate with Top Real Estate Professionals
             </Typography>
             <Typography variant="body1" paragraph>
-              Connect with our network of highly experienced real estate experts, sharing insights and strategies that
-              accelerate your growth. Our collaborative environment creates a culture of continuous learning, expanding
-              your knowledge, the depth of clients, and your earning potential.
+            Connect with a vast network of industry professionals and peers, sharing valuable insights, collaborating on projects, and expanding your business. Leverage these connections to enhance your knowledge, stay ahead of trends, and drive your real estate success.
             </Typography>
             <CustomButton  sx={{ mt: 1, width:'20%', py:1  }}>
               Join Us
             </CustomButton>
           </Grid>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={5} sx={{postion:'relative'}}>
+            {/* Blob Background */}
+    <Box
+      component="img"
+      src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744173567/Vector_2_gnqbae.svg"
+      alt="Decorative blob"
+      sx={{
+        position: "absolute",
+        top: "20px",
+        left: "-10px",
+        zIndex: 1,
+        width: "45%",
+        height: "auto",
+        pointerEvents: "none",
+        display:{xs:'none', sm:'block'}
+      }}
+    />
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882216/working-from-home-ergonomic-workstation_1_pdbmc7.png"
               alt="Professional real estate agent"
               sx={{
+                position: 'relative',
+                zIndex: 10,
                 width: "100%",
                 height: "auto",
                 borderRadius: 2,
@@ -238,7 +264,7 @@ const BecomeAssociate = () => {
           </Grid>
         </Grid>
         </Container>
-        <Box sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2 }}>
+        <Box sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2,  postion:'relative', zIndex:99  }}>
           <Container maxWidth='md'>
           <Typography variant="h4" component="h2" gutterBottom align="center">
             Are you ready?

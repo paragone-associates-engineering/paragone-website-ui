@@ -1,6 +1,5 @@
 
-import { Box, Container, Grid, Grid2,Typography, Button, Card, CardContent, useTheme } from '@mui/material';
-import { ArrowForward } from '@mui/icons-material';
+import { Box, Container, Grid, Typography, Card, useTheme } from '@mui/material';
 import ServiceCard from '../common/service-card';
 import SectionTitle from '../common/section-title';
 
@@ -9,9 +8,21 @@ import PromotionBanners from '../common/banner/promotions';
 import ExclusiveProperties from '../common/exclusive-properties';
 import OurPartners from '../common/partners';
 import Testimonials from '../common/testimonial';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { AppDispatch, RootState } from '../redux/store';
+import { fetchBlogPosts } from '../redux/slices/blog-slice';
+import { useEffect } from 'react';
+import { BlogCard } from '../common/blog-card';
 
 const Home = () => {
   const theme = useTheme();
+   const dispatch = useDispatch<AppDispatch>();
+    const { posts,  loading } = useSelector((state: RootState) => state.blog);
+   const page = 1;  
+    useEffect(() => {
+      dispatch(fetchBlogPosts(page));
+    }, [dispatch, page]);
 
   return (
     <Box sx={{width:'100vw'}} > 
@@ -132,98 +143,36 @@ const Home = () => {
             marginBottom={6}
           />
 
-          <Grid2 container spacing={3} columns={{ xs: 4, sm: 8, md: 12 }}>
-            {/* Blog post cards */}
-            {[1, 2, 3].map((item) => (
-              <Grid2 size={{ xs:12,sm:4}} key={item}>
-                <Card 
-                  sx={{ 
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    borderRadius: 2,
-                    overflow: 'hidden',
-                    transition: 'transform 0.3s, box-shadow 0.3s',
-                    '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: '0 12px 20px rgba(0,0,0,0.1)',
-                    },
-                  }}
-                >
-                  <Box 
-                    component="img"
-                    src={`https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276751/Copy_of_SPH_5744_1_hybb4f.png`}
-                    alt={`Blog post ${item}`}
-                    sx={{ 
-                      height: 200,
-                      objectFit: 'cover',
+{loading ? (
+          <Typography>Loading...</Typography>
+        ) : (
+
+            <Grid container spacing={4}>
+              {posts.slice(0,3).map((post) => (
+                <Grid item xs={12} sm={6} md={4} key={post.id}>
+                  <Card
+                    elevation={0}
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      borderRadius: 2,
+                      backgroundColor: "background.paper",
+                      transition: "transform 0.3s ease",
+                      "&:hover": {
+                        transform: "translateY(-5px)",
+                      },
                     }}
-                  />
-                  <CardContent sx={{ p: 3, flexGrow: 1 }}>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 1 }}
-                    >
-                      {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                    </Typography>
-                    <Typography
-                      variant="h6"
-                      component="h3"
-                      sx={{
-                        fontWeight: 600,
-                        mb: 2,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        lineHeight: 1.3,
-                      }}
-                    >
-                      {item === 1 
-                        ? 'Top 10 Neighborhoods to Invest in 2023' 
-                        : item === 2 
-                          ? 'How to Prepare Your Home for a Quick Sale' 
-                          : 'Understanding the Current Real Estate Market Trends'}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{
-                        mb: 2,
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                      }}
-                    >
-                      {item === 1 
-                        ? 'Discover the most promising neighborhoods for real estate investment this year, with data-backed insights and expert recommendations.' 
-                        : item === 2 
-                          ? 'Learn the essential steps to prepare your property for the market and attract serious buyers quickly.' 
-                          : 'Get an in-depth analysis of current market conditions and what they mean for buyers and sellers.'}
-                    </Typography>
-                    <Button
-                      color="primary"
-                      endIcon={<ArrowForward fontSize="small" />}
-                      sx={{
-                        fontWeight: 600,
-                        p: 0,
-                        '&:hover': {
-                          backgroundColor: 'transparent',
-                          textDecoration: 'underline',
-                        },
-                      }}
-                    >
-                      Read More
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Grid2>
-            ))}
-          </Grid2>
+                    component={Link}
+                    to={`/blog/${post.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <BlogCard post={post}/>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+        )}
 
           <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
         </Container>
@@ -237,3 +186,7 @@ const Home = () => {
 };
 
 export default Home;
+
+  {/* <Typography variant="h4" component="h2" gutterBottom>
+              Latest Posts
+            </Typography> */}

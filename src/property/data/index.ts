@@ -2,10 +2,10 @@ import { Info } from "../../types/management";
 import { PropertyType, Location, BudgetOption } from "../types";
 
 export const propertyTypes: PropertyType[] = [
-  { id: "apartment", name: "Apartment" },
-  { id: "house", name: "House" },
+  { id: "residential", name: "Residential" },
+  //{ id: "house", name: "House" },
   { id: "land", name: "Land" },
-  { id: "commercial", name: "Commercial Property" },
+  { id: "commercial", name: "Commercial" },
 ]
 
 export const locations: Location[] = [

@@ -5,7 +5,12 @@ export interface PropertyData {
   type: 'sale' | 'rent';
   featured?: boolean;
   address: string;
-  sqm: number;
+sqm: number;
+  // propertyDetails: {
+  //   id:string;
+  //   name:string;
+  //   value:string | number | boolean
+  // }[];
   bedrooms: number;
   bathrooms: number;
   rating: number;
@@ -63,6 +68,14 @@ export interface ApiProperty {
   description: string
   landmarks: Landmark[]
   propertyDetail: PropertyDetail
+  area: number;
+  videoUrl: string
+  propertyDetails: {
+    id:string;
+    name:string;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    value:any
+  }[];
   isActive: boolean
   createdAt: string
   updatedAt: string

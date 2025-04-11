@@ -12,8 +12,8 @@ const palette: PaletteOptions = {
     paper: "#fff",
   },
   text: {
-    primary: "#333",
-    secondary: "#666",
+    primary: "#3E3E3E",
+    secondary: "#5A6164",
   },
   custom: {
     border: "#ddd", 
