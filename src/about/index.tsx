@@ -31,14 +31,14 @@ const AboutUs = () => {
             <Typography variant="h3" component="h1" gutterBottom>
             Who we are
             </Typography>
-            <Typography variant="body1" paragraph>
-            Paragone Signature & Associates Ltd. is a real estate brokerage and property management company on a mission to create desirous value from one sector of the real estate value chain to the other. 
+            <Typography variant="body1" color='textSecondary' paragraph>
+            <span style={{fontWeight:700}}>Paragone Signature & Associates Ltd.</span> is a real estate brokerage and property management company on a mission to create desirous value from one sector of the real estate value chain to the other. 
 
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" color='textSecondary' paragraph>
             We transform your real estate journey into a seamless, stress-free experience. Whether you're purchasing, selling, or managing properties, we handle the heavy lifting so you can focus on what truly matters.
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" color='textSecondary'>
             Our specialists are committed to delivering unparalleled service, ensuring every aspect of your real estate transaction is managed meticulously and professionally.
 
             </Typography>

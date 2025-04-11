@@ -3,7 +3,7 @@ import { Grid, Box, Typography, Pagination, PaginationItem } from "@mui/material
 import { Link as RouterLink } from "react-router-dom"
 import PropertyCard from "../../../common/property-card"
 //import { propertiesData } from "../../../constant";
-import { ApiProperty } from "../../types";
+import { ApiProperty } from "../../../types/properties";
 import SkeletonLoader from "../../../common/skeleton-loader";
 interface PropertyGridProps {
   properties: ApiProperty[]

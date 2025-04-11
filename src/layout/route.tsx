@@ -1,27 +1,32 @@
 import { Routes, Route } from "react-router-dom";
-import Home from "../home";
-import AboutUs from "../about";
-import PropertyCalculator from "../property/calculator";
-import RealEstateBrokerage from "../real-estate-brokerage";
-import PropertyRequest from "../property/request";
-import PartnerWithUs from "../become-partner";
-import BecomeAssociate from "../associates";
-import Careers from "../career";
-import JobDetail from "../career/details";
-import BlogDetail from "../blog/details";
-import Blog from "../blog";
-import ReferAndEarn from "../refer-and-earn";
-import PropertyManagement from "../property/management";
-import Contact from "../contact";
-import Listings from "../property/listings/pages/listings";
-import FilteredListings from "../property/listings/pages/filtered-listings";
-import LocationListings from "../property/listings/pages/location-listings";
-import PropertyDetailsPage from "../property/listings/pages/property-details";
-import SubscribePage from "../subscribe";
-import NotFound from "./not-found";
+import { lazy, Suspense } from "react";
+import Loader from "../common/loader";
+
+const Home = lazy(() => import("../home"));
+const AboutUs = lazy(() => import("../about"));
+const PropertyCalculator = lazy(() => import("../property/calculator"));
+const RealEstateBrokerage = lazy(() => import("../real-estate-brokerage"));
+const PropertyRequest = lazy(() => import("../property/request"));
+const PartnerWithUs = lazy(() => import("../become-partner"));
+const BecomeAssociate = lazy(() => import("../associates"));
+const Careers = lazy(() => import("../career"));
+const JobDetail = lazy(() => import("../career/details"));
+const Blog = lazy(() => import("../blog"));
+const BlogDetail = lazy(() => import("../blog/details"));
+const ReferAndEarn = lazy(() => import("../refer-and-earn"));
+const PropertyManagement = lazy(() => import("../property/management"));
+const Contact = lazy(() => import("../contact"));
+const Listings = lazy(() => import("../property/listings/pages/listings"));
+const FilteredListings = lazy(() => import("../property/listings/pages/filtered-listings"));
+const LocationListings = lazy(() => import("../property/listings/pages/location-listings"));
+const PropertyDetailsPage = lazy(() => import("../property/listings/pages/property-details"));
+const SubscribePage = lazy(() => import("../subscribe"));
+const NotFound = lazy(() => import("./not-found"));
+
 
 const AllRoutes = () => {
     return (
+        <Suspense fallback={<Loader />}>
                 <Routes>
                     <Route path="/" element={<Home/>} />
                     <Route path="/about-us" element={<AboutUs/>} />
@@ -44,6 +49,7 @@ const AllRoutes = () => {
                     <Route path="/contact-us" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
+                </Suspense>
     )
 }
 

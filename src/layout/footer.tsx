@@ -116,9 +116,16 @@ export default function Footer() {
           </Item>
         </Grid>
 
-        <Grid item xs={12} sm={4} md={3}>
+        <Grid item xs={12} sm={4} md={2}>
           <Item>
-            <Typography variant="h6" fontWeight={600} gutterBottom>
+            <Typography variant="h6" fontWeight={600} gutterBottom sx={{
+        borderBottom: '2px solid',
+        borderColor: 'primary.main',
+        color:'text.primary',
+        display: 'inline-block',
+        pb: 0.5,
+        mb: 2,
+      }}>
               Quick Links
             </Typography>
             <Link to="/about-us" style={{ textDecoration: "none", color: "inherit" }}>
@@ -145,46 +152,116 @@ export default function Footer() {
           </Item>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid item xs={12} sm={6} md={2}>
           <Item>
-            <Typography variant="h6" fontWeight={600} gutterBottom>
+            <Typography variant="h6" fontWeight={600} gutterBottom sx={{
+        borderBottom: '2px solid',
+        borderColor: 'primary.main',
+        display: 'inline-block',
+        pb: 0.5,
+        mb: 2,
+      }}>
               Privacy Policy
             </Typography>
             <Typography>Our privacy policy</Typography>
-            <Typography
-              variant="h6"
-              fontWeight={600}
-              gutterBottom
-              sx={{ mt: 2 }}
-            >
+          </Item>
+        </Grid>
+
+        <Grid item xs={12} sm={6} md={2}>
+          <Item>
+            <Typography variant="h6" fontWeight={600} gutterBottom sx={{
+        borderBottom: '2px solid',
+        borderColor: 'primary.main',
+        display: 'inline-block',
+        pb: 0.5,
+        mb: 2,
+      }}>
               We Are Social
             </Typography>
             <Typography>Facebook</Typography>
             <Typography>Instagram</Typography>
             <Typography>LinkedIn</Typography>
             <Typography>YouTube</Typography>
+
           </Item>
         </Grid>
 
         <Grid item xs={12} sm={6} md={3}>
-          <Item>
-            <Typography variant="h6" fontWeight={600} gutterBottom>
-              Contact Us
-            </Typography>
-            <Typography>Call for any help:</Typography>
-            <Typography fontWeight={600}>(+234) 816 046 7439</Typography>
-            <Typography fontWeight={600}>(+234) 915 636 2645</Typography>
-            <Typography mt={2}>Mail to our support team:</Typography>
-            <Typography fontWeight={600}>
-              support@paragonesignature.com
-            </Typography>
-            <Typography fontWeight={600}>info@paragonesignature.com</Typography>
-            <Typography mt={2}>Address:</Typography>
-            <Typography fontWeight={600}>
-              7, Sola Gbeleyi Street, off 21 Road, Gowon Estate, Lagos.
-            </Typography>
-          </Item>
-        </Grid>
+  <Item>
+   
+    <Typography
+      variant="h6"
+      fontWeight={600}
+      gutterBottom
+      sx={{
+        borderBottom: '2px solid',
+        borderColor: 'primary.main',
+        display: 'inline-block',
+        pb: 0.5,
+        mb: 2,
+      }}
+    >
+      Contact Us
+    </Typography>
+
+    {/* Section 1: Call */}
+    <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start', mb: 2 }}>
+      <Box
+        sx={{
+          width: '2.8px',
+          backgroundColor: '#3E3E3E',
+          borderRadius: 2,
+          height: '72px', 
+          mt: '4px',
+        }}
+      />
+      <Box>
+        <Typography sx={{mb:1}}>Call for any help:</Typography>
+        <Typography fontWeight={600}>(+234) 816 046 7439</Typography>
+        <Typography fontWeight={600}>(+234) 915 636 2645</Typography>
+      </Box>
+    </Box>
+
+    {/* Section 2: Mail */}
+    <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start', mb: 2 }}>
+      <Box
+        sx={{
+          width: '2.8px',
+          backgroundColor: '#3E3E3E',
+          borderRadius: 2,
+          height: '65px',
+          mt: '4px',
+        
+        }}
+      />
+      <Box>
+        <Typography>Mail to our support team:</Typography>
+        <Typography fontWeight={600}>support@paragonesignature.com</Typography>
+        <Typography fontWeight={600}>info@paragonesignature.com</Typography>
+      </Box>
+    </Box>
+
+    {/* Section 3: Address */}
+    <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start' }}>
+      <Box
+        sx={{
+          width: '4px',
+          backgroundColor: '#3E3E3E',
+          borderRadius: 2,
+          height: '65px',
+          mt: '4px',
+        }}
+      />
+      <Box>
+        <Typography>Address:</Typography>
+        <Typography fontWeight={600}>
+          7, Sola Gbeleyi Street, off 21 Road, Gowon Estate, Lagos.
+        </Typography>
+      </Box>
+    </Box>
+  </Item>
+</Grid>
+
       </Grid>
 
       <Box sx={{ position: "fixed", zIndex:10, bottom: 20, right: 20, backgroundColor: "#25D366", p: 1.5, borderRadius: "50%", cursor: "pointer", display:"flex", alignItems:"center", justify:"center" }}>
@@ -194,7 +271,7 @@ export default function Footer() {
       <Divider sx={{ my: 4 }} />
 
       <Typography textAlign="center" mt={3}>
-        © {new Date().getFullYear()} Paragone Signature All Rights Reserved
+        © {new Date().getFullYear()} Paragone Signature. All Rights Reserved
       </Typography>
     </FooterContainer>
   );

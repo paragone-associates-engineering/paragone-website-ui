@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -10,7 +10,6 @@ import {
   Tab
 } from '@mui/material';
 import { BaseBanner } from './base-banner';
-//import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TabContent from './tab-content';
@@ -47,102 +46,49 @@ export const HomeBanner = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
   
   const [tabValue, setTabValue] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Carousel images
+  const carouselImages = [
+    "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741267158/sean-pollock-PhYq704ffdA-unsplash_zew9au.jpg",
+    "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744346003/2149661456_rkz7pp.jpg",
+    "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744346009/48219_1_rozl7o.jpg",
+    "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744174456/tunde-buremo-cebfd5BgDC8-unsplash_lq3lll.jpg"
+    // "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1973&auto=format&fit=crop",
+    // "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop"
+  ];
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     event.preventDefault();
     setTabValue(newValue);
   };
 
-  // const TabContent = () => (
-  //   <Box sx={{ p: { xs: 2, md: 3 } }}>
-  //     <Grid container spacing={2} sx={{ mb: 1 }}>
-  //       <Grid item xs={12} md={4}>
-  //         <TextField
-  //           fullWidth
-  //           placeholder="Your location"
-  //           variant="outlined"
-  //           InputProps={{
-  //             endAdornment: (
-  //               <InputAdornment position="end">
-  //                 <LocationOnOutlinedIcon color="primary" />
-  //               </InputAdornment>
-  //             ),
-  //             sx: { pr: 1 }
-  //           }}
-  //         />
-  //       </Grid>
-  
-  //       <Grid item xs={12} md={4}>
-  //         <FormControl fullWidth>
-  //           <InputLabel id="property-label">Property Type</InputLabel>
-  //           <Select labelId="property-label" name="property" label="Select Type" required>
-  //             <MenuItem value="">Select type</MenuItem>
-  //             <MenuItem value="apartment">Apartment</MenuItem>
-  //             <MenuItem value="house">House</MenuItem>
-  //             <MenuItem value="office">Office</MenuItem>
-  //           </Select>
-  //         </FormControl>
-  //       </Grid>
-  
-  //       <Grid item xs={12} md={4}>
-  //         <FormControl fullWidth>
-  //           <InputLabel id="room-label">Select Room</InputLabel>
-  //           <Select labelId="room-label" name="room" label="Select Room" required>
-  //             <MenuItem value="">Select room</MenuItem>
-  //             <MenuItem value="1">1</MenuItem>
-  //             <MenuItem value="2">2</MenuItem>
-  //             <MenuItem value="3">3+</MenuItem>
-  //           </Select>
-  //         </FormControl>
-  //       </Grid>
-  //     </Grid>
-  
-  //     {/* Bottom section with button and advanced search */}
-  //     <Box
-  //       sx={{
-  //         display: 'flex',
-  //         justifyContent: 'space-between',
-  //         alignItems: 'center',
-  //         flexDirection: { xs: 'column', md: 'row' },
-  //         mt: 2
-  //       }}
-  //     >
-  //       <Button
-  //         variant="contained"
-  //         sx={{
-  //           bgcolor: '#FFA500',
-  //           color: 'white',
-  //           textTransform: 'none',
-  //           fontWeight: 'bold',
-  //           borderRadius: '4px',
-  //           py: 1,
-  //           px: 3,
-  //           '&:hover': {
-  //             bgcolor: '#F29100'
-  //           },
-  //           width: { xs: '100%', md: 'auto' },
-  //           mb: { xs: 1, sm: 0 }
-  //         }}
-  //       >
-  //         Search now
-  //       </Button>
-  
-  //       <Box sx={{ display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' }, justifyContent: { xs: 'flex-end', md: 'flex-start' } }}>
-  //         <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-  //           Advanced search
-  //         </Typography>
-  //         <IconButton size="small" color="primary">
-  //           <MoreVertIcon />
-  //         </IconButton>
-  //       </Box>
-  //     </Box>
-  //   </Box>
-  // );
+  const goToNextImage = () => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+  };
 
+  const goToPrevImage = () => {
+    setCurrentImageIndex((prevIndex) => 
+      prevIndex === 0 ? carouselImages.length - 1 : prevIndex - 1
+    );
+  };
+
+  // Auto slide every 7 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      goToNextImage();
+    }, 7000);
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   return (
     <BaseBanner 
-      backgroundImage="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741267158/sean-pollock-PhYq704ffdA-unsplash_zew9au.jpg"
+      backgroundImage={carouselImages[currentImageIndex]}
       height={{ xs: '850px', sm:'650px', md: '100vh' }}
+      // sx={{
+      //   transition: 'background-image 0.5s ease-in-out',
+      // }}
     >
       <Box 
         sx={{ 
@@ -152,18 +98,17 @@ export const HomeBanner = () => {
           justifyContent: 'space-between',
           width: '100%',
           height: '100%',
-          gap:2,
+          gap: 2,
           pt: { xs: 15, md: 0 },
-          //mb: { xs: 15, md: 0 },
         }}
       >
-       
+      
         <Box 
           sx={{ 
             color: 'white', 
             mb: { xs: 4, md: 0 },
             width: { xs: '100%', sm: '50%' },
-            textAlign:{xs:"center", sm:"left"}
+            textAlign: {xs: "center", sm: "left"}
           }}
         >
           <Typography 
@@ -194,11 +139,10 @@ export const HomeBanner = () => {
           </Typography>
           <Typography 
             variant="body1" 
-            //textAlign='center'
             sx={{ 
               maxWidth: '450px',
               fontSize: { xs: '1rem', md: '1.1rem' },
-              mx:{xs:'auto', sm:'0'}
+              mx: {xs: 'auto', sm: '0'}
             }}
           >
             Whether buying, selling, renting, or short stay, we have got you covered
@@ -209,7 +153,7 @@ export const HomeBanner = () => {
         <Box 
           sx={{ 
             width: { xs: '100%', sm: '50%' },
-            mt:0,
+            mt: 0,
             mb: { xs: 15, sm: 0 },
           }}
         >
@@ -236,11 +180,11 @@ export const HomeBanner = () => {
                   fontWeight: 'medium',
                   fontSize: '0.9rem',
                   minHeight: '48px',
-                  whiteSpace:'nowrap',
+                  whiteSpace: 'nowrap',
                   '&.Mui-selected': {
                     backgroundColor: '#FFA500',
                     color: 'white',
-                    border:0
+                    border: 0
                   }
                 },
                 borderBottom: '1px solid #eee'
@@ -253,40 +197,17 @@ export const HomeBanner = () => {
             </Tabs>
 
             <TabPanel value={tabValue} index={0}>
-  <TabContent />
-</TabPanel>
+              <TabContent />
+            </TabPanel>
             <TabPanel value={tabValue} index={1}>
-  <TabContent />
-</TabPanel>
-
-<TabPanel value={tabValue} index={2}>
-  <TabContent />
-</TabPanel>
-<TabPanel value={tabValue} index={3}>
-{/* <Box sx={{display:'flex', gap:3, px:2,py:3}}>
-<Grid item xs={12} md={4} sx={{flex:1}}>
-          <FormControl fullWidth>
-            <InputLabel id="room-label">Select Location</InputLabel>
-            <Select labelId="room-label" name="room" label="Select Room" required>
-              <MenuItem value="">Select room</MenuItem>
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-              <MenuItem value="3">3+</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <CustomButton sx={{px:2}}>Search</CustomButton>
-</Box>
-<CustomButton href='/listings/filter' sx={{bgcolor:'transparent', p:0, color:'black', boxShadow:'none', mb:2, display: 'flex', alignItems: 'center', width: { xs: '100%', md: 'auto' }, justifyContent: 'flex-end' }}>
-          <Typography variant="body2" sx={{ cursor: 'pointer' }}>
-            Advanced search
-          </Typography>
-          <IconButton size="small" color="primary">
-            <MoreVertIcon />
-          </IconButton>
-        </CustomButton> */}
-         <TabContent tabIndex={3}/>
-</TabPanel>
+              <TabContent />
+            </TabPanel>
+            <TabPanel value={tabValue} index={2}>
+              <TabContent />
+            </TabPanel>
+            <TabPanel value={tabValue} index={3}>
+              <TabContent tabIndex={3} />
+            </TabPanel>
           </Paper>
         </Box>
       </Box>
@@ -294,7 +215,7 @@ export const HomeBanner = () => {
       {/* Navigation controls */}
       <Box 
         sx={{ 
-          display: {xs:'none', sm: 'flex' }, 
+          display: {xs: 'none', sm: 'flex'}, 
           position: 'absolute',
           bottom: { xs: 16, sm: 32 },
           left: { xs: 16, sm: 32 },
@@ -303,6 +224,7 @@ export const HomeBanner = () => {
         }}
       >
         <IconButton 
+          onClick={goToPrevImage}
           sx={{ 
             color: 'white', 
             border: '1px solid rgba(255,255,255,0.5)',
@@ -318,6 +240,7 @@ export const HomeBanner = () => {
         <Typography variant="caption" sx={{ mx: 1, color: '#FFA500' }}>|</Typography>
         <Typography variant="caption" sx={{ mx: 1 }}>NEXT</Typography>
         <IconButton 
+          onClick={goToNextImage}
           sx={{ 
             color: '#FFA500', 
             border: '1px solid #FFA500',

@@ -1,6 +1,6 @@
 "use client"
 
-import {  useEffect } from "react"
+import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
 import { PageBanner } from "../../../common/banner/page-banner"
@@ -10,26 +10,25 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-//import RelatedProperties from "../components/related-properties"
-import { formatCurrency } from "../utils"
-//import type { Property, NearbyPlace } from "../types"
 import FeaturedListings from "../components/featured-listings"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
 import { fetchListingById, fetchListings } from "../../../redux/slices/listings-slice"
+import { formatCurrency } from "../utils"
 
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
-  console.log('id', propertyId)
   const dispatch = useAppDispatch()
 
   const listings = useAppSelector((state) => state.listings)
-  console.log("Property details state:", listings)
-
-  const { selectedProperty:property, loading } = listings || {
+  const { selectedProperty: property, loading } = listings || {
     selectedProperty: null,
     loading: true,
     properties: [],
   }
+
+  // Helper to get specific property detail value
+  const getDetailValue = (name: string | number) =>
+    property?.propertyDetails?.find((detail) => detail.name === name)?.value
 
   useEffect(() => {
     if (propertyId) {
@@ -37,21 +36,20 @@ const PropertyDetailsPage = () => {
     }
   }, [dispatch, propertyId])
 
-  // Fetch related properties
   useEffect(() => {
     if (property) {
-      // Fetch properties with similar characteristics
       dispatch(
         fetchListings({
           listingType: property.listingType,
           page: 1,
           pageSize: 3,
-        }),
+        })
       )
     }
   }, [dispatch, property])
-  
-const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
+
+  const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
+
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
@@ -69,22 +67,32 @@ const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
   }
 
   return (
-    <Box sx={{width:'100vw'}}>
+    <Box sx={{ width: "100vw" }}>
       <PageBanner
         title="Property Information"
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Property", href: "/listings" },
-          { label: 'Property Information' },
+          { label: "Property Information" },
         ]}
       />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Chip
           label={
-            property?.listingType === "For Sale" ? "For Sale" : property?.listingType === "For Rent" ? "For rent" : "Short stay"
+            property?.listingType === "For Sale"
+              ? "For Sale"
+              : property?.listingType === "For Rent"
+              ? "For Rent"
+              : "Short Stay"
           }
-          color={property?.listingType === "sale" ? "primary" : property?.listingType === "For Rent" ? "secondary" : "info"}
+          color={
+            property?.listingType === "For Sale"
+              ? "primary"
+              : property?.listingType === "For Rent"
+              ? "secondary"
+              : "info"
+          }
           sx={{ mb: 2 }}
         />
 
@@ -102,9 +110,9 @@ const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
             <Typography variant="h4" component="div" color="primary.main" gutterBottom>
               {formatCurrency(property.amount)}
             </Typography>
-            {property?.propertyDetail?.squareFeet && (
+            {getDetailValue("area") && (
               <Typography variant="body2" color="text.secondary">
-                {formatCurrency(property.propertyDetail.squareFeet)}/sqm
+                {formatCurrency(Number(getDetailValue("area") || 0))}/sqm
               </Typography>
             )}
           </Box>
@@ -112,7 +120,7 @@ const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
         <PropertyGallery images={property.images} title={property.propertyName} />
 
-        <Grid container spacing={6} sx={{ mt: {xs:1, md:2} }}>
+        <Grid container spacing={6} sx={{ mt: { xs: 1, md: 2 } }}>
           <Grid item xs={12} md={8}>
             <Typography variant="h5" component="h2" gutterBottom>
               Description
@@ -127,9 +135,8 @@ const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
             {property?.landmarks?.length > 0 && (
               <Box sx={{ my: 6 }}>
-                <NearbyPlaces places={property?.landmarks} />
+                <NearbyPlaces places={property.landmarks} />
               </Box>
-              
             )}
 
             {videoUrl && (
@@ -141,25 +148,19 @@ const videoUrl = "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
           <Grid item xs={12} md={4}>
             <Box sx={{ position: "sticky", top: 20 }}>
-            {/* propertyId={property.id} propertyTitle={property?.propertyName} */}
-              <BookViewingForm  />
-
+              <BookViewingForm />
               <Box sx={{ mt: 4 }}>
-                <ContactAgentForm  />
+                <ContactAgentForm />
               </Box>
-
-              <Box sx={{ mt: 4, bgcolor:"secondary.main", p:2, borderRadius:2 }}>
-                <FeaturedListings  />
+              <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
+                <FeaturedListings />
               </Box>
             </Box>
           </Grid>
         </Grid>
       </Container>
-
-      {/* <RelatedProperties properties={mockRelatedProperties} /> */}
     </Box>
   )
 }
 
-export default PropertyDetailsPage;
-
+export default PropertyDetailsPage

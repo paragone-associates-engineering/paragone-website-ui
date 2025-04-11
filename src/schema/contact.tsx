@@ -54,6 +54,7 @@ export const getInTouchFormSchema = commonContactSchema.extend({
     }),
   });
   
+  
 export type JobApplicationData = z.infer<typeof jobApplicationSchema>;
 export type ContactFormSchema = z.infer<typeof contactFormSchema>;
 export type JoinUsFormSchema = z.infer<typeof joinUsFormSchema>;

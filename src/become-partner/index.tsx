@@ -35,22 +35,17 @@ const PartnerWithUs = () => {
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h3" component="h1" gutterBottom>
+            <Typography variant="h3" marginBottom={2}  component="h1" gutterBottom>
               Selling your home with us
             </Typography>
-            <Typography variant="body1" paragraph>
-              Selling your property should be a rewarding opportunity to maximize your investment, not a stressful
-              ordeal. Our marketing strategies are crafted to present your property in its best light, attracting
-              qualified buyers promptly.
+            <Typography variant="body1"  marginBottom={2} fontWeight={600} color='text.secondary'>
+            Selling your property should be an opportunity to maximize your investment, not a stressful ordeal. Our marketing strategies are crafted to present your property in its best light, attracting qualified Buyers promptly.
             </Typography>
-            <Typography variant="body1" paragraph>
-              With Paragone Signature & Associates Ltd, benefit from our extensive network and market expertise,
-              ensuring you achieve the best price for your property with minimal effort.
+            <Typography variant="body1"  marginBottom={2}  color='text.secondary'>
+            With <span style={{ fontWeight:600}}> Paragone Signature & Associates Ltd,</span> benefit from our extensive network and market expertise, ensuring you achieve the best price for your property with minimal effort.
             </Typography>
-            <Typography variant="body1">
-              We conduct thorough market analysis to competitively price your property while optimizing its market
-              value. Our staging services enhance your property's appeal, making it stand out to prospective buyers. We
-              also manage negotiations and legal formalities, guaranteeing a smooth process.
+            <Typography variant="body1" color='text.secondary'>
+            We conduct thorough market analyses to competitively price your property while optimizing its market value. Our staging services enhance your property's appeal, making it stand out to prospective buyers. We also manage negotiations and legal formalities, guaranteeing a seamless and successful transaction.
             </Typography>
           </Grid>
         </Grid>
