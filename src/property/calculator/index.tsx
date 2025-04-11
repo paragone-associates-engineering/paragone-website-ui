@@ -73,6 +73,9 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
       .catch(err => console.error("Failed to load preferences", err));
   }, []);
   
+  useEffect(() => {
+    setSelectedPreferences([]);
+  }, [watchCategory]);
   const onSubmit = async (data: FormSchemaType) => {
     if (data.budget === 0) {
       setCalculationResult([]);
@@ -85,7 +88,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
       budget: data.budget,
       preferences: selectedPreferences,
       sizeOfFamily: watchCategory === "residential" ? data.sizeOfFamily : undefined,
-      // The preferences will already be transformed to an array by zod
+      
     };
     
     setIsCalculated(false);

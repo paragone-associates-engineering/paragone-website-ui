@@ -106,11 +106,34 @@ export default function Footer() {
               {/* Social media icons */}
               <Grid item xs={12} sm={12} textAlign={{ xs: "center", sm: "left" }}>
          
-          <Box sx={{ mt: 2 }}>
-            {[Facebook, Instagram, LinkedIn, YouTube].map((Icon, index) => (
-              <Icon key={index} sx={{ fontSize: 28, mx: 1, cursor: "pointer", color: "#333" }} />
-            ))}
-          </Box>
+              <Box sx={{ mt: 2 }}>
+  {[
+    { Icon: Facebook, url: "https://www.facebook.com/paragonesignature?mibextid=wwXIfr" },
+    { Icon: Instagram, url: "https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr" },
+    { Icon: LinkedIn, url: "https://www.linkedin.com/company/paragone-signature-associates/" },
+    { Icon: YouTube, url: "https://wa.me/2348160467439" }, // If this is meant to be WhatsApp, replace YouTube icon with WhatsApp icon
+  ].map(({ Icon, url }, index) => (
+    <a
+      key={index}
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{ textDecoration: "none" }}
+    >
+      <Icon
+        sx={{
+          fontSize: 28,
+          mx: 1,
+          cursor: "pointer",
+          color: "#333",
+          transition: "color 0.3s",
+          "&:hover": { color: "primary.main" },
+        }}
+      />
+    </a>
+  ))}
+</Box>
+
         </Grid>
             </Box>
           </Item>
@@ -178,11 +201,13 @@ export default function Footer() {
       }}>
               We Are Social
             </Typography>
-            <Typography>Facebook</Typography>
-            <Typography>Instagram</Typography>
-            <Typography>LinkedIn</Typography>
-            <Typography>YouTube</Typography>
+            <Box sx={{display:'flex', flexDirection:'column'}}>
+            <Typography component="a" color="text.secondary" href="https://www.facebook.com/paragonesignature?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</Typography>
+    <Typography component="a"  color="text.secondary" href="https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</Typography>
+    <Typography component="a"  color="text.secondary" href="https://www.linkedin.com/company/paragone-signature-associates/" target="_blank" rel="noopener noreferrer">LinkedIn</Typography>
+    <Typography component="a"  color="text.secondary" href="https://wa.me/2348160467439" target="_blank" rel="noopener noreferrer">WhatsApp</Typography>
 
+    </Box>
           </Item>
         </Grid>
 

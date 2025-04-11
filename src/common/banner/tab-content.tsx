@@ -8,7 +8,7 @@ import { useLocations } from '../../hooks/use-locations';
 
 type ListingsQueryParams = {
   location?: string;
-  propertyType?: string;
+  propertyCategory?: string;
   bedrooms?: string | number;
 };
 
@@ -21,7 +21,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
   const { locations } = useLocations();
   const [filters, setFilters] = useState<ListingsQueryParams>({
     location: '',
-    propertyType: '',
+    propertyCategory: '',
     bedrooms: '',
   });
 
@@ -107,17 +107,17 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="property-label">Property Type</InputLabel>
+              <InputLabel id="property-label">Property Category</InputLabel>
               <Select
                 labelId="property-label"
-                name="propertyType"
-                value={filters.propertyType}
+                name="propertyCategory"
+                value={filters.propertyCategory}
                 onChange={handleChange}
               >
                 <MenuItem value="">Select type</MenuItem>
-                <MenuItem value="apartment">Apartment</MenuItem>
-                <MenuItem value="house">House</MenuItem>
-                <MenuItem value="office">Office</MenuItem>
+                <MenuItem value="residential">Residential</MenuItem>
+                <MenuItem value="commercial">Commercial</MenuItem>
+                <MenuItem value="land">Land</MenuItem>
               </Select>
             </FormControl>
             
