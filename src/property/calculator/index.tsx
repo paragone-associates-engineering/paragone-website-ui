@@ -37,7 +37,7 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const PropertyCalculator = () => {
-  const { locations } = useLocations();
+  const { stateLocations:locations } = useLocations();
   const [calculationResult, setCalculationResult] = useState<any[]>([]);
   const [isCalculated, setIsCalculated] = useState(false)
   const [allPreferences, setAllPreferences] = useState<any[]>([]);
@@ -76,7 +76,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   useEffect(() => {
     setSelectedPreferences([]);
   }, [watchCategory]);
-  
+
   const onSubmit = async (data: FormSchemaType) => {
     if (data.budget === 0) {
       setCalculationResult([]);
@@ -167,8 +167,8 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
                       helperText={errors.location?.message}
                     >
                       {locations.map((location: string, index: number) => (
-                        <MenuItem key={index} value={location}>
-                          {location}
+                        <MenuItem key={index} value={location?.name}>
+                          {location?.name}
                         </MenuItem>
                       ))}
                     </TextField>

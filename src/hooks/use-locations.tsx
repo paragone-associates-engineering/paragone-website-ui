@@ -1,17 +1,31 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLocations, selectLocations } from "../redux/slices/locations-slice";
+import {
+  fetchAvailableLocations,
+  fetchStateLocations,
+  selectAvailableLocations,
+  selectStateLocations,
+} from "../redux/slices/locations-slice";
 import { AppDispatch } from "../redux/store";
 
 export const useLocations = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { locations, loading, error } = useSelector(selectLocations);
+
+  const availableLocations = useSelector(selectAvailableLocations);
+  const stateLocations = useSelector(selectStateLocations);
 
   useEffect(() => {
-    if (locations.length === 0) {
-      dispatch(fetchLocations());
+    if (availableLocations.length === 0) {
+      dispatch(fetchAvailableLocations());
     }
-  }, [dispatch, locations.length]);
 
-  return { locations, loading, error };
+    if (stateLocations.length === 0) {
+      dispatch(fetchStateLocations());
+    }
+  }, [dispatch, availableLocations.length, stateLocations.length]);
+
+  return {
+    availableLocations,
+    stateLocations,
+  };
 };

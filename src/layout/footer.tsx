@@ -111,7 +111,7 @@ export default function Footer() {
     { Icon: Facebook, url: "https://www.facebook.com/paragonesignature?mibextid=wwXIfr" },
     { Icon: Instagram, url: "https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr" },
     { Icon: LinkedIn, url: "https://www.linkedin.com/company/paragone-signature-associates/" },
-    { Icon: YouTube, url: "#" },
+    { Icon: YouTube, url: "https://youtube.com/@paragonesignature?si=hY2Qa3DEyhwobozK" },
   ].map(({ Icon, url }, index) => (
     <a
       key={index}
@@ -205,7 +205,7 @@ export default function Footer() {
             <Typography component="a" color="text.secondary" href="https://www.facebook.com/paragonesignature?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</Typography>
     <Typography component="a"  color="text.secondary" href="https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</Typography>
     <Typography component="a"  color="text.secondary" href="https://www.linkedin.com/company/paragone-signature-associates/" target="_blank" rel="noopener noreferrer">LinkedIn</Typography>
-    <Typography component="a"  color="text.secondary" href="https://wa.me/2348160467439" target="_blank" rel="noopener noreferrer">WhatsApp</Typography>
+    <Typography component="a"  color="text.secondary" href="https://youtube.com/@paragonesignature?si=hY2Qa3DEyhwobozK" target="_blank" rel="noopener noreferrer">Youtube</Typography>
 
     </Box>
           </Item>
