@@ -111,7 +111,7 @@ export default function Footer() {
     { Icon: Facebook, url: "https://www.facebook.com/paragonesignature?mibextid=wwXIfr" },
     { Icon: Instagram, url: "https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr" },
     { Icon: LinkedIn, url: "https://www.linkedin.com/company/paragone-signature-associates/" },
-    { Icon: YouTube, url: "https://wa.me/2348160467439" }, // If this is meant to be WhatsApp, replace YouTube icon with WhatsApp icon
+    { Icon: YouTube, url: "#" },
   ].map(({ Icon, url }, index) => (
     <a
       key={index}

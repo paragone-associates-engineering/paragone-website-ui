@@ -76,6 +76,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   useEffect(() => {
     setSelectedPreferences([]);
   }, [watchCategory]);
+  
   const onSubmit = async (data: FormSchemaType) => {
     if (data.budget === 0) {
       setCalculationResult([]);
