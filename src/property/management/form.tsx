@@ -147,8 +147,8 @@ const PropertyManagementForm = () => {
                   </Grid>
                   
                   <Grid item xs={12}>
-                    <CustomButton isLoading={isSubmitting} sx={{width:'100%'}}>
-                      Get started
+                    <CustomButton isLoading={isSubmitting} sx={{width:150}}>
+                    Send Message
                     </CustomButton>
                   </Grid>
                 </Grid>

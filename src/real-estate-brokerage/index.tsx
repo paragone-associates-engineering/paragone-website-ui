@@ -1,4 +1,3 @@
-"use client"
 
 import { Container, Typography, Box, Grid, Button, Paper, IconButton } from "@mui/material"
 import {
@@ -16,7 +15,7 @@ const RealEstateBrokerage = () => {
             title="Real Estate Brokerage" 
             breadcrumbs={[{ label: "Home", href: "/" }, { label: "Real Estate Brokerage" }]} />
 
-      <Container maxWidth="lg" sx={{pb:5,pt:{xs:0, md:5}}}>
+      <Container maxWidth="lg" sx={{pb:5,pt:{xs:0, sm:6}}}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
             <Box
@@ -61,9 +60,9 @@ const RealEstateBrokerage = () => {
           </Typography>
 
           <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
-              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 2, borderWidth:1, borderColor:"secondary.main"}}>
-                <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+            <Grid item xs={12} sm={4}>
+              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 4, border:'1.5px solid #DDDDDD'}}>
+                <Box sx={{ display: "flex", justifyContent: "center", mb: 2,  }}>
                   <Box
                    component="img"
                    src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741871625/fi_2838794_av7qqh.svg"
@@ -82,8 +81,8 @@ const RealEstateBrokerage = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 2, backgroundColor: "background.paper" }}>
+            <Grid item xs={12} sm={4}>
+              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 4, border:'1.5px solid #DDDDDD', backgroundColor: "background.paper" }}>
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                   <Box
                   component="img"
@@ -104,8 +103,8 @@ const RealEstateBrokerage = () => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={4}>
-              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 2, backgroundColor: "background.paper" }}>
+            <Grid item xs={12} sm={4}>
+              <Paper elevation={0} sx={{ p: 4, height: "100%", borderRadius: 4, border:'1.5px solid #DDDDDD', backgroundColor: "background.paper" }}>
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                   <Box
                    component="img"
@@ -140,16 +139,19 @@ const RealEstateBrokerage = () => {
             backgroundSize: "cover",
           }}
         >
-          <Grid container spacing={2} alignItems="center">
-            <Grid item xs={12} md={8}>
-              <Typography variant="h3" sx={{fontWeight:700}}  gutterBottom>
+          <Grid container spacing={4} alignItems="center">
+            <Grid item xs={12} sm={8}>
+              <Typography variant="h3" sx={{fontWeight:700, fontSize:'2rem'}}  gutterBottom>
                 Let's achieve your real estate goals together
               </Typography>
             </Grid>
-            <Grid item xs={12} md={4} sx={{ textAlign: { xs: "left", md: "right" } }}>
-              <Button variant="contained" color="primary" size="large">
-                Contact us
-              </Button>
+            <Grid item xs={12} sm={4} sx={{ textAlign: { xs: "left", md: "right" } }}>
+             
+               <CustomButton href='/contact-us'  sx={{width:'180px'}}>
+                         Contact us
+                        </CustomButton>
+
+            
             </Grid>
           </Grid>
         </Box>

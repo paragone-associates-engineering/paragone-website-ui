@@ -95,7 +95,7 @@ function RequestForm() {
        
         <Grid item xs={12} sm={6}>
                           <FormControl fullWidth error={!!errors.propertyType}>
-                                                  <InputLabel id="property-type-label">Property Type</InputLabel>
+                                                  <InputLabel id="property-type-label" sx={{backgroundColor: 'white'}}>Property Type</InputLabel>
                                                   <Controller
                                                     name="propertyType"
                                                     control={control}
@@ -114,7 +114,7 @@ function RequestForm() {
         
         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth error={!!errors.location}>
-                                                  <InputLabel id="location-label">Location</InputLabel>
+                                                  <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
                                                   <Controller
                                                     name="location"
                                                     control={control}
@@ -160,7 +160,7 @@ function RequestForm() {
         
         <Grid item xs={12}>
           <FormControl fullWidth error={!!errors.contactMethod}>
-            <InputLabel id="address-label">Contact Method</InputLabel>
+            <InputLabel id="address-label" sx={{backgroundColor: 'white'}}>Contact Method</InputLabel>
                                                       <Controller
                                                         name="contactMethod"
                                                         control={control}

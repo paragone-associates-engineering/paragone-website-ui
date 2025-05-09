@@ -167,7 +167,7 @@ const Testimonials = () => {
     },[])
 
   return (
-    <Box component="section" sx={{ pt: 8, minHeight:'300px' }}>
+    <Box component="section" sx={{ pt: 6, minHeight:'300px' }}>
     <Container maxWidth="lg">
       <SectionTitle
       subtitle='Testimonials'
@@ -181,7 +181,7 @@ const Testimonials = () => {
           sx={{
             display: 'flex',
             justifyContent:'center',
-            gap:2, 
+            gap:0.5, 
             alignItems: 'center',
             mb: 1,
           }}
@@ -190,7 +190,7 @@ const Testimonials = () => {
             component="img"
             src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741310023/image_70_bcfgqo.png"
             alt="Google"
-            sx={{ height: 24, width: 24 }}
+            sx={{ height: 34, width: 34 }}
           />
           <Stack> 
           <Typography
@@ -200,7 +200,7 @@ const Testimonials = () => {
             GOOGLE
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap:1 }}>
-          <Typography variant="body2" sx={{ ml: 0.5, fontWeight: 600 }}>4.9</Typography>
+          <Typography variant="body2" sx={{ ml: 0.5, fontWeight: 700 }}>4.9</Typography>
             <Box sx={{ display: 'flex', alignItems: 'center', gap:0 }}>
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />
             <Star sx={{ fontSize: 18, color: '#FFC107' }} />

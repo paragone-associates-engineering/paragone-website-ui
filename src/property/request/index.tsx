@@ -37,7 +37,7 @@ const PropertyRequest = () => {
 
           <Grid item xs={12} md={6}>
             <Typography variant="h3" component="h1" gutterBottom>
-              Find Your Perfect Property with Paragóne Signature & Associates Ltd.
+              Find Your Perfect Property with Paragóne Signature & Associates
             </Typography>
             <Typography variant="body1" paragraph>
               We understand that finding the perfect property requires a personalized approach. Whether you're seeking a

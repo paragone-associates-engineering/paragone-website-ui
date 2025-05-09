@@ -18,7 +18,7 @@ const PartnerWithUs = () => {
 
   return (
     <Box sx={{width:'100vw'}}>
-  <PageBanner title='Become A Partner' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Become a Partner" }]} />
+  <PageBanner title='Become A Partner' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Partner With Us" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>

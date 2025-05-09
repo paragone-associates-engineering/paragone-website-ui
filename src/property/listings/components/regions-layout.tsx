@@ -49,6 +49,7 @@ const RegionsGrid = ({
 
   return (
     <Box sx={{ py: 4 }}>
+      <Box>
       <Typography variant="h4" component="h2" gutterBottom>
         {title}
       </Typography>
@@ -56,6 +57,7 @@ const RegionsGrid = ({
       <Typography variant="body1" component="p" sx={{ mb: 4 }}>
         {subtitle}
       </Typography>
+      </Box>
 
       <Grid container spacing={2} sx={{ px: 1 }}>
         {regions.map((region:string) => (

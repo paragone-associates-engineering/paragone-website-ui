@@ -138,7 +138,7 @@ const ReferAndEarnForm = () => {
                   </Grid>
                   
                   <Grid item xs={12}>
-                    <CustomButton isLoading={isSubmitting} sx={{width:'100%', py:1}}>
+                    <CustomButton isLoading={isSubmitting} sx={{px:7, py:1}}>
                       Submit Now
                     </CustomButton>
                   </Grid>

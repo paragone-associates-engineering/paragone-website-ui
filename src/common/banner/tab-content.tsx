@@ -52,7 +52,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
             <Box sx={{flex: 1}}>
           <FormControl fullWidth>
-            <InputLabel id="location-label">Location</InputLabel>
+            <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
             <Select
               labelId="location-label"
               name="location"
@@ -89,7 +89,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
         <Grid container spacing={2} sx={{ mb: 1 }}>
           <Grid item xs={12} md={4}>
           <FormControl fullWidth>
-            <InputLabel id="location-label">Location</InputLabel>
+            <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
             <Select
               labelId="location-label"
               name="location"
@@ -107,7 +107,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="property-label">Property Category</InputLabel>
+              <InputLabel id="property-label" sx={{backgroundColor: 'white'}}>Property Category</InputLabel>
               <Select
                 labelId="property-label"
                 name="propertyCategory"
@@ -125,10 +125,12 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="room-label">Select Rooms</InputLabel>
+              <InputLabel id="room-label" sx={{backgroundColor: 'white'}}>Select Rooms</InputLabel>
               <Select
                 labelId="room-label"
                 name="bedrooms"
+               // placeholder='Select rooms'
+               sx={{backgroundColor: 'white'}}
                 value={filters.bedrooms?.toString() || ''}
                 onChange={handleChange}
               >

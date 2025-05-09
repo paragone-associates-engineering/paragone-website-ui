@@ -120,7 +120,7 @@ const ReferAndEarn = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={7}>
+            <Grid item xs={12} md={7}>
               <Typography variant="h4" component="h2" gutterBottom>
                 Join Our Referral Program
               </Typography>

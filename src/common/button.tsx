@@ -32,8 +32,9 @@ const CustomButton = ({
   const buttonStyles: SxProps<Theme> = {
     textTransform: "none",
     fontWeight: 600,
-    borderRadius: 2,
-    padding: "8px 16px",
+    borderRadius: 1,
+    fontFamily: "Space Grotesk",
+    padding: "10px 16px",
     ...(variant === "outline"
       ? { borderColor: "#DDDDDD", color: "inherit" }
       : { backgroundColor: "primary.main", color: "white", 

@@ -14,7 +14,7 @@ const BlogDetail = () => {
   const { postId } = useParams<{ postId: string }>();
   const dispatch = useDispatch<AppDispatch>();
   const { posts, postDetails, loading } = useSelector((state: RootState) => state.blog);
-
+  const postUrl = encodeURIComponent(`https://paragonesignature.netlify.app/blog/${postId}`);
 
   useEffect(() => {
     if (postId) dispatch(fetchBlogPostDetails(postId));
@@ -71,20 +71,44 @@ const BlogDetail = () => {
               />
             )}
 
-            <Box sx={{ mt: 4, display: "flex", alignItems: "center" }}>
-              <Typography variant="body2" sx={{ mr: 2 }}>
-                Share post:
-              </Typography>
-              <IconButton aria-label="share on facebook" size="small">
-                <Facebook />
-              </IconButton>
-              <IconButton aria-label="share on twitter" size="small">
-                <Twitter />
-              </IconButton>
-              <IconButton aria-label="share on linkedin" size="small">
-                <LinkedIn />
-              </IconButton>
-            </Box>
+<Box sx={{ mt: 4, display: "flex", alignItems: "center" }}>
+  <Typography variant="body2" sx={{ mr: 2 }}>
+    Share post:
+  </Typography>
+
+  <IconButton
+    aria-label="share on facebook"
+    size="small"
+    component="a"
+    href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Facebook />
+  </IconButton>
+
+  <IconButton
+    aria-label="share on twitter"
+    size="small"
+    component="a"
+    href={`https://twitter.com/intent/tweet?url=${postUrl}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Twitter />
+  </IconButton>
+
+  <IconButton
+    aria-label="share on linkedin"
+    size="small"
+    component="a"
+    href={`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <LinkedIn />
+  </IconButton>
+</Box>
           </Grid>
 
           <Grid item xs={12} md={4}>

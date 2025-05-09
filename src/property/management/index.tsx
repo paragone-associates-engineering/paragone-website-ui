@@ -3,7 +3,6 @@ import {
   Typography,
   Box,
   Grid,
-  Button,
   //type SelectChangeEvent,
 } from "@mui/material";
 import Testimonials from "../../common/testimonial";
@@ -11,6 +10,8 @@ import { PageBanner } from "../../common/banner/page-banner";
 import { approaches, services } from "../data";
 //import { ManagementFormData } from "../types";
 import PropertyManagementForm from "./form";
+import CustomButton from "../../common/button";
+
 
 const PropertyManagement = () => {
 
@@ -27,21 +28,25 @@ const PropertyManagement = () => {
               alt="Property management team" 
               sx={{ 
                 width: '100%', 
-                height: 'auto', 
+                height: {xs:'100%', md:600}, 
                 borderRadius: 2,
+                objectFit:'cover',
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }} 
             />
           </Grid>
           <Grid item xs={12} md={6}>
-            <Typography variant="h3" component="h1" gutterBottom>
+            <Typography variant="h3" component="h1" fontSize={32} gutterBottom>
               Hassle-Free Property Ownership, Maximum Returns
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" fontWeight={500}>
               Discovering and managing properties should be an exhilarating endeavor, not a burdensome task. Paragone Signature & Associates Ltd. aids you in finding properties that fit your investment goals and managing them effectively. We handle all aspects of property management, from tenant screening to maintenance, ensuring your investment income flows hassle-free. Enjoy the benefits of property ownership without the daily headaches.
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1"   marginTop={4} color='#5A6164'>
               Our property management services are designed to optimize your investment's value while minimizing your workload. We support through tenant screening to ensure reliable tenants, regular maintenance to preserve property value, and efficient rent collection to keep your property in prime condition.
+            </Typography>
+            <Typography variant="body1"  marginTop={4} color='#5A6164'>
+            We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragóne Signature & Associates Ltd.'s property management services are tailored to meet your distinct requirements.
             </Typography>
           </Grid>
         </Grid>
@@ -50,7 +55,7 @@ const PropertyManagement = () => {
           
           <Grid item xs={12} md={6}>
             <Typography variant="h4" component="h2" gutterBottom>
-              Our Approach
+              How We Serve
             </Typography>
             
             <Grid container spacing={3}>
@@ -59,7 +64,7 @@ const PropertyManagement = () => {
                   <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
                     
                     <Box>
-                      <Typography variant="h6" component="h3" gutterBottom>
+                      <Typography variant="h6" component="h3" sx={{fontSize:'1.2rem', fontWeight:'bold'}} gutterBottom>
                         {approach.title}
                       </Typography>
                       <Typography variant="body2">
@@ -70,15 +75,13 @@ const PropertyManagement = () => {
                 </Grid>
               ))}
             </Grid>
-            
-            <Button 
-              variant="contained" 
-              color="primary"
-              size="large"
-              sx={{ mt: 3 }}
+            <a href='#management-form'>
+            <CustomButton
+              sx={{ mt: 3, width:150 }}
             >
-              Learn more
-            </Button>
+              Send Message
+            </CustomButton>
+            </a>
           </Grid>
 
           <Grid item xs={12} md={6}>
@@ -122,7 +125,7 @@ const PropertyManagement = () => {
                   <Box sx={{ display: 'flex', alignItems: 'flex-start' }}>
                     
                     <Box>
-                      <Typography variant="h6" component="h3" gutterBottom>
+                    <Typography variant="h6" component="h3" sx={{fontSize:'1.2rem', fontWeight:'bold'}} gutterBottom>
                         {approach.title}
                       </Typography>
                       <Typography variant="body2">
@@ -133,15 +136,13 @@ const PropertyManagement = () => {
                 </Grid>
               ))}
             </Grid>
-            
-            <Button 
-              variant="contained" 
-              color="primary"
-              size="large"
-              sx={{ mt: 3 }}
+            <a href='#management-form'>
+            <CustomButton
+              sx={{ mt: 3, width:150 }}
             >
-              Learn more
-            </Button>
+              Send Message
+            </CustomButton>
+            </a>
           </Grid>
         </Grid>
         
@@ -163,12 +164,12 @@ const PropertyManagement = () => {
             </Grid>
             
             <Grid item xs={12} md={7}>
-              <Typography variant="h4" component="h2" gutterBottom>
+              <Typography variant="h4" component="h3" gutterBottom>
                 Start your hassle-free property management journey today
               </Typography>
-              
+              <Box component='section' id='management-form'>
               <PropertyManagementForm />
-              
+              </Box>
             </Grid>
           </Grid>
         </Box>

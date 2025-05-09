@@ -98,7 +98,7 @@ const AssociateForm = () => {
                   <Grid item xs={12} sm={6}>
                     <Typography variant='h6' sx={{mb:1}}>How do you participate in the real estate industry?</Typography>
                     <FormControl fullWidth error={!!errors.participation}>
-                                          <InputLabel id="Participation-label">Select here</InputLabel>
+                                          <InputLabel id="Participation-label" sx={{backgroundColor: 'white'}}>Select here</InputLabel>
                                           <Controller
                                             name="participation"
                                             control={control}
@@ -118,7 +118,7 @@ const AssociateForm = () => {
                   <Grid item xs={12} sm={6}>
                   <Typography variant='h6' sx={{mb:1}}>Location</Typography>
                     <FormControl fullWidth error={!!errors.location}>
-                                          <InputLabel id="location-label">Location</InputLabel>
+                                          <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
                                           <Controller
                                             name="location"
                                             control={control}

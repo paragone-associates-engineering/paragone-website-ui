@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography, Select, MenuItem, FormControl, InputLabel,
 } from '@mui/material';
 import { z } from 'zod';
@@ -15,7 +15,7 @@ import { PropertyForm } from './add-property';
 const CONTACT_METHODS = ['email', 'phone'];
 const PACKAGES = ['Beginners', 'Pro', 'Enterprise', 'Advance'];
 
-export const SellAsCompanyForm = () => {
+export const SellAsCompanyForm = ({selectedPkg}:{selectedPkg: string}) => {
   const [formData, setFormData] = useState({
     companyName: '',
     officeAddress: '',
@@ -25,7 +25,7 @@ export const SellAsCompanyForm = () => {
     contactMethod: 'email',
     state: '',
     country: '',
-    package: 'Beginners',
+    package: selectedPkg || '',
     properties: [
       {
         propertyName: '',
@@ -39,6 +39,11 @@ export const SellAsCompanyForm = () => {
     ] as Property[],
   });
 
+  useEffect(() => {
+    if (selectedPkg) {
+      setFormData((prev) => ({ ...prev, package: selectedPkg }));
+    }
+  }, [selectedPkg]);
   const [errors, setErrors] = useState<Record<string, string>>({});
 const [isLoading, setIsLoading] = useState(false)
 
@@ -109,7 +114,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         contactMethod: "email",
         state: "",
         country: "",
-        package: "Beginners",
+        package: selectedPkg,
         properties: [
           {
             propertyName: "",

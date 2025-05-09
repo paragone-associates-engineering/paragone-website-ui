@@ -24,7 +24,7 @@ export const PageBanner = ({
       height='60vh' 
     >
       <Box sx={{ textAlign: 'center', color: 'white', width:'100%' }}>
-        <Typography variant="h3" component="h1" sx={{ fontWeight: 'bold', mb: 2 }}>
+        <Typography variant="h3"  component="h1" sx={{ fontWeight: 'bold', mb: 2, textTransform:'capitalize' }}>
           {title}
         </Typography>
         <Breadcrumbs
@@ -41,7 +41,7 @@ export const PageBanner = ({
               const isLast = index === breadcrumbs.length - 1
 
               return isLast ? (
-                <Typography key={crumb.label} color="primary.main">
+                <Typography key={crumb.label} textTransform='capitalize' color="primary.main">
                   {crumb.label}
                 </Typography>
               ) : (
@@ -52,6 +52,7 @@ export const PageBanner = ({
                   sx={{
                     color: "rgba(255, 255, 255, 0.7)",
                     textDecoration: "none",
+                    textTransform:'capitalize',
                     "&:hover": {
                       color: "primary.main",
                       textDecoration: "underline",

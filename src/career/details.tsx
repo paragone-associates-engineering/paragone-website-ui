@@ -31,7 +31,7 @@ const JobDetail = () => {
   if (loading) return <Typography>Loading...</Typography>;
   return (
     <Box sx={{width:'100vw'}}>
-      <PageBanner title={jobDetails?.title || ''} breadcrumbs={[{ label: "Home", href: "/" }, { label: 'Careers', href:'/careers'}, {label:`${jobData.title}`} ]} />
+      <PageBanner title={jobDetails?.title || ''} breadcrumbs={[{ label: "Home", href: "/" }, { label: 'Careers', href:'/careers'}, {label:`${jobDetails?.title}`} ]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Typography variant="h3" component="h1" gutterBottom>
           We are hiring: {jobDetails?.title}
@@ -69,7 +69,7 @@ const JobDetail = () => {
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
-                    General job description
+                    General Description
                   </TableCell>
                   <TableCell>{jobData.description}</TableCell>
                 </TableRow>

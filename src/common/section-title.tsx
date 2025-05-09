@@ -36,7 +36,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
             color: 'primary.main',
             fontWeight: 400,
             mb: 1,
-            textTransform: 'uppercase',
+            //textTransform: 'capitalize',
             letterSpacing: '1px',
             fontSize: '0.875rem',
           }}
@@ -52,7 +52,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
           mb: description ? 2 : 0,
           maxWidth: centered ? maxWidth : '100%',
           mx: centered ? 'auto' : 0,
-          fontSize: { xs: '1.75rem', md: '2.25rem' },
+          fontSize: { xs: '1.5rem', md: '2rem' },
         }}
       >
         {title}

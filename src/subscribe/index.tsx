@@ -1,9 +1,11 @@
+import {useState} from 'react'
 import { Container, Grid, Typography, Box, List, ListItem } from "@mui/material";
 import { PageBanner } from "../common/banner/page-banner";
 import Testimonials from "../common/testimonial";
 import CustomButton from "../common/button";
 import SectionTitle from "../common/section-title";
 import {SellAsCompanyForm} from "./subscribe-form";
+import CallMadeIcon from '@mui/icons-material/CallMade';
 
 const packages = [
   { label: "Beginners", price: "₦100,000 / 1 month", package:["Property Listing 2", "Associate Push"], background:'#D5F7F6' },
@@ -13,12 +15,14 @@ const packages = [
 ];
 
 export default function SubscribePage() {
+  const [selectedPkg, setSelectedPkg] = useState('')
+
   return (
     <Box sx={{width:'100vw'}}>
       <PageBanner title="Sell as a Company"  breadcrumbs={[{ label: "Home", href: "/" }, { label: "Sell as a Company" }]}  />
       <Container sx={{ py: 5 }}>
          <SectionTitle
-         subtitle='Our Service'
+         subtitle='Sell as a Comapny'
                     title="  Gain unmatched exposure for your properties"
                     //description="Discover how our tailored real estate brokerage and property management service can help you effortlessly buy, sell, and manage properties"
                     centered={true}
@@ -47,9 +51,11 @@ export default function SubscribePage() {
     </ListItem>
   ))}
 </List>
-                <CustomButton variant="outline" sx={{borderColor:'primary.main', display:'flex', alignItems:'center', justifyContent:'center', width:'100%'}}>
-                  Subscribe
+<a href='#subscribe-form'>
+                <CustomButton onClick={() => setSelectedPkg(pkg.label)} variant="outline" sx={{borderColor:'primary.main', color:'text.primary', borderRadius:9 ,display:'flex', alignItems:'center', justifyContent:'center', width:'100%'}}>
+                  Subscribe <CallMadeIcon />
                 </CustomButton>
+                </a>
               </Box>
             </Grid>
           ))}
@@ -120,7 +126,9 @@ export default function SubscribePage() {
           </Button>
         </Box> */}
       </Container>
-      <SellAsCompanyForm />
+      <Box component='section' id='subscribe-form'>
+      <SellAsCompanyForm selectedPkg={selectedPkg} />
+      </Box>
       <Testimonials />
     </Box>
   );

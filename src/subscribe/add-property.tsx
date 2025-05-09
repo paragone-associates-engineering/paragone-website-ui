@@ -124,7 +124,7 @@ export const PropertyForm = ({ property, index, onUpdate, onRemove }: PropertyFo
             fullWidth
             multiline
             rows={4}
-            label="Description"
+            label=" Property Description"
             value={property.description}
             onChange={(e) => handleChange('description', e.target.value)}
           />
