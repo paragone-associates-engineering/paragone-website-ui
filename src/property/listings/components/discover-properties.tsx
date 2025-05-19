@@ -9,8 +9,8 @@ import {
   Pagination,
   PaginationItem,
 } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import HouseIcon from "@mui/icons-material/House";
+//import LocationOnIcon from "@mui/icons-material/LocationOn";
+//import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 //import TerrainIcon from "@mui/icons-material/Terrain";
@@ -20,10 +20,12 @@ import PropertyCard from "../../../common/property-card";
 import SkeletonLoader from "../../../common/skeleton-loader";
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { fetchListings } from "../../../redux/slices/listings-slice";
+ import CustomButton from "../../../common/button";
+ import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 const filterOptions: FilterOption[] = [
-  { value: "all", label: "All properties", icon: <HouseIcon /> },
-  { value: "location", label: "Location", icon: <LocationOnIcon /> },
+  //{ value: "all", label: "All properties", icon: <HouseIcon /> },
+  //{ value: "location", label: "Location", icon: <LocationOnIcon /> },
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
   { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
 //   { value: "short_stay", label: "Short stay", icon: <HomeWorkIcon /> },
@@ -71,7 +73,7 @@ const DiscoverExclusiveProperties = () => {
         <Typography variant='subtitle1' color="primary">
           Featured listing
         </Typography>
-        <Typography variant="h4" component="h2" fontWeight="bold" mb={2}>
+        <Typography variant="h4" fontWeight="bold" mb={2}>
         Discover our featured and exclusive properties
         </Typography>
         <Typography
@@ -84,7 +86,8 @@ const DiscoverExclusiveProperties = () => {
         </Typography>
       </Box>
 
-<Box sx={{ display: 'flex', justifyContent: {xs:'flex-start', sm:'center'}, my: 4, flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 1 }}>
+<Box sx={{display: 'flex', flexDirection:{xs:'row'}, alignItems:'center', justifyContent:'space-between'}}>
+<Box sx={{ display: 'flex', justifyContent: {xs:'flex-start', sm:'center'}, my: 4, gap: 1 }}>
       {filterOptions.map((option) => (
         <Button
           key={option.value}
@@ -95,7 +98,7 @@ const DiscoverExclusiveProperties = () => {
             py: 1,
             px: 1.5,
             minWidth: { xs: '45%', sm: 'auto' },
-            mb: { xs: 1, md: 0 },
+            //mb: { xs: 1, md: 0 },
             bgcolor: activeFilter === option.value ? '#ffa726' : 'white',
             color: activeFilter === option.value ? 'white' : 'inherit',
             borderColor: '#e0e0e0',
@@ -118,14 +121,22 @@ const DiscoverExclusiveProperties = () => {
             }}>
               {option.icon}
             </Box>
-            <Typography variant="body2" sx={{ fontWeight: activeFilter === option.value ? 'bold' : 'normal' }}>
+            <Typography variant="body2" sx={{ whitespace: 'nowrap', fontWeight: activeFilter === option.value ? 'bold' : 'normal' }}>
               {option.label}
             </Typography>
           </Stack>
         </Button>
       ))}
     </Box>
-
+    <CustomButton
+            //variant="outlined"
+            sx={{ bgcolor: "#5A6164", color: "#fff", height:40, borderRadius:10,px:2 }}
+            startIcon={FilterAltIcon}
+            href={`/listings/filter`}
+          >
+            Filter
+          </CustomButton>
+</Box>
       
       <Grid2 container spacing={2}>
       {loading ? (

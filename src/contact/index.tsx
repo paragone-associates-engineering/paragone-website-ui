@@ -181,11 +181,10 @@ const Contact = () => {
                         control={control}
                         render={({ field }) => (
                           <Select {...field} labelId="reason-label">
-                            <MenuItem value="general">General Inquiry</MenuItem>
-                            <MenuItem value="property">Property Information</MenuItem>
-                            <MenuItem value="partnership">Partnership Opportunities</MenuItem>
-                            <MenuItem value="career">Career Opportunities</MenuItem>
-                            <MenuItem value="support">Technical Support</MenuItem>
+                            <MenuItem value="I'm interested in buying a property">I'm interested in buying this property</MenuItem>
+                            <MenuItem value=" I'm interested in renting a property"> I'm interested in renting this property</MenuItem>
+                            <MenuItem value="I'd like to refer a client to buy a property">I'd like to refer a client to buy this property</MenuItem>
+                            <MenuItem value=" Others"> Others</MenuItem>
                           </Select>
                         )}
                       />

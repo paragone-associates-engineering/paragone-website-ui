@@ -49,17 +49,17 @@ const RegionsGrid = ({
 
   return (
     <Box sx={{ py: 4 }}>
-      <Box>
-      <Typography variant="h4" component="h2" gutterBottom>
+      {/* <Box> */}
+
+      <Grid container spacing={2} sx={{ px: 1 }}>
+        <Box>
+        <Typography variant="h4" sx={{fontSize:26}} gutterBottom>
         {title}
       </Typography>
-
-      <Typography variant="body1" component="p" sx={{ mb: 4 }}>
+       <Typography variant="body1" component="p" sx={{ mb: 2, maxWidth:{xs:'100%', md:"80%"} }}>
         {subtitle}
       </Typography>
       </Box>
-
-      <Grid container spacing={2} sx={{ px: 1 }}>
         {regions.map((region:string) => (
           <Grid item xs={6} sm={6} md={4} key={region}>
             <RegionCard region={region} />

@@ -8,6 +8,21 @@
 import {  PropertyData } from '../types/properties';
 //import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
+export const propertyTypes = [
+  { value: "",            label: "Select type" },
+  { value: "commercial",  label: "Commercial" },
+  { value: "residential", label: "Apartment" },
+  { value: "bungalow",    label: "Bungalow" },
+   { value: "detached", label: "Detached" },
+  { value: "semi‑detached", label: "Semi Detached" },
+  { value: "terrace",     label: "Terrace" },
+  { value: "duplex",      label: "Duplex" },
+  { value: "maisonette",  label: "Maisonette" },
+  { value: "penthouse",   label: "Penthouse" },
+  { value: "triplex",     label: "Triplex" },
+  { value: "townhouse",   label: "Townhouse" },
+];
+
 export const properties = [
     {
       id: 1,

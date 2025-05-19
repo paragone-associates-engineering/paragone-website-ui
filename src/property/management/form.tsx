@@ -18,6 +18,7 @@ import axios from "axios";
 import toast from "react-hot-toast"
 import { API_BASE_URL } from "../../services/api"
 import CustomButton from "../../common/button";
+import { propertyTypes} from '../../constant'
 const PropertyManagementForm = () => {
   const {
         register,
@@ -96,16 +97,17 @@ const PropertyManagementForm = () => {
                   
                   <Grid item xs={12} sm={6}>
                   <FormControl fullWidth error={!!errors.propertyType}>
-                                          <InputLabel id="property-type-label">Property Type</InputLabel>
+                                          <InputLabel id="property-type-label" sx={{backgroundColor: 'white'}}>Property Type</InputLabel>
                                           <Controller
                                             name="propertyType"
                                             control={control}
                                             render={({ field }) => (
                                               <Select {...field} labelId="property-type-label">
-                                                <MenuItem value="residential">Residential</MenuItem>
-                        <MenuItem value="commercial">Commercial</MenuItem>
-                        <MenuItem value="mixed-use">Mixed-use</MenuItem>
-                        <MenuItem value="industrial">Industrial</MenuItem>
+                                                {propertyTypes.map(opt => (
+  <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+    {opt.label}
+  </MenuItem>
+))}
                                               </Select>
                                             )}
                                           />
@@ -114,22 +116,14 @@ const PropertyManagementForm = () => {
                   </Grid>
                   
                   <Grid item xs={12} sm={6}>
-                    <FormControl fullWidth error={!!errors.address}>
-                                          <InputLabel id="address-label">Location</InputLabel>
-                                          <Controller
-                                            name="address"
-                                            control={control}
-                                            render={({ field }) => (
-                                              <Select {...field} labelId="address-label">
-                                                <MenuItem value="lagos">Lagos</MenuItem>
-                        <MenuItem value="abuja">Abuja</MenuItem>
-                        <MenuItem value="ph">Port Harcourt</MenuItem>
-                        <MenuItem value="ibadan">Ibadan</MenuItem>
-                                              </Select>
-                                            )}
-                                          />
-                                        </FormControl>
-                                        {errors.address && <Typography color="error">{errors.address.message}</Typography>}
+                    <TextField
+                      fullWidth
+                      label="Location"
+                      {...register("address")}
+                      error={!!errors?.address}
+                      helperText={errors?.address?.message}
+                    />
+                                        
                   </Grid>
                   
                   <Grid item xs={12}>

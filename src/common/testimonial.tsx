@@ -46,6 +46,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
        // overflow: '',
         border:1,
         borderColor:'divider',
+        minHeight:300,
         height: '100%',
         display: 'flex',
         flexDirection: 'column'
@@ -117,7 +118,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
           <Box sx={{display:'flex', gap:2, alignItems:'center'}}>
           <Avatar 
             sx={{ width: 40, height: 40, bgcolor:'primary.main' }}
-          >{testimonial?.testifierName.split(' ')[0][0]}{testimonial?.testifierName.split(' ')[1][0]}</Avatar>
+          >{testimonial?.testifierName.split(' ')[0][0]}</Avatar>
           <Box>
             <Typography 
               variant="h6" 

@@ -107,9 +107,10 @@ const ReferAndEarnForm = () => {
                                             render={({ field }) => (
                                               <Select {...field} labelId="participation-label">
                                                 <MenuItem value="real-estate">Real Estate Agent</MenuItem>
-                        <MenuItem value="broker">Property Broker</MenuItem>
-                        <MenuItem value="consultant">Business Consultant</MenuItem>
-                        <MenuItem value="other">Other Professional</MenuItem>
+                        <MenuItem value="refer-a-buyer">Refer a buyer</MenuItem>
+                        <MenuItem value="refer-a-buyer">Refer a seller</MenuItem>
+                         <MenuItem value="refer-you-to-manage-a-property">Refer you to manage a property</MenuItem>
+                        <MenuItem value="others">Others</MenuItem>
                                               </Select>
                                             )}
                                           />

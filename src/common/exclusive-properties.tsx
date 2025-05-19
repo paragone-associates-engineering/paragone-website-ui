@@ -7,11 +7,11 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+//import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import TerrainIcon from "@mui/icons-material/Terrain";
+// import TerrainIcon from "@mui/icons-material/Terrain";
 
 import { FilterOption } from "../types/properties";
 import PropertyCard from "./property-card";
@@ -22,11 +22,11 @@ import { fetchListings } from "../redux/slices/listings-slice";
 
 const filterOptions: FilterOption[] = [
   { value: "all", label: "All properties", icon: <HouseIcon /> },
-  { value: "location", label: "Location", icon: <LocationOnIcon /> },
+  //{ value: "location", label: "Location", icon: <LocationOnIcon /> },
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
-  { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
-  { value: "short_stay", label: "Short stay", icon: <HomeWorkIcon /> },
-  { value: "land", label: "Land", icon: <TerrainIcon /> },
+ { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
+  // { value: "short_stay", label: "Short stay", icon: <HomeWorkIcon /> },
+  // { value: "land", label: "Land", icon: <TerrainIcon /> },
 ];
 
 const ExclusiveProperties = () => {
@@ -55,8 +55,12 @@ const ExclusiveProperties = () => {
     if (activeFilter === "all") return true;
     if (activeFilter === "For Sale" && property.listingType === "For Sale") return true;
     if (activeFilter === "For Rent" && property.listingType === "For Rent") return true;
+     if (activeFilter === "Land" && property.listingType === "Land") return true;
+      if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
     return false;
   });
+
+  console.log("Filtered Properties: ", filteredProperties);
 
   useEffect(() => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
@@ -129,7 +133,7 @@ const ExclusiveProperties = () => {
     </Box>
 
       
-      <Grid2 container spacing={2}>
+      <Grid2 container rowSpacing={6} columnSpacing={2}>
       {loading ? (
         <SkeletonLoader count={6} />
       ) : Array.isArray(filteredProperties) && filteredProperties.length > 0 ? (

@@ -104,10 +104,14 @@ const AssociateForm = () => {
                                             control={control}
                                             render={({ field }) => (
                                               <Select {...field} labelId="participation-label">
-                                                <MenuItem value="real-estate">Real Estate Agent</MenuItem>
-                        <MenuItem value="broker">Property Broker</MenuItem>
-                        <MenuItem value="consultant">Business Consultant</MenuItem>
-                        <MenuItem value="other">Other Profession</MenuItem>
+                                                <MenuItem value="I'm an experienced real estate agent">I'm an experienced real estate agent</MenuItem>
+                        <MenuItem value=" I lead a team of agents"> I lead a team of agents</MenuItem>
+                        <MenuItem value="I'm a listing agent">I'm a listing agent</MenuItem>
+                        <MenuItem value="I'm a leasing agent">I'm a leasing agent</MenuItem>
+                         <MenuItem value="I manage property portfolios for clients (property manager)">I manage property portfolios for clients (property manager)</MenuItem>
+                          <MenuItem value="I work primarily in new developments/ offplan properties">I work primarily in new developments/ offplan properties</MenuItem>
+                           <MenuItem value="I focus on luxury/ high-end property sales">I focus on luxury/ high-end property sales</MenuItem>
+                            <MenuItem value="I'm newly minted and looking to getting started in real estate sales">I'm newly minted and looking to getting started in real estate sales </MenuItem>
                                               </Select>
                                             )}
                                           />
@@ -117,22 +121,13 @@ const AssociateForm = () => {
                   
                   <Grid item xs={12} sm={6}>
                   <Typography variant='h6' sx={{mb:1}}>Location</Typography>
-                    <FormControl fullWidth error={!!errors.location}>
-                                          <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
-                                          <Controller
-                                            name="location"
-                                            control={control}
-                                            render={({ field }) => (
-                                              <Select {...field} labelId="location-label">
-                                                <MenuItem value="lagos">Lagos</MenuItem>
-                        <MenuItem value="abuja">Abuja</MenuItem>
-                        <MenuItem value="ph">Port Harcourt</MenuItem>
-                        <MenuItem value="ibadan">Ibadan</MenuItem>
-                                              </Select>
-                                            )}
-                                          />
-                                        </FormControl>
-                                        {errors.location && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.location.message}</Typography>}
+                     <TextField
+                                                  fullWidth
+                                                  label="Location"
+                                                  {...register("location")}
+                                                  error={!!errors?.location}
+                                                  helperText={errors?.location?.message}
+                                                />
                   </Grid>
                   
                   <Grid item xs={12}>

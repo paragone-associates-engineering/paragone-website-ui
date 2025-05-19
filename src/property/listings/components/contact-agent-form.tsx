@@ -19,7 +19,7 @@ import { API_BASE_URL } from "../../../services/api"
 import CustomButton from "../../../common/button"
 import { contactFormSchema, ContactFormSchema } from "../../../schema/contact";
 
-const ContactAgentForm = () => {
+const ContactAgentForm = ({propertyId}:{propertyId:string | undefined}) => {
   const {
     register,
     handleSubmit,
@@ -37,8 +37,12 @@ const ContactAgentForm = () => {
   });
 
   const onSubmit = async (data: ContactFormSchema) => {
+    const formdata = {
+        ...data,
+        listingId: propertyId || null, 
+      }
     try {
-      await axios.post(`${API_BASE_URL}/form/get-in-touch`, data);
+      await axios.post(`${API_BASE_URL}/form/get-in-touch`, formdata);
       toast.success("Form submitted successfully!");
       console.log('suscess', data);
     } catch (error) {
@@ -47,8 +51,6 @@ const ContactAgentForm = () => {
     }
   };
   return (
-    
-          
             <Paper elevation={0} sx={{ p: 4, backgroundColor: "secondary.main", borderRadius: 2, maxWidth:'500px',mx:'auto' }}>
               <Typography variant="h5" component="h2" gutterBottom>
                Get in touch
@@ -104,17 +106,16 @@ const ContactAgentForm = () => {
                   <Grid item xs={12}>
                   <Typography variant='h6'>Reason</Typography>
                     <FormControl fullWidth error={!!errors.reason}>
-                      <InputLabel id="reason-label">Choose a reason</InputLabel>
+                      <InputLabel id="reason-label" sx={{backgroundColor: 'white'}}>Choose a reason</InputLabel>
                       <Controller
                         name="reason"
                         control={control}
                         render={({ field }) => (
                           <Select {...field} labelId="reason-label">
-                            <MenuItem value="general">General Inquiry</MenuItem>
-                            <MenuItem value="property">Property Information</MenuItem>
-                            <MenuItem value="partnership">Partnership Opportunities</MenuItem>
-                            <MenuItem value="career">Career Opportunities</MenuItem>
-                            <MenuItem value="support">Technical Support</MenuItem>
+                            <MenuItem value="I'm interested in buying this property">I'm interested in buying this property</MenuItem>
+                            <MenuItem value=" I'm interested in renting this property"> I'm interested in renting this property</MenuItem>
+                            <MenuItem value="I'd like to refer a client to buy this property">I'd like to refer a client to buy this property</MenuItem>
+                            <MenuItem value=" Others"> Others</MenuItem>
                           </Select>
                         )}
                       />

@@ -5,6 +5,7 @@ import { Box, Grid,  FormControl, InputLabel, Select, MenuItem, Button, Typograp
 import { useNavigate, Link } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useLocations } from '../../hooks/use-locations';
+import { propertyTypes } from "../../constant";
 
 type ListingsQueryParams = {
   location?: string;
@@ -107,17 +108,18 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="property-label" sx={{backgroundColor: 'white'}}>Property Category</InputLabel>
+              <InputLabel id="property-label" sx={{backgroundColor: 'white'}}>Property Type</InputLabel>
               <Select
                 labelId="property-label"
                 name="propertyCategory"
                 value={filters.propertyCategory}
                 onChange={handleChange}
               >
-                <MenuItem value="">Select type</MenuItem>
-                <MenuItem value="residential">Residential</MenuItem>
-                <MenuItem value="commercial">Commercial</MenuItem>
-                <MenuItem value="land">Land</MenuItem>
+                {propertyTypes.map(opt => (
+  <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+    {opt.label}
+  </MenuItem>
+))}
               </Select>
             </FormControl>
             
@@ -137,7 +139,9 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
                 <MenuItem value="">Select rooms</MenuItem>
                 <MenuItem value="1">1</MenuItem>
                 <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3+</MenuItem>
+                <MenuItem value="3">3</MenuItem>
+                 <MenuItem value="3">4</MenuItem>
+                 <MenuItem value="3">5+</MenuItem>
               </Select>
             </FormControl>
           </Grid>

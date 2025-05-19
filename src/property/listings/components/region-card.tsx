@@ -13,15 +13,15 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
     <Card
       elevation={0}
       sx={{
-        height: "100%",
         borderRadius: 2,
+        height:50,
         border:'1px solid #ddd',
         backgroundColor: "background.paper",
         transition: "transform 0.2s ease",
         "&:hover": {
           transform: "translateX(5px)",
           bgcolor:'primary.main',
-          color:'#fff'
+          color:'#ffffff'
         },
       }}
     >

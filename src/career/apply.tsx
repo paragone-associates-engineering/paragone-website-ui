@@ -121,8 +121,10 @@ const JobApplication = () => {
             <Select {...field}>
                 <MenuItem value="marketing">Marketing</MenuItem>
                 <MenuItem value="sales">Sales</MenuItem>
-                <MenuItem value="operations">Operations</MenuItem>
-                <MenuItem value="admin">Administration</MenuItem>
+                <MenuItem value="human-resource"> Human Resource</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
+                 <MenuItem value="business-development">Business Development</MenuItem>
+                  <MenuItem value="property-management"> Property Management </MenuItem>
             </Select>
         </FormControl>
     )}

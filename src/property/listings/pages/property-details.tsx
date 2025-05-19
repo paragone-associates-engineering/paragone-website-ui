@@ -1,4 +1,3 @@
-"use client"
 
 import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
@@ -150,7 +149,7 @@ const PropertyDetailsPage = () => {
             <Box sx={{ position: "sticky", top: 20 }}>
               <BookViewingForm />
               <Box sx={{ mt: 4 }}>
-                <ContactAgentForm />
+                <ContactAgentForm propertyId={propertyId} />
               </Box>
               <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
                 <FeaturedListings />
