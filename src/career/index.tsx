@@ -32,7 +32,7 @@ const Careers = () => {
 
   return (
     <Box sx={{width:'100vw'}}>
-      <PageBanner title='Career' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}  />
+      <PageBanner title='Careers' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}  />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
@@ -136,8 +136,12 @@ const Careers = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={7}>
-              <Typography variant="h4" component="h2" gutterBottom>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h4" component="h2" 
+              sx={{
+                ml:3,
+                fontWeight:700,
+              }} gutterBottom>
                 Get In Touch
               </Typography>
               <JobApplication />

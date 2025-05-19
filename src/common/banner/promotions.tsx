@@ -2,7 +2,7 @@ import { Box, Grid2 } from '@mui/material';
 
 const PromotionBanners = ({ imageSrc }: { imageSrc: string }) => {
   return (
-    <Grid2 container spacing={3} sx={{ mt: 3 }}>
+    <Grid2 container spacing={3} sx={{ mt: 10 }}>
       {[1, 2].map((item) => (
         <Grid2 size={{xs: 12, md:6}} key={`offer-${item}`}>
           <Box

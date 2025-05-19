@@ -213,7 +213,7 @@ export default function Footer() {
 
         <Grid item xs={12} sm={6} md={3}>
   <Item>
-   
+   <Link to='/contact-us'>
     <Typography
       variant="h6"
       fontWeight={600}
@@ -222,13 +222,14 @@ export default function Footer() {
         borderBottom: '2px solid',
         borderColor: 'primary.main',
         display: 'inline-block',
+        color:'text.primary',
         pb: 0.5,
         mb: 2,
       }}
     >
       Contact Us
     </Typography>
-
+    </Link>
     {/* Section 1: Call */}
     <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'flex-start', mb: 2 }}>
       <Box
@@ -261,7 +262,6 @@ export default function Footer() {
       />
       <Box>
         <Typography>Mail to our support team:</Typography>
-        <Typography fontWeight={600}>support@paragonesignature.com</Typography>
         <Typography fontWeight={600}>info@paragonesignature.com</Typography>
       </Box>
     </Box>
@@ -289,9 +289,26 @@ export default function Footer() {
 
       </Grid>
 
-      <Box sx={{ position: "fixed", zIndex:10, bottom: 20, right: 20, backgroundColor: "#25D366", p: 1.5, borderRadius: "50%", cursor: "pointer", display:"flex", alignItems:"center", justify:"center" }}>
-        <WhatsApp sx={{ fontSize: 32, color: "white" }} />
-      </Box>
+      <a href="https://wa.me/2348160467439" target="_blank" rel="noopener noreferrer">
+  <Box
+    sx={{
+      position: "fixed",
+      zIndex: 10,
+      bottom: 20,
+      right: 20,
+      backgroundColor: "#25D366",
+      p: 1.5,
+      borderRadius: "50%",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    }}
+  >
+    <WhatsApp sx={{ fontSize: 32, color: "white" }} />
+  </Box>
+</a>
+
 
       <Divider sx={{ my: 4 }} />
 

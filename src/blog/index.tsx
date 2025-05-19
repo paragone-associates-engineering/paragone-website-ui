@@ -33,7 +33,7 @@ const Blog = () => {
 
   return (
     <Box sx={{ width: "100vw" }}>
-      <PageBanner title="Blog" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blogs, News & Insights" }]} />
+      <PageBanner title="Blog, News & Insights" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog, News & Insights" }]} />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         {loading ? (

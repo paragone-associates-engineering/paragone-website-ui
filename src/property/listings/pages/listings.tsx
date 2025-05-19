@@ -1,8 +1,7 @@
 import { Container, Box,  } from "@mui/material"
 import { PageBanner } from "../../../common/banner/page-banner"
 import RegionsGrid from "../components/regions-layout"
-import Testimonials from "../../../common/testimonial"
-import ExclusiveProperties from "../../../common/exclusive-properties"
+import DiscoverExclusiveProperties from "../components/discover-properties"
 
 const Listings = () => {
   return (
@@ -12,8 +11,7 @@ const Listings = () => {
       <Container maxWidth="lg">
         <RegionsGrid />
       </Container>
-      <ExclusiveProperties  />
-      <Testimonials />
+      <DiscoverExclusiveProperties  />
     </Box>
   )
 }

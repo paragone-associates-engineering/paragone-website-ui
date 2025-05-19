@@ -42,7 +42,7 @@ const JobApplication = () => {
         phoneNumber: "",
         profile:"",
         department: "",
-        message: "I am excited to apply for this position.",
+        message: "",
         agreeToPolicy: true,
       },
     });
@@ -90,21 +90,27 @@ const JobApplication = () => {
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3, maxWidth:'500px', mx:'auto' }}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
+          <Typography variant="h6" marginBottom={1}>First name</Typography>
           <TextField fullWidth label="First name" {...register("name.first")} error={!!errors?.name?.first} helperText={errors?.name?.first?.message} />
         </Grid>
         <Grid item xs={12} sm={6}>
+        <Typography variant="h6" marginBottom={1}>Last name</Typography>
           <TextField fullWidth label="Last name" {...register("name.lastName")} error={!!errors?.name?.lastName} helperText={errors?.name?.lastName?.message} />
         </Grid>
         <Grid item xs={12} sm={6}>
+        <Typography variant="h6" marginBottom={1}>Email</Typography>
           <TextField fullWidth label="Email address" type="email" {...register("email")} error={!!errors.email} helperText={errors.email?.message} />
         </Grid>
         <Grid item xs={12} sm={6}>
+        <Typography variant="h6" marginBottom={1}>Phone Number</Typography>
           <TextField fullWidth label="Phone number" {...register("phoneNumber")} error={!!errors.phoneNumber} helperText={errors.phoneNumber?.message} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
+        <Typography variant="h6" marginBottom={1}>Linkedin Profile</Typography>
           <TextField fullWidth label="LinkedIn profile" {...register("profile")} error={!!errors.profile} helperText={errors.profile?.message} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
+        <Typography variant="h6" marginBottom={1}>Department</Typography>
         <Controller
     name="department"
     control={control}
@@ -115,22 +121,24 @@ const JobApplication = () => {
             <Select {...field}>
                 <MenuItem value="marketing">Marketing</MenuItem>
                 <MenuItem value="sales">Sales</MenuItem>
-                <MenuItem value="operations">Operations</MenuItem>
-                <MenuItem value="admin">Administration</MenuItem>
+                <MenuItem value="human-resource"> Human Resource</MenuItem>
+                <MenuItem value="admin">Admin</MenuItem>
+                 <MenuItem value="business-development">Business Development</MenuItem>
+                  <MenuItem value="property-management"> Property Management </MenuItem>
             </Select>
         </FormControl>
     )}
 />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography variant="h6" gutterBottom>
             Upload your resume/CV
           </Typography>
           <Button
             variant="outlined"
             component="label"
             fullWidth
-            sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}
+            sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", height:55 }}
           >
             {selectedFile || "Upload File"} <FileUploadOutlinedIcon />
             <input
@@ -148,6 +156,7 @@ const JobApplication = () => {
           </Button>
         </Grid>
         <Grid item xs={12}>
+        <Typography variant="h6" marginBottom={1}>Message</Typography>
           <TextField fullWidth label="Message" multiline rows={4} {...register("message")} />
         </Grid>
         <Grid item xs={12}>
@@ -157,7 +166,7 @@ const JobApplication = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <CustomButton isLoading={isSubmitting} sx={{width:'100%'}}>
+          <CustomButton isLoading={isSubmitting} sx={{px:8}}>
              Submit Now
           </CustomButton>
         </Grid>

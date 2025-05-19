@@ -24,6 +24,7 @@ import { GetInTouchFormSchema, getInTouchFormSchema } from "../../schema/contact
 import axios from "axios";
 import toast from "react-hot-toast"
 import { API_BASE_URL } from "../../services/api"
+import { propertyTypes } from '../../constant';
 
 // interface ContactFormData {
 //   firstName: string;
@@ -207,10 +208,11 @@ export const ContactFormModal = () => {
                                             control={control}
                                             render={({ field }) => (
                                               <Select {...field}  sx={{bgcolor:"#fff"}} labelId="property-type-label">
-                                                <MenuItem value="apartment">Apartment</MenuItem>
-                        <MenuItem value="commercial">Commercial</MenuItem>
-                        <MenuItem value="land">Land</MenuItem>
-                        <MenuItem value="industrial">Industrial</MenuItem>
+                                                 {propertyTypes.map(opt => (
+                                                  <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+                                                    {opt.label}
+                                                  </MenuItem>
+                                                ))}
                                               </Select>
                                             )}
                                           />

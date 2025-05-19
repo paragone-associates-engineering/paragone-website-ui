@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Container, Box, Typography, Stack, Button, Drawer } from "@mui/material";
+import { Container, Box, Typography, Stack, Button, Drawer, Grid, useMediaQuery } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { PageBanner } from "../../../common/banner/page-banner";
 import PropertyGrid from "../components/property-layout";
 import Testimonials from "../../../common/testimonial";
 import PropertyFilter from "../components/property-filter";
-import CustomButton from "../../../common/button";
-import FilterAltIcon from "@mui/icons-material/FilterAlt";
+// import CustomButton from "../../../common/button";
+// import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -18,7 +18,7 @@ import { fetchListings } from "../../../redux/slices/listings-slice";
 const LocationListings = () => {
   const { locationId } = useParams<{ locationId: string }>();
   const decodedLocationId = decodeURIComponent(locationId || "");
-
+ const isMobile = useMediaQuery("(max-width: 900px)");
   const dispatch = useAppDispatch();
   const listings = useAppSelector((state) => state.listings);
   
@@ -117,15 +117,7 @@ const LocationListings = () => {
               </Button>
             ))}
           </Box>
-          <CustomButton 
-            variant="outline" 
-            sx={{ bgcolor: "#333", color: "white" }} 
-            startIcon={FilterAltIcon } 
-            href={`/listings/filter?location=${encodeURIComponent(decodedLocationId)}`}
-            //onClick={() => toggleDrawer(true)}
-          >
-            Filter
-          </CustomButton>
+          
         </Box>
 
         <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>
@@ -138,7 +130,14 @@ const LocationListings = () => {
           </Box>
         </Drawer>
 
-        <Box>
+         <Grid container spacing={4}>
+        
+           {!isMobile && (
+                      <Grid item xs={12} md={3}>
+                        <PropertyFilter onFilterChange={handleFilterChange} initialFilters={filters} showListingTypeFilter={true} />
+                      </Grid>
+                    )}
+                    <Grid item xs={12} md={9}>
           <PropertyGrid
             properties={filteredProperties}
             totalCount={totalCount}
@@ -147,7 +146,8 @@ const LocationListings = () => {
             loading={loading}
             emptyMessage={`No properties found in ${decodedLocationId} matching your criteria.`}
           />
-        </Box>
+          </Grid>
+        </Grid>
       </Container>
 
       <Testimonials />

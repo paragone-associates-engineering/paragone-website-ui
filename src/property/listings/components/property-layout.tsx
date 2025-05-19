@@ -44,7 +44,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
 
   return (
     <Box>
-      <Grid container spacing={2}>
+      <Grid container rowSpacing={6} columnSpacing={2}>
         {properties.map((property) => (
           <Grid item xs={12} sm={6} md={4} key={property.id}>
             <PropertyCard property={property} />

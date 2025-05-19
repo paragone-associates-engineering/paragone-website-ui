@@ -13,7 +13,7 @@ const OurServices = () => {
                <Container maxWidth="lg">
                  <SectionTitle
                    title="How our clients get benefited by us"
-                   subtitle="THE BENEFITS"
+                   subtitle="Our Services"
                    //description="We strive to provide value at every step of your real estate journey"
                    centered={true}
                    marginBottom={3}

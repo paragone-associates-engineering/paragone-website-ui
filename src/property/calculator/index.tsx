@@ -130,8 +130,8 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
           <Grid item xs={12} md={8}>
             <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
               <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography variant="h5" gutterBottom>
-                  Fill in your preferences
+                <Typography variant="h5" sx={{mb:5, fontWeight:500}} gutterBottom>
+                Property Investment Calculator
                 </Typography>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>

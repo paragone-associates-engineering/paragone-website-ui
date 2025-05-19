@@ -1,5 +1,5 @@
 
-import { Container, Typography, Box, Grid, Button,
+import { Container, Typography, Box, Grid, 
 } from "@mui/material"
 import Testimonials from "../common/testimonial"
 import { PageBanner } from '../common/banner/page-banner';
@@ -51,14 +51,16 @@ const BecomeAssociate = () => {
                >
                  <Grid container spacing={2} alignItems="center">
                    <Grid item xs={12} md={8}>
-                     <Typography variant="h3" sx={{fontWeight:700}}  gutterBottom>
+                     <Typography variant="h3" sx={{fontWeight:700, fontSize:'2rem'}}  gutterBottom>
                        Let's achieve your real estate goals together
                      </Typography>
                    </Grid>
                    <Grid item xs={12} md={4} sx={{ textAlign: { xs: "left", md: "right" } }}>
-                     <CustomButton href='/contact-us'>
-                       Contact us
+                   <a href='#join-form'>
+                     <CustomButton sx={{width:160}}>
+                       Join Us
                      </CustomButton>
+                     </a>
                    </Grid>
                  </Grid>
                </Box>
@@ -136,9 +138,11 @@ const BecomeAssociate = () => {
             <Typography variant="h3" component="h2" gutterBottom>
               Earn more with your new journey
             </Typography>
-            <Button variant="contained" color="primary" size="large" sx={{ mt: 2 }}>
+            <a href='#join-form'>
+            <CustomButton sx={{ mt: 2, width:150 }}>
               Join now
-            </Button>
+            </CustomButton>
+            </a>
           </Box>
         </Box>
         <Grid container spacing={6} alignItems="center" sx={{ my: 1, position: 'relative' }}>
@@ -149,9 +153,11 @@ const BecomeAssociate = () => {
     <Typography variant="body1" paragraph>
     At Paragóne Signature & Associates, there are no limits to how much you can earn daily, weekly, monthly, or annually. Here, you are challenged to break through any barriers and elevate your performance to achieve your personal financial goals and desires—no matter how ambitious they are!
     </Typography>
-    <CustomButton href='/' sx={{ mt: 1, width: '20%', py: 1 }}>
+    <a href='#join-form'>
+    <CustomButton sx={{ mt: 1, width: '20%', py: 1 }}>
       Join Us
     </CustomButton>
+    </a>
   </Grid>
 
   <Grid item xs={12} sm={5} sx={{ position: 'relative' }}>
@@ -212,9 +218,11 @@ const BecomeAssociate = () => {
             <Typography variant="body1" paragraph>
             Working with like-minded people is a no-brainer because doing so helps you work smarter and engage the power of leverage. It increases your chances for success with a greater probability of achieving your desires. You also connect for beneficial resources and have access to coaches and mentors within the real estate space who can offer that handholding experience as you build your career.
             </Typography>
+            <a href='#join-form'>
             <CustomButton  sx={{ mt: 1, width:'20%', py:1 }}>
               Join us
             </CustomButton>
+            </a>
           </Grid>
         </Grid>
 
@@ -227,9 +235,11 @@ const BecomeAssociate = () => {
             <Typography variant="body1" paragraph>
             Connect with a vast network of industry professionals and peers, sharing valuable insights, collaborating on projects, and expanding your business. Leverage these connections to enhance your knowledge, stay ahead of trends, and drive your real estate success.
             </Typography>
+            <a href='#join-form'>
             <CustomButton  sx={{ mt: 1, width:'20%', py:1  }}>
               Join Us
             </CustomButton>
+            </a>
           </Grid>
           <Grid item xs={12} md={5} sx={{postion:'relative'}}>
             {/* Blob Background */}
@@ -264,7 +274,7 @@ const BecomeAssociate = () => {
           </Grid>
         </Grid>
         </Container>
-        <Box sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2,  postion:'relative', zIndex:99  }}>
+        <Box component='section' id='join-form' sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2,  postion:'relative', zIndex:99  }}>
           <Container maxWidth='md'>
           <Typography variant="h4" component="h2" gutterBottom align="center">
             Are you ready?

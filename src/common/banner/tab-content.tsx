@@ -5,6 +5,7 @@ import { Box, Grid,  FormControl, InputLabel, Select, MenuItem, Button, Typograp
 import { useNavigate, Link } from 'react-router-dom';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useLocations } from '../../hooks/use-locations';
+import { propertyTypes } from "../../constant";
 
 type ListingsQueryParams = {
   location?: string;
@@ -52,7 +53,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
         <Box sx={{ display: 'flex', flexDirection: 'row', gap: 2 }}>
             <Box sx={{flex: 1}}>
           <FormControl fullWidth>
-            <InputLabel id="location-label">Location</InputLabel>
+            <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
             <Select
               labelId="location-label"
               name="location"
@@ -89,7 +90,7 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
         <Grid container spacing={2} sx={{ mb: 1 }}>
           <Grid item xs={12} md={4}>
           <FormControl fullWidth>
-            <InputLabel id="location-label">Location</InputLabel>
+            <InputLabel id="location-label" sx={{backgroundColor: 'white'}}>Location</InputLabel>
             <Select
               labelId="location-label"
               name="location"
@@ -107,17 +108,18 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="property-label">Property Category</InputLabel>
+              <InputLabel id="property-label" sx={{backgroundColor: 'white'}}>Property Type</InputLabel>
               <Select
                 labelId="property-label"
                 name="propertyCategory"
                 value={filters.propertyCategory}
                 onChange={handleChange}
               >
-                <MenuItem value="">Select type</MenuItem>
-                <MenuItem value="residential">Residential</MenuItem>
-                <MenuItem value="commercial">Commercial</MenuItem>
-                <MenuItem value="land">Land</MenuItem>
+                {propertyTypes.map(opt => (
+  <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+    {opt.label}
+  </MenuItem>
+))}
               </Select>
             </FormControl>
             
@@ -125,17 +127,21 @@ const TabContent: React.FC<TabContentProps> = ({ tabIndex }) => {
 
           <Grid item xs={12} md={4}>
             <FormControl fullWidth>
-              <InputLabel id="room-label">Select Rooms</InputLabel>
+              <InputLabel id="room-label" sx={{backgroundColor: 'white'}}>Select Rooms</InputLabel>
               <Select
                 labelId="room-label"
                 name="bedrooms"
+               // placeholder='Select rooms'
+               sx={{backgroundColor: 'white'}}
                 value={filters.bedrooms?.toString() || ''}
                 onChange={handleChange}
               >
                 <MenuItem value="">Select rooms</MenuItem>
                 <MenuItem value="1">1</MenuItem>
                 <MenuItem value="2">2</MenuItem>
-                <MenuItem value="3">3+</MenuItem>
+                <MenuItem value="3">3</MenuItem>
+                 <MenuItem value="3">4</MenuItem>
+                 <MenuItem value="3">5+</MenuItem>
               </Select>
             </FormControl>
           </Grid>

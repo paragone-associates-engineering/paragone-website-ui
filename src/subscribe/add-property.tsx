@@ -15,6 +15,7 @@ import {
   } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { propertyTypes } from '../constant';
 
 interface PropertyFormProps {
   property: Property;
@@ -23,7 +24,7 @@ interface PropertyFormProps {
   onRemove: (index: number) => void;
 }
 
-const PROPERTY_TYPES = ['Apartment', 'House', 'Land', 'Commercial'];
+//const PROPERTY_TYPES = ['Apartment', 'House', 'Land', 'Commercial'];
 
 export const PropertyForm = ({ property, index, onUpdate, onRemove }: PropertyFormProps) => {
   const handleChange = (field: keyof Property, value: any) => {
@@ -70,9 +71,9 @@ export const PropertyForm = ({ property, index, onUpdate, onRemove }: PropertyFo
               onChange={(e) => handleChange('propertyType', e.target.value)}
               required
             >
-              {PROPERTY_TYPES.map((type) => (
-                <MenuItem key={type} value={type}>
-                  {type}
+               {propertyTypes.map(opt => (
+                <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+                  {opt.label}
                 </MenuItem>
               ))}
             </Select>
@@ -124,7 +125,7 @@ export const PropertyForm = ({ property, index, onUpdate, onRemove }: PropertyFo
             fullWidth
             multiline
             rows={4}
-            label="Description"
+            label=" Property Description"
             value={property.description}
             onChange={(e) => handleChange('description', e.target.value)}
           />

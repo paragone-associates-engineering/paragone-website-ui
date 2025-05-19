@@ -1,4 +1,4 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 import { 
   Box, 
   Typography, 
@@ -9,28 +9,44 @@ import {
   Chip, 
   Button, 
   //Rating, 
-  useTheme, 
+  //useTheme, 
   IconButton
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+//import FavoriteIcon from '@mui/icons-material/Favorite';
+//import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {Link} from 'react-router-dom';
 import { ApiProperty } from '../types/properties';
 
 const PropertyCard = ({ property }: { property: ApiProperty }) => {
-  const [favorite, setFavorite] = useState(false);
-  const theme = useTheme();
+ // const [favorite, setFavorite] = useState(false);
+  //const theme = useTheme();
   const bedrooms = property?.propertyDetails?.find((detail) => detail.name === 'bedrooms')?.value;
   const bathrooms = property?.propertyDetails?.find((detail) => detail.name === 'bathrooms')?.value;
+  const chipStyles: Record<
+  string,
+  { label: string; bg: string; muiColor?: "primary" | "secondary" | "default" }
+> = {
+  "For Sale":   { label: "For sale",   bg: "#46B0FD", muiColor: "primary" },
+  "For Rent":   { label: "For rent",   bg: "#B032EB", muiColor: "secondary" },
+  Land:         { label: "Land",       bg: "#4CAF50" },          
+  "Short Stay": { label: "Short stay", bg: "#FF9800" },         
   
+};
+
+const type = property?.listingType ?? "default";
+const { label,  muiColor } = chipStyles[type] ?? {
+  label: type,
+  bg: "#9E9E9E",
+  muiColor: "default",
+};
   
   return (
     <Card 
-    component={Link}
-    to={`/listings/${property?.id}`}
+   // component={Link}
+    //to={`/listings/${property?.id}`}
       sx={{  
         display: 'flex', 
         flexDirection: 'column',
@@ -47,19 +63,19 @@ const PropertyCard = ({ property }: { property: ApiProperty }) => {
         }
       }}
     >
-      <Box sx={{ position: 'relative' }}>
+      <Box  sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
-          height="200"
+          height="250"
           image={ property?.images?.length > 0 ? property?.images[0] : 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&w=800&q=80'}
           alt={property?.propertyName}
           sx={{ borderRadius: '8px' }}
         />
         <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'flex', gap: 1 }}>
           <Chip 
-            label={property?.listingType === 'For Sale' ? 'For sale' : 'For rent'} 
-            color={property?.listingType === 'For Sale' ? 'primary' : 'secondary'}
-            size="small"
+            label={label}
+  color={muiColor}
+  size="small"
             sx={{ 
               backgroundColor: property?.listingType === 'For Sale' ? '#46B0FD' : '#B032EB',
               color: 'white',
@@ -81,18 +97,31 @@ const PropertyCard = ({ property }: { property: ApiProperty }) => {
           )} */}
         </Box>
         <Box sx={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 1 }}>
-          <IconButton
-            sx={{ 
-              bgcolor: 'primary.main',
-              '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' },
-              width: 36,
-              height: 36
-            }}
-            onClick={() => {}}
-          >
-            <ShareIcon fontSize="small" />
-          </IconButton>
-          <IconButton
+        <IconButton
+  sx={{
+    bgcolor: 'primary.main',
+    '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' },
+    width: 36,
+    height: 36,
+  }}
+  onClick={() => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'Check out this post',
+        text: 'Here’s something interesting for you!',
+        url: window.location.href,
+      }).catch((err) => console.error('Share failed:', err));
+    } else {
+      navigator.clipboard.writeText(window.location.href)
+        .then(() => alert("Link copied to clipboard!"))
+        .catch((err) => console.error('Clipboard write failed:', err));
+    }
+  }}
+>
+  <ShareIcon fontSize="small" />
+</IconButton>
+
+          {/* <IconButton
             sx={{ 
               bgcolor: 'primary.main',
               '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.9)' },
@@ -103,12 +132,12 @@ const PropertyCard = ({ property }: { property: ApiProperty }) => {
             onClick={() => setFavorite(!favorite)}
           >
             {favorite ? <FavoriteIcon fontSize="small" /> : <FavoriteBorderIcon fontSize="small" />}
-          </IconButton>
+          </IconButton> */}
         </Box>
         <Box
           sx={{
             position: 'absolute',
-            bottom: 85,
+            bottom: 25,
             right: 35,
             bgcolor: '#ff9800',
             color: 'white',
@@ -122,24 +151,28 @@ const PropertyCard = ({ property }: { property: ApiProperty }) => {
           ₦{property?.amount?.toLocaleString()}
         </Box>
       </Box>
-      <CardContent sx={{
+      <CardContent
+      component={Link}
+    to={`/listings/${property?.id}`} 
+    sx={{
       position: 'absolute',
-      top: '50%',
+      top: '80%',
       left: '50%',
       transform: 'translateX(-50%) ',
       width: '93%',
-      minHeight:'200px',
-      height:'100%',
+      height:'180px',
+      //height:'100%',
       bgcolor: 'background.paper', 
       pt: 3, 
+      color:'text.primary',
       border:1,
       borderColor:'divider',
-      //mb:10,
+      mb:10,
       display:'flex',
       justifyContent:'center',
       borderRadius: '8px',
     }}>
-        <Box sx={{mb:10}}>
+        <Box sx={{mb:20}}>
         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1 }}>
           {property?.propertyName}
         </Typography>

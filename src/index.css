@@ -35,8 +35,10 @@ label{
   font-family: "Space Grotesk, sans-serif"
 }
 input{
-  background-color:'#fff'
+  background-color:'#fff';
+  border-radius:10px;
 }
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus, 

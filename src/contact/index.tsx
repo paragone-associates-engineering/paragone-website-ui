@@ -1,5 +1,4 @@
-// import type React from "react"
-// import { useState } from "react"
+
 import {
   Container,
   Typography,
@@ -12,7 +11,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  //type SelectChangeEvent,
   List,
   ListItem,
   ListItemText,
@@ -53,6 +51,7 @@ const Contact = () => {
       console.log('error', error)
     }
   };
+
   return (
     <Box sx={{width:'100vw'}}>
      <PageBanner title='Contact Us' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
@@ -125,7 +124,7 @@ const Contact = () => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} md={6}>
             <Paper elevation={0} sx={{ p: 4, backgroundColor: "background.paper", borderRadius: 2 }}>
               <Typography variant="h5" component="h2" gutterBottom>
                 Leave Us a Message
@@ -182,11 +181,10 @@ const Contact = () => {
                         control={control}
                         render={({ field }) => (
                           <Select {...field} labelId="reason-label">
-                            <MenuItem value="general">General Inquiry</MenuItem>
-                            <MenuItem value="property">Property Information</MenuItem>
-                            <MenuItem value="partnership">Partnership Opportunities</MenuItem>
-                            <MenuItem value="career">Career Opportunities</MenuItem>
-                            <MenuItem value="support">Technical Support</MenuItem>
+                            <MenuItem value="I'm interested in buying a property">I'm interested in buying this property</MenuItem>
+                            <MenuItem value=" I'm interested in renting a property"> I'm interested in renting this property</MenuItem>
+                            <MenuItem value="I'd like to refer a client to buy a property">I'd like to refer a client to buy this property</MenuItem>
+                            <MenuItem value=" Others"> Others</MenuItem>
                           </Select>
                         )}
                       />
@@ -218,18 +216,39 @@ const Contact = () => {
           </Grid>
         </Grid>
 
-        <Box sx={{ mt: 6, borderRadius: 2, overflow: "hidden", height: 500 }}>
-          <iframe
-            title="Paragone Signature Office Location"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3963.3!2d3.3!3d6.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMzYnMDAuMCJOIDPCsDE4JzAwLjAiRQ!5e0!3m2!1sen!2sng!4v1234567890"
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </Box>
+        <Box 
+  sx={{ 
+    width: '100%',
+    height: '100vh', 
+    position: 'relative',
+    overflow: 'hidden',
+    marginTop:10,
+  }}
+>
+  {/* The wrapper ensures the iframe maintains aspect ratio and fills space */}
+  <Box
+    sx={{
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+    }}
+  >
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15853.511524741247!2d3.2634984970347864!3d6.599872300000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b91fc784c6d97%3A0x9e9fe1cd213e6742!2sParagone%20Signature%20%26%20Associates%20Limited!5e0!3m2!1sen!2sng!4v1746545522032!5m2!1sen!2sng"
+      style={{
+        width: '100%',
+        height: '90%',
+        border: 'none',
+        borderRadius:8
+      }}
+      allowFullScreen
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+  </Box>
+</Box>
       </Container>
     </Box>
   )

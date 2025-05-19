@@ -1,5 +1,5 @@
 
-import { Box, Container, Grid, Typography, Card, useTheme } from '@mui/material';
+import { Box, Container, Grid, Card, useTheme } from '@mui/material';
 import ServiceCard from '../common/service-card';
 import SectionTitle from '../common/section-title';
 
@@ -14,6 +14,8 @@ import { AppDispatch, RootState } from '../redux/store';
 import { fetchBlogPosts } from '../redux/slices/blog-slice';
 import { useEffect } from 'react';
 import { BlogCard } from '../common/blog-card';
+import OurServices from '../common/our-services';
+import SkeletonLoader from '../common/skeleton-loader';
 
 const Home = () => {
   const theme = useTheme();
@@ -42,7 +44,7 @@ const Home = () => {
             <Grid item xs={12} sm={6}>
               <ServiceCard
                 title="Real Estate Brokerage"
-                description="We connect buyers with their dream properties and help sellers get the best value for their real estate assets."
+                description="We offer expert real estate brokerage services, guiding you through buying, selling, and leasing properties with professional, personalized assistance to achieve your real estate goals."
                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274361/fi_3526159_pmvmt1.svg"
                 //icon={<Business sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                 actionText="Learn More"
@@ -52,10 +54,10 @@ const Home = () => {
             <Grid item xs={12} sm={6}>
               <ServiceCard
                 title="Property Management"
-                description="Our comprehensive management services take the stress out of owning rental properties and maximize your returns."
+                description="We care for your property as if it were our own. Our management services include fostering tenant relationships, ensuring financial oversight, and maximizing your property’s value and optimal returns."
                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274243/fi_9202615_xqsik3.svg"
                 actionText="Learn More"
-                actionVariant='outline'
+                //actionVariant='outline'
                 actionLink="/property-management"
               />
             </Grid>
@@ -85,49 +87,8 @@ const Home = () => {
         </Container>
       </Box>
 
-      
-      <Box component="section" sx={{ py: 5 }}>
-        <Container maxWidth="lg">
-          <SectionTitle
-            title="How our clients get benefited by us"
-            subtitle="THE BENEFITS"
-            description="We strive to provide value at every step of your real estate journey"
-            centered={true}
-            marginBottom={6}
-          />
-
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={4}>
-              <ServiceCard
-                title="Buy a property"
-                description="Find your dream home with our extensive listings and expert buying agents to guide you through the process."
-                imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276451/fi_7374059_k6kuhg.svg"
-                actionText="Learn More"
-                actionLink="/services/buy"
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <ServiceCard
-                title="Sell a property"
-                description="Get the best value for your property with our market expertise, professional marketing, and negotiation skills."
-                imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274361/fi_3526159_pmvmt1.svg"
-                actionText="Learn More"
-                actionLink="/services/sell"
-              />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <ServiceCard
-                title="Manage a property"
-                description="Let us handle the day-to-day operations of your rental properties while you enjoy a steady income stream."
-                imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276444/fi_6684167_knrmez.svg"
-                actionText="Learn More"
-                actionLink="/services/manage"
-              />
-            </Grid>
-          </Grid>
-        </Container>
-      </Box>
-
+      <OurServices />
+     
       {/* Blog Section */}
       <Box 
         component="section" 
@@ -139,12 +100,13 @@ const Home = () => {
         <Container maxWidth="lg">
           <SectionTitle
             title="Get updates from our latest real estate insights"
+            subtitle='News and blog'
             centered={true}
             marginBottom={6}
           />
 
 {loading ? (
-          <Typography>Loading...</Typography>
+          <SkeletonLoader count={3} />
         ) : (
 
             <Grid container spacing={4}>
