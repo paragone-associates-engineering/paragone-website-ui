@@ -17,7 +17,7 @@ import {
   ListItemText,
   Paper
 } from '@mui/material';
-import { Menu, Close, PeopleAlt }  from '@mui/icons-material';
+import {Notes, Close, PeopleAlt }  from '@mui/icons-material';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import CustomButton from '../common/button';
 
@@ -124,7 +124,7 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
         left: 0,
         width: '100%',
         zIndex: 1100,
-        p: { xs: 2, md: 3 },
+        p: { xs: 2, lg: 3 },
         transition: 'all 0.3s',
       }}
     >
@@ -141,7 +141,7 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
             sx={{ 
               display: 'flex', 
               justifyContent: 'space-between',
-              px: { xs: 2, sm: 3 },
+              px: { xs: 2, lg: 3 },
               py: { xs: 0.5, sm: 0.5 },
               minHeight: { xs: '64px', sm: '64px' }
             }}
@@ -162,9 +162,10 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
                     component={RouterLink}
                     to={item.path}
                     sx={{
-                      mx: { xs: 0.5, sm: 1, md: 1.5 },
+                      mx: { xs: 0.5, sm: 0.7, lg: 1.5 },
                       textTransform: 'none',
                       position: 'relative',
+                      whiteSpace:'nowrap',
                       color: activeLink === item.id ? theme.palette.primary.main : 'inherit',
                       fontWeight: activeLink === item.id ? 'medium' : 'normal',
                       fontSize: '0.9rem',
@@ -189,7 +190,7 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
             )}
             
            
-            <Box sx={{ display: 'flex', alignItems: 'center', justifycontent:'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifycontent:'center', whiteSpace:'nowrap' }}>
               {!isMobile && (
                  <CustomButton href='/become-an-associate' sx={{py:0.8,px:2, width:'100%'}} startIcon={PeopleAlt} >
                    Join us
@@ -200,12 +201,12 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
               {/* Mobile menu button */}
               {isMobile && (
                 <IconButton
-                  color="inherit"
+                  color="primary"
                   aria-label="open menu"
                   edge="end"
                   onClick={handleDrawerToggle}
                 >
-                  <Menu />
+                  <Notes />
                 </IconButton>
               )}
             </Box>

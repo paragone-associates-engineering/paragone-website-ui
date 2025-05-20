@@ -17,6 +17,15 @@ import toast from "react-hot-toast"
 import { API_BASE_URL } from "../services/api"
 import CustomButton from "../common/button";
 
+const agentOptions = [
+  "I lead a team of agents",
+  "I'm a listing agent",
+  "I'm a leasing agent",
+  "I manage property portfolios for clients (property manager)",
+  "I work primarily in new developments / off‑plan properties",
+  "I focus on luxury / high‑end property sales",
+  "I'm newly minted and getting started in real‑estate sales",
+];
 const AssociateForm = () => {
   
    const {
@@ -104,14 +113,22 @@ const AssociateForm = () => {
                                             control={control}
                                             render={({ field }) => (
                                               <Select {...field} labelId="participation-label">
-                                                <MenuItem value="I'm an experienced real estate agent">I'm an experienced real estate agent</MenuItem>
-                        <MenuItem value=" I lead a team of agents"> I lead a team of agents</MenuItem>
-                        <MenuItem value="I'm a listing agent">I'm a listing agent</MenuItem>
-                        <MenuItem value="I'm a leasing agent">I'm a leasing agent</MenuItem>
-                         <MenuItem value="I manage property portfolios for clients (property manager)">I manage property portfolios for clients (property manager)</MenuItem>
-                          <MenuItem value="I work primarily in new developments/ offplan properties">I work primarily in new developments/ offplan properties</MenuItem>
-                           <MenuItem value="I focus on luxury/ high-end property sales">I focus on luxury/ high-end property sales</MenuItem>
-                            <MenuItem value="I'm newly minted and looking to getting started in real estate sales">I'm newly minted and looking to getting started in real estate sales </MenuItem>
+                                               {agentOptions.map(opt => (
+    <MenuItem
+      key={opt}
+      value={opt}
+      sx={{
+        whiteSpace: "normal",      
+        lineHeight: 1.3,           
+        py: 1,                    
+      }}
+    >
+      {/* optional: make sure Typography also wraps */}
+      <Typography variant="body2" whiteSpace="inherit">
+        {opt}
+      </Typography>
+    </MenuItem>
+  ))}
                                               </Select>
                                             )}
                                           />

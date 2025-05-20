@@ -110,7 +110,8 @@ const BecomeAssociate = () => {
 
         <Box
           sx={{
-            my: 8,
+            mt: 8,
+            mb:{md:8},
             p: 4,
             borderRadius: 2,
             backgroundImage: "url(https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882231/paul-edesemi-niElH29LKjw-unsplash_1_acbsao.png)",
@@ -154,7 +155,7 @@ const BecomeAssociate = () => {
     At Paragóne Signature & Associates, there are no limits to how much you can earn daily, weekly, monthly, or annually. Here, you are challenged to break through any barriers and elevate your performance to achieve your personal financial goals and desires—no matter how ambitious they are!
     </Typography>
     <a href='#join-form'>
-    <CustomButton sx={{ mt: 1, width: '20%', py: 1 }}>
+    <CustomButton sx={{ mt: 1, width: 160, py: 1 }}>
       Join Us
     </CustomButton>
     </a>
@@ -219,7 +220,7 @@ const BecomeAssociate = () => {
             Working with like-minded people is a no-brainer because doing so helps you work smarter and engage the power of leverage. It increases your chances for success with a greater probability of achieving your desires. You also connect for beneficial resources and have access to coaches and mentors within the real estate space who can offer that handholding experience as you build your career.
             </Typography>
             <a href='#join-form'>
-            <CustomButton  sx={{ mt: 1, width:'20%', py:1 }}>
+            <CustomButton  sx={{ mt: 1, width:160, py:1 }}>
               Join us
             </CustomButton>
             </a>
@@ -236,7 +237,7 @@ const BecomeAssociate = () => {
             Connect with a vast network of industry professionals and peers, sharing valuable insights, collaborating on projects, and expanding your business. Leverage these connections to enhance your knowledge, stay ahead of trends, and drive your real estate success.
             </Typography>
             <a href='#join-form'>
-            <CustomButton  sx={{ mt: 1, width:'20%', py:1  }}>
+            <CustomButton  sx={{ mt: 1, width: 160, py:1  }}>
               Join Us
             </CustomButton>
             </a>
@@ -274,7 +275,7 @@ const BecomeAssociate = () => {
           </Grid>
         </Grid>
         </Container>
-        <Box component='section' id='join-form' sx={{ my: 8, pt: 6, p: 10, backgroundColor: "secondary.main", borderRadius: 2,  postion:'relative', zIndex:99  }}>
+        <Box component='section' id='join-form' sx={{ my: {md:8}, pt: {md:6}, px: {xs:0, md:10}, py:10, backgroundColor: "secondary.main", borderRadius: 2,  postion:'relative', zIndex:99  }}>
           <Container maxWidth='md'>
           <Typography variant="h4" component="h2" gutterBottom align="center">
             Are you ready?

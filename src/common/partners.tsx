@@ -18,10 +18,25 @@ const OurPartners = () => {
       <Container maxWidth="lg">
         <SectionTitle title="Our partners" subtitle="Partners" centered={true} marginBottom={2} />
         <Swiper
-          spaceBetween={20} 
-          slidesPerView="auto" 
-          autoplay={{ delay: 3000, disableOnInteraction: false }} // Autoplay enabled
+          spaceBetween={10} 
+          slidesPerView={2}
+          autoplay={{ delay: 3000, disableOnInteraction: false }} 
           loop={true} 
+          breakpoints={{
+            
+          400: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 10,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 10,
+          },
+        }}
           modules={[Autoplay]}
         >
           {partners.map((partner, idx) => (
