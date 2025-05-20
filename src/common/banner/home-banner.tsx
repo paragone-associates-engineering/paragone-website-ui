@@ -116,12 +116,12 @@ export const HomeBanner = () => {
             component="h1" 
             sx={{ 
               fontWeight: 'bold',
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontSize: { xs: '2rem', md: '3rem' },
               lineHeight: 1.2,
               mb: 1
             }}
           >
-            A World of Real Estate Solutions -
+            A world of real estate solutions -
           </Typography>
           <Typography 
             variant="h2" 
@@ -135,7 +135,7 @@ export const HomeBanner = () => {
               mb: 2
             }}
           >
-            For You
+            for you
           </Typography>
           <Typography 
             variant="body1" 

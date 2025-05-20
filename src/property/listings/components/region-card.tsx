@@ -21,7 +21,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
         "&:hover": {
           transform: "translateX(5px)",
           bgcolor:'primary.main',
-          color:'#ffffff'
+          color:'white'
         },
       }}
     >
@@ -35,6 +35,9 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
           alignItems: "center",
           px: 2,
           py: 1.5,
+           "&:hover": {
+          color:'white'
+        },
         }}
       >
         <Typography variant="body1" fontWeight={500}>

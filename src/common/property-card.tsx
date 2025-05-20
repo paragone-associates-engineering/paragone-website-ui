@@ -171,6 +171,9 @@ const { label,  muiColor } = chipStyles[type] ?? {
       display:'flex',
       justifyContent:'center',
       borderRadius: '8px',
+      '&:hover': {
+      color: 'inherit',
+      }
     }}>
         <Box sx={{mb:20}}>
         <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1 }}>
