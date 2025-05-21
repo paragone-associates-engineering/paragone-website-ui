@@ -28,7 +28,7 @@ const filterOptions: FilterOption[] = [
   //{ value: "location", label: "Location", icon: <LocationOnIcon /> },
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
   { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
-//   { value: "short_stay", label: "Short stay", icon: <HomeWorkIcon /> },
+  { value: "Short Stay", label: "Short stay", icon: <HomeWorkIcon /> },
 //   { value: "land", label: "Land", icon: <TerrainIcon /> },
 ];
 
@@ -58,9 +58,10 @@ const DiscoverExclusiveProperties = () => {
     if (activeFilter === "all") return true;
     if (activeFilter === "For Sale" && property.listingType === "For Sale") return true;
     if (activeFilter === "For Rent" && property.listingType === "For Rent") return true;
+     if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
     return false;
   });
-
+ console.log(filteredProperties)
   useEffect(() => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
     }, [dispatch, currentPage, pageSize]);
@@ -86,8 +87,8 @@ const DiscoverExclusiveProperties = () => {
         </Typography>
       </Box>
 
-<Box sx={{display: 'flex', flexDirection:{xs:'row'}, alignItems:'center', justifyContent:'space-between'}}>
-<Box sx={{ display: 'flex', justifyContent: {xs:'flex-start', sm:'center'}, my: 4, gap: 1 }}>
+<Box sx={{display: 'flex', flexDirection:{xs:'column', md:'row'}, alignItems:{xs:'flex-end', md:'center'}, justifyContent:'space-between'}}>
+<Box sx={{ display: 'flex',width:'100%', overflowX:'auto', justifyContent: {xs:'flex-start'}, my: 4, gap: {xs:0.8,md:1} }}>
       {filterOptions.map((option) => (
         <Button
           key={option.value}
@@ -96,8 +97,8 @@ const DiscoverExclusiveProperties = () => {
           sx={{
             borderRadius: 2,
             py: 1,
-            px: 1.5,
-            minWidth: { xs: '45%', sm: 'auto' },
+            px: {md:2},
+            minWidth: { xs: '130px', sm: 'auto' },
             //mb: { xs: 1, md: 0 },
             bgcolor: activeFilter === option.value ? '#ffa726' : 'white',
             color: activeFilter === option.value ? 'white' : 'inherit',
@@ -130,7 +131,7 @@ const DiscoverExclusiveProperties = () => {
     </Box>
     <CustomButton
             //variant="outlined"
-            sx={{ bgcolor: "#5A6164", color: "#fff", height:40, borderRadius:10,px:2 }}
+            sx={{ bgcolor: "#5A6164", color: "#fff", height:40, borderRadius:10,px:2, mb:{xs:2,md:0} }}
             startIcon={FilterAltIcon}
             href={`/listings/filter`}
           >

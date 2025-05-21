@@ -129,7 +129,7 @@ export const HomeBanner = () => {
             sx={{ 
               color: '#FFA500', 
               fontWeight: 'bold',
-              fontSize: { xs: '2.5rem', md: '3.5rem' },
+              fontSize: { xs: '2rem', md: '3rem' },
               lineHeight: 1.2,
               display: 'block',
               mb: 2

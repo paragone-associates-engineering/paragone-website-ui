@@ -1,10 +1,39 @@
-import { Box, Container } from "@mui/material";
-import { partners } from "../constant";
+import { Box, Container, Typography } from "@mui/material";
+//import { partners } from "../constant";
 import SectionTitle from "./section-title";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Autoplay } from 'swiper/modules';
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import { API_BASE_URL } from "../services/api";
+import SkeletonLoader from "./skeleton-loader";
+
+type Partner = {
+  logo: string;
+  name: string;
+  
+};
+
 const OurPartners = () => {
+const [partners, setPartners] = useState<Partner[]>([]);
+ const [isLoading, setIsLoading] = useState(false)
+
+    const fetchPartners = async() => {
+      setIsLoading(true)
+      try{
+        const response = await axios.get(`${API_BASE_URL}/partner/get-partners`);
+        setPartners(response.data)
+      }catch(err) {
+       console.error(err)
+      }finally{
+        setIsLoading(false)
+      }
+    }
+
+    useEffect(() => {
+      fetchPartners()
+    },[])
   return (
     <Box
       component="section"
@@ -39,7 +68,12 @@ const OurPartners = () => {
         }}
           modules={[Autoplay]}
         >
-          {partners.map((partner, idx) => (
+          {isLoading ? (
+          <Box >
+            <SkeletonLoader count={3} />
+            </Box>
+        ) : (
+          partners.map((partner, idx) => (
             <SwiperSlide key={idx} style={{ width: "auto" }}>
               <Box
                 component="img"
@@ -50,6 +84,7 @@ const OurPartners = () => {
                   width: "auto",
                   filter: "grayscale(20%)",
                   opacity: 0.9,
+                  borderRadius:4,
                   transition: "all 0.3s ease",
                   "&:hover": {
                     filter: "grayscale(0%)",
@@ -57,8 +92,9 @@ const OurPartners = () => {
                   },
                 }}
               />
+            <Typography marginLeft='10px' fontWeight={600}>{partner?.name}</Typography>
             </SwiperSlide>
-          ))}
+          )))}
         </Swiper>
         {/* <Box
           sx={{

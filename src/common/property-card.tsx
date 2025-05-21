@@ -23,8 +23,6 @@ import { ApiProperty } from '../types/properties';
 const PropertyCard = ({ property }: { property: ApiProperty }) => {
  // const [favorite, setFavorite] = useState(false);
   //const theme = useTheme();
-  const bedrooms = property?.propertyDetails?.find((detail) => detail.name === 'bedrooms')?.value;
-  const bathrooms = property?.propertyDetails?.find((detail) => detail.name === 'bathrooms')?.value;
   const chipStyles: Record<
   string,
   { label: string; bg: string; muiColor?: "primary" | "secondary" | "default" }
@@ -198,14 +196,14 @@ const { label,  muiColor } = chipStyles[type] ?? {
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap' }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659737/fi_2284001_zwywd0.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
-              <Typography variant="body2">{bedrooms} rooms</Typography>
+              <Typography variant="body2">{property?.propertyDetail?.bedrooms} rooms</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap'  }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659735/fi_2425844_nnawgj.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BathtubIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
-              <Typography variant="body2">{bathrooms} bath</Typography>
+              <Typography variant="body2">{property?.propertyDetail?.bathrooms} baths</Typography>
             </Box>
           </Grid>
         </Grid>

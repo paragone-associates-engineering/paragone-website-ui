@@ -71,13 +71,13 @@ export const fetchListings = createAsyncThunk(
   "listings/fetchListings",
   async (params: ListingsQueryParams = {}, { rejectWithValue }) => {
     try {
-      console.log("Fetching with params:", params);
+      //console.log("Fetching with params:", params);
       
-      // Transform filters to API format
+      
       const apiFilters = transformFiltersToApiFormat(params);
-      console.log("API filters:", apiFilters);
+      //console.log("API filters:", apiFilters);
       
-      // Use new filter API endpoint
+    
       const response = await axios.post(
         "https://paragone-website-backend.onrender.com/listings/filter", 
         apiFilters,
@@ -97,8 +97,7 @@ export const fetchListings = createAsyncThunk(
         pageSize: params.pageSize || 10 
       };
       
-      // Fallback to the original API in case the new endpoint fails
-      //  const listingData = await listingsApi.getListings(params);
+     
       //  return { properties: listingData, totalCount: listingData.length, page: params.page || 1, pageSize: params.pageSize || 10 };
     } catch (error) {
       console.error("Error fetching listings:", error);
