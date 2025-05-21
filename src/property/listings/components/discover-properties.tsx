@@ -13,7 +13,7 @@ import {
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-//import TerrainIcon from "@mui/icons-material/Terrain";
+import TerrainIcon from "@mui/icons-material/Terrain";
 import { Link as RouterLink } from "react-router-dom"
 import { FilterOption } from "../../../types/properties";
 import PropertyCard from "../../../common/property-card";
@@ -29,7 +29,7 @@ const filterOptions: FilterOption[] = [
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
   { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
   { value: "Short Stay", label: "Short stay", icon: <HomeWorkIcon /> },
-//   { value: "land", label: "Land", icon: <TerrainIcon /> },
+  { value: "Land", label: "Land", icon: <TerrainIcon /> },
 ];
 
 const DiscoverExclusiveProperties = () => {
@@ -59,6 +59,7 @@ const DiscoverExclusiveProperties = () => {
     if (activeFilter === "For Sale" && property.listingType === "For Sale") return true;
     if (activeFilter === "For Rent" && property.listingType === "For Rent") return true;
      if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
+     if (activeFilter === "Land" && property.listingType === "Land") return true;
     return false;
   });
  console.log(filteredProperties)

@@ -10,6 +10,7 @@ import PropertyFilter from "../components/property-filter";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
+import TerrainIcon from "@mui/icons-material/Terrain";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import type { ListingsQueryParams } from "../../types";
 
@@ -53,6 +54,7 @@ const LocationListings = () => {
     { value: "sale", label: "For Sale", icon: <HomeWorkIcon /> },
     { value: "rent", label: "For Rent", icon: <ApartmentIcon /> },
      { value: "Short Stay", label: "Short Stay", icon: <HomeWorkIcon /> },
+     { value: "Land", label: "Land", icon: <TerrainIcon /> },
   ];
 
   const handleFilterOptions = (value: string) => {
@@ -64,6 +66,7 @@ const LocationListings = () => {
     if (activeFilter === "sale") return property.listingType === "For Sale";
     if (activeFilter === "rent") return property.listingType === "For Rent";
      if (activeFilter === "Short Stay") return property.listingType === "Short Stay";
+       if (activeFilter === "Land") return property.listingType === "Land";
     return true;
   });
   return (

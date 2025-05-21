@@ -11,7 +11,7 @@ import {
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-// import TerrainIcon from "@mui/icons-material/Terrain";
+ import TerrainIcon from "@mui/icons-material/Terrain";
 
 import { FilterOption } from "../types/properties";
 import PropertyCard from "./property-card";
@@ -26,7 +26,7 @@ const filterOptions: FilterOption[] = [
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
  { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
   { value: "Short Stay", label: "Short stay", icon: <HomeWorkIcon /> },
-  // { value: "land", label: "Land", icon: <TerrainIcon /> },
+  { value: "land", label: "Land", icon: <TerrainIcon /> },
 ];
 
 const ExclusiveProperties = () => {
