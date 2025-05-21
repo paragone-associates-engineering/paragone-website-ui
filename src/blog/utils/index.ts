@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Format a number as Nigerian Naira currency
  * @param value - The number to format
@@ -79,4 +80,14 @@ export const formatDate = (dateString: string, format = "MMM DD, YYYY"): string 
     .replace("DD", day.toString().padStart(2, "0"))
     .replace("D", day.toString())
 }
+
+
+export const renderRichText = (json: string) => {
+  const data = JSON.parse(json);
+  const paragraphs = data.root.children.map((node: any, index: number) => {
+    const text = node.children.map((child: any) => child.text).join('');
+    return `<p key=${index}>${text}</p>`;
+  });
+  return paragraphs.join('');
+};
 

@@ -248,8 +248,8 @@ const Testimonials = () => {
           "--swiper-pagination-bullet-inactive-color": "#ddd",
           "--swiper-pagination-bullet-inactive-opacity": "1",
           "--swiper-pagination-bullet-width": "15px",
-          "--swiper-pagination-bullet-height": "5px",
-          "--swiper-pagination-border-radius": "0px",
+          "--swiper-pagination-bullet-height": "8px",
+          "--swiper-pagination-border-radius": "3px",
           "--swiper-pagination-bullet-horizontal-gap": "5px"
         } as React.CSSProperties} >
          

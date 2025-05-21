@@ -38,7 +38,6 @@ const Home = () => {
             centered={true}
             marginBottom={6}
           />
-         
 
           <Grid container spacing={4}>
             <Grid item xs={12} sm={6}>
@@ -83,7 +82,7 @@ const Home = () => {
      
       <Box component="section" sx={{ py: 5 }}>
         <Container maxWidth="lg">
-            <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_203_fo6jz2.png' />
+            <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
         </Container>
       </Box>
 

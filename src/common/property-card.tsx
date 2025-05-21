@@ -23,8 +23,6 @@ import { ApiProperty } from '../types/properties';
 const PropertyCard = ({ property }: { property: ApiProperty }) => {
  // const [favorite, setFavorite] = useState(false);
   //const theme = useTheme();
-  const bedrooms = property?.propertyDetails?.find((detail) => detail.name === 'bedrooms')?.value;
-  const bathrooms = property?.propertyDetails?.find((detail) => detail.name === 'bathrooms')?.value;
   const chipStyles: Record<
   string,
   { label: string; bg: string; muiColor?: "primary" | "secondary" | "default" }
@@ -159,7 +157,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
       top: '80%',
       left: '50%',
       transform: 'translateX(-50%) ',
-      width: '93%',
+      width: '95%',
       height:'180px',
       //height:'100%',
       bgcolor: 'background.paper', 
@@ -191,21 +189,21 @@ const { label,  muiColor } = chipStyles[type] ?? {
               <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659739/fi_12907174_dvvx70.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <SquareFootIcon sx={{ml:1, fontSize:17}}  /> */}
              
-              <Typography variant="body2">{property?.area}sqm</Typography>
+              <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{property?.area}sqm</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap' }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659737/fi_2284001_zwywd0.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
-              <Typography variant="body2">{bedrooms} rooms</Typography>
+              <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{property?.propertyDetail?.bedrooms} bedrooms</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap'  }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659735/fi_2425844_nnawgj.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BathtubIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
-              <Typography variant="body2">{bathrooms} bath</Typography>
+              <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{property?.propertyDetail?.bathrooms} bathrooms</Typography>
             </Box>
           </Grid>
         </Grid>

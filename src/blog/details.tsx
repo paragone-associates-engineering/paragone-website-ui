@@ -8,6 +8,7 @@ import { PageBanner } from '../common/banner/page-banner';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { fetchBlogPostDetails } from "../redux/slices/blog-slice";
+import { renderRichText } from "./utils";
 
 const BlogDetail = () => {
 
@@ -34,7 +35,7 @@ const BlogDetail = () => {
  
   return (
     <Box sx={{width:'100vw'}}>
-         <PageBanner title='Blog' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog", href:'/blog' }, { label:"Details"}]}    />
+         <PageBanner title={postDetails?.title || 'Blog, News & Insights'} breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog, News & Insights", href:'/blog' }, { label:`${postDetails?.title}`}]}    />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={4}>
@@ -61,7 +62,7 @@ const BlogDetail = () => {
 
             {postDetails?.content && (
               <Box
-                dangerouslySetInnerHTML={{ __html: postDetails.content }}
+                dangerouslySetInnerHTML={{ __html:  renderRichText(postDetails.content) }}
                 sx={{
                   "& p": {
                     mb: 2,

@@ -32,7 +32,8 @@ const Item = styled(Box)({
 const SubscribeBox = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(1),
-  maxWidth: "600px",
+  maxWidth: "650px",
+  width:'100%',
   alignItems: "center",
   border: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
@@ -86,6 +87,7 @@ export default function Footer() {
               component="form"
               onSubmit={onSubmit}
               mt={2}
+              width="100%"
               display="flex"
               flexDirection="column"
               alignItems="center"
@@ -200,7 +202,7 @@ export default function Footer() {
               </Typography>
             </Link>
             <Link
-              to="/listing"
+              to="/listings"
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <Typography
@@ -210,7 +212,7 @@ export default function Footer() {
                   },
                 }}
               >
-                Listing
+                Listings
               </Typography>
             </Link>
             <Link
@@ -245,7 +247,12 @@ export default function Footer() {
               to="/careers"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <Typography>Careers</Typography>
+              <Typography
+              sx={{
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}>Careers</Typography>
             </Link>
             <Link
               to="/blog"
