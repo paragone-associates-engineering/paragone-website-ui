@@ -7,6 +7,7 @@ import Testimonials from "../../../common/testimonial";
 import PropertyFilter from "../components/property-filter";
 // import CustomButton from "../../../common/button";
 // import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -14,6 +15,7 @@ import type { ListingsQueryParams } from "../../types";
 
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { fetchListings } from "../../../redux/slices/listings-slice";
+import CustomButton from "../../../common/button";
 
 const LocationListings = () => {
   const { locationId } = useParams<{ locationId: string }>();
@@ -82,44 +84,56 @@ const LocationListings = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', my: 4, flexWrap: { xs: 'wrap', md: 'nowrap' }, gap: 1 }}>
+       <Box sx={{display: 'flex', flexDirection:{xs:'column', sm:'row'}, alignItems:{xs:'flex-end', sm:'center'}, justifyContent:'space-between', mb:3}}>
+<Box sx={{ display: 'flex',width:'100%', overflowX:'auto', justifyContent: {xs:'flex-start'},  gap: {xs:0.8,md:1} }}>
             {filterOptions.map((option) => (
               <Button
                 key={option.value}
                 variant={activeFilter === option.value ? "contained" : "outlined"}
                 onClick={() => handleFilterOptions(option.value)}
                 sx={{
-                  borderRadius: 2,
-                  py: 1,
-                  px: 2,
-                  mb: { xs: 1, md: 0 },
-                  bgcolor: activeFilter === option.value ? '#ffa726' : 'white',
-                  color: activeFilter === option.value ? 'white' : 'inherit',
-                  borderColor: '#e0e0e0',
-                  '&:hover': {
-                    bgcolor: activeFilter === option.value ? '#fb8c00' : '#f5f5f5',
-                    borderColor: '#e0e0e0'
-                  },
-                  boxShadow: activeFilter === option.value ? 2 : 0,
-                }}
-              >
-                <Stack direction="row" spacing={1} alignItems="center">
-                  <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    color: activeFilter === option.value ? 'white' : '#757575',
-                  }}>
-                    {option.icon}
-                  </Box>
-                  <Typography variant="body2" sx={{ fontWeight: activeFilter === option.value ? 'bold' : 'normal' }}>
-                    {option.label}
-                  </Typography>
-                </Stack>
-              </Button>
-            ))}
-          </Box>
-          
+            borderRadius: 2,
+            py: 1,
+            px: {md:2},
+            minWidth: { xs: '130px', sm: 'auto' },
+            //mb: { xs: 1, md: 0 },
+            bgcolor: activeFilter === option.value ? '#ffa726' : 'white',
+            color: activeFilter === option.value ? 'white' : 'inherit',
+            borderColor: '#e0e0e0',
+            '&:hover': {
+              bgcolor: activeFilter === option.value ? '#fb8c00' : '#f5f5f5',
+              borderColor: '#e0e0e0'
+            },
+            boxShadow: activeFilter === option.value ? 2 : 0,
+          }}
+        >
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Box sx={{ 
+              display: 'flex', 
+              //alignItems: 'center', 
+              bgcolor:activeFilter === option.value ? 'white' : '#EFF3F5',
+              py:0.5,
+              px:1,
+              borderRadius:1,
+              color: activeFilter === option.value ? 'primary.main' : '#757575',
+            }}>
+              {option.icon}
+            </Box>
+            <Typography variant="body2" sx={{ whitespace: 'nowrap', fontWeight: activeFilter === option.value ? 'bold' : 'normal' }}>
+              {option.label}
+            </Typography>
+          </Stack>
+        </Button>
+         ))}
+            </Box>
+           <CustomButton
+                      //variant="outlined"
+                      sx={{ bgcolor: "#5A6164", color: "#fff", height:40, borderRadius:10,px:2,  mt:{xs:2,md:0} }}
+                      startIcon={FilterAltIcon}
+                      onClick={() => toggleDrawer(true)}
+                    >
+                      Filter
+                    </CustomButton>
         </Box>
 
         <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>

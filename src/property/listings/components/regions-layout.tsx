@@ -48,11 +48,11 @@ const RegionsGrid = ({
   }
 
   return (
-    <Box sx={{ py: 4 }}>
+    <Box sx={{ pt: 8, pb:6 }}>
       {/* <Box> */}
 
       <Grid container spacing={2} sx={{ px: 1 }}>
-        <Box>
+        <Box sx={{pl:{xs:3, md:0}}}>
         <Typography variant="h4" sx={{fontSize:26}} gutterBottom>
         {title}
       </Typography>

@@ -10,7 +10,7 @@ import {
   PaginationItem,
 } from "@mui/material";
 //import LocationOnIcon from "@mui/icons-material/LocationOn";
-//import HouseIcon from "@mui/icons-material/House";
+import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 //import TerrainIcon from "@mui/icons-material/Terrain";
@@ -24,7 +24,7 @@ import { fetchListings } from "../../../redux/slices/listings-slice";
  import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
 const filterOptions: FilterOption[] = [
-  //{ value: "all", label: "All properties", icon: <HouseIcon /> },
+  { value: "all", label: "All properties", icon: <HouseIcon /> },
   //{ value: "location", label: "Location", icon: <LocationOnIcon /> },
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
   { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },

@@ -9,7 +9,7 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-import FeaturedListings from "../components/featured-listings"
+//import FeaturedListings from "../components/featured-listings"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
 import { fetchListingById, fetchListings } from "../../../redux/slices/listings-slice"
 import { formatCurrency } from "../utils"
@@ -151,9 +151,9 @@ const PropertyDetailsPage = () => {
               <Box sx={{ mt: 4 }}>
                 <ContactAgentForm propertyId={propertyId} />
               </Box>
-              <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
+              {/* <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
                 <FeaturedListings />
-              </Box>
+              </Box> */}
             </Box>
           </Grid>
         </Grid>
