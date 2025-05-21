@@ -59,7 +59,7 @@ const OurServices = () => {
                        imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276444/fi_6684167_knrmez.svg"
                        //icon={<VerifiedUser sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                        actionText="Learn More"
-                       actionLink="/contact-us"
+                       actionLink="/property-management"
                        actionVariant="outline"
                      />
                    </Grid>
