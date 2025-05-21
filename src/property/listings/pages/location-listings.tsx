@@ -50,6 +50,7 @@ const LocationListings = () => {
     { value: "all", label: "All properties", icon: <HouseIcon /> },
     { value: "sale", label: "For Sale", icon: <HomeWorkIcon /> },
     { value: "rent", label: "For Rent", icon: <ApartmentIcon /> },
+     { value: "Short Stay", label: "Short Stay", icon: <HomeWorkIcon /> },
   ];
 
   const handleFilterOptions = (value: string) => {
@@ -60,6 +61,7 @@ const LocationListings = () => {
     if (property.location !== decodedLocationId) return false;
     if (activeFilter === "sale") return property.listingType === "For Sale";
     if (activeFilter === "rent") return property.listingType === "For Rent";
+     if (activeFilter === "Short Stay") return property.listingType === "Short Stay";
     return true;
   });
   return (
