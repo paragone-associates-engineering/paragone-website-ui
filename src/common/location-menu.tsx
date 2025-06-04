@@ -5,9 +5,9 @@ const LocationMenuItems = () => {
     const {locations} = useLocations()
   return (
     <>
-      {locations.map((location: string, index: number) => (
-        <MenuItem key={index} value={location}>
-          {location}
+      {locations.map((location, index: number) => (
+        <MenuItem key={index} value={location.region}>
+          {location.region}
         </MenuItem>
       ))}
     </>

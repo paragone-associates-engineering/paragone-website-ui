@@ -62,7 +62,14 @@ export interface ApiProperty {
   id: string
   amount: number
   propertyName: string
-  location: string
+  location: { 
+  _id: string;
+  id: string;
+  region: string;
+  city: string;
+  country: string;
+  postalCode: string;
+}
   listingType: string
   images: string[]
   description: string
@@ -98,7 +105,14 @@ export interface ListingsQueryParams {
   propertyCategory?: string;
   propertyType?: string;
   propertyName?: string;
-  location?: string;
+  location?: { 
+  _id?: string;
+  id?: string;
+  region?: string;
+  city?: string;
+  country?: string;
+  postalCode?: string;
+};
   listingType?: string;
   bedrooms?: string | number;
   bathrooms?: string | number;

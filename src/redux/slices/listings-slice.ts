@@ -50,7 +50,7 @@ const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
   if (filters.propertyCategory) apiFilters.propertyCategory = filters.propertyCategory;
   if (filters.propertyType) apiFilters.propertyType = filters.propertyType;
   if (filters.propertyName) apiFilters.propertyName = filters.propertyName;
-  if (filters.location) apiFilters.location = filters.location;
+  if (filters?.location?.region) apiFilters.location.region = filters.location.region;
   if (filters.listingType) apiFilters.listingType = filters.listingType;
   
   // Handle property details

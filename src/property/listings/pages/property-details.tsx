@@ -101,7 +101,7 @@ const PropertyDetailsPage = () => {
               {property?.propertyName}
             </Typography>
             <Typography variant="body1" color="text.secondary">
-              {property?.location}
+              {property?.location?.region}
             </Typography>
           </Box>
 

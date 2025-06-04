@@ -5,7 +5,8 @@ import { KeyboardArrowRight } from "@mui/icons-material"
 //import type { Region } from "../types"
 
 interface RegionCardProps {
-  region:string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  region:any
 }
 
 const RegionCard: React.FC<RegionCardProps> = ({ region }) => {

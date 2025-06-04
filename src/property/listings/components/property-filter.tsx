@@ -446,14 +446,14 @@ const PropertyFilter = ({
   <Select
     fullWidth
     name="location"
-    value={filters.location || ""}
+    value={filters?.location?.region || ""}
     onChange={handleInputChange}
     displayEmpty
     size="small"
   >
-     {locations.map((location:string, index:number) => (
-                     <MenuItem key={index} value={location}>
-                     {location}
+     {locations.map((location, index:number) => (
+                     <MenuItem key={index} value={location.region}>
+                     {location.region}
                    </MenuItem>
                ))}
   </Select>
