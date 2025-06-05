@@ -1,4 +1,3 @@
-"use client"
 
 import type React from "react"
 import { useState } from "react"
@@ -99,11 +98,13 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
                 src={image || "/placeholder.svg?height=200&width=300"}
                 alt={`${title} - Image ${index + 1}`}
                 sx={{
+                  maxWidth:{xs:'50%',md:'100%'},
                   width: "100%",
                   height: { xs: 120, md: 195 },
                   objectFit: "cover",
                 }}
               />
+               {images.length > 3 && (
               <IconButton
                 className="fullscreen-button"
                 sx={{
@@ -121,6 +122,7 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
               >
                 <FullscreenOutlined />
               </IconButton>
+               )}
             </Box>
           ))}
 

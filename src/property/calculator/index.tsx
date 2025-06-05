@@ -10,9 +10,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { API_BASE_URL } from "../../services/api"
-import { useLocations } from "../../hooks/use-locations";
 import CustomButton from "../../common/button";
 import toast from "react-hot-toast";
+import { LocationAutocomplete } from "./components/location-autosearch";
+
 
 const formSchema = z.object({
   propertyCategory: z.enum(["residential", "commercial", "industrial", "land"], {
@@ -37,7 +38,6 @@ const formSchema = z.object({
 type FormSchemaType = z.infer<typeof formSchema>;
 
 const PropertyCalculator = () => {
-  const { stateLocations: locations }: { stateLocations: { name: string, id:string }[] } = useLocations();
   const [calculationResult, setCalculationResult] = useState<any[]>([]);
   const [isCalculated, setIsCalculated] = useState(false)
   const [allPreferences, setAllPreferences] = useState<any[]>([]);
@@ -45,12 +45,13 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
   const {
     register,
     handleSubmit,
-    watch,
+    watch, 
+  control,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      location: locations[0]?.name || "",
+      location:  "",
       propertyCategory: "residential",
       preferences: [],
       futurePlans: "",
@@ -108,7 +109,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
     } 
   };
 
-  console.log('calculate', calculationResult)
+ // console.log('calculate', calculationResult)
   return (
     <Box sx={{ width: '100%' }}>
       <PageBanner 
@@ -157,21 +158,8 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
                     <Typography variant="h6" sx={{mb:1}}>
                       Property Location
                     </Typography>
-                    <TextField 
-                      fullWidth 
-                      size="small" 
-                      placeholder="Location" 
-                      select 
-                      {...register("location")}
-                      error={!!errors.location} 
-                      helperText={errors.location?.message}
-                    >
-                      {locations.map((location) => (
-                        <MenuItem key={location?.id} value={location?.name}>
-                          {location?.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                    <LocationAutocomplete control={control}   errors={!!errors.location} />
+                    
                   </Grid>
 
                   <Grid item xs={12} sm={6}>

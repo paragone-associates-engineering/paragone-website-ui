@@ -12,7 +12,7 @@ import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import TerrainIcon from "@mui/icons-material/Terrain";
 import ApartmentIcon from "@mui/icons-material/Apartment";
-import type { ListingsQueryParams } from "../../types";
+import type { ListingsQueryParams } from "../../../types/properties";
 
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { fetchListings } from "../../../redux/slices/listings-slice";
@@ -33,7 +33,7 @@ const LocationListings = () => {
     pageSize: 6
   };
 
-  const [filters, setFilters] = useState({ location: decodedLocationId });
+  const [filters, setFilters] = useState<{ location: { region: string } }>({ location: { region: decodedLocationId } });
   const [activeFilter, setActiveFilter] = useState<string>('all');
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   
@@ -46,7 +46,7 @@ const LocationListings = () => {
   }, [dispatch, filters, currentPage, pageSize]);
 
   const handleFilterChange = (newFilters: ListingsQueryParams) => {
-    setFilters({ ...newFilters, location: decodedLocationId });
+    setFilters({ ...newFilters, location: { region: decodedLocationId } });
   };
 
   const filterOptions = [
@@ -62,7 +62,7 @@ const LocationListings = () => {
   };
 
   const filteredProperties = properties.filter((property) => {
-    if (property.location !== decodedLocationId) return false;
+    if (property.location.region !== decodedLocationId) return false;
     if (activeFilter === "sale") return property.listingType === "For Sale";
     if (activeFilter === "rent") return property.listingType === "For Rent";
      if (activeFilter === "Short Stay") return property.listingType === "Short Stay";
@@ -143,7 +143,7 @@ const LocationListings = () => {
           <Box sx={{ width: 300, p: 2 }}>
             <PropertyFilter 
               onFilterChange={handleFilterChange} 
-              initialFilters={{ ...filters, location: decodedLocationId }}
+              initialFilters={{ ...filters, location: { region: decodedLocationId } }}
               showListingTypeFilter={true} 
             />
           </Box>

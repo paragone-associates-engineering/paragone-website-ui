@@ -62,7 +62,7 @@ const DiscoverExclusiveProperties = () => {
      if (activeFilter === "Land" && property.listingType === "Land") return true;
     return false;
   });
- console.log(filteredProperties)
+ //console.log(filteredProperties)
   useEffect(() => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
     }, [dispatch, currentPage, pageSize]);

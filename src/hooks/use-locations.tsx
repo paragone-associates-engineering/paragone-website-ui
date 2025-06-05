@@ -8,7 +8,7 @@ import {
 } from "../redux/slices/locations-slice";
 import { AppDispatch } from "../redux/store";
 
-export const useLocations = () => {
+export const useLocations = (searchQuery?: string) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const locations = useSelector(selectAvailableLocations);
@@ -16,13 +16,12 @@ export const useLocations = () => {
 
   useEffect(() => {
     if (locations?.length === 0) {
-      dispatch(fetchAvailableLocations());
+      dispatch(fetchAvailableLocations({page:1}));
     }
 
-    if (stateLocations.length === 0) {
-      dispatch(fetchStateLocations());
-    }
-  }, [dispatch, locations.length, stateLocations.length]);
+    // Always dispatch stateLocations when searchQuery changes
+    dispatch(fetchStateLocations({ page: 1 }));
+  }, [dispatch, locations.length, searchQuery]);
 
   return {
     locations,
