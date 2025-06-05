@@ -2,7 +2,6 @@ import React from "react"
 import { Box, Typography, Grid } from "@mui/material"
 import { ApiProperty } from "../../../types/properties"
 
-// Known icons and labels
 const detailIconMap: Record<
   string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,8 +31,9 @@ interface PropertyDetailsProps {
 }
 
 const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
-  const detail = property?.propertyDetail
-console.log(detail)
+  const propertyDetails = property?.propertyDetails || []
+  console.log("Property details:", propertyDetails)
+
   return (
     <Box>
       <Typography variant="h5" component="h2" gutterBottom>
@@ -41,7 +41,7 @@ console.log(detail)
       </Typography>
 
       <Grid container spacing={2} sx={{ mt: 1 }}>
-        {/* Static Total Area */}
+      
         <Grid
           item
           xs={12}
@@ -59,16 +59,17 @@ console.log(detail)
           </Box>
         </Grid>
 
-        {/* Dynamic propertyDetails */}
-        {Object.entries(detail || {}).map(([key, value]) => {
+        {propertyDetails.map((detail) => {
+          const key = detail.name
+          const value = detail.value
           const mapped = detailIconMap[key]
           const icon = mapped?.icon || defaultIcon
-          const label = mapped?.label || key.replace(/([A-Z])/g, " $1") // e.g. hasGarage -> has Garage
-          const displayValue = mapped?.render ? mapped.render(value) : value
+          const label = mapped?.label || key.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
+          const displayValue = mapped?.render ? mapped.render(value) : value?.toString()
 
           return (
             <Grid
-              key={key}
+              key={detail.id || detail._id || key}
               item
               xs={12}
               sm={6}

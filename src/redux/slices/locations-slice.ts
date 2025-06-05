@@ -74,7 +74,7 @@ export const fetchAvailableLocations = createAsyncThunk<
       const response = await axios.get(`${API_BASE_URL}/listings/get-available-locations`, {
         params: { page, searchString }
       });
-      console.log(response.data)
+     // console.log(response.data)
       if (response.data) {
         return {
           locations: response.data,
