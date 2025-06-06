@@ -24,6 +24,7 @@ const PropertyManagementForm = () => {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors, isSubmitting },
       } = useForm<GetInTouchFormSchema>({
         resolver: zodResolver(getInTouchFormSchema),
@@ -44,7 +45,8 @@ const PropertyManagementForm = () => {
         try {
           await axios.post(`${API_BASE_URL}/form/connect-with-us`, data);
           toast.success("Form submitted successfully!");
-          console.log('suscess', data);
+          reset();
+          //console.log('suscess', data);
         } catch (error) {
           toast.error("Submission failed. Try again!");
           console.log('error', error)

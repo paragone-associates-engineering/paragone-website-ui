@@ -25,6 +25,7 @@ const ReferAndEarnForm = () => {
           register,
           handleSubmit,
           control,
+          reset,
           formState: { errors, isSubmitting },
         } = useForm<JoinUsFormSchema>({
           resolver: zodResolver(joinUsFormSchema),
@@ -41,7 +42,8 @@ const ReferAndEarnForm = () => {
           try {
             await axios.post(`${API_BASE_URL}/form/join-us`, data);
             toast.success("Form submitted successfully!");
-            console.log('suscess', data);
+            reset();
+           // console.log('suscess', data);
           } catch (error) {
             toast.error("Submission failed. Try again!");
             console.log('error', error)

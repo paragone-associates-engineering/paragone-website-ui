@@ -71,7 +71,7 @@ const blogSlice = createSlice({
       .addCase(fetchBlogPosts.fulfilled, (state, action: PayloadAction<any>) => {
         state.loading = false;
         state.posts = action.payload.results;
-        state.totalPages = action.payload.metadata[0].totalPages;
+        state.totalPages = action?.payload?.metadata[0]?.totalPages;
       })
       .addCase(fetchBlogPosts.rejected, (state, action) => {
         state.loading = false;

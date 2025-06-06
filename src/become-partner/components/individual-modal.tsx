@@ -55,6 +55,7 @@ export const ContactFormModal = () => {
           register,
           handleSubmit,
           control,
+          reset,
           formState: { errors, isSubmitting },
         } = useForm<GetInTouchFormSchema>({
           resolver: zodResolver(getInTouchFormSchema),
@@ -75,49 +76,14 @@ export const ContactFormModal = () => {
           try {
             await axios.post(`${API_BASE_URL}/form/connect-with-us`, data);
             toast.success("Form submitted successfully!");
-            console.log('suscess', data);
+            reset();
+           // console.log('suscess', data);
           } catch (error) {
             toast.error("Submission failed. Try again!");
             console.log('error', error)
           }
         };
   
-  // const [formData, setFormData] = useState<ContactFormData>({
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   phone: '',
-  //   propertyType: '',
-  //   address: '',
-  //   contactMethod: '',
-  //   contactTime: '',
-  //   sellTime: '',
-  //   comments: ''
-  // });
-
-  // const handleOpen = (): void => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = (): void => {
-  //   setOpen(false);
-  // };
-
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-  //   const { name, value } = event.target;
-  //   setFormData(prevData => ({
-  //     ...prevData,
-  //     [name]: value
-  //   }));
-  // };
-
-  // const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
-  //   event.preventDefault();
-  //   // Handle form submission logic here
-  //   console.log('Form submitted with data:', formData);
-  //   handleClose();
-  // };
-
   return (
     <Box>
       

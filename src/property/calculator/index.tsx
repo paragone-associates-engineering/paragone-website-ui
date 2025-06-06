@@ -46,6 +46,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
     register,
     handleSubmit,
     watch, 
+    reset,
   control,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
@@ -99,9 +100,10 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
     try {
       const response = await axios.post(`${API_BASE_URL}/form/property-calculator`, formData);
       setCalculationResult(response.data?.results || null);
-      console.log('results', response.data?.results)
+      //console.log('results', response.data?.results)
       setIsCalculated(true);
       toast.success('Details calculated successfully')
+       reset();
     } catch (error) {
       setCalculationResult([]);
       toast.error('Sorry we could not calculate your property request')

@@ -31,6 +31,7 @@ const JobApplication = () => {
       handleSubmit,
       setValue,
       control,
+      reset,
       formState: { errors, isSubmitting },
     } = useForm<JobApplicationData>({
       resolver: zodResolver(jobApplicationSchema),
@@ -79,6 +80,7 @@ const JobApplication = () => {
     
             //console.log("Form submitted successfully:", data);
             toast.success("Application submitted successfully!");
+            reset();
     
         } catch (error) {
             console.error("Submission Error:", error);

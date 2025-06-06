@@ -44,13 +44,14 @@ export const SellAsCompanyForm = ({selectedPkg}:{selectedPkg: string}) => {
       setFormData((prev) => ({ ...prev, package: selectedPkg }));
     }
   }, [selectedPkg]);
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
 const [isLoading, setIsLoading] = useState(false)
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true)
-    console.log(formData);
+   // console.log(formData);
     const submitFormData = new FormData();
   
     try {
