@@ -8,7 +8,7 @@ export interface Landmarks {
     propertyType: string;
     propertyDocuments: File[];
     location: string;
-    landmarks?: Landmarks[];
+    landmarks: string[];
     description: string;
     propertyImages: File[];
   }

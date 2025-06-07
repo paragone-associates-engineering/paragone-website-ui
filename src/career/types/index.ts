@@ -35,6 +35,7 @@ export interface JobDetailData {
     preferred: string
   }
   email: string
+  applicationEndDate:string
   deadline: string
 }
 

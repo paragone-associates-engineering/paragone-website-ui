@@ -177,7 +177,7 @@ const Contact = () => {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth error={!!errors.reason}>
-                      <InputLabel id="reason-label">Choose a reason</InputLabel>
+                      <InputLabel id="reason-label" sx={{bgcolor:'white'}}>Choose a reason</InputLabel>
                       <Controller
                         name="reason"
                         control={control}

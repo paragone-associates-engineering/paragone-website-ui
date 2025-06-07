@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import { useEffect,  useState } from 'react';
-import { fetchStateLocations } from '../../../redux/slices/locations-slice';
-import { useDispatch, useSelector } from 'react-redux';
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import { Controller } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { fetchStateLocations } from "../../../redux/slices/locations-slice";
+import { useDispatch, useSelector } from "react-redux";
 // import the RootState and AppDispatch types
-import type { RootState, AppDispatch } from '../../../redux/store';
+import type { RootState, AppDispatch } from "../../../redux/store";
 
 interface LocationAutocompleteProps {
   control: any;
@@ -13,21 +13,22 @@ interface LocationAutocompleteProps {
   name?: string;
 }
 
-export const LocationAutocomplete = ({ control, errors }:LocationAutocompleteProps) => {
+export const LocationAutocomplete = ({
+  control,
+  errors,
+}: LocationAutocompleteProps) => {
   const dispatch: AppDispatch = useDispatch();
-   const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState("");
   const [loadingMore, setLoadingMore] = useState(false);
-  
-  
-  const { stateLocations, loadingState, currentPage,  hasMorePages } = useSelector(
-    (state: RootState) => state.locations
-  );
+
+  const { stateLocations, loadingState, currentPage, hasMorePages } =
+    useSelector((state: RootState) => state.locations);
 
   // Debounce search to avoid too many API calls
-//   const debouncedSearchText = useMemo(() => {
-//     const timer = setTimeout(() => searchText, 500);
-//     return () => clearTimeout(timer);
-//   }, [searchText]);
+  //   const debouncedSearchText = useMemo(() => {
+  //     const timer = setTimeout(() => searchText, 500);
+  //     return () => clearTimeout(timer);
+  //   }, [searchText]);
 
   // Initial load and search
   useEffect(() => {
@@ -38,10 +39,12 @@ export const LocationAutocomplete = ({ control, errors }:LocationAutocompletePro
   const handleLoadMore = async () => {
     if (hasMorePages && !loadingMore && !loadingState) {
       setLoadingMore(true);
-      await dispatch(fetchStateLocations({ 
-        page: (currentPage ?? 1) + 1, 
-        searchString: searchText 
-      }));
+      await dispatch(
+        fetchStateLocations({
+          page: (currentPage ?? 1) + 1,
+          searchString: searchText,
+        })
+      );
       setLoadingMore(false);
     }
   };
@@ -56,11 +59,11 @@ export const LocationAutocomplete = ({ control, errors }:LocationAutocompletePro
           fullWidth
           size="small"
           options={stateLocations}
-          getOptionLabel={(option) => option?.region || ''}
+          getOptionLabel={(option) => option?.region || ""}
           isOptionEqualToValue={(option, value) => option?.id === value?.id}
-          value={stateLocations.find(loc => loc.region === value) || null}
+          value={stateLocations.find((loc) => loc.region === value) || null}
           onChange={(_, newValue) => {
-            onChange(newValue?.region || '');
+            onChange(newValue?.region || "");
           }}
           onInputChange={(_, newInputValue) => {
             setSearchText(newInputValue);
@@ -78,7 +81,9 @@ export const LocationAutocomplete = ({ control, errors }:LocationAutocompletePro
                 ...params.InputProps,
                 endAdornment: (
                   <>
-                    {loadingState ? <CircularProgress color="inherit" size={20} /> : null}
+                    {loadingState ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
                     {params.InputProps.endAdornment}
                   </>
                 ),
@@ -90,11 +95,11 @@ export const LocationAutocomplete = ({ control, errors }:LocationAutocompletePro
             if (index === stateLocations.length - 3 && hasMorePages) {
               handleLoadMore();
             }
-            
+
             return (
               <li {...props} key={option.id}>
                 {option.region}
-                
+
                 {/* <div style={{display:"flex", flexDirection:'column', fontSize: '0.8em', color: 'gray' }}>
                   <p>{option.city}</p>
                   <p>{option.country}</p>
