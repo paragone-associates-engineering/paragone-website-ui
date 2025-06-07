@@ -12,12 +12,18 @@ import {
   TableRow
 } from "@mui/material"
 import { PageBanner } from "../common/banner/page-banner"
-import { jobData } from "./data"
+//import { jobData } from "./data"
 import JobApplication from "./apply"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobDetails } from "../redux/slices/job-slice"; 
 import { RootState, AppDispatch } from "../redux/store";
 import { useParams } from "react-router-dom";
+import Loader from "../common/loader";
+import dayjs from "dayjs";
+
+import advancedFormat from 'dayjs/plugin/advancedFormat';
+
+dayjs.extend(advancedFormat);
 const JobDetail = () => {
   const { jobId } = useParams<{ jobId: string }>();
   const dispatch = useDispatch<AppDispatch>();
@@ -28,7 +34,11 @@ const JobDetail = () => {
     if (jobId) dispatch(fetchJobDetails(jobId));
   }, [dispatch, jobId]);
 
-  if (loading) return <Typography>Loading...</Typography>;
+  //console.log(jobDetails)
+  
+  const formatted = dayjs(`${jobDetails?.applicationEndDate}`).format('dddd, MMMM Do, YYYY');
+
+  if (loading) return <Loader />;
   return (
     <Box sx={{width:'100vw'}}>
       <PageBanner title={jobDetails?.title || ''} breadcrumbs={[{ label: "Home", href: "/" }, { label: 'Careers', href:'/careers'}, {label:`${jobDetails?.title}`} ]} />
@@ -53,31 +63,31 @@ const JobDetail = () => {
                   >
                     Job title
                   </TableCell>
-                  <TableCell>{jobData.title}</TableCell>
+                  <TableCell>{jobDetails?.title}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
                     Department
                   </TableCell>
-                  <TableCell>{jobData.department}</TableCell>
+                  <TableCell>{jobDetails?.department}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
                     Location
                   </TableCell>
-                  <TableCell>{jobData.location}</TableCell>
+                  <TableCell>{jobDetails?.location}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
                     General Description
                   </TableCell>
-                  <TableCell>{jobData.description}</TableCell>
+                  <TableCell>{jobDetails?.description}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
                    Duties and Responsibilities
                   </TableCell>
-                  <TableCell>{jobData.description}</TableCell>
+                  <TableCell>{jobDetails?.duties}</TableCell>
                 </TableRow>
 
                 <TableRow>
@@ -85,10 +95,10 @@ const JobDetail = () => {
                     Required Skills
                   </TableCell>
                   <TableCell>
-                  <Typography variant="h6" sx={{mb:5, font:'bold'}} component="h2" gutterBottom>
+                  <Typography variant="h6" sx={{ font:'bold'}} component="h2" gutterBottom>
                  SKILLS/ATTRIBUTES
           </Typography>
-                    {jobData.description}</TableCell>
+                    {jobDetails?.skills}</TableCell>
                 </TableRow>
 
                 <TableRow>
@@ -96,10 +106,10 @@ const JobDetail = () => {
                     Education and Experience
                   </TableCell>
                   <TableCell>
-                  <Typography variant="h6"  sx={{mb:5, font:'bold'}} component="h2" gutterBottom>
+                  <Typography variant="h6"  sx={{font:'bold'}} component="h2" gutterBottom>
                   Education and Experience
           </Typography>
-                    {jobData.description}
+                    {jobDetails?.education}
                     </TableCell>
                 </TableRow>
               </TableBody>
@@ -190,9 +200,9 @@ const JobDetail = () => {
           <Typography variant="body2">
             Interested candidates should submit their CVs to:{" "}
             <Typography component="span" fontWeight="bold">
-              {jobData.email}
+              careers@paragonesignature.com
             </Typography>{" "}
-            before {jobData.deadline}.
+            before {formatted}.
           </Typography>
           <Typography variant="body2" sx={{ mt: 2, fontStyle: "italic" }}>
             Note: Only qualified candidates will be contacted.

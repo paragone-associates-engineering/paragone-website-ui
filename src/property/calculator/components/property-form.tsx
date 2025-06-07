@@ -123,7 +123,9 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onSubmit }) => {
                 label="Income"
                 {...field}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">₦</InputAdornment>,
+                  startAdornment: (
+                    <InputAdornment position="start">₦</InputAdornment>
+                  ),
                 }}
               />
             )}
@@ -140,7 +142,9 @@ const PropertyForm: React.FC<PropertyFormProps> = ({ onSubmit }) => {
                 label="Savings"
                 {...field}
                 InputProps={{
-                  startAdornment: <InputAdornment position="start">₦</InputAdornment>,
+                  startAdornment: (
+                    <InputAdornment position="start">₦</InputAdornment>
+                  ),
                 }}
               />
             )}

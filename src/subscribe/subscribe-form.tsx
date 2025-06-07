@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Container, Grid, TextField, Typography, Select, MenuItem, FormControl, InputLabel,
 } from '@mui/material';
@@ -12,7 +11,7 @@ import toast from 'react-hot-toast';
 import CustomButton from '../common/button';
 import { PropertyForm } from './add-property';
 
-const CONTACT_METHODS = ['email', 'phone'];
+const CONTACT_METHODS = ['any','email', 'phone'];
 const PACKAGES = ['Beginners', 'Pro', 'Enterprise', 'Advance'];
 
 export const SellAsCompanyForm = ({selectedPkg}:{selectedPkg: string}) => {
@@ -32,7 +31,7 @@ export const SellAsCompanyForm = ({selectedPkg}:{selectedPkg: string}) => {
         propertyType: '',
         propertyDocuments: [],
         location: '',
-        landmarks: [{ "name": "Mall", "category": "school" }],
+        landmarks: [] as string[], 
         description: '',
         propertyImages: [],
       }
@@ -44,13 +43,14 @@ export const SellAsCompanyForm = ({selectedPkg}:{selectedPkg: string}) => {
       setFormData((prev) => ({ ...prev, package: selectedPkg }));
     }
   }, [selectedPkg]);
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
 const [isLoading, setIsLoading] = useState(false)
 
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true)
-    console.log(formData);
+   // console.log(formData);
     const submitFormData = new FormData();
   
     try {
@@ -95,7 +95,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   
       //console.log("Not submitted data", submitFormData);
   
-      // Submit form data
+      // Submit form data 
       await axios.post(
         "https://paragone-website-backend.onrender.com/form/sell-as-company",
         submitFormData,
@@ -154,7 +154,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           propertyType: '',
           propertyDocuments: [],
           location: '',
-          landmarks: [{ "name": "Mall", "category": "school" }],
+          landmarks: [], 
           description: '',
           propertyImages: [],
         },
@@ -181,7 +181,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4, bgcolor:'secondary.main', py:8,px:1 }}>
          <Container maxWidth="md">
         <Typography variant="h5" sx={{mb:3}} gutterBottom>
-        Let’s get started
+        Let's get started
         </Typography>
 
         <Grid container spacing={3}>

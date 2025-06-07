@@ -20,12 +20,12 @@ import dayjs from 'dayjs';
 import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../../../services/api';
 //import dayjs from 'dayjs'; Zod schemas for validation
-const Step1Schema = z.object({
+const Step2Schema = z.object({
   date: z.date(),
   viewingType: z.enum(['In-person', 'Via Video Chat'])
 });
 
-const Step2Schema = z.object({
+const Step1Schema = z.object({
   firstName: z.string().min(1, 'First name is required'),
   lastName: z.string().min(1, 'Last name is required'),
   phoneNumber: z.string().min(10, 'Phone number must be at least 10 characters'),
@@ -49,86 +49,89 @@ const BookViewingForm  = () => {
     phoneNumber: '',
     email: ''
   });
+  const[loading,setLoading] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleNextStep = (event: React.FormEvent) => {
-    event.preventDefault(); // Prevent default form submission
-  
-    try {
-      Step1Schema.parse({
-        date: formData.date,
-        viewingType: formData.viewingType,
+  event.preventDefault();
+
+  try {
+    // Validate all fields that are filled in step 1
+    Step1Schema.parse({
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      phoneNumber: formData.phoneNumber,
+      email: formData.email
+    });
+
+    setStep(2);
+    setErrors({});
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: Record<string, string> = {};
+      error.errors.forEach((err) => {
+        if (err.path) {
+          newErrors[err.path[0].toString()] = err.message;
+        }
       });
-  
-      setStep(2);
-      setErrors({});
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            newErrors[err.path[0].toString()] = err.message;
-          }
-        });
-        setErrors(newErrors);
-      }
+      setErrors(newErrors);
     }
-  };
-  
+  }
+};
+
   const handleSubmit = async () => {
-    try {
-      // Validate step 2 data
-      Step2Schema.parse({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        phoneNumber: formData.phoneNumber,
-        email: formData.email
+    setLoading(true)
+  try {
+    Step2Schema.parse({
+      date: formData.date,
+      viewingType: formData.viewingType
+    });
+
+    const submissionData = {
+      date: formData.date?.toISOString(),
+      viewingType: formData.viewingType,
+      name: {
+        first: formData.firstName,
+        lastName: formData.lastName
+      },
+      phoneNumber: formData.phoneNumber,
+      email: formData.email
+    };
+
+    console.log('Submitting data:', submissionData);
+
+    await fetch(`${API_BASE_URL}/form/book-viewing`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(submissionData)
+    });
+
+    toast.success('Viewing request sent successfully!');
+    setStep(1);
+    setFormData({
+      date: dayjs(new Date()).toDate(),
+      viewingType: 'In-person',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      email: ''
+    });
+    setErrors({});
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      const newErrors: Record<string, string> = {};
+      error.errors.forEach((err) => {
+        if (err.path) {
+          newErrors[err.path[0].toString()] = err.message;
+        }
       });
-      
-      const submissionData = {
-        date: formData.date?.toISOString(),
-        viewingType: formData.viewingType,
-        name: {
-          first: formData.firstName,
-          lastName: formData.lastName
-        },
-        phoneNumber: formData.phoneNumber,
-        email: formData.email
-      };
-      
-      console.log('Submitting data:', submissionData);
-      
-      // Here you would typically make the API call
-      await fetch(`${API_BASE_URL}/form/book-viewing`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submissionData)
-      });
-      
-      // Reset form after successful submission
-      toast.success('Viewing request sent successfully!');
-      setStep(1);
-      setFormData({
-        date:dayjs(new Date()).toDate(),
-        viewingType: 'In-person',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
-        email: ''
-      });
-      setErrors({});
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            newErrors[err.path[0].toString()] = err.message;
-          }
-        });
-        setErrors(newErrors);
-      }
+      setErrors(newErrors);
     }
-  };
+  }finally{
+    setLoading(false)
+  }
+};
+
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInputChange = (field: string, value: any) => {
@@ -233,21 +236,35 @@ const BookViewingForm  = () => {
           ) : (
             <Stack spacing={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                  label="Dates for Scheduling"
-                  value={formData.date ? dayjs(formData.date) : null}
-                  onChange={(newValue) => handleInputChange('date', newValue)}
-                 // variant="dialog" 
-                  sx={{
-                    bgcolor: 'white',
-                    borderRadius: 1,
-                    minWidth: '100%', 
-                  }}
-                />
-              </LocalizationProvider>
+  <DateTimePicker
+    label="Dates for Scheduling"
+   value={formData.date ? dayjs(formData.date) : dayjs().set('hour', 9).set('minute', 0)}
+    onChange={(newValue) => handleInputChange('date', newValue)}
+    sx={{
+      bgcolor: 'white',
+      borderRadius: 1,
+      minWidth: '100%',
+    }}
+     minutesStep={60}
+    //Disable Sundays
+    slotProps={{
+    textField: {
+      size: 'small',
+      sx: { backgroundColor: 'white', borderRadius: 1 }
+    },
+    popper: {
+      modifiers: [{ name: 'offset', options: { offset: [0, 8] } }]
+    }
+  }}
+    shouldDisableDate={(date) => date.day() === 0}
+
+    minTime={dayjs().set('hour', 9)}
+  maxTime={dayjs().set('hour', 16)}
+  />
+</LocalizationProvider>
               
               <FormControl fullWidth sx={{ bgcolor: 'white', borderRadius: 1 }}>
-                <InputLabel id="viewing-type-label">Choose a Method</InputLabel>
+                <InputLabel id="viewing-type-label" sx={{backgroundColor:'white'}}>Choose a Method</InputLabel>
                 <Select
                   labelId="viewing-type-label"
                   id="viewing-type"
@@ -278,6 +295,8 @@ const BookViewingForm  = () => {
               <Button 
                variant="contained" 
                onClick={handleSubmit}
+               type='submit'
+               disabled={loading}
                sx={{ 
                  flex: 2,
                  bgcolor: '#333', 
@@ -287,7 +306,7 @@ const BookViewingForm  = () => {
                  }
                }}
               >
-               Send Request
+               {loading ? "Submitting..." : "Send Request"}
               </Button>
               </Box>
             </Stack>

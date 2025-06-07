@@ -84,7 +84,7 @@ console.log('params',params)
           pageSize: params.pageSize || 10,
         },
       })
-console.log(response.data)
+//console.log(response.data)
       const data = response.data
       return {
         properties: data.results || [],

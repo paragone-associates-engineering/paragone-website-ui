@@ -1,16 +1,16 @@
 import { z } from 'zod';
 
-const landmarkSchema = z.object({
-  name: z.string().min(1, 'Landmark name is required'),
-  category: z.string().min(1, 'Category is required'),
-});
+// const landmarkSchema = z.object({
+//   name: z.string().min(1, 'Landmark name is required'),
+//   category: z.string().min(1, 'Category is required'),
+// });
 
 const propertySchema = z.object({
   propertyName: z.string().min(1, 'Property name is required'),
   propertyType: z.string().min(1, 'Property type is required'),
   propertyDocuments: z.array(z.instanceof(File)),
   location: z.string().min(1, 'Location is required'),
-  landmarks: z.array(landmarkSchema).optional(),
+  landmarks: z.array(z.string()),
   description: z.string().min(10, 'Description must be at least 10 characters'),
   propertyImages: z.array(z.instanceof(File)).min(1, 'At least one property image is required'),
 });

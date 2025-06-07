@@ -80,7 +80,7 @@ const Home = () => {
       </Box>
 
      
-      <Box component="section" sx={{ py: 5 }}>
+      <Box component="section" sx={{ py: posts.length > 0 ? 5 : -10 }}>
         <Container maxWidth="lg">
             <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
         </Container>
@@ -89,6 +89,7 @@ const Home = () => {
       <OurServices />
      
       {/* Blog Section */}
+       {posts?.length !== 0 && (
       <Box 
         component="section" 
         sx={{ 
@@ -101,9 +102,10 @@ const Home = () => {
             title="Get updates from our latest real estate insights"
             subtitle='News and blog'
             centered={true}
-            marginBottom={6}
+            marginBottom={5}
           />
 
+         
 {loading ? (
           <SkeletonLoader count={3} />
         ) : (
@@ -135,10 +137,13 @@ const Home = () => {
             </Grid>
         )}
 
-          <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
+         
         </Container>
       </Box>
-
+       )}
+<Container maxWidth="lg" >
+        <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
+        </Container>
           <Testimonials />
 
       <OurPartners />

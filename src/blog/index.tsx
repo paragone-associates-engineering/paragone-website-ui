@@ -20,6 +20,7 @@ import { PageBanner } from "../common/banner/page-banner";
 import Testimonials from "../common/testimonial";
 //import { formatDate } from "./utils";
 import { BlogCard } from "../common/blog-card";
+import Empty from "../common/empty";
 
 const Blog = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +44,9 @@ const Blog = () => {
             <Typography variant="h4" component="h2" gutterBottom>
               Latest Posts
             </Typography>
-
+{posts?.length === 0 && (
+ <Empty text="No Blog Post Yet. Please Check Back."/>
+)}
             <Grid container spacing={4} sx={{ mt: 2 }}>
               {posts.map((post) => (
                 <Grid item xs={12} sm={6} md={4} key={post.id}>
@@ -69,9 +72,8 @@ const Blog = () => {
                 </Grid>
               ))}
             </Grid>
-
-            {/* Pagination */}
-            <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
+{posts.length > 3 && (
+    <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
               <Pagination
                 count={totalPages}
                 page={page}
@@ -81,6 +83,7 @@ const Blog = () => {
                 )}
               />
             </Box>
+)}
           </>
         )}
 

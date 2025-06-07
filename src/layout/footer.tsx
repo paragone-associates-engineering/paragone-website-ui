@@ -57,11 +57,13 @@ export default function Footer() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await axios.post(`${API_BASE_URL}/emails/subscribe`, email);
+      await axios.post(`${API_BASE_URL}/emails/subscribe`, {email:email});
       toast.success("Email submitted successfully!");
-      console.log("suscess", email);
-    } catch (error) {
-      toast.error("Submission failed. Try again!");
+      setEmail('')
+     // console.log("suscess", email);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
+      toast.error(error?.response?.data?.message || "Submission failed. Try again!");
       console.log("error", error);
     } finally {
       setIsLoading(false);

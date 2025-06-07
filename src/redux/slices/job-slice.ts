@@ -14,6 +14,7 @@ export interface Job {
   experience: string;
   description: string;
   education: string;
+  applicationEndDate:string;
 }
 
 interface JobState {

@@ -20,6 +20,7 @@ function RequestForm() {
     control,
     setValue,
     watch,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<PropertyRequestFormData>({
     resolver: zodResolver(propertyRequestFormSchema),
@@ -46,7 +47,8 @@ function RequestForm() {
     try {
       await axios.post(`${API_BASE_URL}/form/property-request`, data);
       toast.success("Form submitted successfully!");
-      console.log('success', data);
+      reset()
+      //console.log('success', data);
     } catch (error) {
       toast.error("Submission failed. Try again!");
       console.log('error', error)

@@ -25,6 +25,7 @@ const ReferAndEarnForm = () => {
           register,
           handleSubmit,
           control,
+          reset,
           formState: { errors, isSubmitting },
         } = useForm<JoinUsFormSchema>({
           resolver: zodResolver(joinUsFormSchema),
@@ -41,7 +42,8 @@ const ReferAndEarnForm = () => {
           try {
             await axios.post(`${API_BASE_URL}/form/join-us`, data);
             toast.success("Form submitted successfully!");
-            console.log('suscess', data);
+            reset();
+           // console.log('suscess', data);
           } catch (error) {
             toast.error("Submission failed. Try again!");
             console.log('error', error)
@@ -100,7 +102,7 @@ const ReferAndEarnForm = () => {
                   <Grid item xs={12} sm={6}>
                     <Typography variant='h6' sx={{mb:1}}>Type of service Interested</Typography>
                     <FormControl fullWidth error={!!errors.participation}>
-                                          <InputLabel id="Participation-label">Service</InputLabel>
+                                          <InputLabel id="Participation-label" sx={{bgcolor:'white'}}>Service</InputLabel>
                                           <Controller
                                             name="participation"
                                             control={control}
@@ -120,21 +122,14 @@ const ReferAndEarnForm = () => {
                   
                   <Grid item xs={12} sm={6}>
                   <Typography variant='h6' sx={{mb:1}}>Location</Typography>
-                    <FormControl fullWidth error={!!errors.location}>
-                                          <InputLabel id="location-label">Location</InputLabel>
-                                          <Controller
-                                            name="location"
-                                            control={control}
-                                            render={({ field }) => (
-                                              <Select {...field} labelId="location-label">
-                                                <MenuItem value="lagos">Lagos</MenuItem>
-                        <MenuItem value="abuja">Abuja</MenuItem>
-                        <MenuItem value="ph">Port Harcourt</MenuItem>
-                        <MenuItem value="ibadan">Ibadan</MenuItem>
-                                              </Select>
-                                            )}
-                                          />
-                                        </FormControl>
+                   <TextField
+                      fullWidth
+                      label="Location"
+                      type="location"
+                      {...register("location")}
+                      error={!!errors.location}
+                      helperText={errors.location?.message}
+                    />
                                         {errors.location && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.location.message}</Typography>}
                   </Grid>
                   

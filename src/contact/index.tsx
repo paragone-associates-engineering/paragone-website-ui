@@ -29,6 +29,7 @@ const Contact = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormSchema>({
     resolver: zodResolver(contactFormSchema),
@@ -45,7 +46,8 @@ const Contact = () => {
     try {
       await axios.post(`${API_BASE_URL}/form/get-in-touch`, data);
       toast.success("Form submitted successfully!");
-      console.log('suscess', data);
+      reset();
+     // console.log('suscess', data);
     } catch (error) {
       toast.error("Submission failed. Try again!");
       console.log('error', error)
@@ -175,7 +177,7 @@ const Contact = () => {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth error={!!errors.reason}>
-                      <InputLabel id="reason-label">Choose a reason</InputLabel>
+                      <InputLabel id="reason-label" sx={{bgcolor:'white'}}>Choose a reason</InputLabel>
                       <Controller
                         name="reason"
                         control={control}
