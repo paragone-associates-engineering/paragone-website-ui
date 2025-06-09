@@ -94,15 +94,15 @@ export const PropertyForm = ({
           </FormControl>
         </Grid>
            <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} sx={{marginLeft:3, mt:2}}>
            <LandmarksInput
   landmarks={property.landmarks}
   onChange={(landmarks) => onUpdate(index, { ...property, landmarks })}
   //error={errors[`properties.${index}.landmarks`]}
 />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography variant="h6" sx={{ mb: 1 }} gutterBottom>
+        <Grid item xs={12} sm={5}>
+          <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
                 Location
                 </Typography>
           <TextField

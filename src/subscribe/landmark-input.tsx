@@ -47,7 +47,7 @@ export const LandmarksInput: React.FC<LandmarksInputProps> = ({
         Landmarks
       </Typography>
       
-      <Grid container spacing={0.5} alignItems="center" sx={{ mb: 2 }}>
+      <Grid container spacing={0.3} alignItems="center" sx={{ mb: 2 }}>
         <Grid item xs>
           <TextField
             fullWidth
@@ -57,7 +57,7 @@ export const LandmarksInput: React.FC<LandmarksInputProps> = ({
             onKeyPress={handleKeyPress}
             error={!!error}
             helperText={error}
-            size="small"
+            //size="small"
           />
         </Grid>
         <Grid item>
