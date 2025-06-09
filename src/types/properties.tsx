@@ -47,6 +47,7 @@ export interface ApiProperty {
   amount: number;
   videoUrl: string;
   area: number;
+  featured?:boolean;
   propertyCategory: string;
   propertyType: string;
   propertyName: string;

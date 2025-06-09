@@ -25,7 +25,6 @@ const PropertyDetailsPage = () => {
     properties: [],
   }
 
-  // Helper to get specific property detail value
   const getDetailValue = (name: string | number) =>
     property?.propertyDetails?.find((detail) => detail.name === name)?.value
 
@@ -157,6 +156,7 @@ const PropertyDetailsPage = () => {
             </Box>
           </Grid>
         </Grid>
+       
       </Container>
     </Box>
   )

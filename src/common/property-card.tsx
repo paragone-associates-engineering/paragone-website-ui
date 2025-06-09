@@ -20,8 +20,7 @@ import {Link} from 'react-router-dom';
 import { ApiProperty } from '../types/properties';
 
 const PropertyCard = ({ property }: { property: ApiProperty }) => {
- // const [favorite, setFavorite] = useState(false);
-  //const theme = useTheme();
+ 
   const chipStyles: Record<
   string,
   { label: string; bg: string; muiColor?: "primary" | "secondary" | "default" }
@@ -44,8 +43,8 @@ const { label,  muiColor } = chipStyles[type] ?? {
   
   return (
     <Card 
-   // component={Link}
-    //to={`/listings/${property?.id}`}
+    component={Link}
+    to={`/listings/${property?.id}`}
       sx={{  
         display: 'flex', 
         flexDirection: 'column',
@@ -70,7 +69,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
           alt={property?.propertyName}
           sx={{ borderRadius: '8px' }}
         />
-        <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'flex', gap: 1 }}>
+        <Box sx={{ position: 'absolute', top: 10, left: 10, display: 'flex', flexDirection:"column", gap: 1 }}>
           <Chip 
             label={label}
   color={muiColor}
@@ -83,17 +82,18 @@ const { label,  muiColor } = chipStyles[type] ?? {
               py:2
             }} 
           />
-          {/* {property?.featured && (
+          {property?.featured && (
             <Chip 
               label="Featured" 
               size="small"
               sx={{ 
                 backgroundColor: '#f57c00', 
                 color: 'white',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
+                 py:2
               }} 
             />
-          )} */}
+          )}
         </Box>
         <Box sx={{ position: 'absolute', top: 10, right: 10, display: 'flex', gap: 1 }}>
         <IconButton
@@ -108,7 +108,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
       navigator.share({
         title: 'Check out this post',
         text: 'Here’s something interesting for you!',
-        url: window.location.href,
+        url:`https://www.paragonesignature.com/${property.id}`,
       }).catch((err) => console.error('Share failed:', err));
     } else {
       navigator.clipboard.writeText(window.location.href)
@@ -171,22 +171,22 @@ const { label,  muiColor } = chipStyles[type] ?? {
       justifyContent:'center',
       borderRadius: '8px',
       '&:hover': {
-      color: 'inherit',
+      color: 'text.primary',
       }
     }}>
         <Box sx={{mb:20}}>
-        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1 }}>
+        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1, "&:hover":{color:'primary'} }}>
           {property?.propertyName}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
           <LocationOnIcon sx={{ color: 'primary.main', fontSize: 18, mr: 0.5 }} />
           <Typography variant="body2" color="text.secondary">
-            {property?.location?.region}
+            {property?.location?.region} - {property?.location?.city}
           </Typography>
         </Box>
-        <Grid container spacing={3} sx={{ mb: 2 }}>
+        <Grid container spacing={3} sx={{ mb: 2, "&:hover":{color:'text.primary'} }}>
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', "&:hover":{color:'text.primary'} }}>
               <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659739/fi_12907174_dvvx70.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <SquareFootIcon sx={{ml:1, fontSize:17}}  /> */}
              
@@ -197,13 +197,13 @@ const { label,  muiColor } = chipStyles[type] ?? {
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap' }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659737/fi_2284001_zwywd0.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
-              <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{bedrooms} bedrooms</Typography>
+              <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem', "&:hover":{color:'text.primary'}}}}>{bedrooms} bedrooms</Typography>
             </Box>
           </Grid>
           <Grid item xs={4}>
             <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap'  }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659735/fi_2425844_nnawgj.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
-              {/* <BathtubIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
+             
               <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{bathrooms} bathrooms</Typography>
             </Box>
           </Grid>

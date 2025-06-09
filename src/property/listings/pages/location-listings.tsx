@@ -62,7 +62,7 @@ const LocationListings = () => {
   };
 
   const filteredProperties = properties.filter((property) => {
-    if (property.location.region !== decodedLocationId) return false;
+    if (property.location.city !== decodedLocationId) return false;
     if (activeFilter === "sale") return property.listingType === "For Sale";
     if (activeFilter === "rent") return property.listingType === "For Rent";
      if (activeFilter === "Short Stay") return property.listingType === "Short Stay";
@@ -81,11 +81,11 @@ const LocationListings = () => {
       />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Box sx={{ mb: 4 }}>
+        {/* <Box sx={{ mb: 4 }}>
           <Typography variant="body2" color="text.secondary">
             Showing {filteredProperties.length} results out of {totalCount}
           </Typography>
-        </Box>
+        </Box> */}
 
        <Box sx={{display: 'flex', flexDirection:{xs:'column', sm:'row'}, alignItems:{xs:'flex-end', sm:'center'}, justifyContent:'space-between', mb:3}}>
 <Box sx={{ display: 'flex',width:'100%', overflowX:'auto', justifyContent: {xs:'flex-start'},  gap: {xs:0.8,md:1} }}>

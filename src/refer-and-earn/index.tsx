@@ -36,7 +36,7 @@ const ReferAndEarn = () => {
             src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474444/business-people-shaking-hands-agreement_1_cmkjwm.png"
             alt="Network connections"
             sx={{
-              width: { xs: "100%", sm: "700px" },
+              width: { xs: "100%", sm: "600px" },
               height: "auto",
               borderRadius: 2,
               boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
@@ -122,7 +122,7 @@ const ReferAndEarn = () => {
 
         <Box sx={{ my: 10 }}>
           <Grid container spacing={6}>
-            <Grid item xs={12} sm={5}>
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742474418/img_oc0bjx.png"
@@ -132,12 +132,13 @@ const ReferAndEarn = () => {
                   height: "100%",
                   objectFit: "cover",
                   borderRadius: 2,
+                  flexShrink:0
                   //boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 }}
               />
             </Grid>
 
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h4" component="h2" gutterBottom>
                 Join Our Referral Program
               </Typography>

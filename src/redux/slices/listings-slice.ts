@@ -54,7 +54,7 @@ const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
 
   // Location as simple string
   if (filters.location) {
-    apiFilters.location = typeof filters.location === "string" ? filters.location : filters.location.region
+    apiFilters.location = typeof filters.location === "string" ? filters.location : filters.location.city
   }
 
   // Property details array

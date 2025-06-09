@@ -35,6 +35,7 @@ const ReferAndEarnForm = () => {
             phoneNumber: "",
             participation: "",
             location:"",
+            additionalComment:""
           },
         });
       
@@ -58,7 +59,7 @@ const ReferAndEarnForm = () => {
                 <Typography variant='h6' sx={{mb:1}}>First Name</Typography>
                     <TextField
                       fullWidth
-                      label="First name"
+                      placeholder="First name"
                       {...register("name.first")}
                       error={!!errors.name?.first}
                       helperText={errors.name?.first?.message}
@@ -69,7 +70,7 @@ const ReferAndEarnForm = () => {
                   <Typography variant='h6' sx={{mb:1}}>Last Name</Typography>
                     <TextField
                       fullWidth
-                      label="Last name"
+                      placeholder="Last name"
                       {...register("name.lastName")}
                       error={!!errors.name?.lastName}
                       helperText={errors.name?.lastName?.message}
@@ -80,7 +81,7 @@ const ReferAndEarnForm = () => {
                   <Typography variant='h6' sx={{mb:1}}>Email</Typography>
                     <TextField
                       fullWidth
-                      label="Email address"
+                      placeholder="Email address"
                       type="email"
                       {...register("email")}
                       error={!!errors.email}
@@ -92,7 +93,7 @@ const ReferAndEarnForm = () => {
                   <Typography variant='h6' sx={{mb:1}}>Phone Number</Typography>
                     <TextField
                       fullWidth
-                      label="Phone number"
+                      placeholder="Phone number"
                       {...register("phoneNumber")}
                       error={!!errors.phoneNumber}
                       helperText={errors.phoneNumber?.message}
@@ -124,7 +125,7 @@ const ReferAndEarnForm = () => {
                   <Typography variant='h6' sx={{mb:1}}>Location</Typography>
                    <TextField
                       fullWidth
-                      label="Location"
+                      placeholder="Location"
                       type="location"
                       {...register("location")}
                       error={!!errors.location}
@@ -132,6 +133,11 @@ const ReferAndEarnForm = () => {
                     />
                                         {errors.location && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.location.message}</Typography>}
                   </Grid>
+
+                   <Grid item xs={12}>
+                     <Typography variant='h6' sx={{mb:1}}>Additional Comment</Typography>
+                            <TextField fullWidth placeholder="Additional Comments" multiline rows={4} {...register("additionalComment")} />
+                          </Grid>
                   
                   <Grid item xs={12}>
                     <CustomButton isLoading={isSubmitting} sx={{px:7, py:1}}>

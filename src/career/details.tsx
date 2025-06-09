@@ -202,7 +202,7 @@ const JobDetail = () => {
             <Typography component="span" fontWeight="bold">
               careers@paragonesignature.com
             </Typography>{" "}
-            before {formatted}.
+           {formatted !== 'Invalid Date' && (`before ${formatted}.`)}
           </Typography>
           <Typography variant="body2" sx={{ mt: 2, fontStyle: "italic" }}>
             Note: Only qualified candidates will be contacted.
@@ -210,8 +210,8 @@ const JobDetail = () => {
         </Box>
 
         <Box sx={{ my: 8 }}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741899341/img_xizehs.png"
@@ -225,8 +225,8 @@ const JobDetail = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={7}>
-              <Typography variant="h4" component="h2" gutterBottom>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h4" component="h2" marginLeft={4} gutterBottom>
                 Apply Now
               </Typography>
 

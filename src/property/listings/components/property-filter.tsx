@@ -29,6 +29,20 @@ const PropertyFilter = ({
   ])
   const [areaRange, setAreaRange] = useState<number[]>([initialFilters.areaFrom || 0, initialFilters.areaTo || 100000])
 
+  // Property type options based on category
+  const getPropertyTypeOptions = (category: string): string[] => {
+    switch (category) {
+      case "Residential":
+        return ["Bungalow", "Apartment", "Townhouse", "Duplex", "Semi Detached", "Detached", "Terrace", "Penthouse", "Maisonette", "Triplex", "Mixed Used"]
+      case "Commercial":
+        return ["Co-working", "Retail", "Office Building", "Special Purpose", "Mix Used Development"]
+      case "Land":
+        return ["Residential", "Commercial", "Agriculture"]
+      default:
+        return []
+    }
+  }
+
   useEffect(() => {
     setFilters(initialFilters)
     setPriceRange([initialFilters.amountFrom || 500000, initialFilters.amountTo || 5000000000])
@@ -100,6 +114,11 @@ const PropertyFilter = ({
     } else {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       updatedFilters[name as keyof ListingsQueryParams] = value as any
+    }
+
+    // If property category changes, reset property type
+    if (name === "propertyCategory") {
+      delete updatedFilters.propertyType
     }
 
     setFilters(updatedFilters)
@@ -242,6 +261,25 @@ const PropertyFilter = ({
 
         <Box sx={{ mb: 3 }}>
           <Typography variant="h6" gutterBottom>
+            Property Category
+          </Typography>
+          <Select
+            fullWidth
+            name="propertyCategory"
+            value={filters.propertyCategory || ""}
+            onChange={handleSelectChange}
+            displayEmpty
+            size="small"
+          >
+            <MenuItem value="">Select Category</MenuItem>
+            <MenuItem value="Residential">Residential</MenuItem>
+            <MenuItem value="Commercial">Commercial</MenuItem>
+            <MenuItem value="Land">Land</MenuItem>
+          </Select>
+        </Box>
+
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="h6" gutterBottom>
             Property Type
           </Typography>
           <Select
@@ -251,12 +289,18 @@ const PropertyFilter = ({
             onChange={handleSelectChange}
             displayEmpty
             size="small"
+            disabled={!filters.propertyCategory} // Disable if no category selected
           >
-            <MenuItem value="">Select Type</MenuItem>
-            <MenuItem value="Apartment">Apartment</MenuItem>
-            <MenuItem value="House">House</MenuItem>
-            <MenuItem value="Land">Land</MenuItem>
-            <MenuItem value="Mansion">Mansion</MenuItem>
+            <MenuItem value="">
+              {filters.propertyCategory ? "Select Type" : "Select Category First"}
+            </MenuItem>
+            {filters.propertyCategory && 
+              getPropertyTypeOptions(filters.propertyCategory).map((type) => (
+                <MenuItem key={type} value={type}>
+                  {type}
+                </MenuItem>
+              ))
+            }
           </Select>
         </Box>
 
@@ -274,29 +318,10 @@ const PropertyFilter = ({
           >
             <MenuItem value="">Select Location</MenuItem>
             {locations.map((location, index: number) => (
-              <MenuItem key={index} value={location.region}>
-                {location.region}
+              <MenuItem key={index} value={location.city}>
+                {location.city}
               </MenuItem>
             ))}
-          </Select>
-        </Box>
-
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Property Category
-          </Typography>
-          <Select
-            fullWidth
-            name="propertyCategory"
-            value={filters.propertyCategory || ""}
-            onChange={handleSelectChange}
-            displayEmpty
-            size="small"
-          >
-            <MenuItem value="">Select Category</MenuItem>
-            <MenuItem value="Residential">Residential</MenuItem>
-            <MenuItem value="Commercial">Commercial</MenuItem>
-            <MenuItem value="Industrial">Industrial</MenuItem>
           </Select>
         </Box>
 
