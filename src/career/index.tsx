@@ -120,8 +120,8 @@ const Careers = () => {
         </Box>
         <Container maxWidth="lg">
         <Box sx={{ my: 8 }}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} md={5}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741899341/img_xizehs.png"
@@ -131,6 +131,7 @@ const Careers = () => {
                   height: "100%",
                   objectFit: "cover",
                   borderRadius: 2,
+                  flexShrink:0
                   //boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                 }}
               />

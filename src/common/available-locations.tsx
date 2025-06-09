@@ -57,11 +57,15 @@ export const AvailableLocationAutocomplete = ({ control, errors }:LocationAutoco
           fullWidth
           size="small"
           options={availableLocations}
-          getOptionLabel={(option) => option?.region || ''}
+          getOptionLabel={(option) => option?.region || option?.city || ''}
           isOptionEqualToValue={(option, value) => option?.id === value?.id}
-          value={availableLocations.find(loc => loc.region === value) || null}
+          value={
+            availableLocations.find(
+              loc => loc.region === value || loc.city === value
+            ) || null
+          }
           onChange={(_, newValue) => {
-            onChange(newValue?.region || '');
+            onChange(newValue?.region || newValue?.city || '');
           }}
           onInputChange={(_, newInputValue) => {
             setSearchText(newInputValue);
@@ -91,15 +95,10 @@ export const AvailableLocationAutocomplete = ({ control, errors }:LocationAutoco
             if (index === availableLocations.length - 3 && hasMorePages) {
               handleLoadMore();
             }
-            
             return (
               <li {...props} key={option.id}>
-                {option.region}
-                
-                {/* <div style={{display:"flex", flexDirection:'column', fontSize: '0.8em', color: 'gray' }}>
-                  <p>{option.city}</p>
-                  <p>{option.country}</p>
-                </div> */}
+                {option.region} - 
+                <span style={{fontSize:'0.8rem', opacity:"80%", marginLeft:2}}> {option.city} </span>
               </li>
             );
           }}

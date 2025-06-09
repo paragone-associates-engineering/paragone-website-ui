@@ -8,7 +8,7 @@ import { PageBanner } from '../common/banner/page-banner';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { fetchBlogPostDetails } from "../redux/slices/blog-slice";
-import { renderRichText } from "./utils";
+
 
 const BlogDetail = () => {
 
@@ -62,7 +62,7 @@ const BlogDetail = () => {
 
             {postDetails?.content && (
               <Box
-                dangerouslySetInnerHTML={{ __html:  renderRichText(postDetails.content) }}
+                dangerouslySetInnerHTML={{ __html: postDetails?.content }}
                 sx={{
                   "& p": {
                     mb: 2,

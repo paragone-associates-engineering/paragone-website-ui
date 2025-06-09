@@ -96,7 +96,7 @@ export default function SubscribePage() {
 
         <Grid container spacing={3} justifyContent="center">
           {packages.map((pkg, index) => (
-            <Grid item xs={12} md={3} key={index}>
+            <Grid item xs={12} sm={6} md={3} key={index}>
               <Box
                 p={3}
                 sx={{

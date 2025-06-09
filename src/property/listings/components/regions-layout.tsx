@@ -62,8 +62,8 @@ const RegionsGrid = ({
       </Box>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
         {regions.map((region:any) => (
-          <Grid item xs={6} sm={6} md={2} key={region?.region}>
-            <RegionCard region={region?.region} />
+          <Grid item xs={6} sm={6} md={2} key={region?.city}>
+            <RegionCard region={region?.city} />
           </Grid>
         ))}
       </Grid>

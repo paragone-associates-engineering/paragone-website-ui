@@ -16,6 +16,7 @@ export const contactFormSchema = commonContactSchema.extend({
 });
 export const joinUsFormSchema = commonContactSchema.extend({
     location: z.string().min(1, "location is required"),
+    additionalComment: z.string().min(1, "Message must be at least 1 characters").optional(),
     participation: z.string().min(5, "Profession required"),
   });
 

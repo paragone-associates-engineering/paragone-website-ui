@@ -46,7 +46,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
        // overflow: '',
         border:1,
         borderColor:'divider',
-        minHeight:300,
+        minHeight:320,
         height: '100%',
         display: 'flex',
         flexDirection: 'column'
