@@ -5,13 +5,13 @@ import {
   Typography,
   TextField,
   FormControl,
-  InputLabel,
+  //InputLabel,
   Select,
   MenuItem,
 } from "@mui/material"
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { JoinUsFormSchema, joinUsFormSchema } from "../../schema/contact";
+import { referFormSchema, type referUsFormSchema } from "../../schema/contact";
 import axios from "axios";
 import toast from "react-hot-toast"
 import { API_BASE_URL } from "../../services/api"
@@ -27,21 +27,21 @@ const ReferAndEarnForm = () => {
           control,
           reset,
           formState: { errors, isSubmitting },
-        } = useForm<JoinUsFormSchema>({
-          resolver: zodResolver(joinUsFormSchema),
+        } = useForm<referUsFormSchema>({
+          resolver: zodResolver(referFormSchema),
           defaultValues: {
             name: { first: "", lastName: "" },
             email: "",
             phoneNumber: "",
-            participation: "",
-            location:"",
-            additionalComment:""
+            interestedService: "",
+           // location:"",
+            additionalComments:""
           },
         });
       
-        const onSubmit = async (data: JoinUsFormSchema) => {
+        const onSubmit = async (data: referUsFormSchema) => {
           try {
-            await axios.post(`${API_BASE_URL}/form/join-us`, data);
+            await axios.post(`${API_BASE_URL}/form/refer-and-earn`, data);
             toast.success("Form submitted successfully!");
             reset();
            // console.log('suscess', data);
@@ -100,15 +100,16 @@ const ReferAndEarnForm = () => {
                     />
                   </Grid>
                   
-                  <Grid item xs={12} sm={6}>
+                  <Grid item xs={12}>
                     <Typography variant='h6' sx={{mb:1}}>Type of service Interested</Typography>
-                    <FormControl fullWidth error={!!errors.participation}>
-                                          <InputLabel id="Participation-label" sx={{bgcolor:'white'}}>Service</InputLabel>
+                    <FormControl fullWidth error={!!errors.interestedService}>
+                                          {/* <InputLabel id="interestedService-label" sx={{bgcolor:'white'}}>Service</InputLabel> */}
                                           <Controller
-                                            name="participation"
+                                            name="interestedService"
                                             control={control}
                                             render={({ field }) => (
-                                              <Select {...field} labelId="participation-label">
+                                              <Select {...field} labelId="interestedService-label" displayEmpty>
+                                                <MenuItem value='' disabled>Choose Service</MenuItem>
                                                 <MenuItem value="real-estate">Real Estate Agent</MenuItem>
                         <MenuItem value="refer-a-buyer">Refer a buyer</MenuItem>
                         <MenuItem value="refer-a-buyer">Refer a seller</MenuItem>
@@ -118,10 +119,10 @@ const ReferAndEarnForm = () => {
                                             )}
                                           />
                                         </FormControl>
-                                        {errors.participation && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.participation.message}</Typography>}
+                                        {errors.interestedService && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.interestedService.message}</Typography>}
                   </Grid>
                   
-                  <Grid item xs={12} sm={6}>
+                  {/* <Grid item xs={12} sm={6}>
                   <Typography variant='h6' sx={{mb:1}}>Location</Typography>
                    <TextField
                       fullWidth
@@ -132,11 +133,11 @@ const ReferAndEarnForm = () => {
                       helperText={errors.location?.message}
                     />
                                         {errors.location && <Typography color="error" sx={{fontSize:'12px',textTransform:'capitalize'}}>{errors.location.message}</Typography>}
-                  </Grid>
+                  </Grid> */}
 
                    <Grid item xs={12}>
                      <Typography variant='h6' sx={{mb:1}}>Additional Comment</Typography>
-                            <TextField fullWidth placeholder="Additional Comments" multiline rows={4} {...register("additionalComment")} />
+                            <TextField fullWidth placeholder="Additional Comments" multiline rows={4} {...register("additionalComments")} />
                           </Grid>
                   
                   <Grid item xs={12}>

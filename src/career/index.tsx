@@ -17,17 +17,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchJobs } from "../redux/slices/job-slice"; 
 import { RootState, AppDispatch } from "../redux/store";
 import {  useSearchParams } from "react-router-dom";
+import Loader from "../common/loader";
+import { AnimatedWrapper } from "../common/animations/animated-wrapper";
 const Careers = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobs, loading, error } = useSelector((state: RootState) => state.jobs);
   const [searchParams] = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
   useEffect(() => {
-    dispatch(fetchJobs(page));
+    dispatch(fetchJobs({ page }));
   }, [dispatch, page]);
- console.log('jobs', jobs)
+ //console.log('jobs', jobs)
 
-  // if (loading) return <Typography>Loading jobs...</Typography>;
+  if (loading) return <Typography><Loader /></Typography>;
   // if (error) return <Typography>Error loading jobs: {error}</Typography>;
 
   return (
@@ -37,6 +39,7 @@ const Careers = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper animation='slideLeft'>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897467/luca-bravo-ujhKqutt3f0-unsplash_2_je4yff.png"
@@ -48,8 +51,10 @@ const Careers = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Typography variant="h3" component="h1" gutterBottom>
               Excel Beyond Limits
             </Typography>
@@ -66,6 +71,7 @@ const Careers = () => {
               development, and creates a conducive way for the real estate industry.
             </Typography>
             <Typography variant="body1">Discover the Paragone difference and elevate your career with us.</Typography>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
         </Container>
@@ -91,7 +97,7 @@ const Careers = () => {
                     <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                       <Box
                         component="img"
-                        src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897409/fi_9058693_1_dnnibt.svg'
+                        src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897405/fi_11358928_rlmxu3.svg'
                         alt={job.title}
                         sx={{
                           width: 80,
@@ -99,7 +105,7 @@ const Careers = () => {
                         }}
                       />
                     </Box>
-                    <Typography variant="h5" component="h3" gutterBottom>
+                    <Typography variant="h6" fontSize={24} lineHeight={1.2} component="h3" gutterBottom>
                       {job?.title}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 3 }}>
@@ -120,7 +126,7 @@ const Careers = () => {
         </Box>
         <Container maxWidth="lg">
         <Box sx={{ my: 8 }}>
-          <Grid container spacing={3}>
+          <Grid container spacing={1}>
             <Grid item xs={12} md={6}>
               <Box
                 component="img"
@@ -128,7 +134,7 @@ const Careers = () => {
                 alt="Modern desk with plant"
                 sx={{
                   width: "100%",
-                  height: "100%",
+                  height: {lg:"100%"},
                   objectFit: "cover",
                   borderRadius: 2,
                   flexShrink:0
@@ -137,10 +143,11 @@ const Careers = () => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={6} sx={{maxWidth: "500px"}}>
               <Typography variant="h4" component="h2" 
               sx={{
-                ml:3,
+                ml:{md:5},
+                mt:{xs: 5,md:0},
                 fontWeight:700,
               }} gutterBottom>
                 Get In Touch

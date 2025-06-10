@@ -8,7 +8,6 @@ import {
   //Button,
   Paper,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   List,
@@ -85,9 +84,9 @@ const Contact = () => {
                     primary="Email:"
                     secondary={
                       <>
-                        <Typography variant="body1" component="div">
+                        {/* <Typography variant="body1" component="div">
                           support@paragonesignature.com
-                        </Typography>
+                        </Typography> */}
                         <Typography variant="body1" component="div">
                           info@paragonesignature.com
                         </Typography>
@@ -135,9 +134,10 @@ const Contact = () => {
               <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
+                     <Typography variant='h6' sx={{mb:1}}>First Name</Typography>
                     <TextField
                       fullWidth
-                      label="First name"
+                     placeholder="First name"
                       {...register("name.first")}
                       error={!!errors.name?.first}
                       helperText={errors.name?.first?.message}
@@ -145,9 +145,10 @@ const Contact = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={6}>
+                     <Typography variant='h6' sx={{mb:1}}>Last Name</Typography>
                     <TextField
                       fullWidth
-                      label="Last name"
+                      placeholder="Last name"
                       {...register("name.lastName")}
                       error={!!errors.name?.lastName}
                       helperText={errors.name?.lastName?.message}
@@ -155,9 +156,10 @@ const Contact = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={6}>
+                     <Typography variant='h6' sx={{mb:1}}>Email</Typography>
                     <TextField
                       fullWidth
-                      label="Email address"
+                     placeholder="Email address"
                       type="email"
                       {...register("email")}
                       error={!!errors.email}
@@ -166,9 +168,10 @@ const Contact = () => {
                   </Grid>
 
                   <Grid item xs={12} sm={6}>
+                     <Typography variant='h6' sx={{mb:1}}>Phone Number</Typography>
                     <TextField
                       fullWidth
-                      label="Phone number"
+                     placeholder="Phone number"
                       {...register("phoneNumber")}
                       error={!!errors.phoneNumber}
                       helperText={errors.phoneNumber?.message}
@@ -177,15 +180,22 @@ const Contact = () => {
 
                   <Grid item xs={12}>
                     <FormControl fullWidth error={!!errors.reason}>
-                      <InputLabel id="reason-label" sx={{bgcolor:'white'}}>Choose a reason</InputLabel>
+                      <Typography variant='h6' sx={{mb:1}}>Reason</Typography>
                       <Controller
                         name="reason"
                         control={control}
                         render={({ field }) => (
-                          <Select {...field} labelId="reason-label">
-                            <MenuItem value="I'm interested in buying a property">I'm interested in buying a property</MenuItem>
-                            <MenuItem value=" I'm interested in renting a property"> I'm interested in renting a property</MenuItem>
+                          <Select {...field} labelId="reason-label" displayEmpty>
+                            <MenuItem value='' disabled>Choose a reason</MenuItem>
+                            <MenuItem value="I want to buy a property">I want to buy a property</MenuItem>
+                            <MenuItem value="I want to sell my property">  I want to sell my property</MenuItem>
+                            <MenuItem value="I'm looking to rent a property">I'm looking to rent a property</MenuItem>
+                            <MenuItem value="I'd like you to manage my property">I'd like you to manage my property</MenuItem>
+                            <MenuItem value="I'm a landlord renting out my property">I'm a landlord renting out my property</MenuItem>
                             <MenuItem value="I'd like to refer a client to buy a property">I'd like to refer a client to buy a property</MenuItem>
+                            <MenuItem value="I'm interested in advertising on your website">I'm interested in advertising on your website</MenuItem>
+                            <MenuItem value="I'm interested in becoming an agent for PSA">I'm interested in becoming an agent for PSA</MenuItem>
+                            <MenuItem value=" I'd like to provide a feedback/ suggestion"> I'd like to provide a feedback/ suggestion</MenuItem>
                             <MenuItem value=" Others"> Others</MenuItem>
                           </Select>
                         )}
@@ -195,6 +205,7 @@ const Contact = () => {
                   </Grid>
 
                   <Grid item xs={12}>
+                     <Typography variant='h6' sx={{mb:1}}>Message</Typography>
                     <TextField
                       fullWidth
                       label="Message"
@@ -208,7 +219,7 @@ const Contact = () => {
                   </Grid>
 
                   <Grid item xs={12}>
-                    <CustomButton isLoading={isSubmitting} sx={{ width: "100%" }}>
+                    <CustomButton isLoading={isSubmitting} sx={{ width: "140px" }}>
                       Send Message
                     </CustomButton>
                   </Grid>

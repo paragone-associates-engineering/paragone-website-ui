@@ -3,7 +3,6 @@ import {
   Grid,
   TextField,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
   Typography,
@@ -56,11 +55,12 @@ const PropertyManagementForm = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={1.5}>
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>First name</Typography>
           <TextField
             fullWidth
-            label="First name"
+            placeholder="First name"
             {...register("name.first")}
             error={!!errors.name?.first}
             helperText={errors.name?.first?.message}
@@ -68,9 +68,10 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Last name</Typography>
           <TextField
             fullWidth
-            label="Last name"
+            placeholder="Last name"
             {...register("name.lastName")}
             error={!!errors.name?.lastName}
             helperText={errors.name?.lastName?.message}
@@ -78,9 +79,10 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Email address</Typography>
           <TextField
             fullWidth
-            label="Email address"
+           placeholder="Email address"
             type="email"
             {...register("email")}
             error={!!errors.email}
@@ -89,9 +91,10 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Phone number</Typography>
           <TextField
             fullWidth
-            label="Phone number"
+            placeholder="Phone number"
             {...register("phoneNumber")}
             error={!!errors.phoneNumber}
             helperText={errors.phoneNumber?.message}
@@ -99,18 +102,14 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Property type</Typography>
           <FormControl fullWidth error={!!errors.propertyType}>
-            <InputLabel
-              id="property-type-label"
-              sx={{ backgroundColor: "white" }}
-            >
-              Property Type
-            </InputLabel>
+            
             <Controller
               name="propertyType"
               control={control}
               render={({ field }) => (
-                <Select {...field} labelId="property-type-label">
+                <Select {...field} labelId="property-type-label" displayEmpty>
                   {propertyTypes.map((opt) => (
                     <MenuItem
                       key={opt.value || "placeholder"}
@@ -129,9 +128,10 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Property location</Typography>
           <TextField
             fullWidth
-            label="Location"
+            placeholder="Location"
             {...register("address")}
             error={!!errors?.address}
             helperText={errors?.address?.message}
@@ -139,9 +139,9 @@ const PropertyManagementForm = () => {
         </Grid>
 
         <Grid item xs={12}>
+          <Typography variant='h6' sx={{mb:1}}>Additional comments</Typography>
           <TextField
             fullWidth
-            label="Additional comments"
             //name="message"
             multiline
             rows={4}

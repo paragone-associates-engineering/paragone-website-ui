@@ -5,22 +5,34 @@ import axios from "axios"
 
 interface ListingsState {
   properties: ApiProperty[]
+  featuredProperties: ApiProperty[]
+  relatedProperties: ApiProperty[]
   totalCount: number
   currentPage: number
   pageSize: number
   loading: boolean
+  featuredLoading: boolean
+  relatedLoading: boolean
   error: string | null
+  featuredError: string | null
+  relatedError: string | null
   filters: ListingsQueryParams
   selectedProperty: ApiProperty | null
 }
 
 const initialState: ListingsState = {
   properties: [],
+  featuredProperties: [],
+  relatedProperties: [],
   totalCount: 0,
   currentPage: 1,
   pageSize: 10,
   loading: false,
+  featuredLoading: false,
+  relatedLoading: false,
   error: null,
+  featuredError: null,
+  relatedError: null,
   filters: {},
   selectedProperty: null,
 }
@@ -51,6 +63,7 @@ const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
   if (filters.propertyType) apiFilters.propertyType = filters.propertyType
   if (filters.propertyName) apiFilters.propertyName = filters.propertyName
   if (filters.listingType) apiFilters.listingType = filters.listingType
+  if (filters.featured !== undefined) apiFilters.featured = filters.featured
 
   // Location as simple string
   if (filters.location) {
@@ -77,14 +90,15 @@ export const fetchListings = createAsyncThunk(
   async (params: ListingsQueryParams = {}, { rejectWithValue }) => {
     try {
       const apiFilters = transformFiltersToApiFormat(params)
-console.log('params',params)
+      console.log("params", params)
+
       const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
         params: {
           page: params.page || 1,
           pageSize: params.pageSize || 10,
         },
       })
-//console.log(response.data)
+
       const data = response.data
       return {
         properties: data.results || [],
@@ -95,6 +109,70 @@ console.log('params',params)
     } catch (error) {
       console.error("Error fetching listings:", error)
       return rejectWithValue(error instanceof Error ? error.message : "Failed to fetch listings")
+    }
+  },
+)
+
+export const fetchFeaturedProperties = createAsyncThunk(
+  "listings/fetchFeaturedProperties",
+  async (_, { rejectWithValue }) => {
+    try {
+      const apiFilters = { featured: true }
+
+      const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
+        params: {
+          page: 1,
+          pageSize: 3,
+        },
+      })
+
+      const data = response.data
+      return data.results || []
+    } catch (error) {
+      console.error("Error fetching featured properties:", error)
+      return rejectWithValue(error instanceof Error ? error.message : "Failed to fetch featured properties")
+    }
+  },
+)
+
+export const fetchRelatedProperties = createAsyncThunk(
+  "listings/fetchRelatedProperties",
+  async (
+    { propertyType, locationRegion, excludeId }: { propertyType?: string; locationRegion?: string; excludeId?: string },
+    { rejectWithValue },
+  ) => {
+    try {
+      let apiFilters = {}
+
+      // First try to filter by propertyType, then fall back to location.region
+      if (propertyType) {
+        apiFilters = { propertyType }
+      } else if (locationRegion) {
+        apiFilters = { "location.region": locationRegion }
+      } else {
+        // If neither is available, return empty array
+        return []
+      }
+
+      const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
+        params: {
+          page: 1,
+          pageSize: 6, // Get more to account for filtering out current property
+        },
+      })
+
+      const data = response.data
+      let properties = data.results || []
+
+      // Exclude the current property if excludeId is provided
+      if (excludeId) {
+        properties = properties.filter((property: ApiProperty) => property._id !== excludeId)
+      }
+
+      return properties.slice(0, 3)
+    } catch (error) {
+      console.error("Error fetching related properties:", error)
+      return rejectWithValue(error instanceof Error ? error.message : "Failed to fetch related properties")
     }
   },
 )
@@ -128,8 +206,15 @@ const listingsSlice = createSlice({
     clearSelectedProperty: (state) => {
       state.selectedProperty = null
     },
+    clearFeaturedProperties: (state) => {
+      state.featuredProperties = []
+    },
+    clearRelatedProperties: (state) => {
+      state.relatedProperties = []
+    },
   },
   extraReducers: (builder) => {
+    // All listings
     builder.addCase(fetchListings.pending, (state) => {
       state.loading = true
       state.error = null
@@ -146,6 +231,35 @@ const listingsSlice = createSlice({
       state.error = action.payload as string
     })
 
+    // Featured properties
+    builder.addCase(fetchFeaturedProperties.pending, (state) => {
+      state.featuredLoading = true
+      state.featuredError = null
+    })
+    builder.addCase(fetchFeaturedProperties.fulfilled, (state, action) => {
+      state.featuredLoading = false
+      state.featuredProperties = action.payload
+    })
+    builder.addCase(fetchFeaturedProperties.rejected, (state, action) => {
+      state.featuredLoading = false
+      state.featuredError = action.payload as string
+    })
+
+    // Related properties
+    builder.addCase(fetchRelatedProperties.pending, (state) => {
+      state.relatedLoading = true
+      state.relatedError = null
+    })
+    builder.addCase(fetchRelatedProperties.fulfilled, (state, action) => {
+      state.relatedLoading = false
+      state.relatedProperties = action.payload
+    })
+    builder.addCase(fetchRelatedProperties.rejected, (state, action) => {
+      state.relatedLoading = false
+      state.relatedError = action.payload as string
+    })
+
+    // Single listing
     builder.addCase(fetchListingById.pending, (state) => {
       state.loading = true
       state.error = null
@@ -161,5 +275,12 @@ const listingsSlice = createSlice({
   },
 })
 
-export const { setFilters, setCurrentPage, setPageSize, clearSelectedProperty } = listingsSlice.actions
+export const {
+  setFilters,
+  setCurrentPage,
+  setPageSize,
+  clearSelectedProperty,
+  clearFeaturedProperties,
+  clearRelatedProperties,
+} = listingsSlice.actions
 export default listingsSlice.reducer

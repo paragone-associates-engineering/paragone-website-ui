@@ -200,7 +200,7 @@ const JobDetail = () => {
           <Typography variant="body2">
             Interested candidates should submit their CVs to:{" "}
             <Typography component="span" fontWeight="bold">
-              careers@paragonesignature.com
+             recruitment.paragonesignature@gmail.com
             </Typography>{" "}
            {formatted !== 'Invalid Date' && (`before ${formatted}.`)}
           </Typography>

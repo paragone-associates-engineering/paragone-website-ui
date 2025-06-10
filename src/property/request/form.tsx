@@ -1,7 +1,6 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Grid, TextField,Select, InputLabel, MenuItem, FormControl, Typography } from "@mui/material";
-//import { propertyTypes, locations, contactMethods } from "../data";
+import { Box, Grid, TextField,Select, MenuItem, FormControl, Typography } from "@mui/material";
 import { propertyRequestFormSchema } from "../../schema/contact"; 
 import { z } from "zod";
 import { CustomToggleButton, CustomToggleButtonGroup } from "../../common/toggle-button";
@@ -78,32 +77,37 @@ function RequestForm() {
         </CustomToggleButtonGroup>
       </Box>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={2}>
         
         <Grid item xs={12} sm={6}>
-          <TextField fullWidth label="First name" {...register("name.first")} error={!!errors.name?.first} helperText={errors.name?.first?.message} />
+           <Typography variant='h6' sx={{mb:1}}>First Name</Typography>
+          <TextField fullWidth placeholder="First name" {...register("name.first")} error={!!errors.name?.first} helperText={errors.name?.first?.message} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField fullWidth label="Last name" {...register("name.lastName")} error={!!errors.name?.lastName} helperText={errors.name?.lastName?.message} />
-        </Grid>
-
-       
-        <Grid item xs={12} sm={6}>
-          <TextField fullWidth label="Email" type="email" {...register("email")} error={!!errors.email} helperText={errors.email?.message} />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField fullWidth label="Phone number" {...register("phoneNumber")} error={!!errors.phoneNumber} helperText={errors.phoneNumber?.message} />
+          <Typography variant='h6' sx={{mb:1}}>Last Name</Typography>
+          <TextField fullWidth placeholder="Last name" {...register("name.lastName")} error={!!errors.name?.lastName} helperText={errors.name?.lastName?.message} />
         </Grid>
 
        
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Email</Typography>
+          <TextField fullWidth placeholder="Email" type="email" {...register("email")} error={!!errors.email} helperText={errors.email?.message} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Phone number</Typography>
+          <TextField fullWidth placeholder="Phone number" {...register("phoneNumber")} error={!!errors.phoneNumber} helperText={errors.phoneNumber?.message} />
+        </Grid>
+
+       
+        <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Property Type</Typography>
                           <FormControl fullWidth error={!!errors.propertyType}>
-                                                  <InputLabel id="property-type-label" sx={{backgroundColor: 'white'}}>Property Type</InputLabel>
+                                                  
                                                   <Controller
                                                     name="propertyType"
                                                     control={control}
                                                     render={({ field }) => (
-                                                      <Select {...field} labelId="property-type-label">
+                                                      <Select {...field} labelId="property-type-label" displayEmpty>
                                                         {propertyTypes.map(opt => (
                                                          <MenuItem key={opt.value || "placeholder"} value={opt.value}>
                                                            {opt.label}
@@ -117,9 +121,10 @@ function RequestForm() {
                           </Grid>
         
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Location</Typography>
                             <TextField
                                                   fullWidth
-                                                  label="Location"
+                                                  placeholder="Location"
                                                   {...register("location")}
                                                   error={!!errors?.location}
                                                   helperText={errors?.location?.message}
@@ -129,10 +134,12 @@ function RequestForm() {
 
         
         <Grid item xs={12} sm={6}>
+          <Typography variant='h6' sx={{mb:1}}>Lowest price</Typography>
   <TextField
     fullWidth
-    label="Lowest Price"
+    placeholder="Add Price"
     type="number"
+     inputProps={{ min: 0 }}
     {...register("lowestPrice", {
       setValueAs: (value) => (value === "" ? undefined : Number(value)),
     })}
@@ -141,10 +148,12 @@ function RequestForm() {
   />
 </Grid>
 <Grid item xs={12} sm={6}>
+  <Typography variant='h6' sx={{mb:1}}>Highest price</Typography>
   <TextField
     fullWidth
-    label="Highest Price"
+   placeholder="Add Price"
     type="number"
+     inputProps={{ min: 0 }}
     {...register("highestPrice", {
       setValueAs: (value) => (value === "" ? undefined : Number(value)),
     })}
@@ -155,13 +164,15 @@ function RequestForm() {
 
         
         <Grid item xs={12}>
+          <Typography variant='h6' sx={{mb:1}}>Contact method</Typography>
           <FormControl fullWidth error={!!errors.contactMethod}>
-            <InputLabel id="address-label" sx={{backgroundColor: 'white'}}>Contact Method</InputLabel>
+            
                                                       <Controller
                                                         name="contactMethod"
                                                         control={control}
                                                         render={({ field }) => (
-                                                          <Select {...field} labelId="conatct-method-label">
+                                                          <Select {...field} labelId="conatct-method-label" displayEmpty>
+                                                            <MenuItem value='' disabled>Select Method</MenuItem>
                                                             <MenuItem value="Any">Any</MenuItem>
                                     <MenuItem value="email">Email</MenuItem>
                                     <MenuItem value="phone">Phone</MenuItem>
@@ -176,7 +187,8 @@ function RequestForm() {
 
      
         <Grid item xs={12}>
-          <TextField fullWidth label="Additional Comments" multiline rows={4} {...register("additionalComment")} />
+          <Typography variant='h6' sx={{mb:1}}>Additional comments</Typography>
+          <TextField fullWidth placeholder="Additional Comments" multiline rows={4} {...register("additionalComment")} />
         </Grid>
 
        

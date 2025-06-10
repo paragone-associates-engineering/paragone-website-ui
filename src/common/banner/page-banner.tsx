@@ -2,6 +2,7 @@ import { Typography, Box, Breadcrumbs, Link } from '@mui/material';
 import { BaseBanner } from './base-banner';
 import { Link as RouterLink } from "react-router-dom"
 import { NavigateNext as NavigateNextIcon } from "@mui/icons-material";
+import { AnimatedWrapper } from '../animations/animated-wrapper';
 
 interface PageBannerProps {
   title: string;
@@ -21,12 +22,15 @@ export const PageBanner = ({
   return (
     <BaseBanner 
       backgroundImage={backgroundImage} 
-      height='60vh' 
+      height={{xs:'50vh', sm:'40vh',md:'60vh' }}
     >
       <Box sx={{ textAlign: 'center', color: 'white', width:'100%' }}>
+        <AnimatedWrapper delay={0.2}>
         <Typography variant="h3"  component="h1" sx={{ fontWeight: 'bold', mb: 2, textTransform:'capitalize' }}>
           {title}
         </Typography>
+        </AnimatedWrapper>
+          <AnimatedWrapper delay={0.4}>
         <Breadcrumbs
             separator={<NavigateNextIcon fontSize="small" sx={{ color: "white" }} />}
             aria-label="breadcrumb"
@@ -64,6 +68,7 @@ export const PageBanner = ({
               )
             })}
           </Breadcrumbs>
+          </AnimatedWrapper>
       </Box>
     </BaseBanner>
   );

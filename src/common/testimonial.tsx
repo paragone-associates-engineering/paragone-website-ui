@@ -19,6 +19,7 @@ import SectionTitle from './section-title';
 import axios from 'axios';
 import { API_BASE_URL } from "../services/api";
 import SkeletonLoader from "./skeleton-loader";
+import { AnimatedWrapper } from './animations/animated-wrapper';
 interface TestimonialData {
   id: number;
   title:string;
@@ -52,6 +53,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
         flexDirection: 'column'
       }}
     >
+      <AnimatedWrapper>
       <CardContent sx={{ p: 4, flexGrow: 1 }}>
         <Typography 
           variant="h5" 
@@ -142,6 +144,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
            
         </Stack>
       </CardContent>
+      </AnimatedWrapper>
     </Card>
   );
 };

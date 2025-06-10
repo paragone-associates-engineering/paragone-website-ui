@@ -87,6 +87,8 @@ export interface ListingsQueryParams {
   propertyName?: string;
   listingType?: string;
   
+//boolean
+featured?:boolean;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   location?: any

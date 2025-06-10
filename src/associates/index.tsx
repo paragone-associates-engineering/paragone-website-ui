@@ -5,6 +5,7 @@ import Testimonials from "../common/testimonial"
 import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button"
 import AssociateForm from "./form"
+import { AnimatedWrapper } from "../common/animations/animated-wrapper";
 
 const BecomeAssociate = () => {
   return (
@@ -14,6 +15,8 @@ const BecomeAssociate = () => {
       <Container maxWidth="lg" sx={{ py:5}}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
+             <AnimatedWrapper animation="slideLeft">
+
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882251/craig-lovelidge-s-KphF10sWM-unsplash_1_uh3xkz.png"
@@ -25,14 +28,17 @@ const BecomeAssociate = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+             </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={6}>
+             <AnimatedWrapper>
             <Typography variant="h3" component="h1" gutterBottom>
               Do Much More!
             </Typography>
             <Typography variant="body1" paragraph>
             The beginning of building a solid real estate career starts with being part of a brand with cutting edge global standards and delivery. The <span style={{fontWeight:700}}> Paragóne Signature </span> brand has been designed for the ambitious real estate professional like you who want to build and advance their real estate career with the right organization. Now there’s no stopping you! 
             </Typography>
+             </AnimatedWrapper>
           </Grid>
         </Grid>
 
@@ -67,6 +73,7 @@ const BecomeAssociate = () => {
 
         <Grid container spacing={6} sx={{ my: 4 }}>
           <Grid item xs={12} md={4}>
+             <AnimatedWrapper animation="slideLeft">
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882239/young-male-adult-taking-pictures-building_1_dpda6c.png"
@@ -78,8 +85,10 @@ const BecomeAssociate = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+             </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={8}>
+             <AnimatedWrapper>
             <Typography variant="h4" component="h2" gutterBottom>
               Your Success Just Got Easier With Us
             </Typography>
@@ -89,6 +98,7 @@ const BecomeAssociate = () => {
             <Typography variant="body1" color='text.secondary' paragraph>
             We strive to ensure that we offer you not just a variety of property listings to aid your sales, but we also ensure the verification of all property listings, enabling you to present your clients with the best offers to choose from. By joining our team, you will have access to an exclusive portfolio of verified properties, giving you a competitive edge in the market. We are dedicated to supporting your success by providing you with the resources, tools, and opportunities you need to excel in your real estate career.
             </Typography>
+            
 
             <Box sx={{ mt: 2}}>
               <Typography  variant="body1" fontWeight={600} fontSize={18} marginBottom={1.5}>
@@ -104,7 +114,9 @@ const BecomeAssociate = () => {
               <Typography variant="body1" color='text.secondary'>
               Leverage our established brand and marketing resources, including targeted campaigns, personalized materials, and a strong online presence, to attract clients and properties. Our comprehensive support enhances your visibility, builds your reputation, and gives you a competitive edge.
               </Typography>
+              
             </Box>
+             </AnimatedWrapper>
           </Grid>
         </Grid>
 
@@ -148,6 +160,7 @@ const BecomeAssociate = () => {
         </Box>
         <Grid container spacing={6} alignItems="center" sx={{ my: 1, position: 'relative' }}>
   <Grid item xs={12} sm={7}>
+     <AnimatedWrapper>
     <Typography variant="h4" component="h2" gutterBottom>
       No-Ceiling Earning Potential
     </Typography>
@@ -159,6 +172,7 @@ const BecomeAssociate = () => {
       Join Us
     </CustomButton>
     </a>
+     </AnimatedWrapper>
   </Grid>
 
   <Grid item xs={12} sm={5} sx={{ position: 'relative' }}>
@@ -180,6 +194,7 @@ const BecomeAssociate = () => {
     />
     
     {/* Foreground Image */}
+   
     <Box
       component="img"
       src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882223/side-view-adult-male-enjoying-view-from-home_1_amgaev.png"
@@ -193,12 +208,15 @@ const BecomeAssociate = () => {
         boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
       }}
     />
+    
   </Grid>
 </Grid>
 
 
         <Grid container spacing={6} alignItems="center" sx={{ my: 4, postion:'relative', zIndex:10 }}>
           <Grid item xs={12} md={5}>
+            
+     <AnimatedWrapper animation="slideLeft">
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882220/male-employee-leaving-office-job-waving-colleaguesunset_1_rsmvwu.png"
@@ -210,8 +228,10 @@ const BecomeAssociate = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={7} sx={{ postion:'relative', zIndex:99 }}>
+            <AnimatedWrapper>
             <Typography variant='subtitle1' marginBottom={1} color='primary.main'>Global Reach</Typography>
             <Typography variant="h4" component="h2" gutterBottom>
               Join A Like-minded Team - Hungry for Success
@@ -224,11 +244,13 @@ const BecomeAssociate = () => {
               Join us
             </CustomButton>
             </a>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
 
         <Grid container spacing={6} alignItems="center" sx={{ my: 4, position:'relative' }}>
           <Grid item xs={12} md={7} sx={{ postion:'relative', zIndex:10 }}>
+            <AnimatedWrapper>
           <Typography variant='subtitle1' marginBottom={1} color='primary.main'>Become an international force</Typography>
             <Typography variant="h4" component="h2" gutterBottom>
               Collaborate with Top Real Estate Professionals
@@ -241,6 +263,7 @@ const BecomeAssociate = () => {
               Join Us
             </CustomButton>
             </a>
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={5} sx={{postion:'relative'}}>
             {/* Blob Background */}
@@ -258,7 +281,8 @@ const BecomeAssociate = () => {
         pointerEvents: "none",
         display:{xs:'none', sm:'block'}
       }}
-    />
+    /> 
+    <AnimatedWrapper animation="slideRight">
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741882216/working-from-home-ergonomic-workstation_1_pdbmc7.png"
@@ -272,6 +296,7 @@ const BecomeAssociate = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
         </Grid>
         </Container>

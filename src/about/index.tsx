@@ -3,6 +3,7 @@ import { PageBanner } from '../common/banner/page-banner';
 import Testimonials from '../common/testimonial';
 import OurPartners from '../common/partners';
 import OurServices from '../common/our-services';
+import { AnimatedWrapper } from '../common/animations/animated-wrapper';
 
 const AboutUs = () => {
     return (
@@ -15,6 +16,7 @@ const AboutUs = () => {
         <Container maxWidth="lg" sx={{ pt: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper animation='slideLeft' delay={0.2}>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741895273/james-sullivan-ESZRBtkQ_f8-unsplash_1_izswww.png"
@@ -26,8 +28,10 @@ const AboutUs = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper delay={0.2}>
             <Typography variant="h3" component="h1" gutterBottom>
             Who we are
             </Typography>
@@ -42,6 +46,7 @@ const AboutUs = () => {
             Our specialists are committed to delivering unparalleled service, ensuring every aspect of your real estate transaction is managed meticulously and professionally.
 
             </Typography>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
         <Box>
