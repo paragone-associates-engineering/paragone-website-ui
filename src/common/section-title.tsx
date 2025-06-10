@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import { AnimatedWrapper } from './animations/animated-wrapper';
 
 interface SectionTitleProps {
   title: string;
@@ -29,6 +30,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
         textAlign: centered ? 'center' : 'left',
       }}
     >
+      <AnimatedWrapper animation="slideUp">
       {subtitle && (
         <Typography
           variant="subtitle2"
@@ -71,6 +73,7 @@ const SectionTitle: React.FC<SectionTitleProps> = ({
           {description}
         </Typography>
       )}
+      </AnimatedWrapper>
     </Box>
   );
 };

@@ -1,4 +1,5 @@
 
+
 import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
@@ -9,20 +10,32 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-//import FeaturedListings from "../components/featured-listings"
+//import FeaturedProperties from "../components/featured-properties"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
-import { fetchListingById, fetchListings } from "../../../redux/slices/listings-slice"
+import { fetchListingById, fetchFeaturedProperties, fetchRelatedProperties } from "../../../redux/slices/listings-slice"
 import { formatCurrency } from "../utils"
+import RelatedProperties from "../components/related-properties"
+import FeaturedList from "../components/featured-listings"
 
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
   const dispatch = useAppDispatch()
 
   const listings = useAppSelector((state) => state.listings)
-  const { selectedProperty: property, loading } = listings || {
+  const {
+    selectedProperty: property,
+    loading,
+    featuredProperties,
+    featuredLoading,
+    relatedProperties,
+    relatedLoading,
+  } = listings || {
     selectedProperty: null,
     loading: true,
-    properties: [],
+    featuredProperties: [],
+    featuredLoading: false,
+    relatedProperties: [],
+    relatedLoading: false,
   }
 
   const getDetailValue = (name: string | number) =>
@@ -35,13 +48,19 @@ const PropertyDetailsPage = () => {
   }, [dispatch, propertyId])
 
   useEffect(() => {
+    // Fetch featured properties
+    dispatch(fetchFeaturedProperties())
+  }, [dispatch])
+
+  useEffect(() => {
     if (property) {
+     
       dispatch(
-        fetchListings({
-          listingType: property.listingType,
-          page: 1,
-          pageSize: 3,
-        })
+        fetchRelatedProperties({
+          propertyType: property.propertyType,
+          locationRegion: property.location?.region,
+          excludeId: property._id,
+        }),
       )
     }
   }, [dispatch, property])
@@ -75,28 +94,28 @@ const PropertyDetailsPage = () => {
         ]}
       />
 
-      <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Container maxWidth="xl" sx={{ py: 6 }}>
         <Chip
           label={
             property?.listingType === "For Sale"
               ? "For Sale"
               : property?.listingType === "For Rent"
-              ? "For Rent"
-              : "Short Stay"
+                ? "For Rent"
+                : "Short Stay"
           }
           color={
             property?.listingType === "For Sale"
               ? "primary"
               : property?.listingType === "For Rent"
-              ? "secondary"
-              : "info"
+                ? "secondary"
+                : "info"
           }
           sx={{ mb: 2 }}
         />
 
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 3 }}>
           <Box>
-            <Typography variant="h4" component="h1" textTransform={'capitalize'} gutterBottom>
+            <Typography variant="h4" component="h1" textTransform={"capitalize"} gutterBottom>
               {property?.propertyName}
             </Typography>
             <Typography variant="body1" color="text.secondary">
@@ -142,21 +161,32 @@ const PropertyDetailsPage = () => {
                 <PropertyVideo videoUrl={videoUrl} thumbnailUrl={property.images[0]} />
               </Box>
             )}
+
+             <RelatedProperties
+          properties={relatedProperties}
+          loading={relatedLoading}
+          propertyType={property?.propertyType}
+        />
           </Grid>
 
           <Grid item xs={12} md={4}>
             <Box sx={{ position: "sticky", top: 20 }}>
-              <BookViewingForm />
+              <BookViewingForm propertyId={propertyId || ""} />
               <Box sx={{ mt: 4 }}>
-                <ContactAgentForm propertyId={propertyId} />
+                <ContactAgentForm propertyId={propertyId || ""} />
               </Box>
-              {/* <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
-                <FeaturedListings />
-              </Box> */}
+              <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
+                <FeaturedList properties={featuredProperties} loading={featuredLoading} />
+              </Box>
             </Box>
           </Grid>
         </Grid>
-       
+
+        {/* <RelatedProperties
+          properties={relatedProperties}
+          loading={relatedLoading}
+          propertyType={property?.propertyType}
+        /> */}
       </Container>
     </Box>
   )

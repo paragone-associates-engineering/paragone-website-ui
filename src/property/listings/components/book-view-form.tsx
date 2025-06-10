@@ -4,7 +4,6 @@ import {
   Button, 
   //Container, 
   FormControl, 
-  InputLabel, 
   MenuItem, 
   Paper, 
   Select, 
@@ -16,10 +15,15 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { z } from 'zod';
-import dayjs from 'dayjs'; 
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../../../services/api';
-//import dayjs from 'dayjs'; Zod schemas for validation
+
+// Configure dayjs for DD/MM/YYYY format
+dayjs.extend(customParseFormat);
+
+// Zod schemas for validation
 const Step2Schema = z.object({
   date: z.date(),
   viewingType: z.enum(['In-person', 'Via Video Chat'])
@@ -39,7 +43,7 @@ type Step2Data = z.infer<typeof Step2Schema>;
 // Combined form data type
 interface FormData extends Step1Data, Step2Data {}
 
-const BookViewingForm  = () => {
+const BookViewingForm = ({propertyId}:{propertyId:string}) => {
   const [step, setStep] = useState<1 | 2>(1);
   const [formData, setFormData] = useState<Partial<FormData>>({
     date: dayjs(new Date()).toDate(),
@@ -98,9 +102,9 @@ const BookViewingForm  = () => {
       email: formData.email
     };
 
-    console.log('Submitting data:', submissionData);
+    //console.log('Submitting data:', submissionData);
 
-    await fetch(`${API_BASE_URL}/form/book-viewing`, {
+    await fetch(`${API_BASE_URL}/form/book-viewing/${propertyId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(submissionData)
@@ -132,7 +136,6 @@ const BookViewingForm  = () => {
   }
 };
 
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleInputChange = (field: string, value: any) => {
     setFormData({
@@ -149,62 +152,83 @@ const BookViewingForm  = () => {
   };
 
   return (
-   
-      <Paper 
-        elevation={3} 
-        sx={{ 
-          py: 3, 
-          px:2,
-          bgcolor: '#FFC107', 
-          borderRadius: 2,
-          color: 'white'
-        }}
-      >
-        <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
-          Book a Viewing
-        </Typography>
-        
-        <Box component="form" noValidate sx={{ mt: 2 }}>
-          {step === 1 ? (
-             <Stack spacing={3}>
-             <Box sx={{ display: 'flex', gap: 2 }}>
+    <Paper 
+      elevation={3} 
+      sx={{ 
+        py: 3, 
+        px:2,
+        bgcolor: '#FFC107', 
+        borderRadius: 2,
+        color: 'white'
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom sx={{ fontWeight: 'bold' }}>
+        Book a Viewing
+      </Typography>
+      
+      <Box component="form" noValidate sx={{ mt: 2 }}>
+        {step === 1 ? (
+           <Stack spacing={2}>
+           
+           <Box sx={{ display: 'flex', gap: 2 }}>
+             <Box sx={{ flex: 1 }}>
+               {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500, color:"text.primary" }}>
+                 First Name *
+               </Typography> */}
                <TextField
                  fullWidth
-                 placeholder="First Name"
+                 placeholder="First name"
                  variant="outlined"
                  value={formData.firstName}
                  onChange={(e) => handleInputChange('firstName', e.target.value)}
                  error={!!errors.firstName}
                  helperText={errors.firstName}
                  sx={{ bgcolor: 'white', borderRadius: 1 }}
-                 required
+                 InputProps={{ sx: { '& input': { padding: '12px 14px' } } }}
                />
+             </Box>
+             <Box sx={{ flex: 1 }}>
+               {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                 Last Name *
+               </Typography> */}
                <TextField
                  fullWidth
-                 placeholder="Last Name"
+                 placeholder="Last name"
                  variant="outlined"
                  value={formData.lastName}
                  onChange={(e) => handleInputChange('lastName', e.target.value)}
                  error={!!errors.lastName}
                  helperText={errors.lastName}
                  sx={{ bgcolor: 'white', borderRadius: 1 }}
+                 InputProps={{ sx: { '& input': { padding: '12px 14px' } } }}
                />
              </Box>
-             
+           </Box>
+           
+           <Box>
+             {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+               Phone Number *
+             </Typography> */}
              <TextField
                fullWidth
-               placeholder="Phone Number"
+               placeholder="Phone number"
                variant="outlined"
                value={formData.phoneNumber}
                onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
                error={!!errors.phoneNumber}
                helperText={errors.phoneNumber}
                sx={{ bgcolor: 'white', borderRadius: 1 }}
+               InputProps={{ sx: { '& input': { padding: '12px 14px' } } }}
              />
-             
+           </Box>
+           
+           <Box>
+             {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+               Email Address *
+             </Typography> */}
              <TextField
                fullWidth
-               placeholder="Email Address"
+               placeholder="Email address"
                type="email"
                variant="outlined"
                value={formData.email}
@@ -212,108 +236,149 @@ const BookViewingForm  = () => {
                error={!!errors.email}
                helperText={errors.email}
                sx={{ bgcolor: 'white', borderRadius: 1 }}
+               InputProps={{ sx: { '& input': { padding: '12px 14px' } } }}
              />
-             
-               <Button 
-                variant="contained" 
-                type='submit'
-                onClick={handleNextStep}
-                sx={{ 
-                  bgcolor: 'white', 
-                  color: 'black',
-                  '&:hover': {
-                    bgcolor: 'secondary.main',
-                    color:'#000'
-                  }
-                }}
-                 
-               >
-                 Next
-               </Button>
+           </Box>
+           
+             <Button 
+              variant="contained" 
+              type='submit'
+              onClick={handleNextStep}
+              sx={{ 
+                bgcolor: 'white', 
+                color: 'black',
+                '&:hover': {
+                  bgcolor: 'secondary.main',
+                  color:'#000'
+                }
+              }}
+               
+             >
+               Next
+             </Button>
+          
+         </Stack>
+          
+        ) : (
+          <Stack spacing={3}>
             
-           </Stack>
-            
-          ) : (
-            <Stack spacing={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-  <DateTimePicker
-    label="Dates for Scheduling"
+            <Box>
+              {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Date & Time *
+              </Typography> */}
+             <LocalizationProvider dateAdapter={AdapterDayjs}>
+ <DateTimePicker
    value={formData.date ? dayjs(formData.date) : dayjs().set('hour', 9).set('minute', 0)}
-    onChange={(newValue) => handleInputChange('date', newValue)}
-    sx={{
-      bgcolor: 'white',
-      borderRadius: 1,
+   onChange={(newValue) => handleInputChange('date', newValue)}
+   format="DD/MM/YYYY hh:mm A"
+   sx={{
+     bgcolor: 'white',
+     borderRadius: 1,
       minWidth: '100%',
-    }}
-     minutesStep={60}
-    //Disable Sundays
-    slotProps={{
-    textField: {
-      size: 'small',
-      sx: { backgroundColor: 'white', borderRadius: 1 }
-    },
-    popper: {
-      modifiers: [{ name: 'offset', options: { offset: [0, 8] } }]
-    }
-  }}
-    shouldDisableDate={(date) => date.day() === 0}
-
-    minTime={dayjs().set('hour', 9)}
-  maxTime={dayjs().set('hour', 16)}
-  />
+   }}
+   slotProps={{
+     textField: {
+       placeholder: "Select date and time",
+       size: 'small',
+       fullWidth: true,
+       sx: { 
+         backgroundColor: 'white', 
+         borderRadius: 1,
+         '& input': { padding: '12px 14px' }
+       }
+     },
+     popper: {
+       modifiers: [{ name: 'offset', options: { offset: [0, 8] } }],
+       sx: {
+         '& .MuiClock-root': {
+           '& .MuiClock-clock': {
+             '& .MuiClockNumber-root.Mui-disabled': {
+               display: 'none'
+             }
+           }
+         }
+       }
+     },
+     digitalClockSectionItem: {
+       sx: {
+         '&.Mui-disabled': {
+           display: 'none'
+         }
+       }
+     }
+   }}
+   shouldDisableDate={(date) => date.day() === 0}
+   minTime={dayjs().set('hour', 9)}
+   maxTime={dayjs().set('hour', 16)}
+   ampm={true}
+   closeOnSelect={true}
+   views={['year', 'month', 'day', 'hours', 'minutes']}
+   openTo="day"
+ />
 </LocalizationProvider>
-              
+            </Box>
+            
+            <Box>
+              {/* <Typography variant="body2" sx={{ mb: 1, fontWeight: 500 }}>
+                Viewing Method *
+              </Typography> */}
               <FormControl fullWidth sx={{ bgcolor: 'white', borderRadius: 1 }}>
-                <InputLabel id="viewing-type-label" sx={{backgroundColor:'white'}}>Choose a Method</InputLabel>
                 <Select
-                  labelId="viewing-type-label"
-                  id="viewing-type"
                   value={formData.viewingType}
-                  label="Choose a Method"
                   onChange={(e) => handleInputChange('viewingType', e.target.value)}
+                  displayEmpty
+                  sx={{
+                    '& .MuiSelect-select': {
+                      padding: '12px 14px'
+                    }
+                  }}
                 >
+                  <MenuItem value="" disabled>
+                    <em>Choose a viewing method</em>
+                  </MenuItem>
                   <MenuItem value="In-person">In Person</MenuItem>
                   <MenuItem value="Via Video Chat">Via Video Chat</MenuItem>
                 </Select>
               </FormControl>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-               <Button 
-                 variant="outlined" 
-                 onClick={() => setStep(1)}
-                 sx={{ 
-                   flex: 1,
-                   borderColor: 'white', 
-                   color: 'white',
-                   '&:hover': {
-                     borderColor: '#f5f5f5',
-                     bgcolor: 'rgba(255,255,255,0.1)',
-                   }
-                 }}
-               >
-                 Back
-               </Button>
-              <Button 
-               variant="contained" 
-               onClick={handleSubmit}
-               type='submit'
-               disabled={loading}
+            </Box>
+            
+            <Box sx={{ display: 'flex', gap: 2 }}>
+             <Button 
+               variant="outlined" 
+               onClick={() => setStep(1)}
                sx={{ 
-                 flex: 2,
-                 bgcolor: '#333', 
+                 flex: 1,
+                 borderColor: 'white', 
                  color: 'white',
                  '&:hover': {
-                   bgcolor: '#555',
+                   borderColor: '#f5f5f5',
+                   bgcolor: 'rgba(255,255,255,0.1)',
                  }
                }}
-              >
-               {loading ? "Submitting..." : "Send Request"}
-              </Button>
-              </Box>
-            </Stack>
-          )}
-        </Box>
-      </Paper>
-   
+             >
+               Back
+             </Button>
+            <Button 
+             variant="contained" 
+             onClick={handleSubmit}
+             type='submit'
+             disabled={loading}
+             sx={{ 
+               flex: 2,
+               bgcolor: '#333', 
+               color: 'white',
+               '&:hover': {
+                 bgcolor: '#555',
+               }
+             }}
+            >
+             {loading ? "Submitting..." : "Send Request"}
+            </Button>
+            </Box>
+          </Stack>
+        )}
+      </Box>
+    </Paper>
   );
 };
 

@@ -2,6 +2,7 @@ import type React from "react"
 import { Box, Typography, Grid } from "@mui/material"
 import PropertyCard from "./property-card"
 import type { Property } from "../types"
+import { AnimatedWrapper } from "../../../common/animations/animated-wrapper"
 
 interface FeaturedPropertiesProps {
   properties: Property[]
@@ -16,6 +17,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
 }) => {
   return (
     <Box sx={{ py: 6 }}>
+      <AnimatedWrapper duration={1.2} delay={0.2}>
       <Typography variant="overline" color="primary" align="center" display="block">
         {title}
       </Typography>
@@ -35,6 +37,7 @@ const FeaturedProperties: React.FC<FeaturedPropertiesProps> = ({
           </Grid>
         ))}
       </Grid>
+      </AnimatedWrapper>
     </Box>
   )
 }

@@ -10,6 +10,7 @@ import {
 import { PageBanner } from '../../common/banner/page-banner';
 import Testimonials from '../../common/testimonial';
 import RequestForm from "./form";
+import { AnimatedWrapper } from "../../common/animations/animated-wrapper";
 
 const PropertyRequest = () => {
   return (
@@ -22,6 +23,7 @@ const PropertyRequest = () => {
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container spacing={6}>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper animation="slideLeft">
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741867698/microsoft-edge-_eCnLJWQXMg-unsplash_1_dmpqrj.png"
@@ -33,9 +35,11 @@ const PropertyRequest = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
 
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Typography variant="h3" component="h1" gutterBottom>
               Find Your Perfect Property with Paragóne Signature & Associates
             </Typography>
@@ -52,6 +56,7 @@ const PropertyRequest = () => {
               Let us take the stress out of your property search and guide you towards finding your ideal property with
               Paragóne Signature & Associates Ltd. Your journey to the perfect property starts here.
             </Typography>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
         </Container>
@@ -67,7 +72,9 @@ const PropertyRequest = () => {
           </Typography>
 
           <Paper elevation={0} sx={{ p: 4, backgroundColor: "secondary.main", borderRadius: 2 }}>
+            <AnimatedWrapper>
             <RequestForm />
+            </AnimatedWrapper>
           </Paper>
           </Container>
         </Box>

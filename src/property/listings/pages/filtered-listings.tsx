@@ -131,7 +131,7 @@ const FilteredListings = () => {
   }
 
   return (
-    <Box sx={{ width: "100vw", px: { xs: 2, md: 0 } }}>
+    <Box sx={{ width: "100vw", px: { xs: 0, md: 0 } }}>
       <PageBanner title="Properties" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Properties" }]} />
       <Container maxWidth="xl" sx={{ py: 6 }}>
         <Box sx={{ mb: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>

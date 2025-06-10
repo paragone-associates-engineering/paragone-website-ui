@@ -7,10 +7,12 @@ import {
 import { Star } from '@mui/icons-material';
 import SectionTitle from './section-title';
 import ServiceCard from './service-card';
+import { AnimatedWrapper } from './animations/animated-wrapper';
 const OurServices = () => {
     return (
         <Box component="section" sx={{ py: 5 }}>
                <Container maxWidth="lg">
+                <AnimatedWrapper>
                  <SectionTitle
                    title="How our clients get benefited by us"
                    subtitle="Our Services"
@@ -64,6 +66,7 @@ const OurServices = () => {
                      />
                    </Grid>
                  </Grid>
+                 </AnimatedWrapper>
                </Container>
              </Box>
     )

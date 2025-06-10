@@ -13,6 +13,7 @@ import { API_BASE_URL } from "../../services/api"
 import CustomButton from "../../common/button";
 import toast from "react-hot-toast";
 import { LocationAutocomplete } from "./components/location-autosearch";
+import { AnimatedWrapper } from "../../common/animations/animated-wrapper";
 
 
 const formSchema = z.object({
@@ -119,23 +120,27 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Property Calculator" }]} 
       />
 
-      <Container maxWidth="lg" sx={{ py: 6 }}>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ textAlign: "center", mb: 6 }}>
-          <Typography variant="overline" color="primary" gutterBottom>
+          <Typography  color="primary" gutterBottom>
             Property calculator
           </Typography>
-          <Typography variant="h3" component="h1" gutterBottom>
+          <Typography variant="h3" component="h1" sx={{fontWeight:700, fontSize:28}} gutterBottom>
             Make informed decisions with our property calculator
           </Typography>
         </Box>
+        </Container>
 
-        <Grid container spacing={4} justifyContent="center">
+        <Grid container spacing={4} justifyContent="center" sx={{bgcolor:'secondary.main', pt:6, py:8, borderBottom:'1px solid #DDDDDD'}}>
+        <Container maxWidth='lg'>
+          <AnimatedWrapper>
           <Grid item xs={12} md={8}>
-            <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Typography variant="h5" sx={{mb:5, fontWeight:500}} gutterBottom>
+          <Typography variant="h5" sx={{mb:5, fontWeight:700}} gutterBottom>
                 Property Investment Calculator
                 </Typography>
+            <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <Typography variant="h6" sx={{mb:1}}>
@@ -208,6 +213,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
                       {...register("proximityToKeyLocations")}
                       error={!!errors.proximityToKeyLocations} 
                       helperText={errors.proximityToKeyLocations?.message} 
+                      
                     >
                       <MenuItem value={5}>Within 5km</MenuItem>
                       <MenuItem value={10}>Within 10km</MenuItem>
@@ -248,6 +254,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
         ))}
       </Box>
     )}
+    
   >
     {filteredPreferences.map((pref) => (
       <MenuItem key={pref.id} value={pref.id}>
@@ -338,8 +345,10 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
               </Paper>
             )}
           </Grid>
+          </AnimatedWrapper>
+          </Container>
         </Grid>
-      </Container>
+    
     </Box>
   )
 }

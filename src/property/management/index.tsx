@@ -11,6 +11,7 @@ import { approaches, services } from "../data";
 //import { ManagementFormData } from "../types";
 import PropertyManagementForm from "./form";
 import CustomButton from "../../common/button";
+import { AnimatedWrapper } from "../../common/animations/animated-wrapper";
 
 
 const PropertyManagement = () => {
@@ -22,6 +23,7 @@ const PropertyManagement = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper animation='slideLeft'>
             <Box 
               component="img" 
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742481159/new-home-keys-plan-table-with-defocused-couple_1_kper2m.png" 
@@ -34,8 +36,10 @@ const PropertyManagement = () => {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }} 
             />
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Typography variant="h3" component="h1" fontSize={32} gutterBottom>
               Hassle-Free Property Ownership, Maximum Returns
             </Typography>
@@ -48,6 +52,7 @@ const PropertyManagement = () => {
             <Typography variant="body1"  marginTop={4} color='#5A6164'>
             We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragóne Signature & Associates Ltd.'s property management services are tailored to meet your distinct requirements.
             </Typography>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
 
@@ -85,6 +90,7 @@ const PropertyManagement = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Box 
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742481156/apartment-building-city-with-copy-space_1_edxvmz.png"
@@ -96,11 +102,14 @@ const PropertyManagement = () => {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }} 
             />
+            </AnimatedWrapper>
           </Grid>
+          
         </Grid>
         
         <Grid container spacing={6} alignItems="center" sx={{ my: 8 }}>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Box 
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742481147/sadiq-ali-LfRn3yxsrQo-unsplash_1_xwavv3.png"
@@ -112,6 +121,7 @@ const PropertyManagement = () => {
                 boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
               }} 
             />
+            </AnimatedWrapper>
           </Grid>
           
           <Grid item xs={12} md={6}>
@@ -148,22 +158,24 @@ const PropertyManagement = () => {
         
         <Box sx={{ my: 8 }}>
           <Grid container spacing={6}>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={6.2}>
+              <AnimatedWrapper animation='fadeIn'>
               <Box 
                 component="img" 
                 src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742481142/img_1_o7rnja.png" 
                 alt="Lekki-Ikoyi Link Bridge" 
                 sx={{ 
                   width: '100%', 
-                  height: '100%',
+                  height: '600px',
                   objectFit: 'cover',
                   borderRadius: 2,
                   //boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
                 }} 
               />
+              </AnimatedWrapper>
             </Grid>
             
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={5.8}>
               <Typography variant="h4" component="h3" gutterBottom>
                 Start your hassle-free property management journey today
               </Typography>

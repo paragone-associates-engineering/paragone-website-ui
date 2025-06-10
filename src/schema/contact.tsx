@@ -16,8 +16,13 @@ export const contactFormSchema = commonContactSchema.extend({
 });
 export const joinUsFormSchema = commonContactSchema.extend({
     location: z.string().min(1, "location is required"),
-    additionalComment: z.string().min(1, "Message must be at least 1 characters").optional(),
+    additionalComments: z.string().min(1, "Message must be at least 1 characters").optional(),
     participation: z.string().min(5, "Profession required"),
+  });
+  export const referFormSchema = commonContactSchema.extend({
+    //location: z.string().min(1, "location is required"),
+    additionalComments: z.string().min(1, "Message must be at least 1 characters").optional(),
+   interestedService: z.string().min(5, "Profession required"),
   });
 
 export const getInTouchFormSchema = commonContactSchema.extend({
@@ -59,6 +64,7 @@ export const getInTouchFormSchema = commonContactSchema.extend({
 export type JobApplicationData = z.infer<typeof jobApplicationSchema>;
 export type ContactFormSchema = z.infer<typeof contactFormSchema>;
 export type JoinUsFormSchema = z.infer<typeof joinUsFormSchema>;
+export type referUsFormSchema = z.infer<typeof referFormSchema>;
 export type GetInTouchFormSchema = z.infer<typeof getInTouchFormSchema>;
 export type CommonContactSchema = z.infer<typeof commonContactSchema>;
 export type PropertyRequestFormSchema = z.infer<typeof propertyRequestFormSchema>;

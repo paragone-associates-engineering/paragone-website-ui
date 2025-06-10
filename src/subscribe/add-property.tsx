@@ -8,7 +8,6 @@ import {
   Select,
   MenuItem,
   FormControl,
-  InputLabel,
   IconButton,
   Paper,
   Stack,
@@ -68,22 +67,27 @@ export const PropertyForm = ({
 
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
+           <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
+                Property name
+                </Typography>
           <TextField
             fullWidth
-            label="Property Name"
+           placeholder="Property Name"
             value={property.propertyName}
             onChange={(e) => handleChange("propertyName", e.target.value)}
             required
           />
         </Grid>
         <Grid item xs={12} sm={6}>
+           <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
+                Property type
+                </Typography>
           <FormControl fullWidth>
-            <InputLabel>Property Type</InputLabel>
             <Select
               value={property.propertyType}
-              label="Property Type"
               onChange={(e) => handleChange("propertyType", e.target.value)}
               required
+              displayEmpty
             >
               {propertyTypes.map((opt) => (
                 <MenuItem key={opt.value || "placeholder"} value={opt.value}>
@@ -107,7 +111,7 @@ export const PropertyForm = ({
                 </Typography>
           <TextField
             fullWidth
-            label="Location"
+            placeholder="Location"
             value={property.location}
             onChange={(e) => handleChange("location", e.target.value)}
             required
@@ -115,6 +119,9 @@ export const PropertyForm = ({
         </Grid>
         </Grid>
         <Grid item xs={12}>
+          <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
+                Property documents<span style={{color:'#FF004F'}}>*</span>
+                </Typography>
           <Button
             component="label"
             variant="outlined"
@@ -151,16 +158,22 @@ export const PropertyForm = ({
         </Grid>
         
         <Grid item xs={12}>
+           <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
+                Property description
+                </Typography>
           <TextField
             fullWidth
             multiline
             rows={4}
-            label=" Property Description"
+           placeholder=" Property Description"
             value={property.description}
             onChange={(e) => handleChange("description", e.target.value)}
           />
         </Grid>
         <Grid item xs={12}>
+            <Typography variant="h6" sx={{ mb: 1, mt:2 }} gutterBottom>
+                Property images<span style={{color:'#FF004F'}}>*</span>
+                </Typography>
           <Button
             component="label"
             variant="outlined"

@@ -18,6 +18,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {Link} from 'react-router-dom';
 import { ApiProperty } from '../types/properties';
+import { AnimatedWrapper } from './animations/animated-wrapper';
 
 const PropertyCard = ({ property }: { property: ApiProperty }) => {
  
@@ -61,6 +62,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
         }
       }}
     >
+      <AnimatedWrapper animation='fadeIn' duration={1} delay={0.5}>
       <Box  sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
@@ -79,7 +81,8 @@ const { label,  muiColor } = chipStyles[type] ?? {
               color: 'white',
               fontWeight: 'bold',
               px:1,
-              py:2
+              py:2,
+               borderRadius:2
             }} 
           />
           {property?.featured && (
@@ -87,10 +90,11 @@ const { label,  muiColor } = chipStyles[type] ?? {
               label="Featured" 
               size="small"
               sx={{ 
-                backgroundColor: '#f57c00', 
+                backgroundColor: 'primary.main', 
                 color: 'white',
                 fontWeight: 'bold',
-                 py:2
+                 py:2,
+                 borderRadius:2
               }} 
             />
           )}
@@ -108,7 +112,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
       navigator.share({
         title: 'Check out this post',
         text: 'Here’s something interesting for you!',
-        url:`https://www.paragonesignature.com/${property.id}`,
+        url:`https://www.paragonesignature.com/listings/${property.id}`,
       }).catch((err) => console.error('Share failed:', err));
     } else {
       navigator.clipboard.writeText(window.location.href)
@@ -138,7 +142,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
             position: 'absolute',
             bottom: 25,
             right: 35,
-            bgcolor: '#ff9800',
+            bgcolor: 'primary.main',
             color: 'white',
             borderRadius: 1,
             p: 0.75,
@@ -225,6 +229,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
         </Box>
         </Box>
       </CardContent>
+      </AnimatedWrapper>
     </Card>
   );
 };

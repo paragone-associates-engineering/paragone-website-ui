@@ -13,6 +13,7 @@ import Testimonials from "../common/testimonial";
 import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button";
 import { ContactFormModal } from "./components/individual-modal";
+import { AnimatedWrapper } from "../common/animations/animated-wrapper";
 
 const PartnerWithUs = () => {
 
@@ -22,6 +23,7 @@ const PartnerWithUs = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper animation='slideLeft' delay={0.2}>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741879065/breno-assis-r3WAWU5Fi5Q-unsplash_1_ewikcd.png"
@@ -33,8 +35,10 @@ const PartnerWithUs = () => {
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
+            </AnimatedWrapper>
           </Grid>
           <Grid item xs={12} md={6}>
+            <AnimatedWrapper>
             <Typography variant="h3" marginBottom={2}  component="h1" gutterBottom>
               Selling your home with us
             </Typography>
@@ -47,16 +51,19 @@ const PartnerWithUs = () => {
             <Typography variant="body1" color='text.secondary'>
             We conduct thorough market analyses to competitively price your property while optimizing its market value. Our staging services enhance your property's appeal, making it stand out to prospective buyers. We also manage negotiations and legal formalities, guaranteeing a seamless and successful transaction.
             </Typography>
+            </AnimatedWrapper>
           </Grid>
         </Grid>
 
         <Box sx={{ my: 8, maxWidth:{sm:600,md:'100%'} }}>
           <Grid container spacing={4}>
+           
             <Grid item xs={12} md={4}>
               <Paper
                 elevation={0}
                 sx={{p:4, height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main", textAlign:"center" }}
               >
+                  <AnimatedWrapper>
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                   <Box
                     component="img"
@@ -72,6 +79,7 @@ const PartnerWithUs = () => {
                   Our team of seasoned professionals brings extensive knowledge of the local market, ensuring accurate
                   property valuations and effective selling strategies.
                 </Typography>
+                  </AnimatedWrapper>
               </Paper>
             </Grid>
 
@@ -81,6 +89,7 @@ const PartnerWithUs = () => {
                 sx={{p:4, height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main", textAlign:"center" }}
                 //sx={{ p: 4, height: "100%", borderRadius: 2, backgroundColor: "background.paper", textAlign: "center" }}
               >
+                  <AnimatedWrapper>
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                   <Box
                   component="img"
@@ -97,14 +106,17 @@ const PartnerWithUs = () => {
                   We leverage innovative marketing techniques, including digital advertising, social media, and
                   professional photography, to maximize property visibility and attract qualified buyers.
                 </Typography>
+                  </AnimatedWrapper>
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={4}>
+                
               <Paper
                 elevation={0}
                 sx={{p:4, height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main", textAlign:"center" }}
               >
+                <AnimatedWrapper>
                 <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                   <Box
                    component="img"
@@ -112,6 +124,7 @@ const PartnerWithUs = () => {
                    alt=" Seamless Transactions"
                     
                   />
+                 
                     
                 </Box>
                 <Typography variant="h5" component="h3" gutterBottom>
@@ -121,8 +134,11 @@ const PartnerWithUs = () => {
                   We handle all aspects of the sale, from initial listing to closing, ensuring a smooth and stress-free
                   experience for home sellers and developers.
                 </Typography>
+                 </AnimatedWrapper>
               </Paper>
+               
             </Grid>
+          
           </Grid>
         </Box>
         </Container>
@@ -130,7 +146,9 @@ const PartnerWithUs = () => {
         <Box sx={{ my: 6, py:10, bgcolor:"secondary.main" }}>
             <Container maxWidth='md'>
           <Grid container spacing={2}>
+            
             <Grid item xs={12} sm={6}>
+               <AnimatedWrapper>
               <Card elevation={0} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{ px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
@@ -157,11 +175,14 @@ const PartnerWithUs = () => {
        
         <ContactFormModal />
       </CardActions>
+      
               </Card>
+               </AnimatedWrapper>
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <Card elevation={0} sx={{ height: "100%", borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
+               <AnimatedWrapper>
+              <Card elevation={0} sx={{ height: "100%", maxHeight:'320px', borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{flex:1, px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                     <Box
@@ -182,10 +203,11 @@ const PartnerWithUs = () => {
                     through our marketing and extensive network.
                   </Typography>
                 </CardContent>
-                <CardActions sx={{ justifyContent: "center", pb: 3 }}>
+                <CardActions sx={{ justifyContent: "center", pb: 3, mt:'-17px' }}>
                     <CustomButton sx={{py:1, px:5}} href='/sell-as-a-company'> Get Started </CustomButton>
                 </CardActions>
               </Card>
+               </AnimatedWrapper>
             </Grid>
           </Grid>
           </Container>

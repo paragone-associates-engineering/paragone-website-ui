@@ -13,7 +13,7 @@ import { BaseBanner } from './base-banner';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import TabContent from './tab-content';
-
+import { motion } from "framer-motion"
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -82,6 +82,68 @@ export const HomeBanner = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        //staggerChildren: 0.3,
+        delayChildren: 0.2,
+      },
+    },
+  }
+
+  const titleVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+     scale: 1,
+      transition: {
+        duration:2,
+        delay:1.2,
+        ease: "easeInOut",
+      },
+    },
+  }
+
+  const subtitleVariants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration:2,
+        delay:1.4,
+        ease: "easeInOut",
+      },
+    },
+  }
+
+  const formVariants = {
+    hidden: {
+      opacity: 0,
+      y: 40,
+      scale: 0.95,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration:2,
+        delay:1.2,
+        ease: "easeOut",
+      },
+    },
+  }
   return (
     <BaseBanner 
       backgroundImage={carouselImages[currentImageIndex]}
@@ -90,6 +152,7 @@ export const HomeBanner = () => {
       //   transition: 'background-image 0.5s ease-in-out',
       // }}
     >
+       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
       <Box 
         sx={{ 
           display: 'flex', 
@@ -111,6 +174,7 @@ export const HomeBanner = () => {
             textAlign: {xs: "center", sm: "left"}
           }}
         >
+             <motion.div variants={titleVariants}>
           <Typography 
             variant="h2" 
             component="h1" 
@@ -123,6 +187,8 @@ export const HomeBanner = () => {
           >
             A world of real estate solutions -
           </Typography>
+          </motion.div>
+          <motion.div variants={titleVariants}>
           <Typography 
             variant="h2" 
             component="span" 
@@ -137,6 +203,8 @@ export const HomeBanner = () => {
           >
             for you
           </Typography>
+          </motion.div>
+          <motion.div variants={subtitleVariants}>
           <Typography 
             variant="body1" 
             sx={{ 
@@ -147,8 +215,9 @@ export const HomeBanner = () => {
           >
             Whether buying, selling, renting, or short stay, we have got you covered
           </Typography>
+          </motion.div>
         </Box>
-
+ 
         {/* Right side with search box */}
         <Box 
           sx={{ 
@@ -157,6 +226,7 @@ export const HomeBanner = () => {
             mb: { xs: 15, sm: 0 },
           }}
         >
+          <motion.div variants={formVariants}>
           <Paper 
             elevation={3}
             sx={{ 
@@ -208,8 +278,11 @@ export const HomeBanner = () => {
             <TabPanel value={tabValue} index={3}>
               <TabContent tabIndex={3} />
             </TabPanel>
+            
           </Paper>
+          </motion.div>
         </Box>
+       
       </Box>
       
       {/* Navigation controls */}
@@ -253,6 +326,7 @@ export const HomeBanner = () => {
           <NavigateNextIcon />
         </IconButton>
       </Box>
+      </motion.div>
     </BaseBanner>
   );
 };
