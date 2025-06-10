@@ -28,6 +28,9 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
   if (!properties || properties.length === 0) {
     return (
       <Box sx={{ py: 6, textAlign: "center" }}>
+        <Typography  color="primary" gutterBottom>
+                    Related property
+                  </Typography>
         <Typography variant="h5" gutterBottom>
         Check Related Properties
         </Typography>
@@ -40,13 +43,16 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
 
   return (
     <Box sx={{ py: 6, bgcolor: "secondary.main", maxWidth: "1200px", margin: "auto", px: { xs: 2, md: 0 } }}>
-      <Typography variant="h4" component="h2" gutterBottom align="center">
+       <Typography  color="primary" gutterBottom align="center">
+                    Related property
+                  </Typography>
+      <Typography variant="h4" fontWeight={700} component="h2" gutterBottom align="center">
       Check Related Properties
       </Typography>
 
       <Grid container spacing={4} sx={{ mt: 2, px:3, }}>
         {properties.slice(0, 2).map((property) => (
-          <Grid item xs={12} sm={6}  key={property._id}>
+          <Grid item xs={12} sm={6} md={4} key={property._id}>
             <PropertyCard property={property} />
           </Grid>
         ))}

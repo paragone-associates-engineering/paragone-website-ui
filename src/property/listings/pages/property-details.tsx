@@ -162,11 +162,7 @@ const PropertyDetailsPage = () => {
               </Box>
             )}
 
-             <RelatedProperties
-          properties={relatedProperties}
-          loading={relatedLoading}
-          propertyType={property?.propertyType}
-        />
+          
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -175,13 +171,20 @@ const PropertyDetailsPage = () => {
               <Box sx={{ mt: 4 }}>
                 <ContactAgentForm propertyId={propertyId || ""} />
               </Box>
-              <Box sx={{ mt: 4, bgcolor: "secondary.main", p: 2, borderRadius: 2 }}>
-                <FeaturedList properties={featuredProperties} loading={featuredLoading} />
-              </Box>
+              
             </Box>
           </Grid>
         </Grid>
 
+           <RelatedProperties
+          properties={relatedProperties}
+          loading={relatedLoading}
+          propertyType={property?.propertyType}
+        />
+
+<Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
+                <FeaturedList properties={featuredProperties} loading={featuredLoading} />
+              </Box>
         {/* <RelatedProperties
           properties={relatedProperties}
           loading={relatedLoading}

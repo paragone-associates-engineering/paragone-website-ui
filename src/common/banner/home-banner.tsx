@@ -105,7 +105,7 @@ export const HomeBanner = () => {
      scale: 1,
       transition: {
         duration:2,
-        delay:1.2,
+        delay:0.9,
         ease: "easeInOut",
       },
     },
@@ -121,7 +121,7 @@ export const HomeBanner = () => {
       y: 0,
       transition: {
         duration:2,
-        delay:1.4,
+        delay:1,
         ease: "easeInOut",
       },
     },
@@ -139,7 +139,7 @@ export const HomeBanner = () => {
       scale: 1,
       transition: {
         duration:2,
-        delay:1.2,
+        delay:1,
         ease: "easeOut",
       },
     },
@@ -182,6 +182,7 @@ export const HomeBanner = () => {
               fontWeight: 'bold',
               fontSize: { xs: '2rem', md: '3rem' },
               lineHeight: 1.2,
+              mt:{xs:2,sm:0},
               mb: 1
             }}
           >

@@ -182,7 +182,7 @@ const PartnerWithUs = () => {
 
             <Grid item xs={12} sm={6}>
                <AnimatedWrapper>
-              <Card elevation={0} sx={{ height: "100%", maxHeight:'320px', borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
+              <Card elevation={0} sx={{ height: "100%", maxHeight:{lg:'320px'}, borderRadius: 2, borderWidth:1.5,borderStyle: "solid", borderColor: "secondary.main" }}>
                 <CardContent sx={{flex:1, px: 3, textAlign: "center" }}>
                   <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                     <Box
