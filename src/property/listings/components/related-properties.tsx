@@ -25,21 +25,20 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
     )
   }
 
-  if (!properties || properties.length === 0) {
-    return (
-      <Box sx={{ py: 6, textAlign: "center" }}>
-        <Typography  color="primary" gutterBottom>
-                    Related property
-                  </Typography>
-        <Typography variant="h5" gutterBottom>
-        Check Related Properties
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          No related properties found.
-        </Typography>
-      </Box>
-    )
-  }
+   if (!properties || properties.length === 0)  return;
+  //     <Box sx={{ py: 6, textAlign: "center" }}>
+  //       <Typography  color="primary" gutterBottom>
+  //                   Related property
+  //                 </Typography>
+  //       <Typography variant="h5" gutterBottom>
+  //       Check Related Properties
+  //       </Typography>
+  //       <Typography variant="body2" color="text.secondary">
+  //         No related properties found.
+  //       </Typography>
+  //     </Box>
+  //   )
+  // }
 
   return (
     <Box sx={{ py: 6, bgcolor: "secondary.main", maxWidth: "1200px", margin: "auto", px: { xs: 2, md: 0 } }}>

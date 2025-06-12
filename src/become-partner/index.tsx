@@ -23,7 +23,7 @@ const PartnerWithUs = () => {
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
-            <AnimatedWrapper animation='slideLeft' delay={0.2}>
+            <AnimatedWrapper animation='slideLeft'>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741879065/breno-assis-r3WAWU5Fi5Q-unsplash_1_ewikcd.png"

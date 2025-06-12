@@ -77,7 +77,7 @@ export const AnimatedWrapper = ({
   children,
   animation = "slideUp",
   duration = 0.6,
-  delay = 0.2,
+  delay = 0.1,
   threshold = 0.1,
   className,
   //once = true,

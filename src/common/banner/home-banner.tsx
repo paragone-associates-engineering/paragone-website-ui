@@ -88,7 +88,7 @@ export const HomeBanner = () => {
       opacity: 1,
       transition: {
         //staggerChildren: 0.3,
-        delayChildren: 0.2,
+        delayChildren: 0,
       },
     },
   }
@@ -105,7 +105,7 @@ export const HomeBanner = () => {
      scale: 1,
       transition: {
         duration:2,
-        delay:0.9,
+        delay:0.5,
         ease: "easeInOut",
       },
     },
@@ -121,7 +121,7 @@ export const HomeBanner = () => {
       y: 0,
       transition: {
         duration:2,
-        delay:1,
+        delay:0.7,
         ease: "easeInOut",
       },
     },
@@ -139,7 +139,7 @@ export const HomeBanner = () => {
       scale: 1,
       transition: {
         duration:2,
-        delay:1,
+        delay:0.7,
         ease: "easeOut",
       },
     },

@@ -44,7 +44,7 @@ const ServiceCard = ({
       }}
       elevation={elevation}
     >
-      <AnimatedCard slideDirection='up' delay={0.2}>
+      <AnimatedCard slideDirection='up'>
       <CardContent sx={{ flexGrow: 1, p: 3 }}>
         <Box
           className="card-image"

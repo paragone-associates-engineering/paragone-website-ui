@@ -62,7 +62,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
         }
       }}
     >
-      <AnimatedWrapper animation='fadeIn' duration={1} delay={0.5}>
+      <AnimatedWrapper animation='fadeIn' duration={1}>
       <Box  sx={{ position: 'relative' }}>
         <CardMedia
           component="img"

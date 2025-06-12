@@ -175,16 +175,19 @@ const PropertyDetailsPage = () => {
             </Box>
           </Grid>
         </Grid>
-
+{relatedProperties?.length > 0 && (
            <RelatedProperties
           properties={relatedProperties}
           loading={relatedLoading}
           propertyType={property?.propertyType}
         />
+)}
 
+{featuredProperties?.length > 0 && (
 <Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
                 <FeaturedList properties={featuredProperties} loading={featuredLoading} />
               </Box>
+              )}
         {/* <RelatedProperties
           properties={relatedProperties}
           loading={relatedLoading}
