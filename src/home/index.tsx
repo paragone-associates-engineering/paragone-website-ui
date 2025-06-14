@@ -75,21 +75,21 @@ const Home = () => {
         <ExclusiveProperties />
       </Box>
 
-      <Box component="section" sx={{ py: posts.length > 0 ? 5 : -10 }}>
+      <Box component="section" sx={{ py: posts.length > 0 ? 0 : -10 }}>
         <Container maxWidth="lg">
           {/* First promotional banner - TOP location */}
-          <PromotionBanners location="top" autoplayDelay={6000} />
+          <PromotionBanners location="top" autoplayDelay={5000} />
         </Container>
       </Box>
 
       <OurServices />
 
       {/* Blog Section */}
-      {posts?.length !== 0 && (
+      {posts?.length > 0 && (
         <Box
           component="section"
           sx={{
-            pt: 8,
+            pt: 0,
             backgroundColor: "background.paper",
           }}
         >
@@ -104,7 +104,7 @@ const Home = () => {
             {loading ? (
               <SkeletonLoader count={3} />
             ) : (
-              <Grid container spacing={4}>
+              <Grid container spacing={2}>
                 {posts.slice(0, 3).map((post) => (
                   <Grid item xs={12} sm={6} md={4} key={post.id}>
                     <Card
@@ -134,9 +134,9 @@ const Home = () => {
         </Box>
       )}
 
-      <Container maxWidth="lg" sx={{mt:{xs:-5, md:-3}}}>
+      <Container maxWidth="lg" sx={{mt:8}}>
         {/* Second promotional banner - BOTTOM location */}
-        <PromotionBanners location="bottom" autoplayDelay={7000} />
+        <PromotionBanners location="bottom" autoplayDelay={5000} />
       </Container>
 
       <Testimonials />

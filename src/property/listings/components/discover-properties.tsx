@@ -22,6 +22,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { fetchListings } from "../../../redux/slices/listings-slice";
  import CustomButton from "../../../common/button";
  import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { Helmet } from "react-helmet-async";
 
 const filterOptions: FilterOption[] = [
   { value: "all", label: "All properties", icon: <HouseIcon /> },
@@ -67,9 +68,17 @@ const DiscoverExclusiveProperties = () => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
     }, [dispatch, currentPage, pageSize]);
 
+   
+    
   return (
+   <>
+    <Helmet>
+           <title>Listings | Paragone Signature & Associates</title>
+        <meta name="description" content='This includes all listings available in Paragone Signature and Associates' />
+         </Helmet>
    
       <Box sx={{bgcolor:'secondary.main', py:5}}>
+       
          <Container maxWidth="lg">
          <Box textAlign="center" mb={2}>
         <Typography variant='subtitle1' color="primary">
@@ -185,7 +194,9 @@ const DiscoverExclusiveProperties = () => {
             </Box>
           )}
     </Container>
+   
     </Box>
+    </>
   );
 };
 

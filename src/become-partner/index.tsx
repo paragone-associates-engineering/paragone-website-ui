@@ -14,10 +14,17 @@ import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button";
 import { ContactFormModal } from "./components/individual-modal";
 import { AnimatedWrapper } from "../common/animations/animated-wrapper";
+import { Helmet } from "react-helmet-async";
 
 const PartnerWithUs = () => {
 
   return (
+    <>
+     <Helmet>
+                     <title>Partner With Us | Paragone Signature & Associates</title>
+                  <meta name="description" content='Selling your property should be an opportunity to maximize your investment, not a stressful ordeal. Our marketing strategies are crafted to present your property in its best light, attracting qualified Buyers promptly.' />
+                   </Helmet>
+   
     <Box sx={{width:'100vw'}}>
   <PageBanner title='Become A Partner' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Partner With Us" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
@@ -46,7 +53,7 @@ const PartnerWithUs = () => {
             Selling your property should be an opportunity to maximize your investment, not a stressful ordeal. Our marketing strategies are crafted to present your property in its best light, attracting qualified Buyers promptly.
             </Typography>
             <Typography variant="body1"  marginBottom={2}  color='text.secondary'>
-            With <span style={{ fontWeight:600}}> Paragone Signature & Associates Ltd,</span> benefit from our extensive network and market expertise, ensuring you achieve the best price for your property with minimal effort.
+            With <span style={{ fontWeight:600}}> Paragone Signature & Associates,</span> benefit from our extensive network and market expertise, ensuring you achieve the best price for your property with minimal effort.
             </Typography>
             <Typography variant="body1" color='text.secondary'>
             We conduct thorough market analyses to competitively price your property while optimizing its market value. Our staging services enhance your property's appeal, making it stand out to prospective buyers. We also manage negotiations and legal formalities, guaranteeing a seamless and successful transaction.
@@ -214,6 +221,7 @@ const PartnerWithUs = () => {
         </Box>
        <Testimonials />
     </Box>
+     </>
   )
 }
 

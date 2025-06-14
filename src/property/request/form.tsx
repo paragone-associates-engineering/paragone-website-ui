@@ -54,6 +54,7 @@ function RequestForm() {
     }
   };
 
+ // console.log('bbb', list)
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
      
@@ -109,7 +110,7 @@ function RequestForm() {
                                                     render={({ field }) => (
                                                       <Select {...field} labelId="property-type-label" displayEmpty>
                                                         {propertyTypes.map(opt => (
-                                                         <MenuItem key={opt.value || "placeholder"} value={opt.value}>
+                                                         <MenuItem key={opt.value || "placeholder"} sx={{display: listingType == 'short-stay' && opt.value === "commercial" ? "none" : "block"}} value={opt.value}>
                                                            {opt.label}
                                                          </MenuItem>
                                                        ))}

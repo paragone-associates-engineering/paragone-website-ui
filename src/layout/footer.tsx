@@ -381,6 +381,9 @@ export default function Footer() {
                   color: "text.primary",
                   pb: 0.5,
                   mb: 2,
+                  '&:hover': {
+                color: 'primary.main',
+                 }
                 }}
               >
                 Contact Us

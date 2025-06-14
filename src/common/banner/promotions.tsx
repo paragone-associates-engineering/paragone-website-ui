@@ -86,7 +86,7 @@ const PromotionBanners = ({ location, autoplayDelay = 5000, variant = "standard"
 
   if (loading) {
     return (
-      <Box sx={{ mt: 10 }}>
+      <Box sx={{ mt: 5 }}>
         <Swiper spaceBetween={20} slidesPerView={slidesPerView} style={{ height: bannerHeight }}>
           {[1, 2].map((item) => (
             <SwiperSlide key={`skeleton-${item}`}>
@@ -103,7 +103,7 @@ const PromotionBanners = ({ location, autoplayDelay = 5000, variant = "standard"
   }
 
   return (
-    <Box sx={{ mt: 10 }}>
+    <Box sx={{ mt: 5 }}>
       <Swiper
         modules={[Autoplay, Pagination]}
         spaceBetween={20}

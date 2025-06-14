@@ -1,8 +1,7 @@
-
-
 import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
+import { Helmet } from "react-helmet-async" // You'll need to install this
 import { PageBanner } from "../../../common/banner/page-banner"
 import PropertyGallery from "../components/property-gallery"
 import PropertyDetails from "../components/property-details"
@@ -10,12 +9,12 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-//import FeaturedProperties from "../components/featured-properties"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
 import { fetchListingById, fetchFeaturedProperties, fetchRelatedProperties } from "../../../redux/slices/listings-slice"
 import { formatCurrency } from "../utils"
 import RelatedProperties from "../components/related-properties"
 import FeaturedList from "../components/featured-listings"
+import Loader from "../../../common/loader"
 
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
@@ -38,6 +37,7 @@ const PropertyDetailsPage = () => {
     relatedLoading: false,
   }
 
+ // console.log
   const getDetailValue = (name: string | number) =>
     property?.propertyDetails?.find((detail) => detail.name === name)?.value
 
@@ -48,18 +48,16 @@ const PropertyDetailsPage = () => {
   }, [dispatch, propertyId])
 
   useEffect(() => {
-    // Fetch featured properties
     dispatch(fetchFeaturedProperties())
   }, [dispatch])
 
   useEffect(() => {
     if (property) {
-     
       dispatch(
         fetchRelatedProperties({
           propertyType: property.propertyType,
           locationRegion: property.location?.region,
-          excludeId: property._id,
+          excludeId: property.id,
         }),
       )
     }
@@ -67,24 +65,110 @@ const PropertyDetailsPage = () => {
 
   const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
+  
+  const generateSEOData = () => {
+    if (!property?.propertyName ) return null
+
+    const title = `${property.propertyName} - ${property.location?.region} | Paragon E-Signature`
+    const description = property.description?.substring(0, 160) + (property.description?.length > 160 ? '...' : '')
+    const image = property.images?.[0] || '/default-property-image.jpg'
+    const url = `https://www.paragonesignature.com/listings/${property.id}`
+    const price = formatCurrency(property.amount)
+    const area = getDetailValue("area")
+
+    const enhancedDescription = `${property.listingType} - ${price}${area ? ` | ${area} sqm` : ''} | ${property.location?.region}. ${description}`
+
+    return {
+      title,
+      description: enhancedDescription,
+      image,
+      url,
+      price,
+      area
+    }
+  }
+
+  const seoData = generateSEOData()
+
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
-        <Typography>Loading property details...</Typography>
+       <Loader/>
       </Container>
     )
   }
 
-  if (!property) {
+  if (!property?.propertyName) {
     return (
-      <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
-        <Typography>Property not found</Typography>
-      </Container>
+      <>
+        <Helmet>
+          <title>Property Not Found | Paragone Signature</title>
+          <meta name="description" content="The requested property could not be found." />
+        </Helmet>
+        <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
+          <Typography>Property not found</Typography>
+        </Container>
+      </>
     )
   }
 
   return (
     <Box sx={{ width: "100vw" }}>
+      
+      <Helmet>
+        <title>{seoData?.title}</title>
+        <meta name="description" content={seoData?.description} />
+        
+      
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={seoData?.url} />
+        <meta property="og:title" content={seoData?.title} />
+        <meta property="og:description" content={seoData?.description} />
+        <meta property="og:image" content={seoData?.image} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:site_name" content="Paragon E-Signature" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:url" content={seoData?.url} />
+        <meta name="twitter:title" content={seoData?.title} />
+        <meta name="twitter:description" content={seoData?.description} />
+        <meta name="twitter:image" content={seoData?.image} />
+        
+        {/* Additional SEO tags */}
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={seoData?.url} />
+        
+        {/* Property-specific structured data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "RealEstateListing",
+            "name": property.propertyName,
+            "description": property.description,
+            "url": seoData?.url,
+            "image": seoData?.image,
+            "offers": {
+              "@type": "Offer",
+              "price": property.amount,
+              "priceCurrency": "NGN",
+              "availability": "https://schema.org/InStock"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressRegion": property.location?.region,
+              "addressCountry": "NG"
+            },
+            "floorSize": {
+              "@type": "QuantitativeValue",
+              "value": getDetailValue("area"),
+              "unitText": "SQM"
+            }
+          })}
+        </script>
+      </Helmet>
+
       <PageBanner
         title="Property Information"
         breadcrumbs={[
@@ -161,8 +245,6 @@ const PropertyDetailsPage = () => {
                 <PropertyVideo videoUrl={videoUrl} thumbnailUrl={property.images[0]} />
               </Box>
             )}
-
-          
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -171,28 +253,23 @@ const PropertyDetailsPage = () => {
               <Box sx={{ mt: 4 }}>
                 <ContactAgentForm propertyId={propertyId || ""} />
               </Box>
-              
             </Box>
           </Grid>
         </Grid>
-{relatedProperties?.length > 0 && (
-           <RelatedProperties
-          properties={relatedProperties}
-          loading={relatedLoading}
-          propertyType={property?.propertyType}
-        />
-)}
 
-{featuredProperties?.length > 0 && (
-<Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
-                <FeaturedList properties={featuredProperties} loading={featuredLoading} />
-              </Box>
-              )}
-        {/* <RelatedProperties
-          properties={relatedProperties}
-          loading={relatedLoading}
-          propertyType={property?.propertyType}
-        /> */}
+        {relatedProperties?.length > 0 && (
+          <RelatedProperties
+            properties={relatedProperties}
+            loading={relatedLoading}
+            propertyType={property?.propertyType}
+          />
+        )}
+
+        {featuredProperties?.length > 0 && (
+          <Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
+            <FeaturedList properties={featuredProperties} loading={featuredLoading} />
+          </Box>
+        )}
       </Container>
     </Box>
   )

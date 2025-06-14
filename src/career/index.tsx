@@ -19,6 +19,7 @@ import { RootState, AppDispatch } from "../redux/store";
 import {  useSearchParams } from "react-router-dom";
 import Loader from "../common/loader";
 import { AnimatedWrapper } from "../common/animations/animated-wrapper";
+import { Helmet } from "react-helmet-async";
 const Careers = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { jobs, loading, error } = useSelector((state: RootState) => state.jobs);
@@ -33,6 +34,14 @@ const Careers = () => {
   // if (error) return <Typography>Error loading jobs: {error}</Typography>;
 
   return (
+    <>
+          <Helmet>
+            <title>Careers | Paragone Signature & Associates</title>
+            <meta
+              name="description"
+              content="At Paragone Signature & Associates, we are on a mission to transform the real estate industry through innovation, exceptional service, and the collective talents of our team members, each contributing their unique strengths to our collective success."
+            />
+          </Helmet>
     <Box sx={{width:'100vw'}}>
       <PageBanner title='Careers' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Careers" }]}  />
 
@@ -126,7 +135,7 @@ const Careers = () => {
         </Box>
         <Container maxWidth="lg">
         <Box sx={{ my: 8 }}>
-          <Grid container spacing={1}>
+          <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <Box
                 component="img"
@@ -146,7 +155,7 @@ const Careers = () => {
             <Grid item xs={12} md={6} sx={{maxWidth: "500px"}}>
               <Typography variant="h4" component="h2" 
               sx={{
-                ml:{md:5},
+                ml:{md:5, lg:0},
                 mt:{xs: 5,md:0},
                 fontWeight:700,
               }} gutterBottom>
@@ -160,6 +169,7 @@ const Careers = () => {
         <Testimonials />
       </Container>
     </Box>
+    </>
   )
 }
 

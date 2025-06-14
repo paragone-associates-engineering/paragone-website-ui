@@ -43,7 +43,7 @@ export default function TabContent({ tabIndex }: TabContentProps) {
     );
     navigate(`/listings/filter?${queryParams.toString()}`);
   };
-
+console.log('tabbb', tabIndex)
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       {tabIndex === 3 ? (
@@ -123,11 +123,19 @@ export default function TabContent({ tabIndex }: TabContentProps) {
           labelId="category-label"
           displayEmpty
         >
-          {propertyTypes.map((opt) => (
-            <MenuItem key={opt.value} value={opt.value}>
-              {opt.label}
-            </MenuItem>
-          ))}
+         {propertyTypes.map((opt) => {
+  return (
+    <MenuItem
+      key={opt.value}
+      value={opt.value}
+      sx={{
+        display: tabIndex === 2 && opt.value === "commercial" ? "none" : "block",
+      }}
+    >
+      {opt.label}
+    </MenuItem>
+  );
+})}
         </Select>
       )}
     />

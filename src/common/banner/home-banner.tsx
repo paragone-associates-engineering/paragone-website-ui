@@ -82,16 +82,16 @@ export const HomeBanner = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        //staggerChildren: 0.3,
-        delayChildren: 0,
-      },
-    },
-  }
+  // const containerVariants = {
+  //   hidden: { opacity: 0 },
+  //   visible: {
+  //     opacity: 1,
+  //     transition: {
+  //       //staggerChildren: 0.3,
+  //       delayChildren: 0,
+  //     },
+  //   },
+  // }
 
   const titleVariants = {
     hidden: {
@@ -152,7 +152,7 @@ export const HomeBanner = () => {
       //   transition: 'background-image 0.5s ease-in-out',
       // }}
     >
-       <motion.div initial="hidden" animate="visible" variants={containerVariants}>
+      
       <Box 
         sx={{ 
           display: 'flex', 
@@ -274,7 +274,7 @@ export const HomeBanner = () => {
               <TabContent />
             </TabPanel>
             <TabPanel value={tabValue} index={2}>
-              <TabContent />
+              <TabContent tabIndex={2}/>
             </TabPanel>
             <TabPanel value={tabValue} index={3}>
               <TabContent tabIndex={3} />
@@ -327,7 +327,7 @@ export const HomeBanner = () => {
           <NavigateNextIcon />
         </IconButton>
       </Box>
-      </motion.div>
+    
     </BaseBanner>
   );
 };

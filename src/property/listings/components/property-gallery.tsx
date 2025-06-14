@@ -1,7 +1,7 @@
 
 import type React from "react"
-import { useState } from "react"
-import { Box, IconButton, Modal, Typography } from "@mui/material"
+import { useState, useEffect } from "react"
+import { Box, IconButton, Modal, Typography, useTheme, useMediaQuery } from "@mui/material"
 import { ArrowBack, ArrowForward, Close, FullscreenOutlined } from "@mui/icons-material"
 
 interface PropertyGalleryProps {
@@ -10,6 +10,9 @@ interface PropertyGalleryProps {
 }
 
 const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
+  const theme = useTheme();
+ const matches = useMediaQuery(theme.breakpoints.down("sm"));
+const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false)
   const [currentIndex, setCurrentIndex] = useState(0)
 
@@ -32,6 +35,11 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
   }
 
+useEffect(() => {
+  setIsMobile(matches);
+}, [matches]);
+
+const propertyImages = images.slice(1, isMobile ? 3 : 2);
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" }, gap: 1 }}>
@@ -78,7 +86,7 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
         </Box>
 
         <Box sx={{ flex: 1, display: "flex", flexDirection: { xs: "row", md: "column" }, gap: 1, overflow: "hidden" }}>
-          {images.slice(1, 2).map((image, index) => (
+          {propertyImages.map((image, index) => (
             <Box
               key={index}
               sx={{
@@ -98,7 +106,7 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
                 src={image || "/placeholder.svg?height=200&width=300"}
                 alt={`${title} - Image ${index + 1}`}
                 sx={{
-                  maxWidth:{xs:'50%',md:'100%'},
+                  maxWidth:'100%',
                   width: "100%",
                   height: { xs: 120, md: 195 },
                   objectFit: "cover",
@@ -133,9 +141,9 @@ const PropertyGallery: React.FC<PropertyGalleryProps> = ({ images, title }) => {
                 borderRadius: 2,
                 overflow: "hidden",
                 cursor: "pointer",
-                display: { xs: "none", md: "block" },
+                display: 'block' ,
               }}
-              onClick={() => handleOpen(3)}
+              onClick={() => handleOpen(0)}
             >
               <Box
                 component="img"
