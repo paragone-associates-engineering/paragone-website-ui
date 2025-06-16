@@ -6,15 +6,11 @@ import {
   Grid2,
   Button,
   Stack,
-  // Pagination,
-  // PaginationItem,
 } from "@mui/material";
-//import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import TerrainIcon from "@mui/icons-material/Terrain";
-//import { Link as RouterLink } from "react-router-dom"
 import { FilterOption } from "../../../types/properties";
 import PropertyCard from "../../../common/property-card";
 import SkeletonLoader from "../../../common/skeleton-loader";
@@ -47,7 +43,6 @@ const DiscoverExclusiveProperties = () => {
     }
   
     const [activeFilter, setActiveFilter] = useState<string>('all');
-    //const totalPages = Math.ceil(totalCount / 6)
     const handleFilterChange = (value: string) => {
       
       if (value !== null) {
