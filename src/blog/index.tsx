@@ -10,6 +10,7 @@ import {
   Card,
   Pagination,
   PaginationItem,
+  styled,
 } from "@mui/material";
 import { Link as RouterLink, useSearchParams } from "react-router-dom";
 import { PageBanner } from "../common/banner/page-banner";
@@ -20,6 +21,39 @@ import { AnimatedWrapper } from "../common/animations/animated-wrapper";
 import Loader from "../common/loader";
 import { Helmet } from "react-helmet-async";
 
+const StyledPagination = styled(Pagination)(({ theme }) => ({
+  "& .MuiPaginationItem-root": {
+    color: "text.main",
+    border: `1px solid #ddd`,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+      color: "white",
+    },
+    "&.Mui-selected": {
+      backgroundColor: theme.palette.primary.main,
+      color: "white",
+      "&:hover": {
+        backgroundColor: theme.palette.primary.main,
+      },
+    },
+    "&.MuiPaginationItem-ellipsis": {
+      backgroundColor: "transparent",
+      color: theme.palette.primary.main,
+      border: "none",
+    },
+  },
+  "& .MuiPaginationItem-previousNext": {
+    color: theme.palette.primary.main,
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+      color: "white",
+    },
+    "&.Mui-disabled": {
+      backgroundColor: theme.palette.grey[300],
+      color: theme.palette.grey[500],
+    },
+  },
+}))
 const Blog = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { posts, totalPages, loading } = useSelector((state: RootState) => state.blog);
@@ -27,6 +61,12 @@ const Blog = () => {
   const page = parseInt(searchParams.get("page") || "1", 10);
 
   useEffect(() => {
+      if (page > 1) {
+      searchParams.set("page", page.toString())
+    }
+    else {
+      searchParams.delete("page")
+    }
     dispatch(fetchBlogPosts(page));
   }, [dispatch, page]);
 
@@ -110,9 +150,9 @@ const Blog = () => {
                 </Grid>
               ))}
             </Grid>
-{posts.length > 6 && (
+{posts.length > 10 && (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
-              <Pagination
+              <StyledPagination
                 count={totalPages}
                 page={page}
                 onChange={(value) => setSearchParams({ page: value.toString() })}

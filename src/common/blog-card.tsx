@@ -20,7 +20,7 @@ export const BlogCard = ({ post }: BlogCardProps) => {
         elevation={3}
         sx={{
           position: "absolute",
-          bottom:{ xs:50,md:50},
+          top: 200,
           right: 20,
           backgroundColor: "white",
           borderRadius: 2,
@@ -40,7 +40,7 @@ export const BlogCard = ({ post }: BlogCardProps) => {
       <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium" }}>
         {post.header}
       </Typography>
-      <Typography variant="h5" color="text.main" fontWeight={700}>{post.title}</Typography>
+      <Typography variant="h5" color="text.main" fontSize='20px' fontWeight={700}>{post.title}</Typography>
     </Box>
   );
 };

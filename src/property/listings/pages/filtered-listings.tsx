@@ -1,3 +1,4 @@
+"use client"
 
 import { useState, useEffect, useCallback } from "react"
 import { Container, Box, Typography, Grid, Drawer, useMediaQuery } from "@mui/material"
@@ -30,11 +31,10 @@ const FilteredListings = () => {
     totalCount: 0,
     loading: true,
     currentPage: 1,
-    pageSize: 6,
+    pageSize: 10,
     filters: {},
   }
 
-  // Parse URL params only once on mount
   useEffect(() => {
     if (isInitialized) return
 
@@ -46,7 +46,6 @@ const FilteredListings = () => {
     }
     if (searchParams.has("location")) {
       urlFilters.location = searchParams.get("location") as string
-      console.log(searchParams.get("location"))
     }
     if (searchParams.has("propertyName")) {
       urlFilters.propertyName = searchParams.get("propertyName") as string
@@ -84,31 +83,34 @@ const FilteredListings = () => {
     setIsInitialized(true)
   }, [location.search, dispatch, isInitialized])
 
-  // Update URL when filters change
   const updateURL = useCallback(
     (newFilters: ListingsQueryParams, page: number) => {
       const searchParams = new URLSearchParams()
 
       Object.entries(newFilters).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== "") {
+        if (value !== undefined && value !== null && value !== "" && value !== 0) {
           searchParams.set(key, value.toString())
         }
       })
 
+      // Add page parameter if not page 1
       if (page > 1) {
         searchParams.set("page", page.toString())
       }
 
       const newSearch = searchParams.toString()
-      navigate(
-        {
-          pathname: location.pathname,
-          search: newSearch ? `?${newSearch}` : "",
-        },
-        { replace: true },
-      )
+      const newUrl = {
+        pathname: location.pathname,
+        search: newSearch ? `?${newSearch}` : "",
+      }
+
+      // Only navigate if URL actually changed
+      const currentSearch = location.search.replace("?", "")
+      if (currentSearch !== newSearch) {
+        navigate(newUrl, { replace: true })
+      }
     },
-    [navigate, location.pathname],
+    [navigate, location.pathname, location.search],
   )
 
   // Fetch listings when filters or page change
@@ -128,7 +130,12 @@ const FilteredListings = () => {
 
   const handleFilterChange = (newFilters: ListingsQueryParams) => {
     dispatch(setFilters(newFilters))
+  
   }
+
+
+  const startItem = (currentPage - 1) * pageSize + 1
+  const endItem = Math.min(currentPage * pageSize, totalCount)
 
   return (
     <Box sx={{ width: "100vw", px: { xs: 0, md: 0 } }}>
@@ -136,7 +143,19 @@ const FilteredListings = () => {
       <Container maxWidth="xl" sx={{ py: 6 }}>
         <Box sx={{ mb: 4, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <Typography variant="body2" color="text.secondary">
-            Showing {properties.length} results out of {totalCount}
+            {totalCount > 0 ? (
+              <>
+                Showing {startItem}-{endItem} of {totalCount} results
+                {totalCount > pageSize && (
+                  <span>
+                    {" "}
+                    (Page {currentPage} of {Math.ceil(totalCount / pageSize)})
+                  </span>
+                )}
+              </>
+            ) : (
+              "No results found"
+            )}
           </Typography>
 
           {isMobile && (
@@ -160,10 +179,10 @@ const FilteredListings = () => {
           {!isMobile && (
             <Grid item xs={12} md={3}>
               <PropertyFilter
-                onFilterChange={handleFilterChange}
-                initialFilters={filters}
-                showListingTypeFilter={true}
-              />
+              onFilterChange={handleFilterChange}
+              initialFilters={filters}
+              showListingTypeFilter={true}
+            />
             </Grid>
           )}
 

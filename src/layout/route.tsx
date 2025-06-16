@@ -34,7 +34,7 @@ const AllRoutes = () => {
                     <Route path="/sell-as-a-company" element={<SubscribePage />} />
                     <Route path="/listings" element={<Listings />} />
                     <Route path="/listings/:propertyId" element={<PropertyDetailsPage />} />
-                    <Route path="/listings/location/:locationId" element={<LocationListings />} />
+                    <Route path="/listings/regions" element={<LocationListings />} />
                     <Route path="/listings/filter" element={<FilteredListings />} />
                     <Route path="/real-estate-brokerage" element={<RealEstateBrokerage />} />
                     <Route path="/property-request" element={<PropertyRequest />} />

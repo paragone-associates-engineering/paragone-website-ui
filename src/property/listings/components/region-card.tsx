@@ -28,7 +28,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ region }) => {
     >
       <CardActionArea
         component={RouterLink}
-        to={`/listings/location/${region}`}
+        to={`/listings/regions?location=${region}`}
         sx={{
           height: "100%",
           display: "flex",

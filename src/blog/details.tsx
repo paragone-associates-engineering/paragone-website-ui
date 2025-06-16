@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { Container, Typography, Box, Grid, IconButton } from "@mui/material"
+import { Container, Typography, Box, Grid, IconButton, useTheme, useMediaQuery } from "@mui/material"
 import { Link as RouterLink, useParams } from "react-router-dom"
 import { Facebook, Twitter, LinkedIn } from "@mui/icons-material"
 import { format } from "date-fns"
@@ -9,28 +9,75 @@ import { PageBanner } from "../common/banner/page-banner"
 import { useDispatch, useSelector } from "react-redux"
 import type { AppDispatch, RootState } from "../redux/store"
 import { fetchBlogPostDetails } from "../redux/slices/blog-slice"
+import { Helmet } from "react-helmet-async"
+import Loader from "../common/loader"
 
 const BlogDetail = () => {
   const { postId } = useParams<{ postId: string }>()
+  const theme = useTheme();
+  const medium = useMediaQuery(theme.breakpoints.up("md"))
   const dispatch = useDispatch<AppDispatch>()
   const { posts, postDetails, loading } = useSelector((state: RootState) => state.blog)
-  const postUrl = encodeURIComponent(`https://paragonesignature.netlify.app/blog/${postId}`)
+  const postUrl = encodeURIComponent(`https://www.paragonesignature.com/blog/${postId}`)
 
   useEffect(() => {
     if (postId) dispatch(fetchBlogPostDetails(postId))
   }, [dispatch, postId])
 
-  if (loading) return <Typography>Loading...</Typography>
+  if (loading) return <Loader/>
 
   const formatDate = postDetails?.datePosted
     ? format(new Date(postDetails.datePosted), "yyyy MMMM dd")
     : "Date unavailable"
 
+    interface GetPlainTextFromHTML {
+      (html: string): string
+    }
+
+    const getPlainTextFromHTML: GetPlainTextFromHTML = (html) => {
+      if (!html) return ""
+      const tempDiv = document.createElement("div")
+      tempDiv.innerHTML = html
+      return tempDiv.textContent || tempDiv.innerText || ""
+    }
+
+  const metaDescription = postDetails?.content 
+    ? getPlainTextFromHTML(postDetails.content).slice(0, 160) + "..."
+    : "Read this insightful blog post from Paragone Signature."
   const relatedPosts = posts?.slice(0, 5)
   const hasRelatedPosts = relatedPosts && relatedPosts.length > 0
 
   return (
     <Box sx={{ width: "100vw" }}>
+      {postDetails && (
+        <Helmet>
+          <title>{postDetails.title} | Paragone Signature Blog</title>
+          <meta name="description" content={metaDescription} />
+          
+          {/* Open Graph / Facebook */}
+          <meta property="og:type" content="article" />
+          <meta property="og:url" content={postUrl} />
+          <meta property="og:title" content={postDetails.title} />
+          <meta property="og:description" content={metaDescription} />
+          <meta property="og:image" content={postDetails.images?.[0]} />
+          <meta property="og:site_name" content="Paragone Signature & Associates" />
+          
+          {/* Twitter */}
+          <meta property="twitter:card" content="summary_large_image" />
+          <meta property="twitter:url" content={postUrl} />
+          <meta property="twitter:title" content={postDetails.title} />
+          <meta property="twitter:description" content={metaDescription} />
+          <meta property="twitter:image" content={postDetails.images?.[0]} />
+          
+          {/* LinkedIn */}
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          
+          {/* Additional meta tags */}
+          <meta name="author" content="Paragone Signature & Associates" />
+          <meta property="article:published_time" content={postDetails.datePosted} />
+        </Helmet>
+      )}
       <PageBanner
         title={postDetails?.title || "Blog, News & Insights"}
         breadcrumbs={[
@@ -41,7 +88,7 @@ const BlogDetail = () => {
       />
 
       <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Grid container spacing={3}>
+        <Grid container spacing={4}>
           <Grid item xs={12} md={hasRelatedPosts ? 9 : 12}>
             <Typography variant="overline" color="text.secondary">
               {formatDate}
@@ -51,39 +98,43 @@ const BlogDetail = () => {
               {postDetails?.title}
             </Typography>
 
-            {/* Advanced CSS Grid approach */}
-            <Box
-              sx={{
-                mt: 5,
-                display: "grid",
-                gridTemplateColumns: { xs: "1fr", sm: "2fr 3fr" },
-                gap: 3,
-                alignItems: "start",
-              }}
-            >
-              {/* Image */}
-              <Box
-                component="img"
-                src={postDetails?.images[0]}
-                alt={postDetails?.title}
-                sx={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: 2,
-                  objectFit: "cover",
-                  gridRow: { xs: "1", sm: "1 / span 2" },
-                  gridColumn: { xs: "1", sm: "1" },
-                }}
-              />
-
-              {/* Content */}
-              <Box
-                sx={{
-                  gridColumn: { xs: "1", sm: "2" },
-                  gridRow: { xs: "2", sm: "1" },
-                }}
-              >
-                {postDetails?.content && (
+            <Box sx={{ mt: 5 }}>
+              {postDetails?.content && (
+                <Box
+                  sx={{
+                    position: 'relative',
+                    "& p": {
+                      mb: 2,
+                      lineHeight: 1.7,
+                      textAlign: "justify",
+                    },
+                    "& p:first-of-type": {
+                      mt: 0,
+                    },
+                  }}
+                >
+                 
+                  <Box
+                    component="img"
+                    src={postDetails?.images[0]}
+                    alt={postDetails?.title}
+                    sx={{
+                      width: "100%",
+                      height: "auto",
+                      borderRadius: 2,
+                      objectFit: "cover",
+                      mb: 2,
+                      ...(medium && {
+                        width: "45%",
+                        maxWidth: "400px",
+                        float: "left",
+                        mr: 3,
+                        mb: 2,
+                      }),
+                    }}
+                    />
+                      
+                    
                   <Box
                     dangerouslySetInnerHTML={{ __html: postDetails?.content }}
                     sx={{
@@ -95,13 +146,19 @@ const BlogDetail = () => {
                       "& p:first-of-type": {
                         mt: 0,
                       },
+                     
+                      "&::after": {
+                        content: '""',
+                        display: "table",
+                        clear: "both",
+                      },
                     }}
                   />
-                )}
-              </Box>
+                </Box>
+              )}
             </Box>
 
-            <Box sx={{ mt: 4, display: "flex", alignItems: "center" }}>
+            <Box sx={{ mt: 4, display: "flex", alignItems: "center", clear: "both" }}>
               <Typography variant="body2" sx={{ mr: 2 }}>
                 Share post:
               </Typography>

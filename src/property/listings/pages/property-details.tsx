@@ -19,7 +19,8 @@ import Loader from "../../../common/loader"
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
   const dispatch = useAppDispatch()
-
+ const postUrl = `https://www.paragonesignature.com/listings/${propertyId}`
+  const metaDescription = "Explore this property listing on Paragone Signature. Find detailed information, images, and more about this property."
   const listings = useAppSelector((state) => state.listings)
   const {
     selectedProperty: property,
@@ -66,30 +67,6 @@ const PropertyDetailsPage = () => {
   const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
   
-  const generateSEOData = () => {
-    if (!property?.propertyName ) return null
-
-    const title = `${property.propertyName} - ${property.location?.region} | Paragon E-Signature`
-    const description = property.description?.substring(0, 160) + (property.description?.length > 160 ? '...' : '')
-    const image = property.images?.[0] || '/default-property-image.jpg'
-    const url = `https://www.paragonesignature.com/listings/${property.id}`
-    const price = formatCurrency(property.amount)
-    const area = getDetailValue("area")
-
-    const enhancedDescription = `${property.listingType} - ${price}${area ? ` | ${area} sqm` : ''} | ${property.location?.region}. ${description}`
-
-    return {
-      title,
-      description: enhancedDescription,
-      image,
-      url,
-      price,
-      area
-    }
-  }
-
-  const seoData = generateSEOData()
-
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
@@ -101,10 +78,6 @@ const PropertyDetailsPage = () => {
   if (!property?.propertyName) {
     return (
       <>
-        <Helmet>
-          <title>Property Not Found | Paragone Signature</title>
-          <meta name="description" content="The requested property could not be found." />
-        </Helmet>
         <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
           <Typography>Property not found</Typography>
         </Container>
@@ -114,61 +87,35 @@ const PropertyDetailsPage = () => {
 
   return (
     <Box sx={{ width: "100vw" }}>
-      
+      {property && (
       <Helmet>
-        <title>{seoData?.title}</title>
-        <meta name="description" content={seoData?.description} />
-        
-      
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={seoData?.url} />
-        <meta property="og:title" content={seoData?.title} />
-        <meta property="og:description" content={seoData?.description} />
-        <meta property="og:image" content={seoData?.image} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:site_name" content="Paragon E-Signature" />
-        
-        {/* Twitter */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content={seoData?.url} />
-        <meta name="twitter:title" content={seoData?.title} />
-        <meta name="twitter:description" content={seoData?.description} />
-        <meta name="twitter:image" content={seoData?.image} />
-        
-        {/* Additional SEO tags */}
-        <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={seoData?.url} />
-        
-        {/* Property-specific structured data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "RealEstateListing",
-            "name": property.propertyName,
-            "description": property.description,
-            "url": seoData?.url,
-            "image": seoData?.image,
-            "offers": {
-              "@type": "Offer",
-              "price": property.amount,
-              "priceCurrency": "NGN",
-              "availability": "https://schema.org/InStock"
-            },
-            "address": {
-              "@type": "PostalAddress",
-              "addressRegion": property.location?.region,
-              "addressCountry": "NG"
-            },
-            "floorSize": {
-              "@type": "QuantitativeValue",
-              "value": getDetailValue("area"),
-              "unitText": "SQM"
-            }
-          })}
-        </script>
-      </Helmet>
-
+                <title>{property.propertyName} - {property.location?.region} | Paragone Signature & Associates</title>
+                <meta name="description" content={property.description?.substring(0, 160) + (property.description?.length > 160 ? '...' : '')} />
+                
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={postUrl} />
+                <meta property="og:title" content={property.propertyName} />
+                <meta property="og:description" content={metaDescription} />
+                <meta property="og:image" content={property.images?.[0]} />
+                <meta property="og:site_name" content="Paragone Signature & Associates" />
+                
+                {/* Twitter */}
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:url" content={postUrl} />
+                <meta property="twitter:title" content={property.propertyName} />
+                <meta property="twitter:description" content={metaDescription} />
+                <meta property="twitter:image" content={property.images?.[0]} />
+                
+                {/* LinkedIn */}
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                
+                {/* Additional meta tags */}
+                <meta name="author" content="Paragone Signature & Associates" />
+               
+              </Helmet>
+      )}
       <PageBanner
         title="Property Information"
         breadcrumbs={[

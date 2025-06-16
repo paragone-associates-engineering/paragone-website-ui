@@ -24,3 +24,8 @@ Folder structure:
 - Do NOT push to the `main/master` branch rather create a new branch `git checkout -b <new-branch>`.
 
 - Do a pull/merge request into the `main/master` branch that'd be approved by the lead
+
+# CLEANUP:
+1.    Base url should be put in an environment variable so it's easily accessible and can be changed easily from the deployment server.
+2.    Delete all commented codes. (comments for documentation can be left, but we don't want commented codes in the main branch)
+3.    Remove all the previous temporary data that was used before enpoints were made.

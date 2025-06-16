@@ -20,7 +20,7 @@ import axios from 'axios';
 import { API_BASE_URL } from "../services/api";
 import SkeletonLoader from "./skeleton-loader";
 import { AnimatedWrapper } from './animations/animated-wrapper';
-interface TestimonialData {
+export interface TestimonialData {
   id: number;
   title:string;
   testifierName: string;
