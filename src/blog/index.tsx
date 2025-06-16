@@ -68,6 +68,7 @@ const Blog = () => {
       searchParams.delete("page")
     }
     dispatch(fetchBlogPosts(page));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);
 
   return (

@@ -64,6 +64,7 @@ const PropertyGrid: React.FC<PropertyGridProps> = ({
   const totalPages = Math.ceil(totalCount / itemsPerPage)
 
   const handlePageChange = (event: React.ChangeEvent<unknown>, page: number) => {
+    event.preventDefault();
     dispatch(setCurrentPage(page))
    
     window.scrollTo({ top: 0, behavior: "smooth" })
