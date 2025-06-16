@@ -77,30 +77,31 @@ const JobDetail = () => {
                   </TableCell>
                   <TableCell>{jobDetails?.location}</TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
-                    General Description
-                  </TableCell>
-                  <TableCell>{jobDetails?.description}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
-                   Duties and Responsibilities
-                  </TableCell>
-                  <TableCell>{jobDetails?.duties}</TableCell>
-                </TableRow>
+               <TableRow>
+  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
+    General Description
+  </TableCell>
+  <TableCell dangerouslySetInnerHTML={{ __html: jobDetails?.description || "" }}></TableCell>
+</TableRow>
 
-                <TableRow>
-                  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
-                    Required Skills
-                  </TableCell>
-                  <TableCell>
-                  <Typography variant="h6" sx={{ font:'bold'}} component="h2" gutterBottom>
-                 SKILLS/ATTRIBUTES
-          </Typography>
-                    {jobDetails?.skills}</TableCell>
-                </TableRow>
+<TableRow>
+  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
+    Duties and Responsibilities
+  </TableCell>
+  <TableCell dangerouslySetInnerHTML={{ __html: jobDetails?.duties || "" }}></TableCell>
+</TableRow>
 
+<TableRow>
+  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
+    Required Skills
+  </TableCell>
+  <TableCell>
+    <Typography variant="h6" sx={{ fontWeight: 'bold' }} component="h2" gutterBottom>
+      SKILLS/ATTRIBUTES
+    </Typography>
+    <div dangerouslySetInnerHTML={{ __html: jobDetails?.skills || "" }}></div>
+  </TableCell>
+</TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
                     Education and Experience
@@ -109,6 +110,7 @@ const JobDetail = () => {
                   <Typography variant="h6"  sx={{font:'bold'}} component="h2" gutterBottom>
                   Education and Experience
           </Typography>
+           <div dangerouslySetInnerHTML={{ __html: jobDetails?.experience || "" }}></div>
                     {jobDetails?.education}
                     </TableCell>
                 </TableRow>
@@ -117,84 +119,7 @@ const JobDetail = () => {
           </TableContainer>
         </Box>
 
-        {/* <Box sx={{ my: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            Duties and Responsibilities
-          </Typography>
-
-          <Paper elevation={0} sx={{ p: 3, backgroundColor: "background.paper", borderRadius: 2 }}>
-            <Box component="ul" sx={{ pl: 2, m: 0 }}>
-              {jobData.duties.map((duty, index) => (
-                <Box component="li" key={index} sx={{ mb: 1 }}>
-                  {duty}
-                </Box>
-              ))}
-            </Box>
-          </Paper>
-        </Box>
-
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            SKILLS/ATTRIBUTES
-          </Typography>
-
-          <Paper elevation={0} sx={{ p: 3, backgroundColor: "background.paper", borderRadius: 2 }}>
-            <Grid container spacing={2}>
-              {jobData.skills.map((skill, index) => (
-                <Grid item xs={12} key={index}>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {skill.title}:
-                  </Typography>
-                  <Typography variant="body2">{skill.description}</Typography>
-                </Grid>
-              ))}
-            </Grid>
-          </Paper>
-        </Box>
-
-        <Box sx={{ my: 4 }}>
-          <Typography variant="h5" component="h2" gutterBottom>
-            EDUCATION/EXPERIENCE REQUIREMENTS
-          </Typography>
-
-          <Paper elevation={0} sx={{ p: 3, backgroundColor: "background.paper", borderRadius: 2 }}>
-            {/* <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" fontWeight="bold">
-                  Educational Background:
-                </Typography>
-                <Typography variant="body2" paragraph>
-                  {jobData.education.educational}
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" fontWeight="bold">
-                  Experience:
-                </Typography>
-                <Typography variant="body2" paragraph>
-                  {jobData.education.experience}
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" fontWeight="bold">
-                  HR Certification:
-                </Typography>
-                <Typography variant="body2" paragraph>
-                  {jobData.education.certification}
-                </Typography>
-              </Grid>
-
-              <Grid item xs={12}>
-                <Typography variant="subtitle1" fontWeight="bold">
-                  Preferred:
-                </Typography>
-                <Typography variant="body2">{jobData.education.preferred}</Typography>
-              </Grid>
-            </Grid> 
-          </Paper>
-        </Box> */}
+       
 
         <Box sx={{ my: 4 }}>
           <Typography variant="body2">
@@ -226,7 +151,7 @@ const JobDetail = () => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <Typography variant="h4" component="h2" marginLeft={4} gutterBottom>
+              <Typography variant="h4" component="h2" marginLeft={0} gutterBottom>
                 Apply Now
               </Typography>
 
