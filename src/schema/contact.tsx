@@ -34,6 +34,11 @@ export const getInTouchFormSchema = commonContactSchema.extend({
   sellDate: z.string().min(1, "Preferred sell date is required"),  
 
   });
+  export const managementFormSchema = commonContactSchema.extend({
+ propertyType: z.string().min(1, "Property type is required"),
+ additionalComment: z.string().min(2, "Message must be at least 2 characters").optional(),
+ propertyLocation: z.string().min(5, "Location is required"),
+  });
   
   export const propertyRequestFormSchema = commonContactSchema.extend({
     propertyType: z.string().min(1, "Property type is required"),
@@ -66,5 +71,6 @@ export type ContactFormSchema = z.infer<typeof contactFormSchema>;
 export type JoinUsFormSchema = z.infer<typeof joinUsFormSchema>;
 export type referUsFormSchema = z.infer<typeof referFormSchema>;
 export type GetInTouchFormSchema = z.infer<typeof getInTouchFormSchema>;
+export type ManagementFormSchema = z.infer<typeof managementFormSchema>;
 export type CommonContactSchema = z.infer<typeof commonContactSchema>;
 export type PropertyRequestFormSchema = z.infer<typeof propertyRequestFormSchema>;

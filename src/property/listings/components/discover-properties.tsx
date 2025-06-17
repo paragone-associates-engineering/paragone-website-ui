@@ -172,7 +172,7 @@ const DiscoverExclusiveProperties = () => {
       )}
     </Grid2>
  <Box display="flex" justifyContent="center" mt={4}>
-        <CustomButton href='/listings/filter' sx={{px:5, py:1.5}}>Browse all Properties</CustomButton>
+        <CustomButton href='/listings/filter' sx={{px:5, py:1.5}}>Browse more Properties</CustomButton>
       </Box>
      {/* {totalPages > 1 && currentPage > 1 && (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>

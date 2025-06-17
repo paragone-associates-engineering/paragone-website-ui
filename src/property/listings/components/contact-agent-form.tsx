@@ -12,7 +12,6 @@ import {
 } from "@mui/material"
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-//import { PageBanner } from "../common/banner/page-banner"
 import axios from "axios";
 import toast from "react-hot-toast"
 import { API_BASE_URL } from "../../../services/api"
@@ -24,6 +23,7 @@ const ContactAgentForm = ({propertyId}:{propertyId:string | undefined}) => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormSchema>({
     resolver: zodResolver(contactFormSchema),
@@ -44,7 +44,8 @@ const ContactAgentForm = ({propertyId}:{propertyId:string | undefined}) => {
     try {
       await axios.post(`${API_BASE_URL}/form/get-in-touch`, formdata);
       toast.success("Form submitted successfully!");
-      console.log('suscess', data);
+      reset();
+      //console.log('suscess', data);
     } catch (error) {
       toast.error("Submission failed. Try again!");
       console.log('error', error)

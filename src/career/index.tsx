@@ -102,7 +102,7 @@ const Careers = () => {
   jobs.map((job) => (
               <Grid item xs={12} md={4} key={job.id}>
                 <Card elevation={0} sx={{ height: "100%", borderRadius: 2, backgroundColor: "background.paper" }}>
-                  <CardContent sx={{ px: 4, textAlign: "center" }}>
+                  <CardContent sx={{ px: 2, textAlign: "center", borderBottom:"1px solid #ddd" }}>
                     <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
                       <Box
                         component="img"
@@ -118,10 +118,10 @@ const Careers = () => {
                       {job?.title}
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 3 }}>
-                      {job?.description}
+                      <div dangerouslySetInnerHTML={{ __html: job?.description || "" }}></div>
                     </Typography>
                   </CardContent>
-                  <CardActions sx={{ justifyContent: "center", pb: 3 }}>
+                  <CardActions sx={{ justifyContent: "center", pb: 3, mt:2 }}>
                     <Button variant="contained" color="primary" size="large" href={`/careers/${job.id}`}>
                       Apply now
                     </Button>

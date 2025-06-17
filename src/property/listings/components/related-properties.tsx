@@ -41,7 +41,7 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
   // }
 
   return (
-    <Box sx={{ py: 6, bgcolor: "secondary.main", maxWidth: "1200px", margin: "auto", px: { xs: 2, md: 0 } }}>
+    <Box sx={{ py: 6, bgcolor: "secondary.main", margin: "auto", px: { xs: 2, md: 0 } }}>
        <Typography  color="primary" gutterBottom align="center">
                     Related property
                   </Typography>
@@ -49,7 +49,7 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
       Check Related Properties
       </Typography>
 
-      <Grid container spacing={4} sx={{ mt: 2, px:3, }}>
+      <Grid container spacing={4} sx={{ mt: 2, px:3,  maxWidth: "1200px"}}>
         {properties.slice(0, 2).map((property) => (
           <Grid item xs={12} sm={6} md={4} key={property._id}>
             <PropertyCard property={property} />

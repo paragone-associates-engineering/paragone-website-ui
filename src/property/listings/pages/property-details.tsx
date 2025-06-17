@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
-import { Helmet } from "react-helmet-async" // You'll need to install this
+import { Helmet } from "react-helmet-async" 
 import { PageBanner } from "../../../common/banner/page-banner"
 import PropertyGallery from "../components/property-gallery"
 import PropertyDetails from "../components/property-details"
@@ -203,7 +203,7 @@ const PropertyDetailsPage = () => {
             </Box>
           </Grid>
         </Grid>
-
+ </Container>
         {relatedProperties?.length > 0 && (
           <RelatedProperties
             properties={relatedProperties}
@@ -217,7 +217,7 @@ const PropertyDetailsPage = () => {
             <FeaturedList properties={featuredProperties} loading={featuredLoading} />
           </Box>
         )}
-      </Container>
+     
     </Box>
   )
 }

@@ -1,4 +1,3 @@
-"use client"
 
 import { useEffect } from "react"
 import { Container, Typography, Box, Grid, IconButton, useTheme, useMediaQuery } from "@mui/material"

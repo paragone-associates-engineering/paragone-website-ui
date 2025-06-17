@@ -20,13 +20,13 @@ import customParseFormat from 'dayjs/plugin/customParseFormat';
 import toast from 'react-hot-toast';
 import { API_BASE_URL } from '../../../services/api';
 
-// Configure dayjs for DD/MM/YYYY format
+
 dayjs.extend(customParseFormat);
 
-// Zod schemas for validation
+
 const Step2Schema = z.object({
   date: z.date(),
-  viewingType: z.enum(['In-person', 'Via Video Chat'])
+  viewingType: z.enum(['In-person', 'Virtual'])
 });
 
 const Step1Schema = z.object({
@@ -83,7 +83,9 @@ const BookViewingForm = ({propertyId}:{propertyId:string}) => {
   }
 };
 
-  const handleSubmit = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleSubmit = async (e:any) => {
+    e.preventDefault();
     setLoading(true)
   try {
     Step2Schema.parse({
@@ -102,14 +104,14 @@ const BookViewingForm = ({propertyId}:{propertyId:string}) => {
       email: formData.email
     };
 
-    //console.log('Submitting data:', submissionData);
+    console.log('Submitting data:', submissionData);
 
-    await fetch(`${API_BASE_URL}/form/book-viewing/${propertyId}`, {
+    const response = await fetch(`${API_BASE_URL}/form/book-viewing/${propertyId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(submissionData)
     });
-
+console.log('api response', response)
     toast.success('Viewing request sent successfully!');
     setStep(1);
     setFormData({
@@ -121,7 +123,9 @@ const BookViewingForm = ({propertyId}:{propertyId:string}) => {
       email: ''
     });
     setErrors({});
+    
   } catch (error) {
+    console.log(error)
     if (error instanceof z.ZodError) {
       const newErrors: Record<string, string> = {};
       error.errors.forEach((err) => {
@@ -337,7 +341,7 @@ const BookViewingForm = ({propertyId}:{propertyId:string}) => {
                     <em>Choose a viewing method</em>
                   </MenuItem>
                   <MenuItem value="In-person">In Person</MenuItem>
-                  <MenuItem value="Via Video Chat">Via Video Chat</MenuItem>
+                  <MenuItem value="Virtual">Via Video Chat</MenuItem>
                 </Select>
               </FormControl>
             </Box>
