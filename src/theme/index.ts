@@ -17,6 +17,7 @@ const getTheme = (mode: "light" | "dark") =>
           },
         },
       },
+      
       MuiSelect: {
         styleOverrides: {
           root: {
@@ -39,6 +40,10 @@ const getTheme = (mode: "light" | "dark") =>
               "&:hover": {
                 backgroundColor: "primary.dark", 
               },
+              "&:focus":{
+                outline:'none',
+                border:'none'
+              }
           },
         },
           contained: {

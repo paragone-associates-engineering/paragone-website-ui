@@ -84,8 +84,9 @@ const [partners, setPartners] = useState<Partner[]>([]);
                 src={partner.logo}
                 alt={partner.name}
                 sx={{
-                  height: 120,
+                  height: 100,
                   width: "auto",
+                  //maxWidth:80,
                   filter: "grayscale(20%)",
                   opacity: 0.9,
                   borderRadius:4,

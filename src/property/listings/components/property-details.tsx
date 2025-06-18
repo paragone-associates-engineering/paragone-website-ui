@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react"
 import { Box, Typography, Grid } from "@mui/material"
 import { ApiProperty } from "../../../types/properties"
 
 const detailIconMap: Record<
   string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  { icon: string; label: string; render?: (value: any) => string }
+  { icon: string; label: string }
 > = {
   bedrooms: {
     icon: "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987397/double-bed_1_t8j5n1.svg",
@@ -15,16 +15,42 @@ const detailIconMap: Record<
     icon: "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987397/bath-tub_1_tvddev.svg",
     label: "Bathrooms",
   },
-  garage: {
+  // garage: {
+  //   icon: "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987396/parking-sign_1_amf4kq.svg",
+  //   label: "Garage",
+  // },
+  parking: {
     icon: "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987396/parking-sign_1_amf4kq.svg",
     label: "Parking",
-    render: (value: boolean) => (value ? "Yes" : "No"),
   },
+  // security: {
+  //   icon: "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987396/parking-sign_1_amf4kq.svg",
+  //   label: "Security",
+  // },
 }
 
-// Default icon (fallback)
+
 const defaultIcon =
   "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742987395/Icon_u6frq4.svg"
+
+
+const formatValue = (value: any): string => {
+  if (typeof value === 'boolean') {
+    return value ? "Yes" : "No"
+  }
+  if (value === null || value === undefined) {
+    return "N/A"
+  }
+  return value.toString()
+}
+
+const formatLabel = (key: string): string => {
+  return key
+    .replace(/([A-Z])/g, " $1") 
+    .replace(/_/g, " ") 
+    .replace(/^./, str => str.toUpperCase())
+    .trim()
+}
 
 interface PropertyDetailsProps {
   property: ApiProperty
@@ -32,7 +58,6 @@ interface PropertyDetailsProps {
 
 const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
   const propertyDetails = property?.propertyDetails || []
-  console.log("Property details:", propertyDetails)
 
   return (
     <Box>
@@ -41,7 +66,6 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
       </Typography>
 
       <Grid container spacing={2} sx={{ mt: 1 }}>
-      
         <Grid
           item
           xs={12}
@@ -64,8 +88,8 @@ const PropertyDetails: React.FC<PropertyDetailsProps> = ({ property }) => {
           const value = detail.value
           const mapped = detailIconMap[key]
           const icon = mapped?.icon || defaultIcon
-          const label = mapped?.label || key.replace(/([A-Z])/g, " $1").replace(/^./, str => str.toUpperCase())
-          const displayValue = mapped?.render ? mapped.render(value) : value?.toString()
+          const label = mapped?.label || formatLabel(key)
+          const displayValue = formatValue(value)
 
           return (
             <Grid

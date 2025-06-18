@@ -1,4 +1,4 @@
-"use client"
+
 
 import type React from "react"
 import { useState, useEffect } from "react"
@@ -29,7 +29,6 @@ const PropertyFilter = ({
   ])
   const [areaRange, setAreaRange] = useState<number[]>([initialFilters.areaFrom || 0, initialFilters.areaTo || 100000])
 
-  // Property type options based on category
   const getPropertyTypeOptions = (category: string): string[] => {
     switch (category) {
       case "Residential":

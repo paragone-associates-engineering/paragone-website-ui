@@ -20,7 +20,7 @@ const animationVariants: Record<string, Variants> = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.3, ease: "easeOut" },
     },
   },
   slideDown: {
@@ -28,7 +28,7 @@ const animationVariants: Record<string, Variants> = {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.3, ease: "easeOut" },
     },
   },
   slideLeft: {
@@ -36,7 +36,7 @@ const animationVariants: Record<string, Variants> = {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.3, ease: "easeOut" },
     },
   },
   slideRight: {
@@ -44,14 +44,14 @@ const animationVariants: Record<string, Variants> = {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { duration: 0.3, ease: "easeOut" },
     },
   },
   fadeIn: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { duration: 0.8, ease: "easeOut" },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   },
   scaleIn: {
@@ -76,8 +76,8 @@ const animationVariants: Record<string, Variants> = {
 export const AnimatedWrapper = ({
   children,
   animation = "slideUp",
-  duration = 0.6,
-  delay = 0.2,
+  duration = 0.4,
+  delay = 0,
   threshold = 0.1,
   className,
   //once = true,

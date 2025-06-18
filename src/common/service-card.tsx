@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Typography, CardActions } from '@mui/material';
 import {  OutboundOutlined } from '@mui/icons-material';
 import CustomButton from './button';
-import { AnimatedCard } from './animations/card-animations';
+import { AnimatedWrapper } from './animations/animated-wrapper';
 //import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 interface ServiceCardProps {
   title: string;
@@ -44,7 +44,7 @@ const ServiceCard = ({
       }}
       elevation={elevation}
     >
-      <AnimatedCard slideDirection='up' delay={0.2}>
+      <AnimatedWrapper >
       <CardContent sx={{ flexGrow: 1, p: 3 }}>
         <Box
           className="card-image"
@@ -104,7 +104,7 @@ const ServiceCard = ({
           {actionText}
         </Button> */}
       </CardActions>
-      </AnimatedCard>
+      </AnimatedWrapper>
     </Card>
   );
 };

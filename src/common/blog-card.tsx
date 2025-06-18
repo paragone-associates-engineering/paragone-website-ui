@@ -13,21 +13,22 @@ export const BlogCard = ({ post }: BlogCardProps) => {
 
   return (
     <Box sx={{ position: "relative" }}>
-      <img src={post.images[0]} alt={post.title} style={{ width: "100%", borderRadius: "8px" }} />
+      <img src={post.images[0]} alt={post.title} style={{ width: "100%", borderRadius: "10px",height:240, objectFit:'cover' }} />
       
       {/* Date Card */}
       <Paper
         elevation={3}
         sx={{
           position: "absolute",
-          bottom:{ xs:60,md:90},
-          right: 10,
+          top: 200,
+          right: 20,
           backgroundColor: "white",
           borderRadius: 2,
           textAlign: "center",
-          px: 2.5,
-          py:1.5,
+          px: 2,
+          py:0.5,
           minWidth: 50,
+          
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
         }}
       >
@@ -36,10 +37,10 @@ export const BlogCard = ({ post }: BlogCardProps) => {
       </Paper>
 
       {/* Blog Details */}
-      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "bold" }}>
+      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium" }}>
         {post.header}
       </Typography>
-      <Typography variant="h5" color="text.secondary">{post.title}</Typography>
+      <Typography variant="h5" color="text.main" fontSize='20px' fontWeight={700}>{post.title}</Typography>
     </Box>
   );
 };

@@ -10,10 +10,7 @@ import {
 //import { ManagementFormData } from "../types";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  GetInTouchFormSchema,
-  getInTouchFormSchema,
-} from "../../schema/contact";
+import {managementFormSchema,ManagementFormSchema} from "../../schema/contact";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { API_BASE_URL } from "../../services/api";
@@ -26,24 +23,24 @@ const PropertyManagementForm = () => {
     control,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<GetInTouchFormSchema>({
-    resolver: zodResolver(getInTouchFormSchema),
+  } = useForm<ManagementFormSchema>({
+    resolver: zodResolver(managementFormSchema),
     defaultValues: {
       name: { first: "", lastName: "" },
       email: "",
       phoneNumber: "",
       propertyType: "",
       additionalComment: "",
-      address: "",
-      contactMethod: "Any",
-      contactTime: new Date().toISOString(),
-      sellDate: new Date().toISOString(),
+      propertyLocation: "",
+      // contactMethod: "Any",
+      // contactTime: new Date().toISOString(),
+      // sellDate: new Date().toISOString(),
     },
   });
 
-  const onSubmit = async (data: GetInTouchFormSchema) => {
+  const onSubmit = async (data: ManagementFormSchema) => {
     try {
-      await axios.post(`${API_BASE_URL}/form/connect-with-us`, data);
+      await axios.post(`${API_BASE_URL}/form/create-property-management`, data);
       toast.success("Form submitted successfully!");
       reset();
       //console.log('suscess', data);
@@ -132,9 +129,9 @@ const PropertyManagementForm = () => {
           <TextField
             fullWidth
             placeholder="Location"
-            {...register("address")}
-            error={!!errors?.address}
-            helperText={errors?.address?.message}
+            {...register("propertyLocation")}
+            error={!!errors?.propertyLocation}
+            helperText={errors?.propertyLocation?.message}
           />
         </Grid>
 

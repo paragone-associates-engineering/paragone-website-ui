@@ -4,7 +4,7 @@ import listingsReducer from "../slices/listings-slice";
 import blogReducer from '../slices/blog-slice';
 import jobReducer from '../slices/job-slice';
 import locationsReducer from "../slices/locations-slice";
-
+import adsReducer from "../slices/ads-slice"
 export const store = configureStore({
   reducer: {
     theme: themeReducer,
@@ -12,6 +12,7 @@ export const store = configureStore({
     locations: locationsReducer,
     blog: blogReducer,
     jobs: jobReducer,
+     ads: adsReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

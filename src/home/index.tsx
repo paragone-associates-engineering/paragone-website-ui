@@ -1,36 +1,38 @@
+"use client"
 
-import { Box, Container, Grid, Card, useTheme } from '@mui/material';
-import ServiceCard from '../common/service-card';
-import SectionTitle from '../common/section-title';
+import { Box, Container, Grid, Card, useTheme } from "@mui/material"
+import ServiceCard from "../common/service-card"
+import SectionTitle from "../common/section-title"
 
-import { HomeBanner } from '../common/banner/home-banner';
-import PromotionBanners from '../common/banner/promotions';
-import ExclusiveProperties from '../common/exclusive-properties';
-import OurPartners from '../common/partners';
-import Testimonials from '../common/testimonial';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { AppDispatch, RootState } from '../redux/store';
-import { fetchBlogPosts } from '../redux/slices/blog-slice';
-import { useEffect } from 'react';
-import { BlogCard } from '../common/blog-card';
-import OurServices from '../common/our-services';
-import SkeletonLoader from '../common/skeleton-loader';
+import { HomeBanner } from "../common/banner/home-banner"
+import PromotionBanners from "../common/banner/promotions"
+import ExclusiveProperties from "../common/exclusive-properties"
+import OurPartners from "../common/partners"
+import Testimonials from "../common/testimonial"
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import type { AppDispatch, RootState } from "../redux/store"
+import { fetchBlogPosts } from "../redux/slices/blog-slice"
+import { useEffect } from "react"
+import { BlogCard } from "../common/blog-card"
+import OurServices from "../common/our-services"
+import SkeletonLoader from "../common/skeleton-loader"
 
 const Home = () => {
-  const theme = useTheme();
-   const dispatch = useDispatch<AppDispatch>();
-    const { posts,  loading } = useSelector((state: RootState) => state.blog);
-   const page = 1;  
-    useEffect(() => {
-      dispatch(fetchBlogPosts(page));
-    }, [dispatch, page]);
+  const theme = useTheme()
+  const dispatch = useDispatch<AppDispatch>()
+  const { posts, loading } = useSelector((state: RootState) => state.blog)
+  const page = 1
+
+  useEffect(() => {
+    dispatch(fetchBlogPosts(page))
+  }, [dispatch, page])
 
   return (
-    <Box sx={{width:'100vw'}} > 
-    <HomeBanner />
-      
-      <Box component="section" sx={{display:'block', pt:6, pb:8 }}>
+    <Box sx={{ width: "100vw" }}>
+      <HomeBanner />
+
+      <Box component="section" sx={{ display: "block", pt: 6, pb: 8 }}>
         <Container maxWidth="md">
           <SectionTitle
             title="Our services are tailored to meet your real estate needs"
@@ -45,7 +47,6 @@ const Home = () => {
                 title="Real Estate Brokerage"
                 description="We offer expert real estate brokerage services, guiding you through buying, selling, and leasing properties with professional, personalized assistance to achieve your real estate goals."
                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274361/fi_3526159_pmvmt1.svg"
-                //icon={<Business sx={{ width: 56, height: 56, color: theme.palette.primary.main }} />}
                 actionText="Learn More"
                 actionLink="/real-estate-brokerage"
               />
@@ -53,10 +54,9 @@ const Home = () => {
             <Grid item xs={12} sm={6}>
               <ServiceCard
                 title="Property Management"
-                description="We care for your property as if it were our own. Our management services include fostering tenant relationships, ensuring financial oversight, and maximizing your property’s value and optimal returns."
+                description="We care for your property as if it were our own. Our management services include fostering tenant relationships, ensuring financial oversight, and maximizing your property's value and optimal returns."
                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741274243/fi_9202615_xqsik3.svg"
                 actionText="Learn More"
-                //actionVariant='outline'
                 actionLink="/property-management"
               />
             </Grid>
@@ -64,95 +64,85 @@ const Home = () => {
         </Container>
       </Box>
 
-     
-      <Box 
-        component="section" 
-        sx={{ 
-          backgroundColor: 'secondary.main', 
-         py: 5,
+      <Box
+        component="section"
+        sx={{
+          backgroundColor: "secondary.main",
+          py: 5,
           border: `1px solid ${theme.palette.background.paper}`,
         }}
       >
-        
-
-<ExclusiveProperties />
-        
+        <ExclusiveProperties />
       </Box>
 
-     
-      <Box component="section" sx={{ py: posts.length > 0 ? 5 : -10 }}>
+      <Box component="section" sx={{ py: posts.length > 0 ? 0 : -10 }}>
         <Container maxWidth="lg">
-            <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
+          {/* First promotional banner - TOP location */}
+          <PromotionBanners location="top" autoplayDelay={5000} />
         </Container>
       </Box>
 
       <OurServices />
-     
+
       {/* Blog Section */}
-       {posts?.length !== 0 && (
-      <Box 
-        component="section" 
-        sx={{ 
-          py: 8,
-          backgroundColor: 'background.paper',
-        }}
-      >
-        <Container maxWidth="lg">
-          <SectionTitle
-            title="Get updates from our latest real estate insights"
-            subtitle='News and blog'
-            centered={true}
-            marginBottom={5}
-          />
+      {posts?.length > 0 && (
+        <Box
+          component="section"
+          sx={{
+            pt: 0,
+            backgroundColor: "background.paper",
+          }}
+        >
+          <Container maxWidth="lg">
+            <SectionTitle
+              title="Get updates from our latest real estate insights"
+              subtitle="News and blog"
+              centered={true}
+              marginBottom={5}
+            />
 
-         
-{loading ? (
-          <SkeletonLoader count={3} />
-        ) : (
+            {loading ? (
+              <SkeletonLoader count={3} />
+            ) : (
+              <Grid container spacing={2}>
+                {posts.slice(0, 3).map((post) => (
+                  <Grid item xs={12} sm={6} md={4} key={post.id}>
+                    <Card
+                      elevation={0}
+                      sx={{
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRadius: 2,
+                        backgroundColor: "background.paper",
+                        transition: "transform 0.3s ease",
+                        "&:hover": {
+                          transform: "translateY(-5px)",
+                        },
+                      }}
+                      component={Link}
+                      to={`/blog/${post.id}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                    >
+                      <BlogCard post={post} />
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+            )}
+          </Container>
+        </Box>
+      )}
 
-            <Grid container spacing={4}>
-              {posts.slice(0,3).map((post) => (
-                <Grid item xs={12} sm={6} md={4} key={post.id}>
-                  <Card
-                    elevation={0}
-                    sx={{
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      borderRadius: 2,
-                      backgroundColor: "background.paper",
-                      transition: "transform 0.3s ease",
-                      "&:hover": {
-                        transform: "translateY(-5px)",
-                      },
-                    }}
-                    component={Link}
-                    to={`/blog/${post.id}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    <BlogCard post={post}/>
-                  </Card>
-                </Grid>
-              ))}
-            </Grid>
-        )}
+      <Container maxWidth="lg" sx={{mt:8}}>
+        {/* Second promotional banner - BOTTOM location */}
+        <PromotionBanners location="bottom" autoplayDelay={5000} />
+      </Container>
 
-         
-        </Container>
-      </Box>
-       )}
-<Container maxWidth="lg" >
-        <PromotionBanners imageSrc='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741265788/image_201_1_lurq5f.png' />
-        </Container>
-          <Testimonials />
-
+      <Testimonials />
       <OurPartners />
     </Box>
-  );
-};
+  )
+}
 
-export default Home;
-
-  {/* <Typography variant="h4" component="h2" gutterBottom>
-              Latest Posts
-            </Typography> */}
+export default Home

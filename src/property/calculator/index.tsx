@@ -14,6 +14,7 @@ import CustomButton from "../../common/button";
 import toast from "react-hot-toast";
 import { LocationAutocomplete } from "./components/location-autosearch";
 import { AnimatedWrapper } from "../../common/animations/animated-wrapper";
+import { Helmet } from "react-helmet-async";
 
 
 const formSchema = z.object({
@@ -114,6 +115,11 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
 
  // console.log('calculate', calculationResult)
   return (
+     <>
+             <Helmet>
+                             <title>Property Calculator | Paragone Signature & Associates</title>
+                          {/* <meta name="description" content='Paragone Signature is a property management, investment, and development company, offering end-to-end services along the real estate value chain, from management to joint-venture investments.' /> */}
+                           </Helmet>
     <Box sx={{ width: '100%' }}>
       <PageBanner 
         title="Property Calculator" 
@@ -130,14 +136,17 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
           </Typography>
         </Box>
         </Container>
-
-        <Grid container spacing={4} justifyContent="center" sx={{bgcolor:'secondary.main', pt:6, py:8, borderBottom:'1px solid #DDDDDD'}}>
-        <Container maxWidth='lg'>
-          <AnimatedWrapper>
+        <Box sx={{bgcolor:'secondary.main'}}>
+  <Container maxWidth='lg'>
+        <Grid container spacing={4} justifyContent="center" sx={{ pt:6, py:8, borderBottom:'1px solid #DDDDDD'}}>
+      
+         
           <Grid item xs={12} md={8}>
+             <AnimatedWrapper>
           <Typography variant="h5" sx={{mb:5, fontWeight:700}} gutterBottom>
                 Property Investment Calculator
                 </Typography>
+                </AnimatedWrapper>
             <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 
@@ -294,7 +303,7 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
             </Paper>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} sm={4}>
             {isCalculated && calculationResult?.length > 0 && (
               <Card elevation={0} sx={{ height: "100%", borderRadius: 2 }}>
                 <CardContent>
@@ -337,19 +346,28 @@ const [selectedPreferences, setSelectedPreferences] = useState<string[]>([]);
             )}
             
             {isCalculated && calculationResult?.length === 0 && (
+              <Box>
+                <Typography variant="h5" marginTop={3} marginBottom={3} gutterBottom>
+                    Calculator results
+                  </Typography>
+              
               <Paper elevation={0} sx={{ p: 3, borderRadius: 2 }}>
                 <Typography variant="body1" gutterBottom>
                   We could not calculate your expected property. Please request for a property for your desired choice.
                 </Typography>
                 <CustomButton href="/property-request" sx={{mt:3, }}>Show More</CustomButton>
               </Paper>
+              </Box>
             )}
           </Grid>
-          </AnimatedWrapper>
-          </Container>
+         
+        
         </Grid>
-    
+          </Container>
     </Box>
+    </Box>
+   
+    </>
   )
 }
 

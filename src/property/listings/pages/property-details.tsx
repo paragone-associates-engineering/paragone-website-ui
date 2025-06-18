@@ -1,8 +1,7 @@
-
-
 import { useEffect } from "react"
 import { Container, Box, Typography, Grid, Chip } from "@mui/material"
 import { useParams } from "react-router-dom"
+import { Helmet } from "react-helmet-async" 
 import { PageBanner } from "../../../common/banner/page-banner"
 import PropertyGallery from "../components/property-gallery"
 import PropertyDetails from "../components/property-details"
@@ -10,17 +9,18 @@ import NearbyPlaces from "../components/nearby-places"
 import PropertyVideo from "../components/property-video"
 import BookViewingForm from "../components/book-view-form"
 import ContactAgentForm from "../components/contact-agent-form"
-//import FeaturedProperties from "../components/featured-properties"
 import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks"
 import { fetchListingById, fetchFeaturedProperties, fetchRelatedProperties } from "../../../redux/slices/listings-slice"
 import { formatCurrency } from "../utils"
 import RelatedProperties from "../components/related-properties"
 import FeaturedList from "../components/featured-listings"
+import Loader from "../../../common/loader"
 
 const PropertyDetailsPage = () => {
   const { propertyId } = useParams<{ propertyId: string }>()
   const dispatch = useAppDispatch()
-
+ const postUrl = `https://www.paragonesignature.com/listings/${propertyId}`
+  const metaDescription = "Explore this property listing on Paragone Signature. Find detailed information, images, and more about this property."
   const listings = useAppSelector((state) => state.listings)
   const {
     selectedProperty: property,
@@ -38,6 +38,7 @@ const PropertyDetailsPage = () => {
     relatedLoading: false,
   }
 
+ // console.log
   const getDetailValue = (name: string | number) =>
     property?.propertyDetails?.find((detail) => detail.name === name)?.value
 
@@ -48,18 +49,16 @@ const PropertyDetailsPage = () => {
   }, [dispatch, propertyId])
 
   useEffect(() => {
-    // Fetch featured properties
     dispatch(fetchFeaturedProperties())
   }, [dispatch])
 
   useEffect(() => {
     if (property) {
-     
       dispatch(
         fetchRelatedProperties({
           propertyType: property.propertyType,
           locationRegion: property.location?.region,
-          excludeId: property._id,
+          excludeId: property.id,
         }),
       )
     }
@@ -67,24 +66,56 @@ const PropertyDetailsPage = () => {
 
   const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
 
+  
   if (loading) {
     return (
       <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
-        <Typography>Loading property details...</Typography>
+       <Loader/>
       </Container>
     )
   }
 
-  if (!property) {
+  if (!property?.propertyName) {
     return (
-      <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
-        <Typography>Property not found</Typography>
-      </Container>
+      <>
+        <Container maxWidth="lg" sx={{ py: 6, textAlign: "center" }}>
+          <Typography>Property not found</Typography>
+        </Container>
+      </>
     )
   }
 
   return (
     <Box sx={{ width: "100vw" }}>
+      {property && (
+      <Helmet>
+                <title>{property.propertyName} - {property.location?.region} | Paragone Signature & Associates</title>
+                <meta name="description" content={property.description?.substring(0, 160) + (property.description?.length > 160 ? '...' : '')} />
+                
+                {/* Open Graph / Facebook */}
+                <meta property="og:type" content="article" />
+                <meta property="og:url" content={postUrl} />
+                <meta property="og:title" content={property.propertyName} />
+                <meta property="og:description" content={metaDescription} />
+                <meta property="og:image" content={property.images?.[0]} />
+                <meta property="og:site_name" content="Paragone Signature & Associates" />
+                
+                {/* Twitter */}
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:url" content={postUrl} />
+                <meta property="twitter:title" content={property.propertyName} />
+                <meta property="twitter:description" content={metaDescription} />
+                <meta property="twitter:image" content={property.images?.[0]} />
+                
+                {/* LinkedIn */}
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
+                
+                {/* Additional meta tags */}
+                <meta name="author" content="Paragone Signature & Associates" />
+               
+              </Helmet>
+      )}
       <PageBanner
         title="Property Information"
         breadcrumbs={[
@@ -161,8 +192,6 @@ const PropertyDetailsPage = () => {
                 <PropertyVideo videoUrl={videoUrl} thumbnailUrl={property.images[0]} />
               </Box>
             )}
-
-          
           </Grid>
 
           <Grid item xs={12} md={4}>
@@ -171,29 +200,24 @@ const PropertyDetailsPage = () => {
               <Box sx={{ mt: 4 }}>
                 <ContactAgentForm propertyId={propertyId || ""} />
               </Box>
-              
             </Box>
           </Grid>
         </Grid>
-{relatedProperties?.length > 0 && (
-           <RelatedProperties
-          properties={relatedProperties}
-          loading={relatedLoading}
-          propertyType={property?.propertyType}
-        />
-)}
+ </Container>
+        {relatedProperties?.length > 0 && (
+          <RelatedProperties
+            properties={relatedProperties}
+            loading={relatedLoading}
+            propertyType={property?.propertyType}
+          />
+        )}
 
-{featuredProperties?.length > 0 && (
-<Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
-                <FeaturedList properties={featuredProperties} loading={featuredLoading} />
-              </Box>
-              )}
-        {/* <RelatedProperties
-          properties={relatedProperties}
-          loading={relatedLoading}
-          propertyType={property?.propertyType}
-        /> */}
-      </Container>
+        {featuredProperties?.length > 0 && (
+          <Box sx={{ mt: 4, bgcolor: "", p: 2, borderRadius: 2 }}>
+            <FeaturedList properties={featuredProperties} loading={featuredLoading} />
+          </Box>
+        )}
+     
     </Box>
   )
 }

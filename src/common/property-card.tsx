@@ -62,7 +62,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
         }
       }}
     >
-      <AnimatedWrapper animation='fadeIn' duration={1} delay={0.5}>
+      <AnimatedWrapper animation='fadeIn'>
       <Box  sx={{ position: 'relative' }}>
         <CardMedia
           component="img"
@@ -179,7 +179,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
       }
     }}>
         <Box sx={{mb:20}}>
-        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', mb: 1, "&:hover":{color:'primary'} }}>
+        <Typography variant="h6" component="div" sx={{textTransform:'capitalize', fontWeight: 'bold', mb: 1, "&:hover":{color:'primary'} }}>
           {property?.propertyName}
         </Typography>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>

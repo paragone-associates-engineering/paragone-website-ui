@@ -6,15 +6,11 @@ import {
   Grid2,
   Button,
   Stack,
-  Pagination,
-  PaginationItem,
 } from "@mui/material";
-//import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
 import TerrainIcon from "@mui/icons-material/Terrain";
-import { Link as RouterLink } from "react-router-dom"
 import { FilterOption } from "../../../types/properties";
 import PropertyCard from "../../../common/property-card";
 import SkeletonLoader from "../../../common/skeleton-loader";
@@ -22,6 +18,7 @@ import { useAppDispatch, useAppSelector } from "../../../redux/store/hooks";
 import { fetchListings } from "../../../redux/slices/listings-slice";
  import CustomButton from "../../../common/button";
  import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import { Helmet } from "react-helmet-async";
 
 const filterOptions: FilterOption[] = [
   { value: "all", label: "All properties", icon: <HouseIcon /> },
@@ -36,7 +33,7 @@ const DiscoverExclusiveProperties = () => {
   const dispatch = useAppDispatch()
   const listings = useAppSelector((state) => state.listings)
   
-    const { properties,totalCount, loading, pageSize, currentPage} = listings || {
+    const { properties, loading, pageSize, currentPage} = listings || {
       properties: [],
       totalCount: 0,
       loading: true,
@@ -46,7 +43,6 @@ const DiscoverExclusiveProperties = () => {
     }
   
     const [activeFilter, setActiveFilter] = useState<string>('all');
-    const totalPages = Math.ceil(totalCount / 6)
     const handleFilterChange = (value: string) => {
       
       if (value !== null) {
@@ -67,9 +63,17 @@ const DiscoverExclusiveProperties = () => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
     }, [dispatch, currentPage, pageSize]);
 
-  return (
    
-      <Box sx={{bgcolor:'secondary.main', py:5}}>
+    
+  return (
+   <>
+    <Helmet>
+           <title>Listings | Paragone Signature & Associates</title>
+        <meta name="description" content='This includes all listings available in Paragone Signature and Associates' />
+         </Helmet>
+   
+      <Box sx={{bgcolor:'secondary.main', py:5, borderBottom: '1px solid #e0e0e0'}}>
+       
          <Container maxWidth="lg">
          <Box textAlign="center" mb={2}>
         <Typography variant='subtitle1' color="primary">
@@ -167,8 +171,10 @@ const DiscoverExclusiveProperties = () => {
         </Box>
       )}
     </Grid2>
-
-     {totalPages > 1 && currentPage > 1 && (
+ <Box display="flex" justifyContent="center" mt={4}>
+        <CustomButton href='/listings/filter' sx={{px:5, py:1.5}}>Browse more Properties</CustomButton>
+      </Box>
+     {/* {totalPages > 1 && currentPage > 1 && (
             <Box sx={{ display: "flex", justifyContent: "center", mt: 6 }}>
               <Pagination
                 count={totalPages}
@@ -183,9 +189,11 @@ const DiscoverExclusiveProperties = () => {
                 )}
               />
             </Box>
-          )}
+          )} */}
     </Container>
+   
     </Box>
+    </>
   );
 };
 

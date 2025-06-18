@@ -14,16 +14,23 @@ import { PageBanner } from '../common/banner/page-banner';
 import CustomButton from "../common/button";
 import { ContactFormModal } from "./components/individual-modal";
 import { AnimatedWrapper } from "../common/animations/animated-wrapper";
+import { Helmet } from "react-helmet-async";
 
 const PartnerWithUs = () => {
 
   return (
+    <>
+     <Helmet>
+                     <title>Partner With Us | Paragone Signature & Associates</title>
+                  <meta name="description" content='Selling your property should be an opportunity to maximize your investment, not a stressful ordeal. Our marketing strategies are crafted to present your property in its best light, attracting qualified Buyers promptly.' />
+                   </Helmet>
+   
     <Box sx={{width:'100vw'}}>
   <PageBanner title='Become A Partner' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Partner With Us" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
-            <AnimatedWrapper animation='slideLeft' delay={0.2}>
+            <AnimatedWrapper animation='slideLeft'>
             <Box
               component="img"
               src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741879065/breno-assis-r3WAWU5Fi5Q-unsplash_1_ewikcd.png"
@@ -46,7 +53,7 @@ const PartnerWithUs = () => {
             Selling your property should be an opportunity to maximize your investment, not a stressful ordeal. Our marketing strategies are crafted to present your property in its best light, attracting qualified Buyers promptly.
             </Typography>
             <Typography variant="body1"  marginBottom={2}  color='text.secondary'>
-            With <span style={{ fontWeight:600}}> Paragone Signature & Associates Ltd,</span> benefit from our extensive network and market expertise, ensuring you achieve the best price for your property with minimal effort.
+            With <span style={{ fontWeight:600}}> Paragone Signature & Associates,</span> benefit from our extensive network and market expertise, ensuring you achieve the best price for your property with minimal effort.
             </Typography>
             <Typography variant="body1" color='text.secondary'>
             We conduct thorough market analyses to competitively price your property while optimizing its market value. Our staging services enhance your property's appeal, making it stand out to prospective buyers. We also manage negotiations and legal formalities, guaranteeing a seamless and successful transaction.
@@ -214,6 +221,7 @@ const PartnerWithUs = () => {
         </Box>
        <Testimonials />
     </Box>
+     </>
   )
 }
 

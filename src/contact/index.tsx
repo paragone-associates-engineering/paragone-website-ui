@@ -22,6 +22,7 @@ import toast from "react-hot-toast"
 import { API_BASE_URL } from "../services/api"
 import CustomButton from "../common/button"
 import { contactFormSchema, ContactFormSchema } from "../schema/contact";
+import { Helmet } from "react-helmet-async";
 
 const Contact = () => {
   const {
@@ -54,6 +55,14 @@ const Contact = () => {
   };
 
   return (
+     <>
+              <Helmet>
+                <title>Contact Us | Paragone Signature & Associates</title>
+                <meta
+                  name="description"
+                  content="At Paragone Signature & Associates, we are on a mission to transform the real estate industry through innovation, exceptional service, and the collective talents of our team members, each contributing their unique strengths to our collective success."
+                />
+              </Helmet>
     <Box sx={{width:'100vw'}}>
      <PageBanner title='Contact Us' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
       <Container maxWidth="lg" sx={{ py: 6 }}>
@@ -264,6 +273,7 @@ const Contact = () => {
 </Box>
       </Container>
     </Box>
+    </>
   )
 }
 

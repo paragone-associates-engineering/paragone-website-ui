@@ -63,7 +63,7 @@ const FeaturedList: React.FC<FeaturedPropertiesProps> = ({
       </Typography>
      
 
-      <Grid container spacing={1}>
+      <Grid container spacing={1} sx={{maxWidth:'1200px'}}>
         {properties.slice(0, 3).map((property) => {
 //           const type = property?.listingType ?? "default";
 // const { label,  muiColor } = chipStyles[type] ?? {
