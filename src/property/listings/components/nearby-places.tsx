@@ -17,17 +17,23 @@ const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
   const getIcon = (category: string) => {
     switch (category) {
       case "education":
-        return <SchoolIcon  />
-      case "health":
-        return <LocalHospitalIcon  />
-      case "shopping":
-        return <ShoppingCartIcon  />
-      case "transport":
-        return <DirectionsBusIcon  />
-      case "culture":
-        return <TheaterComedyIcon  />
-      default:
         return <SchoolIcon />
+      case "health":
+        return <LocalHospitalIcon />
+      case "shopping":
+        return <ShoppingCartIcon />
+      case "transport":
+        return <DirectionsBusIcon />
+      case "culture":
+        return <TheaterComedyIcon />
+      default:
+        return (
+          <img 
+            src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1750252532/Icon_tyfmqa.svg" 
+            alt="Default icon"
+            style={{ width: 24, height: 24 }}
+          />
+        )
     }
   }
 
@@ -48,7 +54,7 @@ const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
     }
   }
 
-  // Group places by category
+  
   const placesByCategory: Record<string, Landmark[]> = {}
   places.forEach((place) => {
     if (!placesByCategory[place.category]) {
@@ -96,4 +102,3 @@ const NearbyPlaces: React.FC<NearbyPlacesProps> = ({ places }) => {
 }
 
 export default NearbyPlaces
-

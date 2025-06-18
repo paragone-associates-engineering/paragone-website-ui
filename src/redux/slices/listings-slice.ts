@@ -70,13 +70,13 @@ const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
     apiFilters.location = typeof filters.location === "string" ? filters.location : filters.location.city
   }
 
-  // Property details array
+  // Property details array - bedrooms and bathrooms as numbers
   const propertyDetails = []
   if (filters.bedrooms) {
-    propertyDetails.push({ name: "bedrooms", value: filters.bedrooms.toString() })
+    propertyDetails.push({ name: "bedrooms", value: filters.bedrooms })
   }
   if (filters.bathrooms) {
-    propertyDetails.push({ name: "bathrooms", value: filters.bathrooms.toString() })
+    propertyDetails.push({ name: "bathrooms", value: filters.bathrooms })
   }
   if (propertyDetails.length > 0) {
     apiFilters.propertyDetails = propertyDetails
@@ -91,6 +91,7 @@ export const fetchListings = createAsyncThunk(
     try {
       const apiFilters = transformFiltersToApiFormat(params)
       console.log("params", params)
+      console.log("apiFilters", apiFilters)  // Debug log
 
       const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
         params: {
@@ -144,27 +145,27 @@ export const fetchRelatedProperties = createAsyncThunk(
     try {
       let apiFilters = {}
 
-      // First try to filter by propertyType, then fall back to location.region
+     
       if (propertyType) {
         apiFilters = { propertyType }
       } else if (locationRegion) {
         apiFilters = { "location.region": locationRegion }
       } else {
-        // If neither is available, return empty array
+        
         return []
       }
 
       const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
         params: {
           page: 1,
-          pageSize: 6, // Get more to account for filtering out current property
+          pageSize: 6, 
         },
       })
 
       const data = response.data
       let properties = data.results || []
 
-      // Exclude the current property if excludeId is provided
+      
       if (excludeId) {
         properties = properties.filter((property: ApiProperty) => property._id !== excludeId)
       }
@@ -214,7 +215,7 @@ const listingsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // All listings
+    
     builder.addCase(fetchListings.pending, (state) => {
       state.loading = true
       state.error = null

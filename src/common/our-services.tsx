@@ -49,7 +49,7 @@ const OurServices = () => {
                     />
                     
                     <Box sx={{ display: 'flex', flexDirection: "column", alignItems: 'center', justifyContent: "center", gap: 1 }}>
-                        {/* Swiper for testimonials */}
+                        
                         <Box sx={{ width: '100%', maxWidth: 600, mb: 2 }}>
                             {!isLoading && reviews?.length > 0 ? (
                                 <Swiper
@@ -106,7 +106,7 @@ const OurServices = () => {
                             )}
                         </Box>
                         
-                        {/* Rating stars and count */}
+                        
                         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: "center", gap: 0.1 }} marginBottom={4}>
                             <Star sx={{ fontSize: 18, color: 'primary.main' }} />
                             <Star sx={{ fontSize: 18, color: 'primary.main' }} />
@@ -129,7 +129,7 @@ const OurServices = () => {
                                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276451/fi_7374059_k6kuhg.svg"
                                 actionText="Learn More"
                                 actionLink="/listings"
-                                actionVariant="outline"
+                                //actionVariant="outline"
                             />
                         </Grid>
                         <Grid item xs={12} md={4}>
@@ -148,7 +148,7 @@ const OurServices = () => {
                                 imageSrc="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741276444/fi_6684167_knrmez.svg"
                                 actionText="Learn More"
                                 actionLink="/property-management"
-                                actionVariant="outline"
+                                //actionVariant="outline"
                             />
                         </Grid>
                     </Grid>

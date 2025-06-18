@@ -16,20 +16,21 @@ const RegionsGrid = ({
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchRegions = async () => {
-      try {
-        const response = await axios.get(`${API_BASE_URL}/listings/get-available-locations`);
-        setRegions(response.data);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      } catch (err) {
-        setError("Failed to load regions");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchRegions = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/listings/get-available-locations`);
+     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+      const uniqueRegions = [...new Set(response.data.map((region: any) => region?.city))] as string[];
+      setRegions(uniqueRegions);
+    } catch{
+      setError("Failed to load regions");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchRegions();
-  }, []);
+  fetchRegions();
+}, []);
 
   if (loading) {
     return (
@@ -61,9 +62,9 @@ const RegionsGrid = ({
       </Typography>
       </Box>
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        {regions.map((region:any) => (
-          <Grid item xs={6} sm={6} md={2} key={region?.city}>
-            <RegionCard region={region?.city} />
+        {regions.map((city: string) => (
+          <Grid item xs={6} sm={6} md={2} key={city}>
+            <RegionCard region={city} />
           </Grid>
         ))}
       </Grid>

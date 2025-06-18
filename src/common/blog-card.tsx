@@ -15,7 +15,6 @@ export const BlogCard = ({ post }: BlogCardProps) => {
     <Box sx={{ position: "relative" }}>
       <img src={post.images[0]} alt={post.title} style={{ width: "100%", borderRadius: "10px",height:240, objectFit:'cover' }} />
       
-      {/* Date Card */}
       <Paper
         elevation={3}
         sx={{
@@ -36,8 +35,7 @@ export const BlogCard = ({ post }: BlogCardProps) => {
         <Typography variant="h5" color="primary" fontWeight="bold">{formattedDay}</Typography>
       </Paper>
 
-      {/* Blog Details */}
-      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium" }}>
+      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium", textTransform:"capitalize" }}>
         {post.header}
       </Typography>
       <Typography variant="h5" color="text.main" fontSize='20px' fontWeight={700}>{post.title}</Typography>
