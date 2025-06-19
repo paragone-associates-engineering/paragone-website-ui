@@ -35,7 +35,6 @@ export const HomeBanner = () => {
   const [tabValue, setTabValue] = useState(0);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Carousel images
   const carouselImages = [
     'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741267158/sean-pollock-PhYq704ffdA-unsplash_zew9au.jpg',
     'https://res.cloudinary.com/dv0mdoa6b/image/upload/v1744346003/2149661456_rkz7pp.jpg',

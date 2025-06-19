@@ -43,7 +43,6 @@ export default function TabContent({ tabIndex }: TabContentProps) {
     );
     navigate(`/listings/filter?${queryParams.toString()}`);
   };
-console.log('tabbb', tabIndex)
   return (
     <Box sx={{ p: { xs: 2, md: 3 } }}>
       {tabIndex === 3 ? (
