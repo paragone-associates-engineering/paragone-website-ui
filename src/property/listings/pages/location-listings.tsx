@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useCallback } from "react"
 import { Container, Box, Typography, Stack, Button, Drawer, Grid, useMediaQuery } from "@mui/material"
 import {  useLocation, useNavigate } from "react-router-dom"
@@ -57,14 +56,17 @@ const decodedLocationId = searchParams.get('location') || ''
       setActiveFilter(getFilterKeyFromListingType(listingType))
     }
 
+    if (searchParams.has("propertyCategory")) {
+      const propertyCategory = searchParams.get("propertyCategory") as string
+      urlFilters.propertyCategory = propertyCategory
+      setActiveFilter(getFilterKeyFromPropertyCategory(propertyCategory))
+    }
+
     if (searchParams.has("location")) {
       urlFilters.location = searchParams.get("location") as string
     }
     if (searchParams.has("propertyName")) {
       urlFilters.propertyName = searchParams.get("propertyName") as string
-    }
-    if (searchParams.has("propertyCategory")) {
-      urlFilters.propertyCategory = searchParams.get("propertyCategory") as string
     }
     if (searchParams.has("propertyType")) {
       urlFilters.propertyType = searchParams.get("propertyType") as string
@@ -154,15 +156,20 @@ const decodedLocationId = searchParams.get('location') || ''
   }
 
   const filterOptions = [
-    { value: "all", label: "All properties", icon: <HouseIcon />, listingType: undefined },
-    { value: "sale", label: "For Sale", icon: <HomeWorkIcon />, listingType: "For Sale" },
-    { value: "rent", label: "For Rent", icon: <ApartmentIcon />, listingType: "For Rent" },
-    { value: "shortStay", label: "Short Stay", icon: <HomeWorkIcon />, listingType: "Short Stay" },
-    { value: "land", label: "Land", icon: <TerrainIcon />, listingType: "Land" },
+    { value: "all", label: "All properties", icon: <HouseIcon />, listingType: undefined, propertyCategory: undefined },
+    { value: "sale", label: "For Sale", icon: <HomeWorkIcon />, listingType: "For Sale", propertyCategory: undefined },
+    { value: "rent", label: "For Rent", icon: <ApartmentIcon />, listingType: "For Rent", propertyCategory: undefined },
+    { value: "shortStay", label: "Short Stay", icon: <HomeWorkIcon />, listingType: "Short Stay", propertyCategory: undefined },
+    { value: "land", label: "Land", icon: <TerrainIcon />, listingType: undefined, propertyCategory: "Land" },
   ]
 
   const getFilterKeyFromListingType = (listingType: string): string => {
     const option = filterOptions.find((opt) => opt.listingType === listingType)
+    return option?.value || "all"
+  }
+
+  const getFilterKeyFromPropertyCategory = (propertyCategory: string): string => {
+    const option = filterOptions.find((opt) => opt.propertyCategory === propertyCategory)
     return option?.value || "all"
   }
 
@@ -171,11 +178,19 @@ const decodedLocationId = searchParams.get('location') || ''
     const selectedOption = filterOptions.find((opt) => opt.value === value)
 
     const newFilters = { ...filters, location: decodedLocationId }
+    
     if (selectedOption?.listingType) {
       newFilters.listingType = selectedOption.listingType
-    } else {
-      
+      // Clear property category when selecting listing type
+      delete newFilters.propertyCategory
+    } else if (selectedOption?.propertyCategory) {
+      newFilters.propertyCategory = selectedOption.propertyCategory
+      // Clear listing type when selecting property category
       delete newFilters.listingType
+    } else {
+      // Clear both when selecting "all"
+      delete newFilters.listingType
+      delete newFilters.propertyCategory
     }
 
     dispatch(setFilters(newFilters))

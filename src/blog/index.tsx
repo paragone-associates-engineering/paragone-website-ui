@@ -17,6 +17,7 @@ import { PageBanner } from "../common/banner/page-banner";
 import Testimonials from "../common/testimonial";
 import { BlogCard } from "../common/blog-card";
 import Empty from "../common/empty";
+import { format } from "date-fns"
 import { AnimatedWrapper } from "../common/animations/animated-wrapper";
 import Loader from "../common/loader";
 import { Helmet } from "react-helmet-async";
@@ -70,6 +71,11 @@ const Blog = () => {
     dispatch(fetchBlogPosts(page));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page]);
+ const heroBlog = posts?.length > 0 ? posts[0] : undefined;
+ const formatDate =
+   heroBlog && "datePosted" in heroBlog && heroBlog.datePosted
+     ? format(new Date(heroBlog.datePosted), "yyyy MMMM dd")
+     : "";
 
   return (
      <>
@@ -79,18 +85,22 @@ const Blog = () => {
                        </Helmet>
     <Box sx={{ width: "100vw" }}>
       <PageBanner title="Blog, News & Insights" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog, News & Insights" }]} />
+ {posts?.length > 0 && (
  <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Grid container spacing={6} alignItems="center">
+      
+         <Grid container spacing={6} alignItems="center">
           <Grid item xs={12} md={6}>
             <AnimatedWrapper animation='slideLeft'>
             <Box
               component="img"
-              src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897467/luca-bravo-ujhKqutt3f0-unsplash_2_je4yff.png"
+              src={heroBlog && typeof heroBlog !== "boolean" && heroBlog.images?.[0] || "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897467/luca-bravo-ujhKqutt3f0-unsplash_2_je4yff.png"}
               alt="Modern workspace desk with laptop and mouse"
               sx={{
                 width: "100%",
                 height: "auto",
                 borderRadius: 2,
+                maxHeight:300,
+                objectFit:'cover',
                 boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
               }}
             />
@@ -98,23 +108,53 @@ const Blog = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <AnimatedWrapper>
-            <Typography variant="h3" component="h1" fontWeight={700} gutterBottom>
-              We are always looking for talented professionals to join our team. Please get in touch with us.
-            </Typography>
-            <Typography variant="body1" fontWeight={700} paragraph>
-             Paragone Signature is a property management, investment, and development company, offering end-to-end services along the real estate value chain, from management to joint-venture investments.
-            </Typography>
-            <Typography variant="body1" paragraph>
-              We believe in fostering an environment where excellence is paramount, and every employee is encouraged to
-              reach their highest potential. Our passion for real estate drives us to continuously raise the bar. Join
-              us and become part of a team that values your unique contributions, supports your professional
-              development, and creates a conducive way for the real estate industry.
-            </Typography>
-            <Typography variant="body1">Discover the Paragone difference and elevate your career with us.</Typography>
+              <Typography variant="subtitle1" fontWeight={400} fontSize={12} gutterBottom>
+                {formatDate}
+              </Typography>
+              {heroBlog && typeof heroBlog !== "boolean" && (
+                <>
+                  <Box
+                    dangerouslySetInnerHTML={{
+                      __html:
+                        heroBlog.content.length > 300
+                          ? heroBlog.content.slice(0, 300) + "..."
+                          : heroBlog.content,
+                    }}
+
+                    sx={{
+                      "& p": {
+                        mb: 2,
+                        lineHeight: 1.7,
+                        textAlign: "justify",
+                      },
+                     
+                      }}
+                  />
+                  {heroBlog.content.length > 300 && (
+                    <Box mt={2}>
+                      <Typography
+                        component={RouterLink}
+                        to={`/blog/${heroBlog.id}`}
+                        sx={{
+                          color: "primary.main",
+                          textDecoration: "none",
+                          fontWeight: 600,
+                          "&:hover": { textDecoration: "underline" },
+                          cursor: "pointer",
+                        }}
+                      >
+                        Read more
+                      </Typography>
+                    </Box>
+                  )}
+                </>
+              )}
             </AnimatedWrapper>
           </Grid>
         </Grid>
+    
         </Container>
+          )}
       <Container maxWidth="lg" sx={{ pb: 6 }}>
         {loading ? (
           <Loader/>

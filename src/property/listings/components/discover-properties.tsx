@@ -55,7 +55,7 @@ const DiscoverExclusiveProperties = () => {
     if (activeFilter === "For Sale" && property.listingType === "For Sale") return true;
     if (activeFilter === "For Rent" && property.listingType === "For Rent") return true;
      if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
-     if (activeFilter === "Land" && property.listingType === "Land") return true;
+     if (activeFilter === "Land" && property.propertyCategory === "Land") return true;
     return false;
   });
  //console.log(filteredProperties)

@@ -3,7 +3,6 @@ import {
   Typography,
   Box,
   Grid,
-  Button,
   Paper,
   IconButton,
 } from "@mui/material";
@@ -23,8 +22,8 @@ const RealEstateBrokerage = () => {
         ]}
       />
 
-      <Container maxWidth="lg" sx={{ pb: 5, pt: { xs: 0, sm: 6 } }}>
-        <Grid container spacing={6} alignItems="center">
+      <Container maxWidth="lg" sx={{ pb: 5, pt: { xs: 3, sm: 6 } }}>
+        <Grid container spacing={{ xs: 3, sm: 6 }} alignItems="center">
           <Grid item xs={12} md={6}>
             <Box
               component="img"
@@ -245,12 +244,13 @@ const RealEstateBrokerage = () => {
               <PlayCircleIcon fontSize="large" />
             </IconButton>
             <Box sx={{ mt: 2 }}>
-              <Button
-                variant="outlined"
-                sx={{ color: "white", borderColor: "white" }}
+              <CustomButton
+                
+                href='/contact-us'
+                sx={{ color: "white", border: "1px solid white", bgcolor:'transparent', "&:hover":{color:'white', bgcolor:'primary.main'} }}
               >
                 Contact us
-              </Button>
+              </CustomButton>
             </Box>
           </Box>
         </Box>

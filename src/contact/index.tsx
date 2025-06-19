@@ -65,10 +65,10 @@ const Contact = () => {
               </Helmet>
     <Box sx={{width:'100vw'}}>
      <PageBanner title='Contact Us' breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact Us" }]} />
-      <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Grid container spacing={6}>
+      <Container maxWidth="lg" sx={{ py:{xs:3,sm: 6} }}>
+        <Grid container spacing={{xs:3,sm: 6}}>
           <Grid item xs={12} md={6}>
-            <Paper elevation={0} sx={{ p: 4, height: "100%", backgroundColor: "background.paper", borderRadius: 2 }}>
+            <Paper elevation={0} sx={{ p: {xs:1.3,sm: 4}, height: "100%", backgroundColor: "background.paper", borderRadius: 2 }}>
               <List sx={{display:'flex', flexDirection:'column', gap:3, "& .MuiListItem-root": { px: 0 } }}>
               <ListItem sx={{display:'flex', alignItems:'flex-start', gap:2, border:'1px solid #ddd', borderRadius:'10px', px:3, py:2}}>
               <img src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742485281/Group_72_qagsym.svg' width='45px' height='45px' alt='email icon' style={{marginLeft:10, marginTop:4}} />
@@ -93,9 +93,7 @@ const Contact = () => {
                     primary="Email:"
                     secondary={
                       <>
-                        {/* <Typography variant="body1" component="div">
-                          support@paragonesignature.com
-                        </Typography> */}
+                        
                         <Typography variant="body1" component="div">
                           info@paragonesignature.com
                         </Typography>
@@ -140,7 +138,7 @@ const Contact = () => {
                 Leave Us a Message
               </Typography>
 
-              <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+              <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: {sm:3} }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                      <Typography variant='h6' sx={{mb:1}}>First Name</Typography>
