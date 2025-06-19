@@ -59,7 +59,7 @@ const PromotionBanners = ({ location, autoplayDelay = 5000, variant = "standard"
   const slidesPerView = getSlidesPerView()
 
   useEffect(() => {
-    dispatch(fetchAds())
+      dispatch(fetchAds())
   }, [dispatch])
 
   // Divide ads between top and bottom locations
