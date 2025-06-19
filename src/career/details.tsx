@@ -104,13 +104,24 @@ const JobDetail = () => {
 </TableRow>
                 <TableRow>
                   <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
-                    Education and Experience
+                     Experience
                   </TableCell>
                   <TableCell>
                   <Typography variant="h6"  sx={{font:'bold'}} component="h2" gutterBottom>
-                  Education and Experience
+                   Experience
           </Typography>
            <div dangerouslySetInnerHTML={{ __html: jobDetails?.experience || "" }}></div>
+                    
+                    </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell component="th" scope="row" sx={{ fontWeight: "bold", color: "primary.main" }}>
+                    Education 
+                  </TableCell>
+                  <TableCell>
+                  <Typography variant="h6"  sx={{font:'bold'}} component="h2" gutterBottom>
+                  Education
+          </Typography>
                     {jobDetails?.education}
                     </TableCell>
                 </TableRow>

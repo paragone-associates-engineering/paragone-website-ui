@@ -87,73 +87,69 @@ const Blog = () => {
       <PageBanner title="Blog, News & Insights" breadcrumbs={[{ label: "Home", href: "/" }, { label: "Blog, News & Insights" }]} />
  {posts?.length > 0 && (
  <Container maxWidth="lg" sx={{ py: 6 }}>
-      
-         <Grid container spacing={6} alignItems="center">
-          <Grid item xs={12} md={6}>
-            <AnimatedWrapper animation='slideLeft'>
+  <Grid container spacing={6} alignItems="flex-start">
+    <Grid item xs={12} md={6}>
+      <AnimatedWrapper animation='slideLeft'>
+        <Box
+          component="img"
+          src={heroBlog && typeof heroBlog !== "boolean" && heroBlog.images?.[0] || "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897467/luca-bravo-ujhKqutt3f0-unsplash_2_je4yff.png"}
+          alt="Modern workspace desk with laptop and mouse"
+          sx={{
+            width: "100%",
+            height: "auto",
+            borderRadius: 2,
+            maxHeight: 300,
+            objectFit: 'cover',
+            boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+          }}
+        />
+      </AnimatedWrapper>
+    </Grid>
+    <Grid item xs={12} md={6}>
+      <AnimatedWrapper>
+        <Typography variant="subtitle1" fontWeight={400} fontSize={12} gutterBottom>
+          {formatDate}
+        </Typography>
+        {heroBlog && typeof heroBlog !== "boolean" && (
+          <>
             <Box
-              component="img"
-              src={heroBlog && typeof heroBlog !== "boolean" && heroBlog.images?.[0] || "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741897467/luca-bravo-ujhKqutt3f0-unsplash_2_je4yff.png"}
-              alt="Modern workspace desk with laptop and mouse"
+              dangerouslySetInnerHTML={{
+                __html:
+                  heroBlog.content.length > 350
+                    ? heroBlog.content.slice(0, 350) + "..."
+                    : heroBlog.content,
+              }}
               sx={{
-                width: "100%",
-                height: "auto",
-                borderRadius: 2,
-                maxHeight:300,
-                objectFit:'cover',
-                boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+                "& p": {
+                  my: 1.5,
+                  lineHeight: 1.7,
+                  textAlign: "justify",
+                },
               }}
             />
-            </AnimatedWrapper>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <AnimatedWrapper>
-              <Typography variant="subtitle1" fontWeight={400} fontSize={12} gutterBottom>
-                {formatDate}
-              </Typography>
-              {heroBlog && typeof heroBlog !== "boolean" && (
-                <>
-                  <Box
-                    dangerouslySetInnerHTML={{
-                      __html:
-                        heroBlog.content.length > 300
-                          ? heroBlog.content.slice(0, 300) + "..."
-                          : heroBlog.content,
-                    }}
-
-                    sx={{
-                      "& p": {
-                        mb: 2,
-                        lineHeight: 1.7,
-                        textAlign: "justify",
-                      },
-                     
-                      }}
-                  />
-                  {heroBlog.content.length > 300 && (
-                    <Box mt={2}>
-                      <Typography
-                        component={RouterLink}
-                        to={`/blog/${heroBlog.id}`}
-                        sx={{
-                          color: "primary.main",
-                          textDecoration: "none",
-                          fontWeight: 600,
-                          "&:hover": { textDecoration: "underline" },
-                          cursor: "pointer",
-                        }}
-                      >
-                        Read more
-                      </Typography>
-                    </Box>
-                  )}
-                </>
-              )}
-            </AnimatedWrapper>
-          </Grid>
-        </Grid>
-    
-        </Container>
+            {heroBlog.content.length > 350 && (
+              <Box mt={2}>
+                <Typography
+                  component={RouterLink}
+                  to={`/blog/${heroBlog.id}`}
+                  sx={{
+                    color: "primary.main",
+                    textDecoration: "none",
+                    fontWeight: 600,
+                    "&:hover": { textDecoration: "underline" },
+                    cursor: "pointer",
+                  }}
+                >
+                  Read more
+                </Typography>
+              </Box>
+            )}
+          </>
+        )}
+      </AnimatedWrapper>
+    </Grid>
+  </Grid>
+</Container>
           )}
       <Container maxWidth="lg" sx={{ pb: 6 }}>
         {loading ? (

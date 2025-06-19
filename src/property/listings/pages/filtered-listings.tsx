@@ -1,4 +1,3 @@
-"use client"
 
 import { useState, useEffect, useCallback } from "react"
 import { Container, Box, Typography, Grid, Drawer, useMediaQuery } from "@mui/material"
@@ -93,7 +92,6 @@ const FilteredListings = () => {
         }
       })
 
-      // Add page parameter if not page 1
       if (page > 1) {
         searchParams.set("page", page.toString())
       }
@@ -113,7 +111,6 @@ const FilteredListings = () => {
     [navigate, location.pathname, location.search],
   )
 
-  // Fetch listings when filters or page change
   useEffect(() => {
     if (!isInitialized) return
 

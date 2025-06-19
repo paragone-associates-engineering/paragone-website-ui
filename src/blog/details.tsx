@@ -2,7 +2,7 @@
 import { useEffect } from "react"
 import { Container, Typography, Box, Grid, IconButton, useTheme, useMediaQuery } from "@mui/material"
 import { Link as RouterLink, useParams } from "react-router-dom"
-import { Facebook, Twitter, LinkedIn } from "@mui/icons-material"
+import { Facebook, LinkedIn, Instagram } from "@mui/icons-material"
 import { format } from "date-fns"
 import { PageBanner } from "../common/banner/page-banner"
 import { useDispatch, useSelector } from "react-redux"
@@ -103,7 +103,7 @@ const BlogDetail = () => {
                   sx={{
                     position: 'relative',
                     "& p": {
-                      mb: 2,
+                      my: 2,
                       lineHeight: 1.7,
                       textAlign: "justify",
                     },
@@ -120,6 +120,7 @@ const BlogDetail = () => {
                     sx={{
                       width: "100%",
                       height: "auto",
+                      maxHeight:300,
                       borderRadius: 2,
                       objectFit: "cover",
                       mb: 2,
@@ -138,7 +139,7 @@ const BlogDetail = () => {
                     dangerouslySetInnerHTML={{ __html: postDetails?.content }}
                     sx={{
                       "& p": {
-                        mb: 2,
+                        my: 1.5,
                         lineHeight: 1.7,
                         textAlign: "justify",
                       },
@@ -166,14 +167,15 @@ const BlogDetail = () => {
                 aria-label="share on facebook"
                 size="small"
                 component="a"
-                href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
+                href="https://www.facebook.com/paragonesignature?mibextid=wwXIfr"
+                //href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Facebook />
               </IconButton>
 
-              <IconButton
+              {/* <IconButton
                 aria-label="share on twitter"
                 size="small"
                 component="a"
@@ -182,13 +184,24 @@ const BlogDetail = () => {
                 rel="noopener noreferrer"
               >
                 <Twitter />
+              </IconButton> */}
+ <IconButton
+                aria-label="share on instagram"
+                size="small"
+                component="a"
+                href="https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr"
+                //href={`https://twitter.com/intent/tweet?url=${postUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Instagram/>
               </IconButton>
-
               <IconButton
                 aria-label="share on linkedin"
                 size="small"
                 component="a"
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`}
+                href="https://www.linkedin.com/company/paragone-signature-associates/"
+                //href={`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -26,12 +26,12 @@ const filterOptions: FilterOption[] = [
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
  { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
   { value: "Short Stay", label: "Short stay", icon: <HomeWorkIcon /> },
-  { value: "land", label: "Land", icon: <TerrainIcon /> },
+  { value: "Land", label: "Land", icon: <TerrainIcon /> },
 ];
 
 const ExclusiveProperties = () => {
   const dispatch = useAppDispatch()
-  const listings = useAppSelector((state) => state.listings)
+   const listings = useAppSelector((state) => state.listings)
   
     const { properties, loading, pageSize, currentPage} = listings || {
       properties: [],
@@ -43,7 +43,6 @@ const ExclusiveProperties = () => {
     }
   
     const [activeFilter, setActiveFilter] = useState<string>('all');
-
     const handleFilterChange = (value: string) => {
       
       if (value !== null) {
@@ -55,12 +54,10 @@ const ExclusiveProperties = () => {
     if (activeFilter === "all") return true;
     if (activeFilter === "For Sale" && property.listingType === "For Sale") return true;
     if (activeFilter === "For Rent" && property.listingType === "For Rent") return true;
+     if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
      if (activeFilter === "Land" && property.propertyCategory === "Land") return true;
-      if (activeFilter === "Short Stay" && property.listingType === "Short Stay") return true;
     return false;
   });
-
-  //console.log("Filtered Properties: ", filteredProperties);
 
   useEffect(() => {
       dispatch(fetchListings({ page: currentPage, pageSize }))
