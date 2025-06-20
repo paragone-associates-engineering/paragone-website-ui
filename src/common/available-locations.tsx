@@ -1,11 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
-import { useEffect,  useState } from 'react';
+import { useEffect, useState } from 'react';
 import { fetchAvailableLocations } from '../redux/slices/locations-slice';
 import { useDispatch, useSelector } from 'react-redux';
-// import the RootState and AppDispatch types
 import type { RootState, AppDispatch } from '../redux/store';
+
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
 
 interface LocationAutocompleteProps {
   control: any;
@@ -13,35 +28,28 @@ interface LocationAutocompleteProps {
   name?: string;
 }
 
-export const AvailableLocationAutocomplete = ({ control, errors }:LocationAutocompleteProps) => {
+export const AvailableLocationAutocomplete = ({ control, errors }: LocationAutocompleteProps) => {
   const dispatch: AppDispatch = useDispatch();
-   const [searchText, setSearchText] = useState('');
+  const [searchText, setSearchText] = useState('');
   const [loadingMore, setLoadingMore] = useState(false);
   
   
-  const { availableLocations, loadingState, currentPage,  hasMorePages } = useSelector(
+  const debouncedSearchText = useDebounce(searchText, 500);
+  
+  const { availableLocations, loadingState, currentPage, hasMorePages } = useSelector(
     (state: RootState) => state.locations
   );
-  //console.log(availableLocations)
 
-  // Debounce search to avoid too many API calls
-//   const debouncedSearchText = useMemo(() => {
-//     const timer = setTimeout(() => searchText, 500);
-//     return () => clearTimeout(timer);
-//   }, [searchText]);
-
-  // Initial load and search
   useEffect(() => {
-    dispatch(fetchAvailableLocations({ page: 1, searchString: searchText }));
-  }, [dispatch, searchText]);
+    dispatch(fetchAvailableLocations({ page: 1, searchString: debouncedSearchText }));
+  }, [dispatch, debouncedSearchText]);
 
-  // Load more data when scrolling
   const handleLoadMore = async () => {
     if (hasMorePages && !loadingMore && !loadingState) {
       setLoadingMore(true);
       await dispatch(fetchAvailableLocations({ 
         page: (currentPage ?? 1) + 1, 
-        searchString: searchText 
+        searchString: debouncedSearchText 
       }));
       setLoadingMore(false);
     }
@@ -57,15 +65,15 @@ export const AvailableLocationAutocomplete = ({ control, errors }:LocationAutoco
           fullWidth
           size="small"
           options={availableLocations}
-          getOptionLabel={(option) => option?.region || option?.city || ''}
+          getOptionLabel={(option) => option?.city}
           isOptionEqualToValue={(option, value) => option?.id === value?.id}
           value={
             availableLocations.find(
-              loc => loc.region === value || loc.city === value
+              loc => loc.city === value 
             ) || null
           }
           onChange={(_, newValue) => {
-            onChange(newValue?.region || newValue?.city || '');
+            onChange(newValue?.city);
           }}
           onInputChange={(_, newInputValue) => {
             setSearchText(newInputValue);
@@ -91,7 +99,7 @@ export const AvailableLocationAutocomplete = ({ control, errors }:LocationAutoco
             />
           )}
           renderOption={(props, option, { index }) => {
-            // Add load more functionality when reaching near the end
+            
             if (index === availableLocations.length - 3 && hasMorePages) {
               handleLoadMore();
             }

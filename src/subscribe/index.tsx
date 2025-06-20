@@ -109,7 +109,7 @@ export default function SubscribePage() {
               >
                 <Typography variant="h6">{pkg?.name}</Typography>
                 <Typography variant="h5" gutterBottom>
-                  {formatCurrency(pkg.price)}
+                  ₦{formatCurrency(pkg.price)}
                 </Typography>
 
                 <List sx={{ flex: 1 }}>
