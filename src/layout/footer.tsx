@@ -71,7 +71,7 @@ export default function Footer() {
   };
   return (
     <FooterContainer>
-      <Box textAlign={{ xs: "center", md: "left" }} mb={4}>
+      <Box  mb={4}>
         <Grid
           container
           spacing={2}

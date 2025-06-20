@@ -200,7 +200,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
           </Grid>
            {property.propertyCategory !== 'Land' && (
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap', ml:-2 }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659737/fi_2284001_zwywd0.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
               {/* <BedIcon sx={{ color: 'text.secondary', fontSize: 18, mr: 0.5 }} /> */}
               <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem', "&:hover":{color:'text.primary'}}}}>{bedrooms} bedrooms</Typography>
@@ -209,7 +209,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
            )}
           {property.propertyCategory !== 'Land' && (
           <Grid item xs={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap'  }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', whiteSpace:'nowrap',  ml:-2   }}>
             <Box component='img' src='https://res.cloudinary.com/dv0mdoa6b/image/upload/v1742659735/fi_2425844_nnawgj.svg' alt='squareft' sx={{p:0.5, width:20, height:20, color: 'text.secondary', mr: 0.3, border:'1px solid #333', borderRadius:'50%', display: 'flex', alignItems: 'center', justifyContent:'center' }} />
              
               <Typography variant="body2" sx={{fontSize:{xs:'0.7rem', md:'0.8rem'}}}>{bathrooms} bathrooms</Typography>

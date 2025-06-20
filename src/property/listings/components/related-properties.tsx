@@ -50,8 +50,8 @@ const RelatedProperties: React.FC<RelatedPropertiesProps> = ({ properties, loadi
       </Typography>
 
       <Grid container spacing={4} sx={{ mt: 2, px:3,  maxWidth: "1200px"}}>
-        {properties.slice(0, 2).map((property) => (
-          <Grid item xs={12} sm={6} md={4} key={property._id}>
+        {properties.slice(0, 3).map((property) => (
+          <Grid item xs={12} sm={6} md={4} key={property.id}>
             <PropertyCard property={property} />
           </Grid>
         ))}
