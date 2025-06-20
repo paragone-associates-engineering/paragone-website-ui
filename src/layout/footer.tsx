@@ -113,64 +113,67 @@ export default function Footer() {
       <Divider sx={{ my: 4 }} />
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={3}>
-          <Item>
-            <img
-              src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg"
-              alt="Logo"
-              width={150}
+  <Grid item xs={12} md={3}>
+    <Item>
+      <img
+        src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg"
+        alt="Logo"
+        width={150}
+      />
+      
+      {/* Social media icons */}
+      <Box 
+        sx={{ 
+          mt: 2,
+          display: 'flex',
+          justifyContent: { xs: 'flex-start', sm: 'flex-start' }, // Always left-aligned
+          alignItems: 'center',
+          gap: 1
+        }}
+      >
+        {[
+          {
+            Icon: Facebook,
+            url: "https://www.facebook.com/paragonesignature?mibextid=wwXIfr",
+          },
+          {
+            Icon: Instagram,
+            url: "https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr",
+          },
+          {
+            Icon: LinkedIn,
+            url: "https://www.linkedin.com/company/paragone-signature-associates/",
+          },
+          {
+            Icon: YouTube,
+            url: "https://youtube.com/@paragonesignature?si=hY2Qa3DEyhwobozK",
+          },
+        ].map(({ Icon, url }, index) => (
+          <a
+            key={index}
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ 
+              textDecoration: "none",
+              display: 'flex',
+              alignItems: 'center'
+            }}
+          >
+            <Icon
+              sx={{
+                fontSize: 28,
+                cursor: "pointer",
+                color: "#333",
+                transition: "color 0.3s",
+                "&:hover": { color: "primary.main" },
+              }}
             />
-            <Box display="flex" gap={1} mt={2}>
-              {/* Social media icons */}
-              <Grid
-                item
-                xs={12}
-                sm={12}
-                textAlign={{ xs: "center", sm: "left" }}
-              >
-                <Box sx={{ mt: 2 }}>
-                  {[
-                    {
-                      Icon: Facebook,
-                      url: "https://www.facebook.com/paragonesignature?mibextid=wwXIfr",
-                    },
-                    {
-                      Icon: Instagram,
-                      url: "https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr",
-                    },
-                    {
-                      Icon: LinkedIn,
-                      url: "https://www.linkedin.com/company/paragone-signature-associates/",
-                    },
-                    {
-                      Icon: YouTube,
-                      url: "https://youtube.com/@paragonesignature?si=hY2Qa3DEyhwobozK",
-                    },
-                  ].map(({ Icon, url }, index) => (
-                    <a
-                      key={index}
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ textDecoration: "none" }}
-                    >
-                      <Icon
-                        sx={{
-                          fontSize: 28,
-                          mx: 1,
-                          cursor: "pointer",
-                          color: "#333",
-                          transition: "color 0.3s",
-                          "&:hover": { color: "primary.main" },
-                        }}
-                      />
-                    </a>
-                  ))}
-                </Box>
-              </Grid>
-            </Box>
-          </Item>
-        </Grid>
+          </a>
+        ))}
+      </Box>
+    </Item>
+  </Grid>
 
         <Grid item xs={12} md={2}>
           <Item>

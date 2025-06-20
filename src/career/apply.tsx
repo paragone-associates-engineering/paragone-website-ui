@@ -1,4 +1,3 @@
-"use client"
 
 import { useState, useEffect } from "react"
 import axios from "axios"
@@ -57,10 +56,10 @@ const JobApplication = () => {
     },
   })
 
-  // Watch for changes in job selection
+  
   const watchedJobId = watch("jobId")
 
-  // Load all jobs on component mount for autocomplete
+  
   useEffect(() => {
     dispatch(fetchAllJobTitles())
 
@@ -69,7 +68,7 @@ const JobApplication = () => {
     }
   }, [dispatch])
 
-  // Handle job search with debouncing
+ 
   useEffect(() => {
     if (jobSearchValue.length > 2) {
       const timeoutId = setTimeout(() => {
@@ -78,7 +77,7 @@ const JobApplication = () => {
 
       return () => clearTimeout(timeoutId)
     } else if (jobSearchValue.length === 0) {
-      // If search is cleared, load all jobs again
+      
       dispatch(fetchAllJobTitles())
     }
   }, [jobSearchValue, dispatch])
@@ -120,10 +119,8 @@ const JobApplication = () => {
         agreeToPolicy: data.agreeToPolicy,
       }
 
-      // Append metadata as JSON
       formData.append("metadata", JSON.stringify(metadata))
 
-      // Use the selected job ID in the URL
       await axios.post(`${API_BASE_URL}/jobs/apply/${data.jobId}`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -133,9 +130,10 @@ const JobApplication = () => {
       setSelectedFile(null)
       setSelectedJob(null)
       setJobSearchValue("")
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error:any) {
       console.error("Submission Error:", error)
-      toast.error("Failed to submit application. Please try again.")
+      toast.error(error.response.data.message || "Failed to submit application. Please try again.")
     }
   }
 

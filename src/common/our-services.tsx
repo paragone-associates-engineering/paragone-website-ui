@@ -76,7 +76,7 @@ const OurServices = () => {
                                                     padding: 2,
                                                     textAlign: 'center',
                                                     borderRadius: 1,
-                                                    minHeight: 30,
+                                                    minHeight: 25,
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     justifyContent: 'center'
