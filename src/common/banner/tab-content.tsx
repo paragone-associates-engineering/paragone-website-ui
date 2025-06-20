@@ -18,6 +18,7 @@ type ListingsQueryParams = {
   location?: string;
   propertyCategory?: string;
   bedrooms?: string;
+  propertyType?: string;
 };
 
 type TabContentProps = {
@@ -30,7 +31,8 @@ export default function TabContent({ tabIndex }: TabContentProps) {
   const { control, handleSubmit } = useForm<ListingsQueryParams>({
     defaultValues: {
       location: '',
-      propertyCategory: '',
+      propertyType: '',
+      propertyCategory: tabIndex === 3 ? 'Land' : 'Residential',
       bedrooms: '',
     },
   });
@@ -113,7 +115,7 @@ export default function TabContent({ tabIndex }: TabContentProps) {
       Property Type
     </Typography>
     <Controller
-      name="propertyCategory"
+      name="propertyType"
       control={control}
       render={({ field }) => (
         <Select
