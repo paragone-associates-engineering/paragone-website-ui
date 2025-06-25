@@ -64,7 +64,7 @@ const PropertyDetailsPage = () => {
     }
   }, [dispatch, property])
 
-  const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  const videoUrl = property?.videoUrl
 
   
   if (loading) {
