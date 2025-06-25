@@ -1,4 +1,4 @@
-//import { useState } from 'react';
+
 import { 
   Box, 
   Typography, 
@@ -8,8 +8,6 @@ import {
   CardContent, 
   Chip, 
   Button, 
-  //Rating, 
-  //useTheme, 
   IconButton
 } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -111,7 +109,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
     if (navigator.share) {
       navigator.share({
         title: 'Check out this post',
-        text: 'Here’s something interesting for you!',
+        text: `Here’s something interesting for you! ${property?.description}`,
         url:`https://www.paragonesignature.com/listings/${property.id}`,
       }).catch((err) => console.error('Share failed:', err));
     } else {
@@ -174,13 +172,13 @@ const { label,  muiColor } = chipStyles[type] ?? {
       mb:10,
       display:'flex',
       
-      justifyContent: property?.propertyCategory !== 'Land' ? 'center' : 'start',
+      justifyContent: 'start',
       borderRadius: '8px',
       '&:hover': {
         color: 'text.primary',
       }
     }}>
-        <Box sx={{mb:20,  pl:{lg:property?.propertyCategory !== 'Land' ? '0px' : '20px'}}}>
+        <Box sx={{mb:20}}>
         <Typography variant="h6" component="div" sx={{textTransform:'capitalize', fontWeight: 'bold', mb: 1, "&:hover":{color:'primary'} }}>
           {property?.propertyName}
         </Typography>

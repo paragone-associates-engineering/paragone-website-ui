@@ -4,6 +4,15 @@ import typography from "./typography";
 
 const getTheme = (mode: "light" | "dark") =>
   createTheme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 900,
+        lg: 1350, 
+        xl: 1536, 
+      },
+    },
     palette: {
       ...palette,
       mode,

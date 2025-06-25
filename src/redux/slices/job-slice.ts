@@ -19,7 +19,7 @@ export interface Job {
 
 interface JobState {
   jobs: Job[]
-  allJobs: Job[] // For autocomplete
+  allJobs: Job[] 
   jobDetails: Job | null
   totalPages: number
   loading: boolean

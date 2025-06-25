@@ -37,7 +37,7 @@ const initialState: ListingsState = {
   selectedProperty: null,
 }
 
-// Simple transform to match your API exactly
+
 const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const apiFilters: any = {}
@@ -58,19 +58,19 @@ const transformFiltersToApiFormat = (filters: ListingsQueryParams) => {
     }
   }
 
-  // Simple string fields
+  
   if (filters.propertyCategory) apiFilters.propertyCategory = filters.propertyCategory
   if (filters.propertyType) apiFilters.propertyType = filters.propertyType
   if (filters.propertyName) apiFilters.propertyName = filters.propertyName
   if (filters.listingType) apiFilters.listingType = filters.listingType
   if (filters.featured !== undefined) apiFilters.featured = filters.featured
 
-  // Location as simple string
+  
   if (filters.location) {
     apiFilters.location = typeof filters.location === "string" ? filters.location : filters.location.city
   }
 
-  // Property details array - bedrooms and bathrooms as numbers
+  
   const propertyDetails = []
   if (filters.bedrooms) {
     propertyDetails.push({ name: "bedrooms", value: filters.bedrooms })
@@ -90,8 +90,8 @@ export const fetchListings = createAsyncThunk(
   async (params: ListingsQueryParams = {}, { rejectWithValue }) => {
     try {
       const apiFilters = transformFiltersToApiFormat(params)
-      console.log("params", params)
-      console.log("apiFilters", apiFilters)  // Debug log
+      // console.log("params", params)
+      // console.log("apiFilters", apiFilters)  
 
       const response = await axios.post("https://paragone-website-backend.onrender.com/listings/filter", apiFilters, {
         params: {

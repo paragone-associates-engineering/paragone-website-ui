@@ -5,6 +5,7 @@ import blogReducer from '../slices/blog-slice';
 import jobReducer from '../slices/job-slice';
 import locationsReducer from "../slices/locations-slice";
 import adsReducer from "../slices/ads-slice"
+import eventsReducer from "../slices/events-slice"
 export const store = configureStore({
   reducer: {
     theme: themeReducer,
@@ -12,11 +13,11 @@ export const store = configureStore({
     locations: locationsReducer,
     blog: blogReducer,
     jobs: jobReducer,
-     ads: adsReducer
+    ads: adsReducer,
+    events: eventsReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

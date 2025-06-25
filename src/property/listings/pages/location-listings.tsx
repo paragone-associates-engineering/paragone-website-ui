@@ -181,14 +181,14 @@ const decodedLocationId = searchParams.get('location') || ''
     
     if (selectedOption?.listingType) {
       newFilters.listingType = selectedOption.listingType
-      // Clear property category when selecting listing type
+      
       delete newFilters.propertyCategory
     } else if (selectedOption?.propertyCategory) {
       newFilters.propertyCategory = selectedOption.propertyCategory
-      // Clear listing type when selecting property category
+      
       delete newFilters.listingType
     } else {
-      // Clear both when selecting "all"
+     
       delete newFilters.listingType
       delete newFilters.propertyCategory
     }
@@ -236,6 +236,7 @@ const decodedLocationId = searchParams.get('location') || ''
             flexDirection: { xs: "column", sm: "row" },
             alignItems: { xs: "flex-end", sm: "center" },
             justifyContent: "space-between",
+            gap: { xs: 1, sm: 4, md:0 },
             mb: 3,
           }}
         >
@@ -246,7 +247,13 @@ const decodedLocationId = searchParams.get('location') || ''
               overflowX: "auto",
               justifyContent: { xs: "flex-start" },
               gap: { xs: 0.8, md: 1 },
+              scrollbarWidth: "none", 
+              msOverflowStyle: "none",
+              "&::-webkit-scrollbar": {
+                display: "none", 
+              },
             }}
+            
           >
             {filterOptions.map((option) => (
               <Button
@@ -256,8 +263,8 @@ const decodedLocationId = searchParams.get('location') || ''
                 sx={{
                   borderRadius: 2,
                   py: 1,
-                  px: { md: 2 },
-                  minWidth: { xs: "130px", sm: "auto" },
+                  px: 2 ,
+                  minWidth: { xs: "auto" },
                   bgcolor: activeFilter === option.value ? "#ffa726" : "white",
                   color: activeFilter === option.value ? "white" : "inherit",
                   borderColor: "#e0e0e0",
@@ -294,20 +301,25 @@ const decodedLocationId = searchParams.get('location') || ''
               </Button>
             ))}
           </Box>
-          <CustomButton
-            sx={{
-              bgcolor: "#5A6164",
-              color: "#fff",
-              height: 40,
-              borderRadius: 10,
-              px: 2,
-              mt: { xs: 2, md: 0 },
-            }}
-            startIcon={FilterAltIcon}
-            onClick={() => toggleDrawer(true)}
-          >
-            Filter
-          </CustomButton>
+         <Box sx={{ display:{xs:'block',md:'none'}}}>  
+  <CustomButton
+    sx={{
+      bgcolor: "#5A6164",
+      color: "#fff",
+      height: 40,
+      borderRadius: 10,
+      px: 2,
+      mt: { xs: 1, small: 0 },
+      
+    }}
+    startIcon={FilterAltIcon}
+    onClick={() => toggleDrawer(true)}
+  >
+    Filter
+  </CustomButton>
+  </Box>
+
+
         </Box>
 
         <Drawer anchor="left" open={isDrawerOpen} onClose={() => toggleDrawer(false)}>

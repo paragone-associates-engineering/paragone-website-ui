@@ -287,6 +287,21 @@ export default function Footer() {
                 Refer and Earn
               </Typography>
             </Link>
+
+            <Link
+              to="/events"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Typography
+                sx={{
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+               Events
+              </Typography>
+            </Link>
           </Item>
         </Grid>
 
