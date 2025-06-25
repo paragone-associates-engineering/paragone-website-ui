@@ -1,4 +1,3 @@
-
 import type React from "react"
 import { useState } from "react"
 import { Box, Typography, IconButton } from "@mui/material"
@@ -16,6 +15,12 @@ const PropertyVideo: React.FC<PropertyVideoProps> = ({ videoUrl, thumbnailUrl })
     setPlaying(true)
   }
 
+  const getEmbedUrl = (url: string) => {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/)
+    const videoId = match?.[1]
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : ""
+  }
+
   return (
     <Box>
       <Typography variant="h5" component="h2" gutterBottom>
@@ -26,11 +31,15 @@ const PropertyVideo: React.FC<PropertyVideoProps> = ({ videoUrl, thumbnailUrl })
         {playing ? (
           <Box
             component="iframe"
-            src={videoUrl}
+            src={getEmbedUrl(videoUrl)}
             title="Property video"
-            width="100%"
-            height={{ xs: 240, md: 400 }}
-            sx={{ border: 0 }}
+            sx={{ 
+              width: "100%",
+              height: { xs: 315, md: 500 },
+              border: "1px solide #ddd",
+              borderRadius:3,
+              aspectRatio: "16/9" 
+            }}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
@@ -79,4 +88,3 @@ const PropertyVideo: React.FC<PropertyVideoProps> = ({ videoUrl, thumbnailUrl })
 }
 
 export default PropertyVideo
-
