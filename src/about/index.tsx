@@ -39,7 +39,8 @@ const AboutUs = () => {
                   alt="Aerial view of residential neighborhood"
                   sx={{
                     width: "100%",
-                    height: "auto",
+                    height: "400px",
+                    objectFit: "cover",
                     borderRadius: 2,
                     boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
                   }}

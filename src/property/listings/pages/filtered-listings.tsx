@@ -172,9 +172,9 @@ const FilteredListings = () => {
           </Box>
         </Drawer>
 
-        <Grid container spacing={4}>
+        <Grid container spacing={2}>
           {!isMobile && (
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={2.5}>
               <PropertyFilter
               onFilterChange={handleFilterChange}
               initialFilters={filters}
@@ -183,7 +183,7 @@ const FilteredListings = () => {
             </Grid>
           )}
 
-          <Grid item xs={12} md={9}>
+          <Grid item xs={12} md={9.5}>
             <PropertyGrid
               properties={properties}
               totalCount={totalCount}

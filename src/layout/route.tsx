@@ -22,7 +22,8 @@ const LocationListings = lazy(() => import("../property/listings/pages/location-
 const PropertyDetailsPage = lazy(() => import("../property/listings/pages/property-details"));
 const SubscribePage = lazy(() => import("../subscribe"));
 const NotFound = lazy(() => import("./not-found"));
-
+const EventsListing = lazy(() => import("../events/pages/event-listings"));
+const EventDetails = lazy(() => import("../events/pages/event-details"));
 
 const AllRoutes = () => {
     return (
@@ -46,6 +47,8 @@ const AllRoutes = () => {
                     <Route path="/careers/:jobId" element={<JobDetail />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:postId" element={<BlogDetail />} />
+                    <Route path="/events" element={<EventsListing/>} />
+                    <Route path="/events/:eventId" element={<EventDetails/>} />
                     <Route path="/contact-us" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
