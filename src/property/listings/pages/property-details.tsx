@@ -64,8 +64,8 @@ const PropertyDetailsPage = () => {
     }
   }, [dispatch, property])
 
-  const videoUrl = property?.videoUrl || "https://www.youtube.com/embed/dQw4w9WgXcQ"
-
+  const videoUrl = property?.videoUrl 
+//console.log('video', property)
   
   if (loading) {
     return (
@@ -85,6 +85,25 @@ const PropertyDetailsPage = () => {
     )
   }
 
+  const chipStyles: Record<
+  string,
+  { label: string; bg: string; muiColor?: "primary" | "secondary" | "default" }
+> = {
+  "For Sale":   { label: "For sale",   bg: "#46B0FD", muiColor: "primary" },
+  "For Rent":   { label: "For rent",   bg: "#B032EB", muiColor: "secondary" },
+  Land:         { label: "Land",       bg: "#4CAF50" },          
+  "Short Stay": { label: "Short stay", bg: "#FF9800" },         
+  
+};
+
+  
+const type = property?.listingType ?? "default";
+const { label,  muiColor } = chipStyles[type] ?? {
+  label: type,
+  bg: "#9E9E9E",
+  muiColor: "default",
+};
+  
   return (
     <Box sx={{ width: "100vw" }}>
       {property && (
@@ -107,11 +126,11 @@ const PropertyDetailsPage = () => {
                 <meta property="twitter:description" content={metaDescription} />
                 <meta property="twitter:image" content={property.images?.[0]} />
                 
-                {/* LinkedIn */}
+               
                 <meta property="og:image:width" content="1200" />
                 <meta property="og:image:height" content="630" />
                 
-                {/* Additional meta tags */}
+                
                 <meta name="author" content="Paragone Signature & Associates" />
                
               </Helmet>
@@ -126,24 +145,19 @@ const PropertyDetailsPage = () => {
       />
 
       <Container maxWidth="xl" sx={{ py: 6 }}>
-        <Chip
-          label={
-            property?.listingType === "For Sale"
-              ? "For Sale"
-              : property?.listingType === "For Rent"
-                ? "For Rent"
-                : "Short Stay"
-          }
-          color={
-            property?.listingType === "For Sale"
-              ? "primary"
-              : property?.listingType === "For Rent"
-                ? "secondary"
-                : "info"
-          }
-          sx={{ mb: 2 }}
-        />
-
+      <Chip 
+            label={label}
+  color={muiColor}
+  size="small"
+            sx={{ 
+              backgroundColor: property?.listingType === 'For Sale' ? '#46B0FD' : '#B032EB',
+              color: 'white',
+              fontWeight: 'bold',
+              px:1,
+              py:2,
+               borderRadius:2
+            }} 
+          />
         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", mb: 3 }}>
           <Box>
             <Typography variant="h4" component="h1" textTransform={"capitalize"} gutterBottom>
