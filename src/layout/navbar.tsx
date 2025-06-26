@@ -107,11 +107,64 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem disablePadding sx={{ mt: 2, px: 2, display:'flex', alignItems:'center', justifyContent:'center', mx:'auto' }}>
+         <ListItem disablePadding sx={{  px: 2, display:'flex', alignItems:'center', justifyContent:'center', mx:'auto' }}>
+         <ListItemButton 
+              component={RouterLink} 
+              to='/events'
+              sx={{ 
+                textAlign: 'center',
+                py: 1.5,
+                borderBottom: '1px solid rgba(0,0,0,0.05)',
+                color: activeLink === 'Events' ? theme.palette.primary.main : 'inherit',
+                '&:hover': {
+                        color: theme.palette.primary.main,
+                      },
+              }}
+            >
+              <ListItemText 
+                primary={'Events'} 
+                primaryTypographyProps={{ 
+                  fontWeight: activeLink === 'Events' ? 'medium' : 'normal'
+                }}
+              />
+            </ListItemButton>
+         
+        </ListItem>
+        <ListItem disablePadding sx={{  px: 2, display:'flex', alignItems:'center', justifyContent:'center', mx:'auto' }}>
+         <ListItemButton 
+              component={RouterLink} 
+              to='/resources'
+              sx={{ 
+                textAlign: 'center',
+                py: 1.5,
+                borderBottom: '1px solid rgba(0,0,0,0.05)',
+                color: activeLink === 'resources' ? theme.palette.primary.main : 'inherit',
+                '&:hover': {
+                        color: theme.palette.primary.main,
+                      },
+              }}
+            >
+              <ListItemText 
+                primary={'Resources'} 
+                primaryTypographyProps={{ 
+                  fontWeight: activeLink === 'resources' ? 'medium' : 'normal'
+                }}
+              />
+            </ListItemButton>
+         
+        </ListItem>
+        <Box sx={{ mt: 2,  display:'flex', alignItems:'center', justifyContent:'center',gap:2,mx:'auto', maxWidth:280 }}>
+        <ListItem disablePadding sx={{  display:'flex', alignItems:'center', justifyContent:'center' }}>
+          <CustomButton href='/contact-us' sx={{py: 1, px: 2}} startIcon={PeopleAlt} >
+           Contact us
+          </CustomButton>
+        </ListItem>
+        <ListItem disablePadding sx={{  display:'flex', alignItems:'center', justifyContent:'center' }}>
           <CustomButton href='/become-an-associate' sx={{py: 1, px: 2}} startIcon={PeopleAlt} >
             Join us
           </CustomButton>
         </ListItem>
+        </Box>
       </List>
     </Box>
   );

@@ -6,6 +6,7 @@ import jobReducer from '../slices/job-slice';
 import locationsReducer from "../slices/locations-slice";
 import adsReducer from "../slices/ads-slice"
 import eventsReducer from "../slices/events-slice"
+import resourcesReducer from "../slices/resources-slice"
 export const store = configureStore({
   reducer: {
     theme: themeReducer,
@@ -14,7 +15,8 @@ export const store = configureStore({
     blog: blogReducer,
     jobs: jobReducer,
     ads: adsReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    resources: resourcesReducer
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

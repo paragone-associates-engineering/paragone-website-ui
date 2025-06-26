@@ -1,6 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Loader from "../common/loader";
+import ResourcesListing from "../resources";
+import ResourceDetails from "../resources/details";
 
 const Home = lazy(() => import("../home"));
 const AboutUs = lazy(() => import("../about"));
@@ -49,6 +51,8 @@ const AllRoutes = () => {
                     <Route path="/blog/:postId" element={<BlogDetail />} />
                     <Route path="/events" element={<EventsListing/>} />
                     <Route path="/events/:eventId" element={<EventDetails/>} />
+                    <Route path="/resources" element={<ResourcesListing/>} />
+                    <Route path="/resources/:resourceId" element={<ResourceDetails/>} />
                     <Route path="/contact-us" element={<Contact />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>

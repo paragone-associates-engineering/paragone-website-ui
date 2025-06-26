@@ -6,7 +6,7 @@ import {
   DialogTitle,
   TextField,
   Grid,
-  InputLabel,
+  //InputLabel,
   FormControl,
   Select,
   Typography,
@@ -192,12 +192,7 @@ export const ContactFormModal = () => {
                   Property type
                 </Typography>
                 <FormControl fullWidth error={!!errors.propertyType}>
-                  <InputLabel
-                    id="property-type-label"
-                    sx={{ bgcolor: "white" }}
-                  >
-                    Property Type
-                  </InputLabel>
+                  
                   <Controller
                     name="propertyType"
                     control={control}
@@ -216,6 +211,9 @@ export const ContactFormModal = () => {
                             {opt.label}
                           </MenuItem>
                         ))}
+                         <MenuItem value="Land">Land</MenuItem>
+                          <MenuItem value="Mix Used Development">Mix Used Development</MenuItem>
+                           <MenuItem value="Others">Others</MenuItem>
                       </Select>
                     )}
                   />

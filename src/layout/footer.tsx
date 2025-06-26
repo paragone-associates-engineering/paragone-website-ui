@@ -302,6 +302,20 @@ export default function Footer() {
                Events
               </Typography>
             </Link>
+            <Link
+              to="/resources"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <Typography
+                sx={{
+                  "&:hover": {
+                    color: "primary.main",
+                  },
+                }}
+              >
+              Resources
+              </Typography>
+            </Link>
           </Item>
         </Grid>
 
