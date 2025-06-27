@@ -5,6 +5,7 @@ import { CreateResourceApplication, Resource, ResourcesQueryParams, ResourcesRes
 
 interface ResourcesState {
   resources: Resource[]
+  allResources: Resource[]
   selectedResource: Resource | null
   totalCount: number
   currentPage: number
@@ -13,10 +14,12 @@ interface ResourcesState {
   error: string | null
   applicationLoading: boolean
   applicationSuccess: boolean
+  filters: ResourcesQueryParams
 }
 
 const initialState: ResourcesState = {
   resources: [],
+  allResources: [],
   selectedResource: null,
   totalCount: 0,
   currentPage: 1,
@@ -25,6 +28,32 @@ const initialState: ResourcesState = {
   error: null,
   applicationLoading: false,
   applicationSuccess: false,
+   filters: {},
+}
+
+const applyFilters = (resources: Resource[], filters: ResourcesQueryParams) => {
+  let filtered = [...resources]
+
+  // Filter by paid/free
+  if (filters.isPaid !== undefined) {
+    filtered = filtered.filter((resource) => resource.isPaid === filters.isPaid)
+  }
+
+  // Filter by active status
+  if (filters.isActive !== undefined) {
+    filtered = filtered.filter((resource) => resource.isActive === filters.isActive)
+  }
+
+  // Filter by search term
+  if (filters.search && filters.search.trim()) {
+    const searchTerm = filters.search.toLowerCase().trim()
+    filtered = filtered.filter(
+      (resource) =>
+        resource.title.toLowerCase().includes(searchTerm) || resource.summary.toLowerCase().includes(searchTerm),
+    )
+  }
+
+  return filtered
 }
 
 export const fetchResources = createAsyncThunk(
@@ -35,17 +64,16 @@ export const fetchResources = createAsyncThunk(
         `${API_BASE_URL}/resource/get-resources`,
         {
           params: {
-            page: params.page || 1,
-            pageSize: params.pageSize || 12,
-            ...params,
+            page: 1,
+            pageSize: 1000, 
           },
         },
       )
 
       return {
-        resources: response.data.results,
+       resources: response.data.results,
         totalCount: response.data.metadata[0]?.total || 0,
-        totalPages: response.data.metadata[0]?.totalPages || 0,
+        filters: params,
       }
     } catch (error) {
       console.error("Error fetching resources:", error)
@@ -94,6 +122,20 @@ const resourcesSlice = createSlice({
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
+      // Apply pagination to filtered resources
+      const filteredResources = applyFilters(state.allResources, state.filters)
+      const startIndex = (action.payload - 1) * state.pageSize
+      const endIndex = startIndex + state.pageSize
+      state.resources = filteredResources.slice(startIndex, endIndex)
+      state.totalCount = filteredResources.length
+    },
+    setFilters: (state, action: PayloadAction<ResourcesQueryParams>) => {
+      state.filters = action.payload
+      state.currentPage = 1
+      // Apply filters and pagination
+      const filteredResources = applyFilters(state.allResources, action.payload)
+      state.resources = filteredResources.slice(0, state.pageSize)
+      state.totalCount = filteredResources.length
     },
     clearSelectedResource: (state) => {
       state.selectedResource = null
@@ -114,8 +156,12 @@ const resourcesSlice = createSlice({
       })
       .addCase(fetchResources.fulfilled, (state, action) => {
         state.loading = false
-        state.resources = action.payload.resources
-        state.totalCount = action.payload.totalCount
+        state.allResources = action.payload.resources
+        state.filters = action.payload.filters
+        // Apply initial filters
+        const filteredResources = applyFilters(action.payload.resources, action.payload.filters)
+        state.resources = filteredResources.slice(0, state.pageSize)
+        state.totalCount = filteredResources.length
       })
       .addCase(fetchResources.rejected, (state, action) => {
         state.loading = false
@@ -134,7 +180,7 @@ const resourcesSlice = createSlice({
         state.loading = false
         state.error = action.payload as string
       })
-      // Apply to Resource
+      
       .addCase(applyToResource.pending, (state) => {
         state.applicationLoading = true
         state.error = null
@@ -151,5 +197,6 @@ const resourcesSlice = createSlice({
   },
 })
 
-export const { setCurrentPage, clearSelectedResource, clearApplicationSuccess, clearError } = resourcesSlice.actions
+export const { setCurrentPage, setFilters, clearSelectedResource, clearApplicationSuccess, clearError } =
+  resourcesSlice.actions
 export default resourcesSlice.reducer

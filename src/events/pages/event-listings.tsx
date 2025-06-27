@@ -30,24 +30,18 @@ import { PageBanner } from "../../common/banner/page-banner"
 import EventCard from "../components/event-card"
 import EventCardSkeleton from "../components/event-card-skeleton"
 import { useAppDispatch, useAppSelector } from "../../redux/store/hooks"
-import { fetchEvents, setCurrentPage, clearError } from "../../redux/slices/events-slice"
+import { fetchEvents, setCurrentPage, setFilters, clearError } from "../../redux/slices/events-slice"
 import type { EventsQueryParams } from "../../types/events"
 
 const EventsListing = () => {
   const dispatch = useAppDispatch()
-  const { events, loading, error, totalCount, currentPage, pageSize } = useAppSelector((state) => state.events)
-
-  const [filters, setFilters] = useState<EventsQueryParams>({
-    eventType: "",
-    isPaid: undefined,
-    status: "active",
-  })
+  const { events, loading, error, totalCount, currentPage, pageSize, filters } = useAppSelector((state) => state.events)
 
   const [showFilters, setShowFilters] = useState(false)
 
   useEffect(() => {
-    dispatch(fetchEvents({ ...filters, page: currentPage, pageSize }))
-  }, [dispatch, filters, currentPage, pageSize])
+    dispatch(fetchEvents({}))
+  }, [dispatch])
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
     dispatch(setCurrentPage(page))
@@ -55,20 +49,20 @@ const EventsListing = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFilterChange = (key: keyof EventsQueryParams, value: any) => {
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       [key]: value === "" ? undefined : value,
-    }))
-    dispatch(setCurrentPage(1))
+    }
+    dispatch(setFilters(newFilters))
   }
 
   const clearAllFilters = () => {
-    setFilters({
+    const resetFilters: EventsQueryParams = {
       eventType: "",
       isPaid: undefined,
       status: "active",
-    })
-    dispatch(setCurrentPage(1))
+    }
+    dispatch(setFilters(resetFilters))
   }
 
   const getActiveFilters = () => {
@@ -99,6 +93,7 @@ const EventsListing = () => {
           </Alert>
         )}
 
+        {/* Header with Filter Toggle */}
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
             <Box>
@@ -140,7 +135,7 @@ const EventsListing = () => {
             </Button>
           </Box>
 
-         
+          {/* Active Filters Display */}
           {activeFilters.length > 0 && (
             <Box sx={{ mb: 3 }}>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
@@ -184,7 +179,7 @@ const EventsListing = () => {
             </Box>
           )}
 
-         
+          {/* Collapsible Filters */}
           <Collapse in={showFilters}>
             <Paper
               elevation={0}
@@ -294,8 +289,7 @@ const EventsListing = () => {
                   </FormControl>
                 </Grid>
 
-                
-
+              
                 <Grid item xs={12} sm={6} md={3}>
                   <Box sx={{ display: "flex", gap: 1, height: "100%", alignItems: "center" }}>
                     <Button

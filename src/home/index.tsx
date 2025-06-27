@@ -17,6 +17,7 @@ import { useEffect } from "react"
 import { BlogCard } from "../common/blog-card"
 import OurServices from "../common/our-services"
 import SkeletonLoader from "../common/skeleton-loader"
+import ResourcesSection from "./resources-section"
 
 const Home = () => {
   const theme = useTheme()
@@ -133,7 +134,7 @@ const Home = () => {
           </Container>
         </Box>
       )}
-
+<ResourcesSection/>
       <Container maxWidth="lg" sx={{mt:8}}>
         {/* Second promotional banner - BOTTOM location */}
         <PromotionBanners location="bottom" autoplayDelay={5000} />
