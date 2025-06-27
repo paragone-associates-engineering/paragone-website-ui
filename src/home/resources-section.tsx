@@ -46,7 +46,7 @@ const ResourcesSection = () => {
             </Typography>
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: "auto", lineHeight: 1.6 }}>
-            Access valuable resources, guides, and tools to accelerate your success. From free downloads to premium
+            Access valuable resources, guides, and tools to accelerate your success. From free downloads to <span style={{fontWeight:700}}>EXCLUSIVE</span>
             content, find everything you need in one place.
           </Typography>
          
