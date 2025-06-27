@@ -30,35 +30,31 @@ import {
 import ResourceCard from "./components/resource-card"
 import ResourceCardSkeleton from "./components/resource-card-skeleton"
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks"
-import { fetchResources, setCurrentPage, clearError } from "../redux/slices/resources-slice"
 
 import { PageBanner } from "../common/banner/page-banner"
 import { ResourcesQueryParams } from "./types"
+import { fetchResources, setCurrentPage, setFilters, clearError } from "../redux/slices/resources-slice"
 
 const ResourcesListing = () => {
   const dispatch = useAppDispatch()
-  const { resources, loading, error, totalCount, currentPage, pageSize } = useAppSelector((state) => state.resources)
-
-  const [filters, setFilters] = useState<ResourcesQueryParams>({
-    isPaid: undefined,
-    isActive: true,
-    search: "",
-  })
+  const { resources, loading, error, totalCount, currentPage, pageSize, filters } = useAppSelector(
+    (state) => state.resources,
+  )
 
   const [showFilters, setShowFilters] = useState(false)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(filters.search || "")
+
+  useEffect(() => {
+    dispatch(fetchResources({}))
+  }, [dispatch])
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
-      setFilters((prev) => ({ ...prev, search: searchTerm }))
+      dispatch(setFilters({ ...filters, search: searchTerm }))
     }, 500)
 
     return () => clearTimeout(timeoutId)
-  }, [searchTerm])
-
-  useEffect(() => {
-    dispatch(fetchResources({ ...filters, page: currentPage, pageSize }))
-  }, [dispatch, filters, currentPage, pageSize])
+  }, [searchTerm, dispatch, filters])
 
   const handlePageChange = (_event: React.ChangeEvent<unknown>, page: number) => {
     dispatch(setCurrentPage(page))
@@ -66,21 +62,21 @@ const ResourcesListing = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFilterChange = (key: keyof ResourcesQueryParams, value: any) => {
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       [key]: value === "" ? undefined : value,
-    }))
-    dispatch(setCurrentPage(1))
+    }
+    dispatch(setFilters(newFilters))
   }
 
   const clearAllFilters = () => {
-    setFilters({
+    const resetFilters: ResourcesQueryParams = {
       isPaid: undefined,
       isActive: true,
       search: "",
-    })
+    }
     setSearchTerm("")
-    dispatch(setCurrentPage(1))
+    dispatch(setFilters(resetFilters))
   }
 
   const getActiveFilters = () => {
@@ -110,7 +106,7 @@ const ResourcesListing = () => {
           </Alert>
         )}
 
-        
+        {/* Header with Search and Filter Toggle */}
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
             <Box>
@@ -174,7 +170,7 @@ const ResourcesListing = () => {
             </Box>
           </Box>
 
-          
+         
           {activeFilters.length > 0 && (
             <Box sx={{ mb: 3 }}>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
@@ -273,7 +269,30 @@ const ResourcesListing = () => {
                   </FormControl>
                 </Grid>
 
-               
+                {/* <Grid item xs={12} sm={6} md={4}>
+                  <FormControl fullWidth>
+                    <InputLabel sx={{ fontWeight: 500 }}>Availability</InputLabel>
+                    <Select
+                      value={filters.isActive === undefined ? "" : filters.isActive.toString()}
+                      label="Availability"
+                      onChange={(e) =>
+                        handleFilterChange("isActive", e.target.value === "" ? undefined : e.target.value === "true")
+                      }
+                      sx={{
+                        borderRadius: 2,
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "divider",
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "primary.main",
+                        },
+                      }}
+                    >
+                      <MenuItem value="true">Available Only</MenuItem>
+                      <MenuItem value="">All Resources</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid> */}
 
                 <Grid item xs={12} sm={6} md={4}>
                   <Box sx={{ display: "flex", gap: 1, height: "100%", alignItems: "center" }}>
@@ -309,7 +328,7 @@ const ResourcesListing = () => {
           </Collapse>
         </Box>
 
-       
+        {/* Resources Grid */}
         <Grid container spacing={3}>
           {loading
             ? Array.from({ length: pageSize }).map((_, index) => (

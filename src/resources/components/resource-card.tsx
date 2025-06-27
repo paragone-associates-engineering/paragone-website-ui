@@ -12,9 +12,10 @@ import type { Resource } from "../types"
 
 interface ResourceCardProps {
   resource: Resource
+  showButton?: boolean
 }
 
-const ResourceCard = ({ resource }: ResourceCardProps) => {
+const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
   const navigate = useNavigate()
 
   const getPrice = () => {
@@ -119,7 +120,7 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
           component="h3"
           gutterBottom
           sx={{
-            fontWeight: 600,
+            fontWeight: 700,
             lineHeight: 1.3,
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -136,7 +137,7 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
           sx={{
             mb: 2,
             display: "-webkit-box",
-            WebkitLineClamp: 3,
+            WebkitLineClamp:2,
             WebkitBoxOrient: "vertical",
             overflow: "hidden",
             lineHeight: 1.5,
@@ -145,9 +146,8 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
           <p dangerouslySetInnerHTML={{ __html: resource.summary }} />
         </Typography>
 
-        
-
-        <Button
+        {showButton && (
+<Button
           variant="contained"
           fullWidth
           onClick={handleViewDetails}
@@ -162,6 +162,9 @@ const ResourceCard = ({ resource }: ResourceCardProps) => {
         >
           {resource.isPaid ? "Get Premium Resource" : "Download Free Resource"}
         </Button>
+        )}
+
+        
       </CardContent>
     </Card>
   )

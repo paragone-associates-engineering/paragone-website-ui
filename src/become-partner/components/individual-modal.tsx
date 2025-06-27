@@ -212,7 +212,7 @@ export const ContactFormModal = () => {
                           </MenuItem>
                         ))}
                          <MenuItem value="Land">Land</MenuItem>
-                          <MenuItem value="Mix Used Development">Mix Used Development</MenuItem>
+                          <MenuItem value="Mixed Used Development">Mixed Used Development</MenuItem>
                            <MenuItem value="Others">Others</MenuItem>
                       </Select>
                     )}

@@ -178,7 +178,7 @@ const ResourceDetails = () => {
                     label={resource.isPaid ? getPrice() : "Free"}
                     color={resource.isPaid ? "primary" : "success"}
                     icon={resource.isPaid ? <MoneyIcon /> : <GetAppIcon />}
-                    sx={{ fontWeight: 600 }}
+                    sx={{ fontWeight: 600, color: "white", bgcolor: resource.isPaid ? "primary.main" : "success.main" }}
                   />
                   
                  
