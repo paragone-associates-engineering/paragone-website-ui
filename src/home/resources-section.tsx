@@ -1,7 +1,7 @@
 
 import { useEffect } from "react"
 import { Container, Typography, Box, Grid } from "@mui/material"
-import { ArrowForward as ArrowForwardIcon, GetApp as GetAppIcon } from "@mui/icons-material"
+import { ArrowForward as ArrowForwardIcon } from "@mui/icons-material"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation, Autoplay } from "swiper/modules"
 import { useNavigate } from "react-router-dom"
@@ -12,6 +12,7 @@ import ResourceCardSkeleton from "../resources/components/resource-card-skeleton
 
 import 'swiper/swiper-bundle.css';
 import CustomButton from "../common/button"
+import SectionTitle from "../common/section-title"
 
 const ResourcesSection = () => {
   const navigate = useNavigate()
@@ -30,10 +31,17 @@ const ResourcesSection = () => {
   const featuredResources = resources.slice(0, 8)
 
   return (
-    <Box sx={{ py: 5, bgcolor: "grey.50", mt:6 }}>
+    <Box sx={{ py: 5, bgcolor: "secondary.main", mt:6 }}>
       <Container maxWidth="lg">
-        
-        <Box sx={{ textAlign: "center", mb: 6 }}>
+         <SectionTitle
+         subtitle='Resources'
+                    title="Resources"
+                    description="Access valuable resources, guides, and tools to accelerate your success. From free downloads to exclusive
+            content, find everything you need in one place."
+                    centered={true}
+                    marginBottom={6}
+                  />
+        {/* <Box sx={{ textAlign: "center", mb: 6 }}>
           <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 2, mb: 2 }}>
             <GetAppIcon sx={{ fontSize: 40, color: "primary.main" }} />
             <Typography
@@ -42,7 +50,7 @@ const ResourcesSection = () => {
               fontWeight={700}
              
             >
-              Resource Library
+              Our Resource 
             </Typography>
           </Box>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4, maxWidth: 600, mx: "auto", lineHeight: 1.6 }}>
@@ -50,7 +58,7 @@ const ResourcesSection = () => {
              contents, find everything you need in one place.
           </Typography>
          
-        </Box>
+        </Box> */}
 
        
         {loading ? (
@@ -184,17 +192,7 @@ const ResourcesSection = () => {
               py: 1.5,
                mx: "auto",
                display: "flex",
-            //   textTransform: "none",
-            //   fontWeight: 600,
-            //   fontSize: "1.1rem",
-            //   boxShadow: 3,
-            //   mx: "auto",
-            //   display: "flex",
-            //   "&:hover": {
-            //     boxShadow: 6,
-            //     transform: "translateY(-2px)",
-            //   },
-            //   transition: "all 0.3s ease-in-out",
+               transition: "all 0.3s ease-in-out",
             }}
           >
             View All Resources
