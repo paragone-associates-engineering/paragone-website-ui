@@ -34,7 +34,7 @@ const ResourcesSection = () => {
     <Box sx={{ py: 5, bgcolor: "secondary.main", mt:6 }}>
       <Container maxWidth="lg">
          <SectionTitle
-         subtitle='Our Resources'
+         subtitle='Resources'
                     title="Resources"
                     description="Access valuable resources, guides, and tools to accelerate your success. From free downloads to exclusive
             content, find everything you need in one place."
