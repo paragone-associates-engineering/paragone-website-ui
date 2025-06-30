@@ -319,28 +319,53 @@ export default function Footer() {
           </Item>
         </Grid>
 
-        <Grid item xs={12} md={2}>
-          <Item>
-            <Typography
-              variant="h6"
-              fontWeight={600}
-              gutterBottom
-              sx={{
-                borderBottom: "2px solid",
-                borderColor: "primary.main",
-                display: "inline-block",
-                pb: 0.5,
-                mb: 2,
-                '&:hover': {
-                color: 'primary.main',
-                 }
-              }}
-            >
-              Privacy Policy
-            </Typography>
-            <Typography>Our privacy policy</Typography>
-          </Item>
-        </Grid>
+      <Grid item xs={12} md={2}>
+  <Item sx={{display:'flex', flexDirection:'column'}}>
+    <Typography
+      variant="h6"
+      fontWeight={600}
+      gutterBottom
+      component="a"
+      href="/privacy.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      sx={{
+        borderBottom: "2px solid",
+        borderColor: "primary.main",
+        display: "inline-block",
+        pb: 0.5,
+        mb: 2,
+        textDecoration: "none",
+        color: "inherit",
+        cursor: "pointer",
+        transition: "color 0.3s ease",
+        maxWidth:'120px',
+        '&:hover': {
+          color: 'primary.main',
+        }
+      }}
+    >
+      Privacy Policy
+    </Typography>
+    <Typography
+      component="a"
+      href="/privacy.pdf"
+      target="_blank"
+      rel="noopener noreferrer"
+      sx={{
+        textDecoration: "none",
+        color: "inherit",
+        cursor: "pointer",
+        transition: "color 0.3s ease",
+        '&:hover': {
+          color: 'primary.main',
+        }
+      }}
+    >
+      TCs, Refund & Privacy
+    </Typography>
+  </Item>
+</Grid>
 
         <Grid item xs={12} md={2}>
           <Item>
