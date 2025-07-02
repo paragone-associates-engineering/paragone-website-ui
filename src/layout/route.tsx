@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import Loader from "../common/loader";
 import ResourcesListing from "../resources";
 import ResourceDetails from "../resources/details";
+import RecruitmentConsentPage from "../career/recruitment-policy";
 
 const Home = lazy(() => import("../home"));
 const AboutUs = lazy(() => import("../about"));
@@ -46,6 +47,7 @@ const AllRoutes = () => {
                     <Route path="/become-an-associate" element={<BecomeAssociate />} />
                     <Route path="/refer-and-earn" element={<ReferAndEarn />} />
                     <Route path="/careers" element={<Careers />} />
+                    <Route path="/recruitment-policy" element={<RecruitmentConsentPage />} />
                     <Route path="/careers/:jobId" element={<JobDetail />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:postId" element={<BlogDetail />} />

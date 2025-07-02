@@ -15,6 +15,7 @@ import {
   FormControlLabel,
   Checkbox,
   Autocomplete,
+  Link,
   CircularProgress,
 } from "@mui/material"
 import toast from "react-hot-toast"
@@ -25,6 +26,7 @@ import CustomButton from "../common/button"
 //import { useAppDispatch, useAppSelector } from "../redux/store"
 import { searchJobs, fetchAllJobTitles, clearJobSearch, type Job } from "../redux/slices/job-slice"
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks"
+//import { Link} from "react-router-dom"
 
 const JobApplication = () => {
   const dispatch = useAppDispatch()
@@ -330,17 +332,31 @@ const JobApplication = () => {
           <TextField fullWidth placeholder="Message" multiline rows={4} {...register("message")} />
         </Grid>
 
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox {...register("agreeToPolicy")} defaultChecked />}
-            label="I agree to the recruitment policy"
-          />
-          {errors.agreeToPolicy && (
-            <Typography variant="caption" color="error" sx={{ display: "block" }}>
-              {errors.agreeToPolicy.message}
-            </Typography>
-          )}
-        </Grid>
+<Grid item xs={12}>
+  <FormControlLabel
+    control={<Checkbox {...register("agreeToPolicy")} defaultChecked />}
+    label={
+      <Typography variant="body2">
+        I agree to the{" "}
+        <Link 
+         href="/recruitment-policy" 
+          target="_blank"
+          rel="noopener noreferrer"
+          color="text.primary" 
+          underline="hover"
+          sx={{ fontWeight: 'bold','&:hover':{color:'primary.main', textDecoration:'underline'} }}
+        >
+          recruitment policy
+        </Link>
+      </Typography>
+    }
+  />
+  {errors.agreeToPolicy && (
+    <Typography variant="caption" color="error" sx={{ display: "block" }}>
+      {errors.agreeToPolicy.message}
+    </Typography>
+  )}
+</Grid>
 
         <Grid item xs={12}>
           <CustomButton isLoading={isSubmitting} sx={{ px: 8 }} disabled={!watchedJobId || isSubmitting}>
