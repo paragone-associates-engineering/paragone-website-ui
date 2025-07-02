@@ -48,7 +48,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
         border:1,
         borderColor:'divider',
         minHeight:320,
-        height: '100%',
+        height: {xs:'100%', sm:'350px'},
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -246,13 +246,15 @@ const Testimonials = () => {
         }}
         modules={[Pagination, Navigation, Autoplay]}
         className="testimonial-swiper"
+
         style={{
+          paddingBottom: "50px", 
           "--swiper-pagination-color": "#FFBA08",
           "--swiper-pagination-bullet-inactive-color": "#ddd",
           "--swiper-pagination-bullet-inactive-opacity": "1",
           "--swiper-pagination-bullet-width": "15px",
           "--swiper-pagination-bullet-height": "8px",
-          "--swiper-pagination-border-radius": "3px",
+          "--swiper-pagination-border-radius": "1px",
           "--swiper-pagination-bullet-horizontal-gap": "5px"
         } as React.CSSProperties} >
          

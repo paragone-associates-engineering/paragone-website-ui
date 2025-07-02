@@ -1,5 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
-//import { partners } from "../constant";
+import { Box, Container } from "@mui/material";
 import SectionTitle from "./section-title";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
@@ -12,170 +11,117 @@ import SkeletonLoader from "./skeleton-loader";
 type Partner = {
   logo: string;
   name: string;
-  
 };
 
 const OurPartners = () => {
-const [partners, setPartners] = useState<Partner[]>([]);
- const [isLoading, setIsLoading] = useState(false)
+  const [partners, setPartners] = useState<Partner[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-    const fetchPartners = async() => {
-      setIsLoading(true)
-      try{
-        const response = await axios.get(`${API_BASE_URL}/partner/get-partners`);
-        setPartners(response.data)
-      }catch(err) {
-       console.error(err)
-      }finally{
-        setIsLoading(false)
-      }
+  const fetchPartners = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/partner/get-partners`);
+      setPartners(response.data);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
+  };
 
-    useEffect(() => {
-      fetchPartners()
-    },[])
+  useEffect(() => {
+    fetchPartners();
+  }, []);
+
   return (
     <Box
       component="section"
       sx={{
-        py: 4,
+        pt: 4,
         backgroundColor: "background.paper",
         overflow: "hidden",
-        //mt:30,
       }}
     >
       <Container maxWidth="lg">
-        <SectionTitle title="Our partners" subtitle="Partners" centered={true} marginBottom={2} />
-        <Swiper
-          spaceBetween={10} 
-          slidesPerView={2}
-          autoplay={{ delay: 3000, disableOnInteraction: false }} 
-          loop={true} 
-          breakpoints={{
-            
-          400: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-          768: {
-            slidesPerView: 3,
-            spaceBetween: 10,
-          },
-          1024: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-          },
-            1200: {
-            slidesPerView: 5,
-            spaceBetween: 10,
-          },
-        }}
-          modules={[Autoplay]}
-        >
-          {isLoading ? (
-          <Box >
+        <SectionTitle 
+          title="Our partners" 
+          subtitle="Partners" 
+          centered={true} 
+          marginBottom={0} 
+        />
+        
+        {isLoading ? (
+          <Box>
             <SkeletonLoader count={3} />
-            </Box>
+          </Box>
         ) : (
-          partners.map((partner, idx) => (
-            <SwiperSlide key={idx} style={{ width: "auto" }}>
-              <Box
-                component="img"
-                src={partner.logo}
-                alt={partner.name}
-                sx={{
-                  height: 100,
-                  width: "auto",
-                  //maxWidth:80,
-                  filter: "grayscale(20%)",
-                  opacity: 0.9,
-                  borderRadius:4,
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    filter: "grayscale(0%)",
-                    opacity: 1,
-                  },
-                }}
-              />
-            <Typography marginLeft='10px' fontWeight={600}>{partner?.name}</Typography>
-            </SwiperSlide>
-          )))}
-        </Swiper>
-        {/* <Box
-          sx={{
-            position: "relative",
-            width: "100%",
-            maxWidth: "90vw",
-            overflow: "hidden",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-
-            "&::before, &::after": {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              width: "80px",
-              height: "100%",
-              zIndex: 2,
-              pointerEvents: "none",
-            },
-
-            "&::before": {
-              left: 0,
-              background: "linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
-              display:{xs:"block", md:"none"}
-            },
-
-            "&::after": {
-              right: 0,
-              background: "linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
-              display:{xs:"block", md:"none"}
-            },
-          }}
-        >
-          {/* Wrapper for partners logos 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 4,
-              flexWrap: "nowrap",
-              minWidth: "100%",
-              overflowX: "auto", 
-    scrollSnapType: "x mandatory", 
-    scrollbarWidth: "none", 
-    "&::-webkit-scrollbar": { display: "none" },
-  
-              "@media (max-width: 768px)": {
-                animation: "scroll 16s linear infinite",
+          <Swiper
+            modules={[Autoplay]} 
+            spaceBetween={20} 
+            slidesPerView={1}
+            // pagination={{
+            //   clickable: true,
+            //   dynamicBullets: true,
+            // }}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true, 
+            }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
               },
-              "@keyframes scroll": {
-                "0%": { transform: "translateX(0)" },
-                "100%": { transform: "translateX(-50%)" },
+              768: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 30,
               },
             }}
+            style={{
+              paddingBottom: "50px", 
+            }}
           >
-            {[...partners, ...partners].map((partner, idx) => (
-              <Box
-                key={idx}
-                component="img"
-                src={partner.logo}
-                alt={partner.name}
-                sx={{
-                  height: 120,
-                  width: "auto",
-                  filter: "grayscale(20%)",
-                  opacity: 0.9,
-                  transition: "all 0.3s ease",
-                  "&:hover": {
-                    filter: "grayscale(0%)",
-                    opacity: 1,
-                  },
-                }}
-              />
+            {partners.map((partner, idx) => (
+              <SwiperSlide key={idx}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: 200, 
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={partner.logo}
+                    alt={partner.name}
+                    sx={{
+                      maxHeight: 400,
+                      //maxWidth: 400,
+                      width: "320px",
+                      height: "auto",
+                      objectFit: "contain", 
+                      // filter: "grayscale(10%)",
+                      // opacity: 0.9,
+                      borderRadius: 2,
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        filter: "grayscale(0%)",
+                        opacity: 1,
+                        transform: "scale(1.05)",
+                      },
+                    }}
+                  />
+                </Box>
+              </SwiperSlide>
             ))}
-          </Box>
-        </Box> */}
+          </Swiper>
+        )}
       </Container>
     </Box>
   );
