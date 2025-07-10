@@ -155,6 +155,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
               fontWeight: 'bold',
               px:1,
               py:2,
+              mb:1.5,
                borderRadius:2
             }} 
           />

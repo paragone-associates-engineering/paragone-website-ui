@@ -98,7 +98,7 @@ const Blog = () => {
             width: "100%",
             height: "auto",
             borderRadius: 2,
-            maxHeight: 300,
+            maxHeight: 280,
             objectFit: 'cover',
             boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
           }}
@@ -115,8 +115,8 @@ const Blog = () => {
             <Box
               dangerouslySetInnerHTML={{
                 __html:
-                  heroBlog.content.length > 350
-                    ? heroBlog.content.slice(0, 350) + "..."
+                  heroBlog.content.length > 500
+                    ? heroBlog.content.slice(0, 500) + "..."
                     : heroBlog.content,
               }}
               sx={{
@@ -127,7 +127,7 @@ const Blog = () => {
                 },
               }}
             />
-            {heroBlog.content.length > 350 && (
+            {heroBlog.content.length > 500 && (
               <Box mt={2}>
                 <Typography
                   component={RouterLink}

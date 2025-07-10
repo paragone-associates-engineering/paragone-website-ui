@@ -154,7 +154,7 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
 
   return (
     <Card sx={{ borderRadius: 3 }}>
-      <CardContent sx={{ p: 4 }}>
+      <CardContent sx={{ py: 4, px: 3 }}>
         <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
           <EventIcon color="primary" />
           <Typography variant="h5" fontWeight={600}>
@@ -163,7 +163,7 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
         </Box>
 
         {event.isPaid && price && (
-          <Alert severity="info" sx={{ mb: 3 }}>
+          <Alert severity="info" sx={{ mb: 3, px:1 }}>
             <Typography variant="body2">
               This is a paid event. Registration fee:{" "}
               <strong>
