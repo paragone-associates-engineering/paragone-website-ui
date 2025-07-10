@@ -143,10 +143,21 @@ const BlogDetail = () => {
                         lineHeight: 1.7,
                         textAlign: "justify",
                       },
+                       "& h2": {
+                        my: 1.5,
+                        lineHeight: 1.2,
+                        fontSize:{xs:20, md:24},
+                        textAlign: "justify",
+                      },
+                      "& li": {
+                        mx: 1.5,
+                        mt:1,
+                        lineHeight: 1.2,
+                      },
                       "& p:first-of-type": {
                         mt: 0,
                       },
-                     
+                     px:1.3,
                       "&::after": {
                         content: '""',
                         display: "table",
@@ -158,9 +169,9 @@ const BlogDetail = () => {
               )}
             </Box>
 
-            <Box sx={{ mt: 4, display: "flex", alignItems: "center", clear: "both" }}>
+            <Box sx={{ mt: 4, display: "flex", alignItems: "center", clear: "both", px:2 }}>
               <Typography variant="body2" sx={{ mr: 2 }}>
-                Share post:
+                Follow us on:
               </Typography>
 
               <IconButton
