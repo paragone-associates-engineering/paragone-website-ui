@@ -114,7 +114,7 @@ const Contact = () => {
                     secondary={
                       <>
                         <Typography variant="body1" component="div">
-                          (+234) 916 046 7439
+                          (+234) 816 046 7439
                         </Typography>
                         <Typography variant="body1" component="div">
                           (+234) 915 636 2645
