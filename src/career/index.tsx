@@ -11,7 +11,6 @@ import {
 } from "@mui/material"
 import Testimonials from "../common/testimonial"
 import { PageBanner } from '../common/banner/page-banner';
-//import { jobOpenings } from "./data"
 import JobApplication from "./apply"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchJobs } from "../redux/slices/job-slice"; 
@@ -28,10 +27,8 @@ const Careers = () => {
   useEffect(() => {
     dispatch(fetchJobs({ page }));
   }, [dispatch, page]);
- //console.log('jobs', jobs)
 
   if (loading) return <Typography><Loader /></Typography>;
-  // if (error) return <Typography>Error loading jobs: {error}</Typography>;
 
   return (
     <>
@@ -114,11 +111,11 @@ const Careers = () => {
                         }}
                       />
                     </Box>
-                    <Typography variant="h6" fontSize={24} lineHeight={1.2} component="h3" gutterBottom>
+                     <Typography variant="h6" fontSize={22} letterSpacing={-1} lineHeight={1.1} component="h3" gutterBottom>
                       {job?.title}
                     </Typography>
-                    <Typography variant="body2" sx={{ mb: 3 }}>
-                      <div dangerouslySetInnerHTML={{ __html: job?.description || "" }}></div>
+                    <Typography variant="body2" sx={{ my: 2}}>
+                      <div dangerouslySetInnerHTML={{ __html: job?.description.slice(0, 160) + "..." || "" }}></div>
                     </Typography>
                   </CardContent>
                   <CardActions sx={{ justifyContent: "center", pb: 3, mt:2 }}>
