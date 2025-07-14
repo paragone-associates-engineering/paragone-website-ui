@@ -259,7 +259,7 @@ const EventDetails = () => {
                   </Grid>
                 </Grid>
 
-                {event.link && !event.isPaid && (
+{/*                 {event.link && !event.isPaid && (
                   <Box sx={{ mt: 4 }}>
                     <Button
                       variant="outlined"
@@ -271,7 +271,7 @@ const EventDetails = () => {
                       Visit Event 
                     </Button>
                   </Box>
-                )}
+                )} */}
               </Box>
             </Card>
           </Grid>
