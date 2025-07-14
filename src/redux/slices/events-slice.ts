@@ -4,7 +4,7 @@ import type { Event, EventsResponse, EventApplication, EventsQueryParams } from 
 
 interface EventsState {
   events: Event[]
-  allEvents: Event[] // Store all events for frontend filtering
+  allEvents: Event[] 
   selectedEvent: Event | null
   totalCount: number
   currentPage: number
@@ -30,21 +30,19 @@ const initialState: EventsState = {
   filters: {},
 }
 
-// Frontend filtering function
 const applyFilters = (events: Event[], filters: EventsQueryParams) => {
   let filtered = [...events]
 
-  // Filter by event type
   if (filters.eventType) {
     filtered = filtered.filter((event) => event.eventType === filters.eventType)
   }
 
-  // Filter by paid/free
+  
   if (filters.isPaid !== undefined) {
     filtered = filtered.filter((event) => event.isPaid === filters.isPaid)
   }
 
-  // Filter by status
+ 
   if (filters.status) {
     filtered = filtered.filter((event) => event.status === filters.status)
   }
@@ -56,13 +54,13 @@ export const fetchEvents = createAsyncThunk(
   "events/fetchEvents",
   async (params: EventsQueryParams = {}, { rejectWithValue }) => {
     try {
-      // Fetch all events without backend filtering
+     
       const response = await axios.get<EventsResponse>(
         "https://paragone-website-backend.onrender.com/event/get-events",
         {
           params: {
             page: 1,
-            pageSize: 1000, // Get all events for frontend filtering
+            pageSize: 1000, 
           },
         },
       )
@@ -83,7 +81,7 @@ export const fetchEventById = createAsyncThunk(
   "events/fetchEventById",
   async (eventId: string, { rejectWithValue }) => {
     try {
-      // Since there's no specific endpoint for single event, we'll filter from the events list
+      
       const response = await axios.get<EventsResponse>("https://paragone-website-backend.onrender.com/event/get-events")
       const event = response.data.results.find((e) => e.id === eventId)
 
@@ -121,7 +119,7 @@ const eventsSlice = createSlice({
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {
       state.currentPage = action.payload
-      // Apply pagination to filtered events
+      
       const filteredEvents = applyFilters(state.allEvents, state.filters)
       const startIndex = (action.payload - 1) * state.pageSize
       const endIndex = startIndex + state.pageSize
@@ -131,7 +129,7 @@ const eventsSlice = createSlice({
     setFilters: (state, action: PayloadAction<EventsQueryParams>) => {
       state.filters = action.payload
       state.currentPage = 1
-      // Apply filters and pagination
+
       const filteredEvents = applyFilters(state.allEvents, action.payload)
       state.events = filteredEvents.slice(0, state.pageSize)
       state.totalCount = filteredEvents.length
@@ -156,7 +154,7 @@ const eventsSlice = createSlice({
         state.loading = false
         state.allEvents = action.payload.events
         state.filters = action.payload.filters
-        // Apply initial filters
+       
         const filteredEvents = applyFilters(action.payload.events, action.payload.filters)
         state.events = filteredEvents.slice(0, state.pageSize)
         state.totalCount = filteredEvents.length

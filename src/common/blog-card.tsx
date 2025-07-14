@@ -35,10 +35,19 @@ export const BlogCard = ({ post }: BlogCardProps) => {
         <Typography variant="h5" color="primary" fontWeight="bold">{formattedDay}</Typography>
       </Paper>
 
-      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium", textTransform:"capitalize" }}>
+      <Typography variant="body1" color="primary" sx={{ mt: 2, fontSize:'14px', fontWeight: "medium", textTransform:"capitalize",  display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis', }}>
         {post.header}
       </Typography>
-      <Typography variant="h5" color="text.main" fontSize='20px' fontWeight={700}>{post.title}</Typography>
+      <Typography variant="h5" color="text.main" fontSize='20px' fontWeight={700} sx={{ display: '-webkit-box',
+    WebkitLineClamp: 3,
+   // letterSpacing:-1,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis'}}>{post.title}</Typography>
     </Box>
   );
 };

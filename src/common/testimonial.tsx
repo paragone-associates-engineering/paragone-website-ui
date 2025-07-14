@@ -48,7 +48,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
         border:1,
         borderColor:'divider',
         minHeight:320,
-        height: {xs:'100%', sm:'350px'},
+        height: {xs:'100%', sm:'400px', md:'350px'},
         display: 'flex',
         flexDirection: 'column'
       }}
@@ -84,12 +84,22 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({ testimonial }) => {
         </Box> */}
         
         <Typography 
-          variant="body1" 
-          color="text.secondary"
-          sx={{ mb: 2, position: 'relative', zIndex: 1 }}
-        >
-          {testimonial?.content}
-        </Typography>
+  variant="body1" 
+  color="text.secondary"
+  sx={{
+    mb: 2,
+    position: 'relative',
+    zIndex: 1,
+    display: '-webkit-box',
+    WebkitLineClamp: 3,
+    WebkitBoxOrient: 'vertical',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  }}
+>
+  {testimonial?.content}
+</Typography>
+
         
         <Rating 
           value={testimonial?.rating} 

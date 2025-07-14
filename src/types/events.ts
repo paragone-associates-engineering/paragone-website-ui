@@ -44,7 +44,7 @@ export interface EventPrice {
   
   export interface EventApplication {
     id?: string
-    eventId: string
+    eventId?: string
     applicantName: NameDto
     eventType: "inPerson" | "virtual"
     email: string
