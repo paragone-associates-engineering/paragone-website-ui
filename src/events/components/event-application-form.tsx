@@ -39,7 +39,7 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
   const { applicationLoading, applicationSuccess, error } = useAppSelector((state) => state.events)
 
   const [formData, setFormData] = useState<EventApplication>({
-    eventId: event.id,
+    //eventId: event.id,
     applicantName: {
       first: "",
       lastName: "",

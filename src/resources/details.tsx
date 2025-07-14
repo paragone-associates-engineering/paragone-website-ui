@@ -188,8 +188,8 @@ const ResourceDetails = () => {
                   {resource.title}
                 </Typography>
 
-                <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
-                 <p dangerouslySetInnerHTML={{ __html: resource.summary }} />
+                <Typography variant="body1" dangerouslySetInnerHTML={{ __html: resource.summary }} color="text.secondary" sx={{ mb: 4, }}>
+                
                 </Typography>
 
                 {/* <Divider sx={{ my: 4 }} /> */}
