@@ -72,10 +72,12 @@ const EventCard = ({ event }: EventCardProps) => {
       <Box sx={{ position: "relative" }}>
         <CardMedia
           component="img"
-          height="200"
+         // height="200"
           image={event.image}
           alt={event.title}
           sx={{
+            width: "100%",
+            height: 300,
             objectFit: "cover",
           }}
         />

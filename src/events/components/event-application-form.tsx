@@ -27,8 +27,9 @@ import {
   EventAvailable as EventIcon,
 } from "@mui/icons-material"
 import { useAppDispatch, useAppSelector } from "../../redux/store/hooks"
-import { applyToEvent, clearApplicationSuccess } from "../../redux/slices/events-slice"
+import { applyToEvent} from "../../redux/slices/events-slice"
 import type { Event, EventApplication } from "../../types/events"
+import { useNavigate } from "react-router-dom"
 
 interface EventApplicationFormProps {
   event: Event
@@ -36,6 +37,7 @@ interface EventApplicationFormProps {
 
 const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { applicationLoading, applicationSuccess, error } = useAppSelector((state) => state.events)
 
   const [formData, setFormData] = useState<EventApplication>({
@@ -121,6 +123,15 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
     }
 
     dispatch(applyToEvent({ eventId: event.id, application: applicationData }))
+    if(applicationSuccess) {
+      setFormData({
+        applicantName: { first: "", lastName: "" },
+        email: "",
+        phoneNumber: "",
+        eventType: "inPerson",
+        transactionId: "",
+      })
+    }
   }
 
   const getPrice = () => {
@@ -144,7 +155,7 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
             Thank you for applying to {event.title}. You will receive a confirmation email shortly.
           </Typography>
-          <Button variant="outlined" onClick={() => dispatch(clearApplicationSuccess())}>
+          <Button variant="contained" onClick={() => navigate("/events")}>
             Apply to Another Event
           </Button>
         </CardContent>
