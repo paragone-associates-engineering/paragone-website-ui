@@ -93,7 +93,7 @@ const EventsListing = () => {
           </Alert>
         )}
 
-        {/* Header with Filter Toggle */}
+        
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 3 }}>
             <Box>
@@ -135,7 +135,7 @@ const EventsListing = () => {
             </Button>
           </Box>
 
-          {/* Active Filters Display */}
+          
           {activeFilters.length > 0 && (
             <Box sx={{ mb: 3 }}>
               <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
@@ -179,7 +179,7 @@ const EventsListing = () => {
             </Box>
           )}
 
-          {/* Collapsible Filters */}
+        
           <Collapse in={showFilters}>
             <Paper
               elevation={0}
@@ -324,7 +324,7 @@ const EventsListing = () => {
           </Collapse>
         </Box>
 
-        {/* Events Grid */}
+       
         <Grid container spacing={3}>
           {loading
             ? Array.from({ length: pageSize }).map((_, index) => (
