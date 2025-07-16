@@ -79,7 +79,7 @@ const EventDetails = () => {
     const now = new Date();
     const eventDate = new Date(event.expirationDate);
     
-    // Check if current time is within 30 minutes before event starts to 2 hours after
+    
     const thirtyMinutesBefore = new Date(eventDate.getTime() - 30 * 60 * 1000);
     const twoHoursAfter = new Date(eventDate.getTime() + 2 * 60 * 60 * 1000);
     
@@ -189,7 +189,6 @@ const EventDetails = () => {
     <Box sx={{ width: "100vw" }}>
       <PageBanner
         title={event.title}
-        //subtitle={event.summary}
         breadcrumbs={[
           { label: "Home", href: "/" },
           { label: "Events", href: "/events" },
