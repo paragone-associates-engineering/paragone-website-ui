@@ -17,6 +17,7 @@ export interface EventPrice {
     link: string
     image: string
     expirationDate: string
+    duration?: string
     isPaid: boolean
     eventType: "inPerson" | "virtual" | "hybrid"
     price?: EventPrice

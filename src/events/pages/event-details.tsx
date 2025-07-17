@@ -22,6 +22,8 @@ import {
   Share as ShareIcon,
   Event as EventTypeIcon,
   Launch as LaunchIcon,
+  Timer,
+  PriceChange,
 } from "@mui/icons-material";
 import { PageBanner } from "../../common/banner/page-banner";
 import EventApplicationForm from "../components/event-application-form";
@@ -31,6 +33,7 @@ import {
   clearSelectedEvent,
   clearError,
 } from "../../redux/slices/events-slice";
+
 
 const EventDetails = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -286,7 +289,7 @@ const EventDetails = () => {
                       <CalendarIcon color="primary" />
                       <Box>
                         <Typography variant="subtitle2" color="text.secondary">
-                          Event Date
+                          Event Date & Time
                         </Typography>
                         <Typography variant="body1" fontWeight={600}>
                           {formatDate(event.expirationDate)}
@@ -300,7 +303,7 @@ const EventDetails = () => {
                       <LocationIcon color="primary" />
                       <Box>
                         <Typography variant="subtitle2" color="text.secondary">
-                          Location
+                         {event.eventType === 'virtual' ? 'Platform' : 'Location'}
                         </Typography>
                         <Typography variant="body1" fontWeight={600}>
                           {event.location}
@@ -311,13 +314,13 @@ const EventDetails = () => {
 
                   <Grid item xs={12} sm={6}>
                     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                      <PersonIcon color="primary" />
+                      <Timer color="primary" />
                       <Box>
                         <Typography variant="subtitle2" color="text.secondary">
-                          Organizer
+                         Event Duration
                         </Typography>
                         <Typography variant="body1" fontWeight={600}>
-                          Paragone Signature & Associates
+                          {event.duration}
                         </Typography>
                       </Box>
                     </Box>
@@ -342,6 +345,43 @@ const EventDetails = () => {
                       </Box>
                     </Box>
                   </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                      <PersonIcon color="primary" />
+                      <Box>
+                        <Typography variant="subtitle2" color="text.secondary">
+                          Organizer
+                        </Typography>
+                        <Typography variant="body1" fontWeight={600}>
+                          Paragone Signature & Associates
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6}>
+                    <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                      <PriceChange color="primary" />
+                      <Box>
+                        <Typography variant="subtitle2" color="text.secondary">
+                          Pricing
+                        </Typography>
+                        <Typography
+                          variant="body1"
+                          fontWeight={600}
+                          sx={{ textTransform: "capitalize" }}
+                        >
+                          {event.isPaid 
+                            ? "Paid - " + getPrice()
+                            : "Free"}
+                            </Typography>
+                            
+                      </Box>
+                    </Box>
+                  </Grid>
+
+
                 </Grid>
 
                

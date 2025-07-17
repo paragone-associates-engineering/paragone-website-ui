@@ -7,6 +7,7 @@ import {
   LocationOn as LocationIcon,
   AttachMoney as MoneyIcon,
   Share as ShareIcon,
+  Timer,
 } from "@mui/icons-material"
 import { useNavigate } from "react-router-dom"
 import type { Event } from "../../types/events"
@@ -157,7 +158,7 @@ const EventCard = ({ event }: EventCardProps) => {
           {event.summary}
         </Typography>
 
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", justifyContent:'space-between', gap: 2, mb: 2 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             <CalendarIcon fontSize="small" color="action" />
             <Typography variant="caption" color="text.secondary">
@@ -165,6 +166,30 @@ const EventCard = ({ event }: EventCardProps) => {
             </Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+            <Timer fontSize="small" color="action" />
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                maxWidth: 120,
+              }}
+            >
+              {event.duration && event.duration}
+            </Typography>
+          </Box>
+          
+          
+        </Box>
+
+<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 0.5, mb: 2 }}>
+  <Box sx={{ display: "flex", gap: 1, }}>
+          <Chip label={event.eventType == "inPerson" ? "In Person" : event.eventType} size="small" variant="outlined" sx={{ textTransform: "capitalize" }} />
+          
+        </Box>
+  <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             <LocationIcon fontSize="small" color="action" />
             <Typography
               variant="caption"
@@ -179,12 +204,8 @@ const EventCard = ({ event }: EventCardProps) => {
               {event.location}
             </Typography>
           </Box>
-        </Box>
-
-        <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-          <Chip label={event.eventType == "inPerson" ? "In Person" : event.eventType} size="small" variant="outlined" sx={{ textTransform: "capitalize" }} />
-          
-        </Box>
+</Box>
+        
 
         <Button
           variant="contained"
