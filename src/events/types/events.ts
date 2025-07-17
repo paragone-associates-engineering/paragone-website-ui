@@ -15,6 +15,7 @@ export interface EventPrice {
     title: string
     summary: string
     link: string
+    duration?: string
     image: string
     expirationDate: string
     isPaid: boolean
