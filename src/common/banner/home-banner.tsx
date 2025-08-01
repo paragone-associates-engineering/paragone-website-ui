@@ -243,8 +243,8 @@ export const HomeBanner = () => {
                   borderBottom: '1px solid #eee',
                 }}
               >
-                <Tab label="Rent" />
                 <Tab label="Sale" />
+                <Tab label="Rent" />
                 <Tab label="Short stay" />
                 <Tab label="Land" />
               </Tabs>
