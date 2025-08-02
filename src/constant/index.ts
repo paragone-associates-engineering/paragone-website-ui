@@ -1,12 +1,3 @@
-// import LocationOnIcon from '@mui/icons-material/LocationOn';
-
-// // import ShareIcon from '@mui/icons-material/Share';
-// import HouseIcon from '@mui/icons-material/House';
-// import HomeWorkIcon from '@mui/icons-material/HomeWork';
-// import ApartmentIcon from '@mui/icons-material/Apartment';
-// import TerrainIcon from '@mui/icons-material/Terrain';
-//import {  PropertyData } from '../types/properties';
-//import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export const propertyTypes = [
   { value: "",            label: "Select type" },
