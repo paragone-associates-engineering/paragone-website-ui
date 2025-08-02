@@ -11,7 +11,7 @@
 export const propertyTypes = [
   { value: "",            label: "Select type" },
   { value: "commercial",  label: "Commercial" },
-  { value: "residential", label: "Apartment" },
+  { value: "apartment", label: "Apartment" },
   { value: "bungalow",    label: "Bungalow" },
    { value: "detached", label: "Detached" },
   { value: "semi‑detached", label: "Semi Detached" },
