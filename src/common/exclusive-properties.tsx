@@ -7,7 +7,6 @@ import {
   Button,
   Stack,
 } from "@mui/material";
-//import LocationOnIcon from "@mui/icons-material/LocationOn";
 import HouseIcon from "@mui/icons-material/House";
 import HomeWorkIcon from "@mui/icons-material/HomeWork";
 import ApartmentIcon from "@mui/icons-material/Apartment";
@@ -22,7 +21,6 @@ import { fetchListings } from "../redux/slices/listings-slice";
 
 const filterOptions: FilterOption[] = [
   { value: "all", label: "All properties", icon: <HouseIcon /> },
-  //{ value: "location", label: "Location", icon: <LocationOnIcon /> },
   { value: "For Sale", label: "For sale", icon: <HomeWorkIcon /> },
  { value: "For Rent", label: "For rent", icon: <ApartmentIcon /> },
   { value: "Short Stay", label: "Short stay", icon: <HomeWorkIcon /> },
@@ -47,7 +45,7 @@ const ExclusiveProperties = () => {
       
       if (value !== null) {
         setActiveFilter(value);
-            }
+        }
     };
 
   const filteredProperties = properties?.length > 0 && properties.filter((property) => {
@@ -112,7 +110,6 @@ const ExclusiveProperties = () => {
           <Stack direction="row" spacing={1} alignItems="center">
             <Box sx={{ 
               display: 'flex', 
-              //alignItems: 'center', 
               bgcolor:activeFilter === option.value ? 'white' : '#EFF3F5',
               py:0.5,
               px:1,
