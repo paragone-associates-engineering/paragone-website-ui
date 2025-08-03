@@ -179,29 +179,16 @@ const BlogDetail = () => {
                 size="small"
                 component="a"
                 href="https://www.facebook.com/paragonesignature?mibextid=wwXIfr"
-                //href={`https://www.facebook.com/sharer/sharer.php?u=${postUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Facebook />
               </IconButton>
-
-              {/* <IconButton
-                aria-label="share on twitter"
-                size="small"
-                component="a"
-                href={`https://twitter.com/intent/tweet?url=${postUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter />
-              </IconButton> */}
  <IconButton
                 aria-label="share on instagram"
                 size="small"
                 component="a"
                 href="https://www.instagram.com/paragonesignatureltd?igsh=MWc2bXBjczNveHF5eg%3D%3D&utm_source=qr"
-                //href={`https://twitter.com/intent/tweet?url=${postUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -212,7 +199,6 @@ const BlogDetail = () => {
                 size="small"
                 component="a"
                 href="https://www.linkedin.com/company/paragone-signature-associates/"
-                //href={`https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
