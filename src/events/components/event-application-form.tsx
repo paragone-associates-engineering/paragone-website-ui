@@ -1,8 +1,5 @@
-
-
-import type React from "react"
-
-import { useState } from "react"
+import type React from 'react';
+import { useState } from 'react';
 import {
   Box,
   Card,
@@ -16,157 +13,164 @@ import {
   FormControlLabel,
   Radio,
   Alert,
-  Divider,
   Chip,
   CircularProgress,
-} from "@mui/material"
-import {
-  Person as PersonIcon,
-  Email as EmailIcon,
-  Phone as PhoneIcon,
-  EventAvailable as EventIcon,
-} from "@mui/icons-material"
-import { useAppDispatch, useAppSelector } from "../../redux/store/hooks"
-import { applyToEvent} from "../../redux/slices/events-slice"
-import type { Event, EventApplication } from "../../types/events"
-import { useNavigate } from "react-router-dom"
+} from '@mui/material';
+import { Person as PersonIcon, Email as EmailIcon, Phone as PhoneIcon, EventAvailable as EventIcon } from '@mui/icons-material';
+import { useAppDispatch, useAppSelector } from '../../redux/store/hooks';
+import { applyToEvent } from '../../redux/slices/events-slice';
+import type { Event, EventApplication } from '../../types/events';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { API_BASE_URL } from '../../services/api';
+import toast from 'react-hot-toast';
+import { Feature } from '../../types/management';
 
 interface EventApplicationFormProps {
-  event: Event
+  event: Event;
 }
 
 const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const { applicationLoading, applicationSuccess, error } = useAppSelector((state) => state.events)
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { applicationLoading, applicationSuccess, error } = useAppSelector(state => state.events);
 
   const [formData, setFormData] = useState<EventApplication>({
     //eventId: event.id,
     applicantName: {
-      first: "",
-      lastName: "",
+      first: '',
+      lastName: '',
     },
-    email: "",
-    phoneNumber: "",
-    eventType: "inPerson",
-    transactionId: "",
-  })
+    email: '',
+    phoneNumber: '',
+    eventType: 'inPerson',
+  });
 
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {}
+    const newErrors: Record<string, string> = {};
 
     if (!formData.applicantName.first.trim()) {
-      newErrors.firstName = "First name is required"
+      newErrors.firstName = 'First name is required';
     }
 
     if (!formData.applicantName.lastName.trim()) {
-      newErrors.lastName = "Last name is required"
+      newErrors.lastName = 'Last name is required';
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
+      newErrors.email = 'Email is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address"
+      newErrors.email = 'Please enter a valid email address';
     }
 
     if (!formData.phoneNumber.trim()) {
-      newErrors.phoneNumber = "Phone number is required"
+      newErrors.phoneNumber = 'Phone number is required';
     }
 
-    if (event.isPaid && !formData.transactionId?.trim()) {
-      newErrors.transactionId = "Transaction ID is required for paid events"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleInputChange = (field: string, value: string) => {
-    if (field.includes(".")) {
-      const [parent, child] = field.split(".")
-      setFormData((prev) => ({
+    if (field.includes('.')) {
+      const [parent, child] = field.split('.');
+      setFormData(prev => ({
         ...prev,
         [parent]: {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ...(prev[parent as keyof EventApplication] as any),
           [child]: value,
         },
-      }))
+      }));
     } else {
-      setFormData((prev) => ({
+      setFormData(prev => ({
         ...prev,
         [field]: value,
-      }))
+      }));
     }
 
-   
     if (errors[field]) {
-      setErrors((prev) => ({
+      setErrors(prev => ({
         ...prev,
-        [field]: "",
-      }))
+        [field]: '',
+      }));
     }
-  }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    const applicationData = { ...formData }
-    if (!event.isPaid) {
-      delete applicationData.transactionId
-    }
+    const applicationData = { ...formData };
 
-    dispatch(applyToEvent({ eventId: event.id, application: applicationData }))
-    if(applicationSuccess) {
+    // if paid, initialize transaction
+    const rawAmount = applicationData.eventType === 'inPerson' ? event.price?.inPerson?.amount : event.price?.virtual?.amount;
+
+    if (event.isPaid && rawAmount) {
+      const amountInSmallestUnit = Math.round(rawAmount * 100); // Always multiply by 100 for kobo, centts, etc.
+
+      const initializedTransaction = await axios.post(`${API_BASE_URL}/payment/initialize`, {
+        amount: amountInSmallestUnit,
+        currency: applicationData.eventType === 'inPerson' ? event.price?.inPerson?.currency : event.price?.virtual?.currency,
+        email: applicationData.email,
+        metadata: { feature: Feature.EVENT, ...applicationData, eventId: event.id },
+      });
+
+      const { authorization_url } = initializedTransaction.data;
+
+      window.location.href = authorization_url;
+    } else dispatch(applyToEvent({ eventId: event.id, application: applicationData }));
+
+    if (applicationSuccess) {
       setFormData({
-        applicantName: { first: "", lastName: "" },
-        email: "",
-        phoneNumber: "",
-        eventType: "inPerson",
-        transactionId: "",
-      })
+        applicantName: { first: '', lastName: '' },
+        email: '',
+        phoneNumber: '',
+        eventType: 'inPerson',
+      });
+
+      toast.success('Form submitted successfully!');
     }
-  }
+  };
 
   const getPrice = () => {
-    if (!event.isPaid) return null
+    if (!event.isPaid) return null;
 
-    const price = event.eventType === "inPerson" ? event.price?.inPerson : event.price?.virtual || event.price?.inPerson
+    const price = formData.eventType === 'inPerson' ? event.price?.inPerson : event.price?.virtual ?? event.price?.inPerson;
 
-    return price
-  }
+    return price;
+  };
 
-  const price = getPrice()
+  const price = getPrice();
 
   if (applicationSuccess) {
     return (
       <Card sx={{ borderRadius: 3 }}>
-        <CardContent sx={{ p: 4, textAlign: "center" }}>
-          <EventIcon sx={{ fontSize: 64, color: "success.main", mb: 2 }} />
+        <CardContent sx={{ p: 4, textAlign: 'center' }}>
+          <EventIcon sx={{ fontSize: 64, color: 'success.main', mb: 2 }} />
           <Typography variant="h5" gutterBottom fontWeight={600}>
             Application Submitted Successfully!
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
             Thank you for applying to {event.title}. You will receive a confirmation email shortly.
           </Typography>
-          <Button variant="contained" onClick={() => navigate("/events")}>
+          <Button variant="contained" onClick={() => navigate('/events')}>
             Apply to Another Event
           </Button>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   return (
     <Card sx={{ borderRadius: 3 }}>
       <CardContent sx={{ py: 4, px: 3 }}>
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2, mb: 3 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
           <EventIcon color="primary" />
           <Typography variant="h5" fontWeight={600}>
             Event Application
@@ -174,9 +178,9 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
         </Box>
 
         {event.isPaid && price && (
-          <Alert severity="info" sx={{ mb: 3, px:1 }}>
+          <Alert severity="info" sx={{ mb: 3, px: 1 }}>
             <Typography variant="body2">
-              This is a paid event. Registration fee:{" "}
+              This is a paid event. Registration fee:{' '}
               <strong>
                 {price.currency} {price.amount}
               </strong>
@@ -191,23 +195,23 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
         )}
 
         <form onSubmit={handleSubmit}>
-          <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
+          <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
             <TextField
               fullWidth
               label="First Name"
               value={formData.applicantName.first}
-              onChange={(e) => handleInputChange("applicantName.first", e.target.value)}
+              onChange={e => handleInputChange('applicantName.first', e.target.value)}
               error={!!errors.firstName}
               helperText={errors.firstName}
               InputProps={{
-                startAdornment: <PersonIcon sx={{ mr: 1, color: "action.active" }} />,
+                startAdornment: <PersonIcon sx={{ mr: 1, color: 'action.active' }} />,
               }}
             />
             <TextField
               fullWidth
               label="Last Name"
               value={formData.applicantName.lastName}
-              onChange={(e) => handleInputChange("applicantName.lastName", e.target.value)}
+              onChange={e => handleInputChange('applicantName.lastName', e.target.value)}
               error={!!errors.lastName}
               helperText={errors.lastName}
             />
@@ -218,12 +222,12 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
             label="Email Address"
             type="email"
             value={formData.email}
-            onChange={(e) => handleInputChange("email", e.target.value)}
+            onChange={e => handleInputChange('email', e.target.value)}
             error={!!errors.email}
             helperText={errors.email}
             sx={{ mb: 3 }}
             InputProps={{
-              startAdornment: <EmailIcon sx={{ mr: 1, color: "action.active" }} />,
+              startAdornment: <EmailIcon sx={{ mr: 1, color: 'action.active' }} />,
             }}
           />
 
@@ -231,12 +235,12 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
             fullWidth
             label="Phone Number"
             value={formData.phoneNumber}
-            onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+            onChange={e => handleInputChange('phoneNumber', e.target.value)}
             error={!!errors.phoneNumber}
             helperText={errors.phoneNumber}
             sx={{ mb: 3 }}
             InputProps={{
-              startAdornment: <PhoneIcon sx={{ mr: 1, color: "action.active" }} />,
+              startAdornment: <PhoneIcon sx={{ mr: 1, color: 'action.active' }} />,
             }}
           />
 
@@ -244,46 +248,31 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
             <FormLabel component="legend" sx={{ mb: 1, fontWeight: 600 }}>
               Attendance Type
             </FormLabel>
-            <RadioGroup value={formData.eventType} onChange={(e) => handleInputChange("eventType", e.target.value)} row>
+            <RadioGroup value={formData.eventType} onChange={e => handleInputChange('eventType', e.target.value)} row>
               <FormControlLabel
                 value="inPerson"
                 control={<Radio />}
                 label={
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <span>In Person</span>
-                    {event.eventType === "inPerson" && <Chip label="Available" size="small" color="success" />}
+                    {event.eventType === 'inPerson' && <Chip label="Available" size="small" color="success" />}
                   </Box>
                 }
-                disabled={event.eventType !== "inPerson" && event.eventType !== "hybrid"}
+                disabled={event.eventType !== 'inPerson' && event.eventType !== 'hybrid'}
               />
               <FormControlLabel
                 value="virtual"
                 control={<Radio />}
                 label={
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <span>Virtual</span>
-                    {event.eventType === "virtual" && <Chip label="Available" size="small" color="success" />}
+                    {event.eventType === 'virtual' && <Chip label="Available" size="small" color="success" />}
                   </Box>
                 }
-                disabled={event.eventType !== "virtual" && event.eventType !== "hybrid"}
+                disabled={event.eventType !== 'virtual' && event.eventType !== 'hybrid'}
               />
             </RadioGroup>
           </FormControl>
-
-          {event.isPaid && (
-            <>
-              <Divider sx={{ my: 3 }} />
-              <TextField
-                fullWidth
-                label="Transaction ID"
-                value={formData.transactionId}
-                onChange={(e) => handleInputChange("transactionId", e.target.value)}
-                error={!!errors.transactionId}
-                helperText={errors.transactionId || "Enter your payment transaction ID"}
-                sx={{ mb: 3 }}
-              />
-            </>
-          )}
 
           <Button
             type="submit"
@@ -294,20 +283,20 @@ const EventApplicationForm = ({ event }: EventApplicationFormProps) => {
             sx={{
               py: 1.5,
               borderRadius: 2,
-              textTransform: "none",
+              textTransform: 'none',
               fontWeight: 600,
             }}
           >
             {applicationLoading ? (
               <CircularProgress size={24} color="inherit" />
             ) : (
-              `${event.isPaid ? "Complete Registration" : "Apply for Free"}`
+              `${event.isPaid ? 'Complete Registration' : 'Apply for Free'}`
             )}
           </Button>
         </form>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default EventApplicationForm
+export default EventApplicationForm;
