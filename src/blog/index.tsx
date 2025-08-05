@@ -98,8 +98,9 @@ const Blog = () => {
             width: "100%",
             height: "auto",
             borderRadius: 2,
-            maxHeight: 280,
-            objectFit: 'cover',
+           // maxHeight: 280,
+            objectFit: 'contain',
+            objectPosition: 'top',
             boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
           }}
         />
@@ -116,7 +117,7 @@ const Blog = () => {
               dangerouslySetInnerHTML={{
                 __html:
                   heroBlog.content.length > 500
-                    ? heroBlog.content.slice(0, 500) + "..."
+                    ? heroBlog.content.slice(0, 800) + "..."
                     : heroBlog.content,
               }}
               sx={{
