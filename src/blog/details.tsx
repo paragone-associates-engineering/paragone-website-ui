@@ -120,9 +120,10 @@ const BlogDetail = () => {
                     sx={{
                       width: "100%",
                       height: "auto",
-                      maxHeight:300,
+                      maxHeight:'auto',
                       borderRadius: 2,
-                      objectFit: "cover",
+                      objectFit: "contain",
+                      objectPosition: 'top',
                       mb: 2,
                       ...(medium && {
                         width: "45%",
@@ -240,8 +241,9 @@ const BlogDetail = () => {
                         sx={{
                           width: 80,
                           height: 80,
+                          objectPosition: 'top',
                           borderRadius: 1,
-                          objectFit: "cover",
+                          objectFit: "contain",
                           mr: 2,
                         }}
                       />
