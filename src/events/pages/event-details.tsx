@@ -16,7 +16,6 @@ import {
 import {
   CalendarToday as CalendarIcon,
   LocationOn as LocationIcon,
-  AttachMoney as MoneyIcon,
   Person as PersonIcon,
   ArrowBack as ArrowBackIcon,
   Share as ShareIcon,
@@ -238,7 +237,7 @@ const EventDetails = () => {
                   <Chip
                     label={event.isPaid ? getPrice() : "Free"}
                     color={event.isPaid ? "primary" : "success"}
-                    icon={event.isPaid ? <MoneyIcon /> : undefined}
+                    //icon={event.isPaid ? <MoneyIcon /> : undefined}
                     sx={{ fontWeight: 600, color: "white" }}
                   />
                   <Chip
@@ -249,7 +248,7 @@ const EventDetails = () => {
                     }
                     variant="outlined"
                     icon={<EventTypeIcon />}
-                    sx={{ textTransform: "capitalize" }}
+                    sx={{ textTransform: "capitalize", px:1 }}
                   />
                   {isEventLive() && (
                     <Chip

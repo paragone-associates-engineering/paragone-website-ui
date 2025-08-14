@@ -5,7 +5,6 @@ import { Card, CardContent, CardMedia, Typography, Button, Box, Chip, IconButton
 import {
   CalendarToday as CalendarIcon,
   LocationOn as LocationIcon,
-  AttachMoney as MoneyIcon,
   Share as ShareIcon,
   Timer,
 } from "@mui/icons-material"
@@ -116,7 +115,7 @@ const EventCard = ({ event }: EventCardProps) => {
             label={event.isPaid ? getPrice() : "Free"}
             color={event.isPaid ? "primary" : "success"}
             size="small"
-            icon={event.isPaid ? <MoneyIcon /> : undefined}
+           // icon={event.isPaid ? <MoneyIcon /> : undefined}
             sx={{
               bgcolor: event.isPaid ? "primary.main" : "success.main",
               color: "white",
