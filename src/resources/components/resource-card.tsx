@@ -46,7 +46,7 @@ const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
   return (
     <Card
       sx={{
-        height: 340,
+        height: "100%",
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
