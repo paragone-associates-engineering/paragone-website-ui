@@ -3,7 +3,6 @@ import type React from "react"
 
 import { Card, CardContent, CardMedia, Typography, Button, Box, Chip, IconButton, Tooltip } from "@mui/material"
 import {
-  AttachMoney as MoneyIcon,
   Share as ShareIcon,
   Download as DownloadIcon,
 } from "@mui/icons-material"
@@ -46,7 +45,7 @@ const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
   return (
     <Card
       sx={{
-        height: 340,
+        height: '100%',
         display: "flex",
         flexDirection: "column",
         borderRadius: 3,
@@ -101,16 +100,16 @@ const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
           }}
         >
           <Chip
-            label={resource.isPaid ? getPrice() : "Free"}
-            color={resource.isPaid ? "primary" : "success"}
-            size="small"
-            icon={resource.isPaid ? <MoneyIcon /> : <DownloadIcon />}
-            sx={{
-              bgcolor: resource.isPaid ? "primary.main" : "success.main",
-              color: "white",
-              fontWeight: 600,
-            }}
-          />
+  label={resource.isPaid ? getPrice() : "Free"}
+  color={resource.isPaid ? "primary" : "success"}
+  size="small"
+  icon={!resource.isPaid ? <DownloadIcon /> : undefined}
+  sx={{
+    bgcolor: resource.isPaid ? "primary.main" : "success.main",
+    color: "white",
+    fontWeight: 600,
+  }}
+/>
         </Box>
       </Box>
 
