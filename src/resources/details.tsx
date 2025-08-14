@@ -15,7 +15,6 @@ import {
   //Divider,
 } from "@mui/material"
 import {
-  AttachMoney as MoneyIcon,
   ArrowBack as ArrowBackIcon,
   Share as ShareIcon,
   GetApp as GetAppIcon,
@@ -177,7 +176,7 @@ const ResourceDetails = () => {
                   <Chip
                     label={resource.isPaid ? getPrice() : "Free"}
                     color={resource.isPaid ? "primary" : "success"}
-                    icon={resource.isPaid ? <MoneyIcon /> : <GetAppIcon />}
+                    icon={!resource.isPaid ? <GetAppIcon /> : undefined}
                     sx={{ fontWeight: 600, color: "white", bgcolor: resource.isPaid ? "primary.main" : "success.main" }}
                   />
                   
