@@ -34,7 +34,7 @@ const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
     if (navigator.share) {
       navigator.share({
         title: resource.title,
-        text: resource.summary,
+        //text: resource.summary,
         url: window.location.origin + `/resources/${resource.id}`,
       })
     }

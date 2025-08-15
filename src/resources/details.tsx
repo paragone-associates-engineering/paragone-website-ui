@@ -61,7 +61,7 @@ const ResourceDetails = () => {
     if (navigator.share) {
       navigator.share({
         title: resource?.title,
-        text: resource?.summary,
+        //text: resource?.summary,
         url: window.location.href,
       })
     }

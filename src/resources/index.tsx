@@ -96,7 +96,7 @@ const ResourcesListing = () => {
       <PageBanner
         title="Resource Library"
         //subtitle="Access valuable resources, guides, and tools to help you succeed"
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
+        breadcrumbs={[{ label: "Home", href: "/#resources" }, { label: "Resources" }]}
       />
 
       <Container maxWidth="xl" sx={{ py: 6 }}>

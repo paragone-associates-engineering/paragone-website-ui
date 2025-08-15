@@ -33,7 +33,7 @@ const Home = () => {
     <Box sx={{ width: "100vw" }}>
       <HomeBanner />
 
-      <Box component="section" sx={{ display: "block", pt: 6, pb: 8 }}>
+      <Box component="section" id="services" sx={{ display: "block", pt: 6, pb: 8 }}>
         <Container maxWidth="md">
           <SectionTitle
             title="Our services are tailored to meet your real estate needs"
@@ -67,6 +67,7 @@ const Home = () => {
 
       <Box
         component="section"
+        id="exclusive-listings"
         sx={{
           backgroundColor: "secondary.main",
           py: 5,
@@ -76,7 +77,7 @@ const Home = () => {
         <ExclusiveProperties />
       </Box>
 
-      <Box component="section" sx={{ py: posts.length > 0 ? 0 : -10 }}>
+      <Box component="section" id="promotions" sx={{ py: posts.length > 0 ? 0 : -10 }}>
         <Container maxWidth="lg">
           {/* First promotional banner - TOP location */}
           <PromotionBanners location="top" autoplayDelay={5000} />
@@ -89,6 +90,7 @@ const Home = () => {
       {posts?.length > 0 && (
         <Box
           component="section"
+          id="blog"
           sx={{
             pt: 0,
             backgroundColor: "background.paper",
@@ -134,7 +136,10 @@ const Home = () => {
           </Container>
         </Box>
       )}
+      <Box component='section' id="resources">
 <ResourcesSection/>
+      </Box>
+
       <Container maxWidth="lg" sx={{mt:8}}>
         {/* Second promotional banner - BOTTOM location */}
         <PromotionBanners location="bottom" autoplayDelay={5000} />
