@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // Helper function to strip HTML tags and truncate text
 export const stripHtmlAndTruncate = (html: string, maxLength: number = 200): string => {
-  // Create a temporary div element to parse HTML
   const tempDiv = document.createElement('div')
   tempDiv.innerHTML = html
-  
-  // Get text content (strips HTML tags)
   const textContent = tempDiv.textContent || tempDiv.innerText || ''
   
   // Truncate if longer than maxLength
@@ -23,9 +20,8 @@ export const stripHtmlAndTruncate = (html: string, maxLength: number = 200): str
   return textContent.substring(0, cutPoint).trim() + '...'
 }
 
-// Alternative: Update page meta tags for better social sharing
+// Update page meta tags for better social sharing
 export const updateMetaTags = (resource: any, image?: string) => {
-  // Update Open Graph tags
   const updateMetaTag = (property: string, content: string) => {
     let tag = document.querySelector(`meta[property="${property}"]`)
     if (!tag) {
