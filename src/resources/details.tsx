@@ -24,7 +24,7 @@ import { PageBanner } from "../common/banner/page-banner"
 import ResourceApplicationForm from "./components/resource-application-form"
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks"
 import { fetchResourceById, clearSelectedResource, clearError } from "../redux/slices/resources-slice"
-import { stripHtmlAndTruncate, updateMetaTags } from "../utils/html-content"
+import { stripHtmlAndTruncate } from "../utils/html-content"
 
 const ResourceDetails = () => {
   const { resourceId } = useParams<{ resourceId: string }>()
@@ -58,42 +58,17 @@ const ResourceDetails = () => {
     return "Premium"
   }
 
-const handleShare = async (e: React.MouseEvent) => {
+const handleShare = (e: React.MouseEvent) => {
   e.stopPropagation()
-  updateMetaTags(resource, resource?.image)
-  
   if (navigator.share) {
-    try {
-      const shareData: ShareData = {
-        title: resource?.title,
-        text: stripHtmlAndTruncate(resource?.summary || '', 200),
-        url: window.location.origin + `/resources/${resource?.id}`,
-      }
-
-      if (resource?.image && navigator.canShare) {
-        try {
-          const response = await fetch(resource?.image)
-          const blob = await response.blob()
-          const file = new File([blob], 'resource-image.jpg', { type: blob.type })
-          
-          const shareDataWithFile = { ...shareData, files: [file] }
-          if (navigator.canShare(shareDataWithFile)) {
-            await navigator.share(shareDataWithFile)
-            return
-          }
-        } catch {
-          console.log('Could not fetch image for sharing, falling back to URL only')
-        }
-      }
-      
-      await navigator.share(shareData)
-      
-    } catch (error) {
-      console.error('Error sharing:', error)
-      await navigator.clipboard.writeText(window.location.origin + `/resources/${resource?.id}`)
-    }
+    navigator.share({
+      title: resource.title,
+      text: stripHtmlAndTruncate(resource.summary, 200), 
+      url: window.location.origin + `/resources/${resource.id}`,
+    })
   }
 }
+  
   const handleGoBack = () => {
     navigate("/resources")
   }
