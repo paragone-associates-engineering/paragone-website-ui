@@ -138,7 +138,7 @@ const { label,  muiColor } = chipStyles[type] ?? {
       <PageBanner
         title="Property Information"
         breadcrumbs={[
-          { label: "Home", href: "/" },
+          { label: "Home", href: "/#exclusive-listings" },
           { label: "Property", href: "/listings" },
           { label: "Property Information" },
         ]}

@@ -1,8 +1,9 @@
-import { Typography, Box, Breadcrumbs, Link } from "@mui/material";
+import { Typography, Box, Breadcrumbs } from "@mui/material";
 import { BaseBanner } from "./base-banner";
-import { Link as RouterLink } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { NavigateNext as NavigateNextIcon } from "@mui/icons-material";
 import { AnimatedWrapper } from "../animations/animated-wrapper";
+import { useScrollManager } from "../../hooks/use-scroll";
 
 interface PageBannerProps {
   title: string;
@@ -19,6 +20,39 @@ export const PageBanner = ({
   backgroundImage = "https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741345070/paragone-pages-cover_eau9fa.jpg",
   breadcrumbs,
 }: PageBannerProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { scrollToHash, saveCurrentPosition } = useScrollManager();
+
+  const handleLinkClick = (href: string, event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    if (!href || href === "#") return;
+
+    if (href.includes('#')) {
+      const [path, hash] = href.split('#');
+      const currentPath = location.pathname;
+      
+      // If it's the same page, just scroll to the hash
+      if (!path || path === currentPath) {
+        if (hash) {
+          scrollToHash(hash);
+          // Update URL without triggering navigation
+          window.history.pushState(null, '', `${currentPath}#${hash}`);
+        }
+      } else {
+        // Different page with hash - save current position and navigate
+        saveCurrentPosition();
+        navigate(`${path}#${hash}`);
+      }
+    } else {
+      // Regular navigation - save current position
+      saveCurrentPosition();
+      navigate(href);
+    }
+  };
+
   return (
     <BaseBanner
       backgroundImage={backgroundImage}
@@ -76,14 +110,15 @@ export const PageBanner = ({
                   {crumb.label}
                 </Typography>
               ) : (
-                <Link
+                <Box
                   key={crumb.label}
-                  component={RouterLink}
-                  to={crumb.href || "#"}
+                  component="span"
+                  onClick={(e) => crumb.href && handleLinkClick(crumb.href, e)}
                   sx={{
                     color: "rgba(255, 255, 255, 0.7)",
                     textDecoration: "none",
                     textTransform: "capitalize",
+                    cursor: "pointer",
                     "&:hover": {
                       color: "primary.main",
                       textDecoration: "underline",
@@ -91,7 +126,7 @@ export const PageBanner = ({
                   }}
                 >
                   {crumb.label}
-                </Link>
+                </Box>
               );
             })}
           </Breadcrumbs>

@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import Navbar from './navbar';
 import Footer from './footer';
 import AllRoutes from './route';
-import ScrollToTop from "../common/scroll-to-top";
 
 const Layout = () => {
   const location = useLocation(); 
@@ -32,7 +31,7 @@ const Layout = () => {
                 margin:"0px auto"
               }}
             >
-               <ScrollToTop />
+               {/* <ScrollToTop /> */}
      <AllRoutes />
       </Box>
       <Footer />
