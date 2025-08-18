@@ -41,7 +41,7 @@ const PropertyRequest = () => {
           <Grid item xs={12} md={6}>
             <AnimatedWrapper>
             <Typography variant="h3" component="h1" gutterBottom>
-              Find Your Perfect Property with Paragóne Signature & Associates
+              Find Your Perfect Property with Paragone Signature & Associates
             </Typography>
             <Typography variant="body1" paragraph>
               We understand that finding the perfect property requires a personalized approach. Whether you're seeking a
@@ -54,7 +54,7 @@ const PropertyRequest = () => {
             </Typography>
             <Typography variant="body1">
               Let us take the stress out of your property search and guide you towards finding your ideal property with
-              Paragóne Signature & Associates Ltd. Your journey to the perfect property starts here.
+              Paragone Signature & Associates. Your journey to the perfect property starts here.
             </Typography>
             </AnimatedWrapper>
           </Grid>

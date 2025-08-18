@@ -1,4 +1,4 @@
-# Paragóne Signature and Associates website ui
+# Paragone Signature and Associates website ui
 
 # React + TypeScript + Vite
 

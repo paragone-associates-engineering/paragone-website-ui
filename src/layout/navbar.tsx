@@ -70,7 +70,7 @@ const Navbar = ({  activeLink = 'home' }: NavbarProps) => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ ml: 1 }}>
-          <img src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg" alt="Logo" width={150} />
+          <img src="https://res.cloudinary.com/dv0mdoa6b/image/upload/v1741266763/Logo_1_t8y9ap.svg" alt="Logo" width={191} />
           </Box>
         </Box>
         <IconButton 
