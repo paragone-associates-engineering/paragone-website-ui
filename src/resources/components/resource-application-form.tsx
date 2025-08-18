@@ -148,7 +148,7 @@ const ResourceApplicationForm = ({ resource }: ResourceApplicationFormProps) => 
               <Typography variant="body2">
                 This is a premium resource. Access fee:{' '}
                 <strong>
-                  {price.currency} {price.amount}
+                  {price.currency} {Number(price.amount).toLocaleString('en-US')}
                 </strong>
               </Typography>
             </Alert>
