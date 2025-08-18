@@ -50,7 +50,7 @@ const PropertyManagement = () => {
               Our property management services are designed to optimize your investment's value while minimizing your workload. We support through tenant screening to ensure reliable tenants, regular maintenance to preserve property value, and efficient rent collection to keep your property in prime condition.
             </Typography>
             <Typography variant="body1"  marginTop={4} color='#5A6164'>
-            We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragone Signature & Associates property management services are tailored to meet your distinct requirements.
+              {` We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragone Signature & Associate's property management services are tailored to meet your distinct requirements.`}
             </Typography>
             </AnimatedWrapper>
           </Grid>
