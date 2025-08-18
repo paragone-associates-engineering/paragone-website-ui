@@ -44,13 +44,13 @@ const PropertyManagement = () => {
               Hassle-Free Property Ownership, Maximum Returns
             </Typography>
             <Typography variant="body1" fontWeight={500}>
-              Discovering and managing properties should be an exhilarating endeavor, not a burdensome task. Paragone Signature & Associates Ltd. aids you in finding properties that fit your investment goals and managing them effectively. We handle all aspects of property management, from tenant screening to maintenance, ensuring your investment income flows hassle-free. Enjoy the benefits of property ownership without the daily headaches.
+              Discovering and managing properties should be an exhilarating endeavor, not a burdensome task. Paragone Signature & Associates Ltd. aids you in finding properties that fit your investment goals and managing them effectively. We handle all aspects of property management, from tenant screening to maintenance, ensuring your investment income flows hassle-free.
             </Typography>
             <Typography variant="body1"   marginTop={4} color='#5A6164'>
               Our property management services are designed to optimize your investment's value while minimizing your workload. We support through tenant screening to ensure reliable tenants, regular maintenance to preserve property value, and efficient rent collection to keep your property in prime condition.
             </Typography>
             <Typography variant="body1"  marginTop={4} color='#5A6164'>
-            We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragóne Signature & Associates Ltd.'s property management services are tailored to meet your distinct requirements.
+            We also provide comprehensive financial management services, including rent collection, expense tracking, and detailed financial reports. Our transparent approach ensures you’re always informed about your investment's performance. Whether you own a single property or a diverse portfolio, Paragone Signature & Associates property management services are tailored to meet your distinct requirements.
             </Typography>
             </AnimatedWrapper>
           </Grid>

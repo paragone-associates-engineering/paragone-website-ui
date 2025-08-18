@@ -24,12 +24,14 @@ import { PageBanner } from "../common/banner/page-banner"
 import ResourceApplicationForm from "./components/resource-application-form"
 import { useAppDispatch, useAppSelector } from "../redux/store/hooks"
 import { fetchResourceById, clearSelectedResource, clearError } from "../redux/slices/resources-slice"
-import { stripHtmlAndTruncate } from "../utils/html-content"
+//import { stripHtmlAndTruncate, updateMetaTags } from "../utils/html-content"
+import { Helmet } from "react-helmet-async"
 
 const ResourceDetails = () => {
   const { resourceId } = useParams<{ resourceId: string }>()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const postUrl = encodeURIComponent(`https://www.paragonesignature.com/resources/${resourceId}`)
   const { selectedResource: resource, loading, error } = useAppSelector((state) => state.resources)
 
   useEffect(() => {
@@ -42,13 +44,6 @@ const ResourceDetails = () => {
     }
   }, [dispatch, resourceId])
 
-//   const formatDate = (dateString: string) => {
-//     return new Date(dateString).toLocaleDateString("en-US", {
-//       year: "numeric",
-//       month: "long",
-//       day: "numeric",
-//     })
-//   }
 
   const getPrice = () => {
     if (!resource?.isPaid) return "Free"
@@ -57,18 +52,27 @@ const ResourceDetails = () => {
     }
     return "Premium"
   }
+ const getPlainTextFromHTML = (html: string | undefined): string => {
+      if (!html) return ""
+      const tempDiv = document.createElement("div")
+      tempDiv.innerHTML = html
+      return tempDiv.textContent || tempDiv.innerText || ""
+    }
+  const metaDescription = resource?.summary
+    ? getPlainTextFromHTML(resource.summary).slice(0, 160) + "..."
+    : "Check out our latest insightful resources from Paragone Signature and Associates."
 
-const handleShare = (e: React.MouseEvent) => {
-  e.stopPropagation()
-  if (navigator.share) {
-    navigator.share({
-      title: resource.title,
-      text: stripHtmlAndTruncate(resource.summary, 200), 
-      url: window.location.origin + `/resources/${resource.id}`,
-    })
+  const handleShare = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (navigator.share) {
+      navigator.share({
+        title: resource?.title,
+        //text: resource.summary,
+        url: window.location.origin + `/resources/${resource?.id}`,
+      })
+    }
   }
-}
-  
+
   const handleGoBack = () => {
     navigate("/resources")
   }
@@ -140,6 +144,34 @@ const handleShare = (e: React.MouseEvent) => {
   }
 
   return (
+    <>
+    <Helmet>
+              <title>{resource.title} | Paragone Signature Resources</title>
+              <meta name="description" content={metaDescription} />
+              
+              {/* Open Graph / Facebook */}
+              <meta property="og:type" content="article" />
+              <meta property="og:url" content={postUrl} />
+              <meta property="og:title" content={resource.title} />
+              <meta property="og:description" content={metaDescription} />
+              <meta property="og:image" content={resource.image} />
+              <meta property="og:site_name" content="Paragone Signature & Associates" />
+              
+              {/* Twitter */}
+              <meta property="twitter:card" content="summary_large_image" />
+              <meta property="twitter:url" content={postUrl} />
+              <meta property="twitter:title" content={resource.title} />
+              <meta property="twitter:description" content={metaDescription} />
+              <meta property="twitter:image" content={resource.image} />
+
+              {/* LinkedIn */}
+              <meta property="og:image:width" content="1200" />
+              <meta property="og:image:height" content="630" />
+              
+              {/* Additional meta tags */}
+              <meta name="author" content="Paragone Signature & Associates" />
+              
+            </Helmet>
     <Box sx={{ width: "100vw" }}>
       <PageBanner
         title={resource.title}
@@ -207,6 +239,7 @@ const handleShare = (e: React.MouseEvent) => {
         </Grid>
       </Container>
     </Box>
+    </>
   )
 }
 

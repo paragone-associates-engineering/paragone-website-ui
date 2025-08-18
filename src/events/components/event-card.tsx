@@ -26,12 +26,13 @@ const EventCard = ({ event }: EventCardProps) => {
     })
   }
 
-  const getPrice = () => {
+  const getPrice = (locale = 'en-US') => {
     if (!event.isPaid) return "Free"
 
     const price = event.price?.inPerson || event.price?.virtual
     if (price) {
-      return `${price.currency} ${price.amount}`
+      const formattedAmount = Number(price.amount).toLocaleString(locale)
+      return `${price.currency} ${formattedAmount}`
     }
     return "Paid"
   }

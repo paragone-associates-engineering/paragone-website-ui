@@ -138,7 +138,7 @@ const AboutUs = () => {
                         Chief Executive Officer
                       </Typography>
                       <Typography variant="body1" sx={{ color: "#666" }}>
-                        Paragone Signature & Associates Ltd.
+                        Paragone Signature & Associates.
                       </Typography>
                     </Box>
                   </Box>

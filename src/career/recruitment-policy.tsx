@@ -28,7 +28,7 @@ const RecruitmentConsentPage = () => {
             RECRUITMENT CONSENT & DATA PROTECTION NOTICE
           </Typography>
           <Chip 
-            label="Paragóne Signature & Associates (PSA)" 
+            label="Paragone Signature & Associates (PSA)" 
             color="primary" 
             variant="outlined" 
             sx={{ mt: 1 }}
@@ -38,7 +38,7 @@ const RecruitmentConsentPage = () => {
         
         <Box sx={{ mb: 4 }}>
           <Typography variant="body1" paragraph>
-            At Paragóne Signature & Associates (PSA), we are committed to conducting our recruitment 
+            At Paragone Signature & Associates (PSA), we are committed to conducting our recruitment 
             process with integrity, transparency, and respect for your privacy.
           </Typography>
           <Typography variant="body1" paragraph sx={{ fontWeight: 'medium' }}>
@@ -185,7 +185,7 @@ const RecruitmentConsentPage = () => {
           </Typography>
           <Typography variant="body1" paragraph>
             By submitting your application, you confirm that you understand and accept the above, and you 
-            consent to Paragóne Signature & Associates collecting, processing, and storing your personal 
+            consent to Paragone Signature & Associates collecting, processing, and storing your personal 
             data in accordance with relevant privacy laws and the purpose of recruitment.
           </Typography>
           <Typography variant="body1">
@@ -197,7 +197,7 @@ const RecruitmentConsentPage = () => {
         
         <Box sx={{ textAlign: 'center', mt: 4, pt: 3, borderTop: '1px solid #e0e0e0' }}>
           <Typography variant="body2" color="text.secondary">
-            © Paragóne Signature & Associates (PSA) - Recruitment & Data Protection Notice
+            © Paragone Signature & Associates (PSA) - Recruitment & Data Protection Notice
           </Typography>
         </Box>
       </Paper>

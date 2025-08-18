@@ -13,7 +13,7 @@ const BecomeAssociate = () => {
         <title>Become An Associate | Paragone Signature & Associates</title>
         <meta
           name="description"
-          content="The Paragóne Signature brand has been designed for the ambitious real estate professional like you who want to build and advance their real estate career with the right organization."
+          content="The Paragone Signature brand has been designed for the ambitious real estate professional like you who want to build and advance their real estate career with the right organization."
         />
       </Helmet>
       <Box sx={{ width: "100vw" }}>
@@ -51,7 +51,7 @@ const BecomeAssociate = () => {
                   The beginning of building a solid real estate career starts
                   with being part of a brand with cutting edge global standards
                   and delivery. The{" "}
-                  <span style={{ fontWeight: 700 }}> Paragóne Signature </span>{" "}
+                  <span style={{ fontWeight: 700 }}> Paragone Signature </span>{" "}
                   brand has been designed for the ambitious real estate
                   professional like you who want to build and advance their real
                   estate career with the right organization. Now there’s no
@@ -232,7 +232,7 @@ const BecomeAssociate = () => {
                   No-Ceiling Earning Potential
                 </Typography>
                 <Typography variant="body1" paragraph>
-                  At Paragóne Signature & Associates, there are no limits to how
+                  At Paragone Signature & Associates, there are no limits to how
                   much you can earn daily, weekly, monthly, or annually. Here,
                   you are challenged to break through any barriers and elevate
                   your performance to achieve your personal financial goals and

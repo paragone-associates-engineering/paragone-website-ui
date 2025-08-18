@@ -17,14 +17,14 @@ interface ResourceCardProps {
 const ResourceCard = ({ resource, showButton=true }: ResourceCardProps) => {
   const navigate = useNavigate()
 
-  const getPrice = () => {
-    if (!resource.isPaid) return "Free"
-    if (resource.price) {
-      return `${resource.price.currency} ${resource.price.amount}`
-    }
-    return "Paid"
+  const getPrice = (locale = 'en-US') => {
+  if (!resource.isPaid) return "Free"
+  if (resource.price) {
+    const formattedAmount = Number(resource.price.amount).toLocaleString(locale)
+    return `${resource.price.currency} ${formattedAmount}`
   }
-
+  return "Paid"
+}
   const handleViewDetails = () => {
     navigate(`/resources/${resource.id}`)
   }

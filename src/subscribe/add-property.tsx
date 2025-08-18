@@ -26,7 +26,7 @@ interface PropertyFormProps {
 
 //const PROPERTY_TYPES = ['Apartment', 'House', 'Land', 'Commercial'];
 
-export const PropertyForm = ({
+export const AddPropertyForm = ({
   property,
   index,
   onUpdate,
